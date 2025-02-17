@@ -1,162 +1,165 @@
 import type ComponentTypes from "./components";
 
 import type DataTransfer from "./dto";
-import type GlobalTypes from "./globals";
 
 namespace ResourceTypes {
   export namespace Airport {
     type AirportId = { airportId: string };
-    namespace Mutations {
-      type CreateMutationParams = DataTransfer.AirportDTO;
-      type UpdateMutationParams = AirportId & DataTransfer.AirportDTO;
-      type DeleteMutationParams = AirportId;
+    export namespace Mutations {
+      export type CreateMutationParams = DataTransfer.AirportDTO;
+      export type UpdateMutationParams = AirportId & DataTransfer.AirportDTO;
+      export type DeleteMutationParams = AirportId;
     }
-    namespace Queries {
-      type QueryByIdRequestParams = AirportId;
-      type QueryResponseParams = DataTransfer.AirportDTO[];
+    export namespace Queries {
+      export type QueryByIdRequestParams = AirportId;
+      export type QueryResponseParams = DataTransfer.AirportDTO[];
     }
-    namespace Page {
-      type RowParams = ComponentTypes.BaseDataGridRowParams & Omit<DataTransfer.AirportDTO, "id">;
+    export namespace Page {
+      export type RowParams = ComponentTypes.BaseDataGridRowParams &
+        Omit<DataTransfer.AirportDTO, "id">;
     }
   }
-  namespace Certification {
+  export namespace Certification {
     type CertificationId = { certificationId: string };
-    namespace Mutations {
-      type CreateMutationParams = DataTransfer.CertificationDTO;
-      type UpdateMutationParams = CertificationId & DataTransfer.CertificationDTO;
-      type DeleteMutationParams = CertificationId;
+    export namespace Mutations {
+      export type CreateMutationParams = DataTransfer.CertificationDTO;
+      export type UpdateMutationParams = CertificationId & DataTransfer.CertificationDTO;
+      export type DeleteMutationParams = CertificationId;
     }
-    namespace Queries {
-      type QueryByIdRequestParams = CertificationId;
-      type QueryResponseParams = DataTransfer.CertificationDTO[];
+    export namespace Queries {
+      export type QueryByIdRequestParams = CertificationId;
+      export type QueryResponseParams = DataTransfer.CertificationDTO[];
     }
-    namespace Page {
-      type RowParams = ComponentTypes.BaseDataGridRowParams &
+    export namespace Page {
+      export type RowParams = ComponentTypes.BaseDataGridRowParams &
         Omit<DataTransfer.CertificationDTO, "id">;
     }
   }
-  namespace Crew {
+  export namespace Crew {
     type CrewMemberId = { crewMemberId: string };
-    namespace Mutations {
-      type CreateMutationParams = DataTransfer.CrewDTO;
-      type UpdateMutationParams = CrewMemberId & DataTransfer.CrewDTO;
-      type DeleteMutationParams = CrewMemberId;
+    export namespace Mutations {
+      export type CreateMutationParams = DataTransfer.CrewDTO;
+      export type UpdateMutationParams = CrewMemberId & DataTransfer.CrewDTO;
+      export type DeleteMutationParams = CrewMemberId;
     }
-    namespace Queries {
-      type QueryByIdRequestParams = CrewMemberId;
-      type QueryResponseParams = DataTransfer.CrewDTO[];
+    export namespace Queries {
+      export type QueryByIdRequestParams = CrewMemberId;
+      export type QueryResponseParams = DataTransfer.CrewDTO[];
     }
-    namespace Page {
-      type RowParams = ComponentTypes.BaseDataGridRowParams & Omit<DataTransfer.CrewDTO, "id">;
+    export namespace Page {
+      export type RowParams = ComponentTypes.BaseDataGridRowParams &
+        Omit<DataTransfer.CrewDTO, "id">;
     }
   }
-  namespace Plane {
+  export namespace Plane {
     type PlaneId = { planeId: string };
-    namespace Mutations {
-      type CreateMutationParams = DataTransfer.PlaneDTO;
-      type UpdateMutationParams = PlaneId & DataTransfer.PlaneDTO;
-      type DeleteMutationParams = PlaneId;
+    export namespace Mutations {
+      export type CreateMutationParams = DataTransfer.PlaneDTO;
+      export type UpdateMutationParams = PlaneId & DataTransfer.PlaneDTO;
+      export type DeleteMutationParams = PlaneId;
     }
-    namespace Queries {
-      type QueryByIdRequestParams = PlaneId;
-      type QueryResponseParams = DataTransfer.PlaneDTO[];
+    export namespace Queries {
+      export type QueryByIdRequestParams = PlaneId;
+      export type QueryResponseParams = DataTransfer.PlaneDTO[];
     }
-    namespace Page {
-      type RowParams = ComponentTypes.BaseDataGridRowParams & Omit<DataTransfer.PlaneDTO, "id">;
+    export namespace Page {
+      export type RowParams = ComponentTypes.BaseDataGridRowParams &
+        Omit<DataTransfer.PlaneDTO, "id">;
     }
   }
-  namespace Route {
+  export namespace Route {
     type RouteId = { routeId: string };
-    namespace Mutations {
-      type CreateMutationParams = DataTransfer.RouteDTO;
-      type UpdateMutationParams = RouteId & DataTransfer.RouteDTO;
-      type DeleteMutationParams = RouteId;
+    export namespace Mutations {
+      export type CreateMutationParams = DataTransfer.RouteDTO;
+      export type UpdateMutationParams = RouteId & DataTransfer.RouteDTO;
+      export type DeleteMutationParams = RouteId;
     }
-    namespace Queries {
-      type QueryByIdRequestParams = RouteId;
-      type QueryResponseParams = DataTransfer.RouteDTO[];
+    export namespace Queries {
+      export type QueryByIdRequestParams = RouteId;
+      export type QueryResponseParams = DataTransfer.RouteDTO[];
     }
-    namespace Page {
-      type RowParams = ComponentTypes.BaseDataGridRowParams & Omit<DataTransfer.RouteDTO, "id">;
+    export namespace Page {
+      export type RowParams = ComponentTypes.BaseDataGridRowParams &
+        Omit<DataTransfer.RouteDTO, "id">;
     }
   }
-  namespace Runway {
+  export namespace Runway {
     type RunwayId = { runwayId: string };
-    namespace Mutations {
-      type CreateMutationParams = DataTransfer.RunwayDTO;
-      type UpdateMutationParams = RunwayId & DataTransfer.RunwayDTO;
-      type DeleteMutationParams = RunwayId;
+    export namespace Mutations {
+      export type CreateMutationParams = DataTransfer.RunwayDTO;
+      export type UpdateMutationParams = RunwayId & DataTransfer.RunwayDTO;
+      export type DeleteMutationParams = RunwayId;
     }
-    namespace Queries {
-      type QueryByIdRequestParams = RunwayId;
-      type QueryResponseParams = EntityTypes.RunwayEntity[];
+    export namespace Queries {
+      export type QueryByIdRequestParams = RunwayId;
+      export type QueryResponseParams = EntityTypes.RunwayEntity[];
     }
-    namespace Page {
-      type RowParams = ComponentTypes.BaseDataGridRowParams & Omit<DataTransfer.RunwayDTO, "id">;
+    export namespace Page {
+      export type RowParams = ComponentTypes.BaseDataGridRowParams &
+        Omit<DataTransfer.RunwayDTO, "id">;
     }
   }
-  namespace Vehicle {
+  export namespace Vehicle {
     type VehicleId = { vehicleId: string };
-    namespace Mutations {
-      type CreateMutationParams = DataTransfer.VehicleDTO;
-      type UpdateMutationParams = VehicleId & DataTransfer.VehicleDTO;
-      type DeleteMutationParams = VehicleId;
+    export namespace Mutations {
+      export type CreateMutationParams = DataTransfer.VehicleDTO;
+      export type UpdateMutationParams = VehicleId & DataTransfer.VehicleDTO;
+      export type DeleteMutationParams = VehicleId;
     }
-    namespace Queries {
-      type QueryByIdRequestParams = VehicleId;
-      type QueryResponseParams = EntityTypes.VehicleEntity[];
+    export namespace Queries {
+      export type QueryByIdRequestParams = VehicleId;
+      export type QueryResponseParams = EntityTypes.VehicleEntity[];
     }
-    namespace Page {
-      type RowParams = ComponentTypes.BaseDataGridRowParams & Omit<DataTransfer.VehicleDTO, "id">;
+    export namespace Page {
+      export type RowParams = ComponentTypes.BaseDataGridRowParams &
+        Omit<DataTransfer.VehicleDTO, "id">;
     }
   }
-
-  namespace Flight {
+  export namespace Flight {
     type FlightId = { flightId: string };
-    namespace Mutations {
-      type CreateMutationParams = DataTransfer.FlightDTO;
-      type UpdateMutationParams = FlightId & DataTransfer.FlightDTO;
-      type DeleteMutationParams = FlightId;
+    export namespace Mutations {
+      export type CreateMutationParams = DataTransfer.FlightDTO;
+      export type UpdateMutationParams = FlightId & DataTransfer.FlightDTO;
+      export type DeleteMutationParams = FlightId;
     }
-    namespace Queries {
-      type QueryByIdRequestParams = FlightId;
-      type QueryResponseParams = DataTransfer.FlightDTO[];
+    export namespace Queries {
+      export type QueryByIdRequestParams = FlightId;
+      export type QueryResponseParams = DataTransfer.FlightDTO[];
     }
-    namespace Page {
-      type RowParams = ComponentTypes.BaseDataGridRowParams & Omit<DataTransfer.FlightDTO, "id">;
+    export namespace Page {
+      export type RowParams = ComponentTypes.BaseDataGridRowParams &
+        Omit<DataTransfer.FlightDTO, "id">;
     }
   }
-
-  namespace AlgorithmResult {
+  export namespace AlgorithmResult {
     type AlgorithmResultId = { algorithmResultId: string };
-    namespace Mutations {
-      type CreateMutationParams = DataTransfer.AlgorithmResultDTO;
-      type UpdateMutationParams = AlgorithmResultId & DataTransfer.AlgorithmResultDTO;
-      type DeleteMutationParams = AlgorithmResultId;
+    export namespace Mutations {
+      export type CreateMutationParams = DataTransfer.AlgorithmResultDTO;
+      export type UpdateMutationParams = AlgorithmResultId & DataTransfer.AlgorithmResultDTO;
+      export type DeleteMutationParams = AlgorithmResultId;
     }
-    namespace Queries {
-      type QueryByIdRequestParams = AlgorithmResultId;
-      type QueryResponseParams = DataTransfer.AlgorithmResultDTO[];
+    export namespace Queries {
+      export type QueryByIdRequestParams = AlgorithmResultId;
+      export type QueryResponseParams = DataTransfer.AlgorithmResultDTO[];
     }
-    namespace Page {
-      type RowParams = ComponentTypes.BaseDataGridRowParams &
+    export namespace Page {
+      export type RowParams = ComponentTypes.BaseDataGridRowParams &
         Omit<DataTransfer.AlgorithmResultDTO, "id">;
     }
   }
-
-  namespace AlgorithmRun {
+  export namespace AlgorithmRun {
     type AlgorithmRunId = { algorithmRunId: string };
-    namespace Mutations {
-      type CreateMutationParams = DataTransfer.AlgorithmRunDTO;
-      type UpdateMutationParams = AlgorithmRunId & DataTransfer.AlgorithmRunDTO;
-      type DeleteMutationParams = AlgorithmRunId;
+    export namespace Mutations {
+      export type CreateMutationParams = DataTransfer.AlgorithmRunDTO;
+      export type UpdateMutationParams = AlgorithmRunId & DataTransfer.AlgorithmRunDTO;
+      export type DeleteMutationParams = AlgorithmRunId;
     }
-    namespace Queries {
-      type QueryByIdRequestParams = AlgorithmRunId;
-      type QueryResponseParams = DataTransfer.AlgorithmRunDTO[];
+    export namespace Queries {
+      export type QueryByIdRequestParams = AlgorithmRunId;
+      export type QueryResponseParams = DataTransfer.AlgorithmRunDTO[];
     }
-    namespace Page {
-      type RowParams = ComponentTypes.BaseDataGridRowParams &
+    export namespace Page {
+      export type RowParams = ComponentTypes.BaseDataGridRowParams &
         Omit<DataTransfer.AlgorithmRunDTO, "id">;
     }
   }

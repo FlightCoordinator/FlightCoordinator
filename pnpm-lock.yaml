@@ -138,15 +138,33 @@ importers:
 
   apps/client_dev:
     dependencies:
+      '@auth0/auth0-react':
+        specifier: ^2.2.4
+        version: 2.3.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      '@hookform/resolvers':
+        specifier: ^3.9.1
+        version: 3.10.0(react-hook-form@7.54.2(react@19.0.0))
       '@tailwindcss/postcss':
         specifier: ^4.0.6
         version: 4.0.6
+      '@tanstack/eslint-plugin-query':
+        specifier: ^5.62.15
+        version: 5.66.1(eslint@9.20.1(jiti@2.4.2))(typescript@5.7.3)
+      '@tanstack/react-query':
+        specifier: ^5.64.2
+        version: 5.66.3(react@19.0.0)
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
+      easy-requester:
+        specifier: workspace:*
+        version: link:../../packages/EasyRequester
+      i18next:
+        specifier: ^24.2.0
+        version: 24.2.2(typescript@5.7.3)
       lucide-react:
         specifier: ^0.475.0
         version: 0.475.0(react@19.0.0)
@@ -159,6 +177,15 @@ importers:
       react-dom:
         specifier: ^19.0.0
         version: 19.0.0(react@19.0.0)
+      react-helmet-async:
+        specifier: ^2.0.5
+        version: 2.0.5(react@19.0.0)
+      react-hook-form:
+        specifier: ^7.54.2
+        version: 7.54.2(react@19.0.0)
+      react-i18next:
+        specifier: ^15.4.0
+        version: 15.4.0(i18next@24.2.2(typescript@5.7.3))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       tailwind-merge:
         specifier: ^3.0.1
         version: 3.0.1
@@ -172,6 +199,12 @@ importers:
       '@eslint/eslintrc':
         specifier: ^3
         version: 3.2.0
+      '@tanstack/react-query-devtools':
+        specifier: ^5.66.3
+        version: 5.66.3(@tanstack/react-query@5.66.3(react@19.0.0))(react@19.0.0)
+      '@trivago/prettier-plugin-sort-imports':
+        specifier: ^5.2.1
+        version: 5.2.1(prettier@3.5.1)
       '@types/node':
         specifier: ^20
         version: 20.17.19
@@ -190,6 +223,9 @@ importers:
       postcss:
         specifier: ^8.5.1
         version: 8.5.2
+      prettier:
+        specifier: ^3.5.1
+        version: 3.5.1
       tailwindcss:
         specifier: ^3.4.17
         version: 3.4.17
@@ -4252,6 +4288,12 @@ snapshots:
       react: 19.0.0
       react-dom: 18.3.1(react@19.0.0)
 
+  '@auth0/auth0-react@2.3.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
+    dependencies:
+      '@auth0/auth0-spa-js': 2.1.3
+      react: 19.0.0
+      react-dom: 19.0.0(react@19.0.0)
+
   '@auth0/auth0-spa-js@2.1.3': {}
 
   '@babel/code-frame@7.26.2':
@@ -5407,6 +5449,14 @@ snapshots:
       - supports-color
       - typescript
 
+  '@tanstack/eslint-plugin-query@5.66.1(eslint@9.20.1(jiti@2.4.2))(typescript@5.7.3)':
+    dependencies:
+      '@typescript-eslint/utils': 8.24.0(eslint@9.20.1(jiti@2.4.2))(typescript@5.7.3)
+      eslint: 9.20.1(jiti@2.4.2)
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
+
   '@tanstack/query-core@5.66.3': {}
 
   '@tanstack/query-devtools@5.65.0': {}
@@ -5431,6 +5481,18 @@ snapshots:
       javascript-natural-sort: 0.7.1
       lodash: 4.17.21
       prettier: 3.4.2
+    transitivePeerDependencies:
+      - supports-color
+
+  '@trivago/prettier-plugin-sort-imports@5.2.1(prettier@3.5.1)':
+    dependencies:
+      '@babel/generator': 7.26.9
+      '@babel/parser': 7.26.9
+      '@babel/traverse': 7.26.9
+      '@babel/types': 7.26.9
+      javascript-natural-sort: 0.7.1
+      lodash: 4.17.21
+      prettier: 3.5.1
     transitivePeerDependencies:
       - supports-color
 
@@ -8027,6 +8089,15 @@ snapshots:
       react: 19.0.0
     optionalDependencies:
       react-dom: 18.3.1(react@19.0.0)
+
+  react-i18next@15.4.0(i18next@24.2.2(typescript@5.7.3))(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
+    dependencies:
+      '@babel/runtime': 7.26.9
+      html-parse-stringify: 3.0.1
+      i18next: 24.2.2(typescript@5.7.3)
+      react: 19.0.0
+    optionalDependencies:
+      react-dom: 19.0.0(react@19.0.0)
 
   react-is@16.13.1: {}
 
