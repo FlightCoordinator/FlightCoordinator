@@ -3,9 +3,9 @@
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 ROOT_DIR="$SCRIPT_DIR/../.."
 
-FRONTEND_PATH="$ROOT_DOR/frontend"
-BACKEND_PATH="$ROOT_DIR/server"
-LOGIC_PATH="$ROOT_DOR/logic"
+FRONTEND_PATH="$ROOT_DIR/apps/client"
+BACKEND_PATH="$ROOT_DIR/apps/server"
+ALGORITHM_PATH="$ROOT_DIR/apps/algorithm"
 
 DB_NAME="flightcoordinator_db"
 DB_USER="local_user"
@@ -80,7 +80,7 @@ echo "---"
 # PYTHON VENV AND DEPENDENCIES
 echo "Info: Setting up algorithm service's virtual environment..."
 
-cd "$LOGIC_PATH" || exit 1
+cd "$ALGORITHM_PATH" || exit 1
 python3 -m venv .venv
 pip install -r requirements.txt
 

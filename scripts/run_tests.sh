@@ -3,10 +3,9 @@
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 ROOT_DIR="$SCRIPT_DIR/.."
 
-FRONTEND_PATH="$ROOT_DIR/frontend"
-BACKEND_PATH="$ROOT_DIR/server"
-LOGIC_PATH="$ROOT_DIR/logic"
-
+FRONTEND_PATH="$ROOT_DIR/apps/client"
+BACKEND_PATH="$ROOT_DIR/apps/server"
+ALGORITHM_PATH="$ROOT_DIR/apps/algorithm"
 
 echo "Info: Running frontend tests..."
 
@@ -28,7 +27,7 @@ echo "---"
 
 echo "Info: Running logic tests..."
 
-cd "$LOGIC_PATH"
+cd "$ALGORITHM_PATH"
 # TODO run tests
 
 echo "Info: Completed logic tests."

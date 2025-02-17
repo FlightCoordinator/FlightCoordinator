@@ -3,9 +3,9 @@
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 ROOT_DIR="$SCRIPT_DIR/.."
 
-FRONTEND_PATH="$ROOT_DIR/frontend"
-BACKEND_PATH="$ROOT_DIR/server"
-LOGIC_PATH="$ROOT_DIR/logic"
+FRONTEND_PATH="$ROOT_DIR/apps/client"
+BACKEND_PATH="$ROOT_DIR/apps/server"
+ALGORITHM_PATH="$ROOT_DIR/apps/algorithm"
 
 build_frontend() {
   echo "Info: Building frontend..."
@@ -39,7 +39,7 @@ build_server() {
 build_server() {
   echo "Info: Building logic server..."
 
-  cd "$LOGIC_PATH"
+  cd "$ALGORITHM_PATH"
   # code here
 
   if [ $? -eq 0 ]; then
