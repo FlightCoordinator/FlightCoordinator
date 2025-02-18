@@ -1,3 +1,5 @@
+"use client";
+
 import { EasyRequester } from "easy-requester";
 
 const requester: EasyRequester = new EasyRequester({

@@ -1,19 +1,16 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import Requester from "@/utils/requester";
-
 import ResourceTypes from "@/types/resource";
 
 import useAccessToken from "../../useAccessToken";
+import Requester from "@/utils/requester";
 
 const useCertificationCreateMutation = () => {
   const queryClient = useQueryClient();
   const accessToken = useAccessToken();
   const createCertification = useMutation({
     mutationKey: ["createCertificationMutation"],
-    mutationFn: async (
-      certificationCreateData: ResourceTypes.Certification.Mutations.CreateMutationParams,
-    ) => {
+    mutationFn: async (certificationCreateData: ResourceTypes.Certification.Mutations.CreateMutationParams) => {
       const response = await new Requester()
         .setConfig({
           method: "POST",

@@ -1,11 +1,14 @@
+"use client";
+
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import ResourceTypes from "@/types/resource";
+import useAccessToken from "@/hooks/useAccessToken";
 
-import useAccessToken from "../../useAccessToken";
+import { API_PREFIX, SERVER_BASE_URL, SERVER_PORT } from "@/shared/appConfig";
 import requester from "@/shared/lib/requester";
-import { API_PREFIX, SERVER_BASE_URL, SERVER_PORT } from "@/shared/utils/appConfig";
+
 import GlobalTypes from "@/types/globals";
+import ResourceTypes from "@/types/resource";
 
 const useAirportUpdateMutation = () => {
   const queryClient = useQueryClient();
@@ -28,10 +31,10 @@ const useAirportUpdateMutation = () => {
           method: "PATCH",
           auth: { accessToken: accessToken },
         })
-        .sendRequest<
-          GlobalTypes.ServerResponseParams<null>,
-          ResourceTypes.Airport.Mutations.UpdateMutationParams
-        >({ airportId: airportId, ...requestData });
+        .sendRequest<GlobalTypes.ServerResponseParams<null>, ResourceTypes.Airport.Mutations.UpdateMutationParams>({
+          airportId: airportId,
+          ...requestData,
+        });
       return response;
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["airportQuery"] }),

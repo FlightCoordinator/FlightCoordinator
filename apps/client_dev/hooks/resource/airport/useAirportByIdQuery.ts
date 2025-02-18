@@ -1,11 +1,14 @@
+"use client";
+
 import { useQuery } from "@tanstack/react-query";
 
-import ResourceTypes from "@/types/resource";
+import useAccessToken from "@/hooks/useAccessToken";
 
-import useAccessToken from "../../useAccessToken";
+import { API_PREFIX, SERVER_BASE_URL, SERVER_PORT } from "@/shared/appConfig";
 import requester from "@/shared/lib/requester";
-import { API_PREFIX, SERVER_BASE_URL, SERVER_PORT } from "@/shared/utils/appConfig";
+
 import GlobalTypes from "@/types/globals";
+import ResourceTypes from "@/types/resource";
 
 const useAirportAllQuery = () => {
   const accessToken = useAccessToken();
@@ -26,10 +29,7 @@ const useAirportAllQuery = () => {
           method: "POST",
           auth: { accessToken: accessToken },
         })
-        .sendRequest<
-          GlobalTypes.ServerResponseParams<ResourceTypes.Airport.Queries.QueryResponseParams>,
-          null
-        >();
+        .sendRequest<GlobalTypes.ServerResponseParams<ResourceTypes.Airport.Queries.QueryResponseParams>, null>();
       return response;
     },
   });

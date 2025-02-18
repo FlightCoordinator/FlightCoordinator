@@ -1,11 +1,14 @@
+"use client";
+
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import ResourceTypes from "@/types/resource";
+import useAccessToken from "@/hooks/useAccessToken";
 
-import useAccessToken from "../../useAccessToken";
+import { API_PREFIX, SERVER_BASE_URL, SERVER_PORT } from "@/shared/appConfig";
 import requester from "@/shared/lib/requester";
+
 import GlobalTypes from "@/types/globals";
-import { API_PREFIX, SERVER_BASE_URL, SERVER_PORT } from "@/shared/utils/appConfig";
+import ResourceTypes from "@/types/resource";
 
 const useAirportDeleteMutation = () => {
   const queryClient = useQueryClient();
@@ -27,10 +30,9 @@ const useAirportDeleteMutation = () => {
           method: "DELETE",
           auth: { accessToken: accessToken },
         })
-        .sendRequest<
-          GlobalTypes.ServerResponseParams<null>,
-          ResourceTypes.Airport.Mutations.DeleteMutationParams
-        >(airportDeleteData);
+        .sendRequest<GlobalTypes.ServerResponseParams<null>, ResourceTypes.Airport.Mutations.DeleteMutationParams>(
+          airportDeleteData,
+        );
       return response;
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["airportQuery"] }),

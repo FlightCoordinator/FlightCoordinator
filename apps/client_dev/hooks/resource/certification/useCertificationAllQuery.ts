@@ -1,23 +1,33 @@
 import { useQuery } from "@tanstack/react-query";
 
-import Requester from "@/utils/requester";
+import useAccessToken from "@/hooks/useAccessToken";
 
+import { API_PREFIX, SERVER_BASE_URL, SERVER_PORT } from "@/shared/appConfig";
+import requester from "@/shared/lib/requester";
+
+import GlobalTypes from "@/types/globals";
 import ResourceTypes from "@/types/resource";
-
-import useAccessToken from "../../useAccessToken";
 
 const useCertificationAllQuery = () => {
   const accessToken = useAccessToken();
   const certifications = useQuery({
     queryKey: ["certificationQuery"],
     queryFn: async () => {
-      const response = await new Requester()
-        .setConfig({
+      const response = await requester
+        .setRequestConfig({
+          url: {
+            baseURL: SERVER_BASE_URL,
+            port: Number(SERVER_PORT),
+            endpoint: {
+              prefix: API_PREFIX,
+              controller: "certification",
+              action: "getAll",
+            },
+          },
           method: "POST",
-          endpoint: { controller: "certification", action: "getAll" },
-          accessToken: accessToken,
+          auth: { accessToken: accessToken },
         })
-        .sendRequest<ResourceTypes.Certification.Queries.QueryResponseParams>();
+        .sendRequest<GlobalTypes.ServerResponseParams<ResourceTypes.Certification.Queries.QueryResponseParams>, null>();
       return response;
     },
   });

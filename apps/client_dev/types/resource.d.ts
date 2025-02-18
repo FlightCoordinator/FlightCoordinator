@@ -1,5 +1,3 @@
-import type ComponentTypes from "./components";
-
 import type DataTransfer from "./dto";
 
 namespace ResourceTypes {
@@ -14,10 +12,6 @@ namespace ResourceTypes {
       export type QueryByIdRequestParams = AirportId;
       export type QueryResponseParams = DataTransfer.AirportDTO[];
     }
-    export namespace Page {
-      export type RowParams = ComponentTypes.BaseDataGridRowParams &
-        Omit<DataTransfer.AirportDTO, "id">;
-    }
   }
   export namespace Certification {
     type CertificationId = { certificationId: string };
@@ -29,10 +23,6 @@ namespace ResourceTypes {
     export namespace Queries {
       export type QueryByIdRequestParams = CertificationId;
       export type QueryResponseParams = DataTransfer.CertificationDTO[];
-    }
-    export namespace Page {
-      export type RowParams = ComponentTypes.BaseDataGridRowParams &
-        Omit<DataTransfer.CertificationDTO, "id">;
     }
   }
   export namespace Crew {
@@ -46,10 +36,6 @@ namespace ResourceTypes {
       export type QueryByIdRequestParams = CrewMemberId;
       export type QueryResponseParams = DataTransfer.CrewDTO[];
     }
-    export namespace Page {
-      export type RowParams = ComponentTypes.BaseDataGridRowParams &
-        Omit<DataTransfer.CrewDTO, "id">;
-    }
   }
   export namespace Plane {
     type PlaneId = { planeId: string };
@@ -61,10 +47,6 @@ namespace ResourceTypes {
     export namespace Queries {
       export type QueryByIdRequestParams = PlaneId;
       export type QueryResponseParams = DataTransfer.PlaneDTO[];
-    }
-    export namespace Page {
-      export type RowParams = ComponentTypes.BaseDataGridRowParams &
-        Omit<DataTransfer.PlaneDTO, "id">;
     }
   }
   export namespace Route {
@@ -78,10 +60,6 @@ namespace ResourceTypes {
       export type QueryByIdRequestParams = RouteId;
       export type QueryResponseParams = DataTransfer.RouteDTO[];
     }
-    export namespace Page {
-      export type RowParams = ComponentTypes.BaseDataGridRowParams &
-        Omit<DataTransfer.RouteDTO, "id">;
-    }
   }
   export namespace Runway {
     type RunwayId = { runwayId: string };
@@ -93,10 +71,6 @@ namespace ResourceTypes {
     export namespace Queries {
       export type QueryByIdRequestParams = RunwayId;
       export type QueryResponseParams = EntityTypes.RunwayEntity[];
-    }
-    export namespace Page {
-      export type RowParams = ComponentTypes.BaseDataGridRowParams &
-        Omit<DataTransfer.RunwayDTO, "id">;
     }
   }
   export namespace Vehicle {
@@ -110,10 +84,6 @@ namespace ResourceTypes {
       export type QueryByIdRequestParams = VehicleId;
       export type QueryResponseParams = EntityTypes.VehicleEntity[];
     }
-    export namespace Page {
-      export type RowParams = ComponentTypes.BaseDataGridRowParams &
-        Omit<DataTransfer.VehicleDTO, "id">;
-    }
   }
   export namespace Flight {
     type FlightId = { flightId: string };
@@ -125,10 +95,6 @@ namespace ResourceTypes {
     export namespace Queries {
       export type QueryByIdRequestParams = FlightId;
       export type QueryResponseParams = DataTransfer.FlightDTO[];
-    }
-    export namespace Page {
-      export type RowParams = ComponentTypes.BaseDataGridRowParams &
-        Omit<DataTransfer.FlightDTO, "id">;
     }
   }
   export namespace AlgorithmResult {
@@ -142,10 +108,6 @@ namespace ResourceTypes {
       export type QueryByIdRequestParams = AlgorithmResultId;
       export type QueryResponseParams = DataTransfer.AlgorithmResultDTO[];
     }
-    export namespace Page {
-      export type RowParams = ComponentTypes.BaseDataGridRowParams &
-        Omit<DataTransfer.AlgorithmResultDTO, "id">;
-    }
   }
   export namespace AlgorithmRun {
     type AlgorithmRunId = { algorithmRunId: string };
@@ -157,10 +119,6 @@ namespace ResourceTypes {
     export namespace Queries {
       export type QueryByIdRequestParams = AlgorithmRunId;
       export type QueryResponseParams = DataTransfer.AlgorithmRunDTO[];
-    }
-    export namespace Page {
-      export type RowParams = ComponentTypes.BaseDataGridRowParams &
-        Omit<DataTransfer.AlgorithmRunDTO, "id">;
     }
   }
 }

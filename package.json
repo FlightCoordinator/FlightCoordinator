@@ -2,6 +2,7 @@
   "name": "flightcoordinator",
   "private": true,
   "scripts": {
+    "dev": "./scripts/run_app.sh",
     "format:check": "prettier --check .",
     "format:write": "prettier --write ."
   },

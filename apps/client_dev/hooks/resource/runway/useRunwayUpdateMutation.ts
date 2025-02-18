@@ -1,19 +1,16 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import Requester from "@/utils/requester";
-
 import ResourceTypes from "@/types/resource";
 
 import useAccessToken from "../../useAccessToken";
+import Requester from "@/utils/requester";
 
 const useRunwayUpdateMutation = () => {
   const queryClient = useQueryClient();
   const accessToken = useAccessToken();
   const updateRunway = useMutation({
     mutationKey: ["updateRunwayMutation"],
-    mutationFn: async (
-      useRunwayUpdateData: ResourceTypes.Runway.Mutations.UpdateMutationParams,
-    ) => {
+    mutationFn: async (useRunwayUpdateData: ResourceTypes.Runway.Mutations.UpdateMutationParams) => {
       const { runwayId, ...requestData } = useRunwayUpdateData;
       const response = await new Requester()
         .setConfig({

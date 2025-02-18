@@ -1,10 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 
-import Requester from "@/utils/requester";
-
 import ResourceTypes from "@/types/resource";
 
 import useAccessToken from "../../useAccessToken";
+import Requester from "@/utils/requester";
 
 const useFlightAllQuery = () => {
   const accessToken = useAccessToken();
