@@ -77,6 +77,7 @@ public class CertificationService {
         .orElseThrow(() -> new AppError("notFound.certification", HttpStatus.NOT_FOUND.value()));
 
     existingCertification.setName(updatedCertificationDTO.getName());
+    existingCertification.setCertificationNumber(updatedCertificationDTO.getCertificationNumber());
     existingCertification.setIssuer(updatedCertificationDTO.getIssuer());
     existingCertification.setIssuingCountry(updatedCertificationDTO.getIssuingCountry());
     existingCertification.setExpirationDate(updatedCertificationDTO.getExpirationDate());
