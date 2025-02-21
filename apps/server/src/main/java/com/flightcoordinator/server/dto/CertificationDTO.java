@@ -3,7 +3,6 @@ package com.flightcoordinator.server.dto;
 import java.util.Date;
 
 import com.flightcoordinator.server.enums.CertificationIssuer;
-import com.flightcoordinator.server.enums.CertificationIssuingCountry;
 import com.flightcoordinator.server.enums.CrewRole;
 
 public class CertificationDTO {
@@ -11,7 +10,6 @@ public class CertificationDTO {
   private String name;
   private Integer certificationNumber;
   private CertificationIssuer issuer;
-  private CertificationIssuingCountry issuingCountry;
   private Date expirationDate;
   private Integer validityPeriod;
   private CrewRole assignableRole;
@@ -51,14 +49,6 @@ public class CertificationDTO {
 
   public void setIssuer(CertificationIssuer issuer) {
     this.issuer = issuer;
-  }
-
-  public CertificationIssuingCountry getIssuingCountry() {
-    return issuingCountry;
-  }
-
-  public void setIssuingCountry(CertificationIssuingCountry issuingCountry) {
-    this.issuingCountry = issuingCountry;
   }
 
   public Date getExpirationDate() {

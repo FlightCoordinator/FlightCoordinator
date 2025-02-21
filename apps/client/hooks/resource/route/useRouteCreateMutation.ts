@@ -1,9 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import ResourceTypes from "@/types/resource";
+import useAccessToken from "@/hooks/useAccessToken";
 
-import useAccessToken from "../../useAccessToken";
-import Requester from "@/utils/requester";
+import { config } from "@/shared/appConfig";
+import requester from "@/shared/lib/requester";
+
+import GlobalTypes from "@/types/globals";
+import ResourceTypes from "@/types/resource";
 
 const useRouteCreateMutation = () => {
   const queryClient = useQueryClient();
@@ -11,14 +14,23 @@ const useRouteCreateMutation = () => {
   const createRoute = useMutation({
     mutationKey: ["createRouteMutation"],
     mutationFn: async (routeCreateData: ResourceTypes.Route.Mutations.CreateMutationParams) => {
-      const response = await new Requester()
-        .setConfig({
+      const response = requester
+        .setRequestConfig({
+          url: {
+            baseURL: config.SERVER.BASE_URL,
+            port: Number(config.SERVER.PORT),
+            endpoint: {
+              prefix: config.SERVER.API_PREFIX,
+              controller: "route",
+              action: "create",
+            },
+          },
           method: "POST",
-          endpoint: { controller: "route", action: "create" },
-          payload: routeCreateData,
-          accessToken: accessToken,
+          auth: { accessToken: accessToken },
         })
-        .sendRequest();
+        .sendRequest<GlobalTypes.ServerResponseParams<null>, ResourceTypes.Route.Mutations.CreateMutationParams>(
+          routeCreateData,
+        );
       return response;
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["routeQuery"] }),

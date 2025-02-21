@@ -1,13 +1,14 @@
 package com.flightcoordinator.server.dto.create_update;
 
 import com.flightcoordinator.server.enums.AirportType;
+import com.flightcoordinator.server.enums.CountryCode;
 
 public class AirportCreateUpdateDTO {
   private String id;
   private String name;
   private String iataCode;
   private String icaoCode;
-  private String countryCode;
+  private CountryCode countryCode;
   private AirportType type;
 
   public AirportCreateUpdateDTO() {
@@ -45,11 +46,11 @@ public class AirportCreateUpdateDTO {
     this.icaoCode = icaoCode;
   }
 
-  public String getCountryCode() {
+  public CountryCode getCountryCode() {
     return countryCode;
   }
 
-  public void setCountryCode(String countryCode) {
+  public void setCountryCode(CountryCode countryCode) {
     this.countryCode = countryCode;
   }
 

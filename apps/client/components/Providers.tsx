@@ -2,11 +2,8 @@
 
 import React from "react";
 
-import { Auth0Provider } from "@auth0/auth0-react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-
-import { config } from "@/shared/appConfig";
 
 import GlobalTypes from "@/types/globals";
 
@@ -21,13 +18,11 @@ const Providers = ({ children }: GlobalTypes.BaseWrapperProps) => {
   });
 
   return (
-    <Auth0Provider domain={config.AUTH0.DOMAIN} clientId={config.AUTH0.CLIENT_ID}>
-      <QueryClientProvider client={queryClient}>
-        <SidebarProvider>{children}</SidebarProvider>
-        <Toaster />
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
-    </Auth0Provider>
+    <QueryClientProvider client={queryClient}>
+      <SidebarProvider>{children}</SidebarProvider>
+      <Toaster />
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   );
 };
 

@@ -1,4 +1,4 @@
-import Enums from "@/shared/constants/enums";
+import Enums from "@/shared/enum/enums";
 
 namespace DataTransfer {
   interface BaseDTO {
@@ -44,7 +44,6 @@ namespace DataTransfer {
     name: string;
     certificationNumber: number;
     issuer: Enums.CertificationIssuer;
-    issuingCountry: Enums.CertificationIssuingCountry;
     expirationDate: Date;
     validityPeriod: number;
     assignableRole: Enums.CrewRoles;
@@ -54,12 +53,12 @@ namespace DataTransfer {
   export interface CrewDTO extends BaseDTO {
     fullName: string;
     email: string;
-    phoneNumber: number;
+    phoneNumber: string;
     role: Enums.CrewRoles;
     certificationIds: Array<string>;
     totalFlightHours: number;
     baseAirportId: string;
-    availability: CrewAvailability;
+    availability: Enums.CrewAvailability;
   }
   export interface FlightDTO extends BaseDTO {
     passengerCount: number;

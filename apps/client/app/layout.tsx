@@ -1,7 +1,6 @@
 import React from "react";
 
 import Providers from "@/components/Providers";
-import Sidebar from "@/components/sidebar/Sidebar";
 
 import "@/shared/styles/globals.css";
 
@@ -12,10 +11,7 @@ const RootLayout = ({ children }: GlobalTypes.BaseWrapperProps) => {
     <html>
       <head></head>
       <body>
-        <Providers>
-          <Sidebar />
-          <main>{children}</main>
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

@@ -9,7 +9,7 @@ namespace GlobalTypes {
     data?: TResponseData;
   }
 
-  export interface LabelValuePairProps {
+  export interface SelectItemProps {
     label: string;
     value: string;
   }

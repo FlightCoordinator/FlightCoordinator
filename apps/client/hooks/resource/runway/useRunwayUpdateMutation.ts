@@ -1,9 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import ResourceTypes from "@/types/resource";
+import useAccessToken from "@/hooks/useAccessToken";
 
-import useAccessToken from "../../useAccessToken";
-import Requester from "@/utils/requester";
+import { config } from "@/shared/appConfig";
+import requester from "@/shared/lib/requester";
+
+import GlobalTypes from "@/types/globals";
+import ResourceTypes from "@/types/resource";
 
 const useRunwayUpdateMutation = () => {
   const queryClient = useQueryClient();
@@ -11,15 +14,23 @@ const useRunwayUpdateMutation = () => {
   const updateRunway = useMutation({
     mutationKey: ["updateRunwayMutation"],
     mutationFn: async (useRunwayUpdateData: ResourceTypes.Runway.Mutations.UpdateMutationParams) => {
-      const { runwayId, ...requestData } = useRunwayUpdateData;
-      const response = await new Requester()
-        .setConfig({
+      const response = await requester
+        .setRequestConfig({
+          url: {
+            baseURL: config.SERVER.BASE_URL,
+            port: Number(config.SERVER.PORT),
+            endpoint: {
+              prefix: config.SERVER.API_PREFIX,
+              controller: "runway",
+              action: "update",
+            },
+          },
           method: "PATCH",
-          endpoint: { controller: "runway", action: "update" },
-          payload: { runwayId: runwayId, ...requestData },
-          accessToken: accessToken,
+          auth: { accessToken: accessToken },
         })
-        .sendRequest();
+        .sendRequest<GlobalTypes.ServerResponseParams<null>, ResourceTypes.Runway.Mutations.UpdateMutationParams>(
+          useRunwayUpdateData,
+        );
       return response;
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["runwayQuery"] }),

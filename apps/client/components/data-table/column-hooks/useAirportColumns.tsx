@@ -11,12 +11,13 @@ import AirportSheet from "@/components/data-table/sheets/AirportSheet";
 import { useToast } from "@/hooks/interface/use-toast";
 import useAirportDeleteMutation from "@/hooks/resource/airport/useAirportDeleteMutation";
 
-import { getLabelValueObject } from "@/shared/utils/enumUtils";
+import { getSelectItem } from "@/shared/constants/selectItems";
+import Enums from "@/shared/enum/enums";
 
 import DataTransfer from "@/types/dto";
 
+import IdDropdown from "../data-components/IdDropdown";
 import ColumnHeader from "../partials/ColumnHeader";
-import IdDropdown from "../partials/IdDropdown";
 import NoWrapCell from "../partials/NoWrapCell";
 import getSelectColumn from "../partials/SelectColumn";
 
@@ -65,7 +66,8 @@ const useAirportColumns = () => {
       {
         accessorKey: "type",
         header: ({ column }) => <ColumnHeader column={column} title="Airport Type" />,
-        cell: ({ row }) => getLabelValueObject("AirportType", row.original.type).label,
+        cell: ({ row }) =>
+          getSelectItem("AirportType", row.original.type as unknown as keyof typeof Enums.AirportType).label,
       },
       {
         accessorKey: "runwayIds",
@@ -103,7 +105,7 @@ const useAirportColumns = () => {
         cell: ({ row }) => (
           <div className="flex flex-row items-center justify-end">
             <AirportSheet airport={row.original} />
-            <Button variant="ghost" size="icon" onClick={() => handleDeleteSubmit(row.original.id)}>
+            <Button variant="ghost" size="icon" onClick={async () => await handleDeleteSubmit(row.original.id)}>
               <Trash2 />
             </Button>
           </div>

@@ -9,7 +9,7 @@ public class CrewDTO {
   private String id;
   private String fullName;
   private String email;
-  private Long phoneNumber;
+  private String phoneNumber;
   private CrewRole role;
   private List<String> certificationIds;
   private Integer totalFlightHours;
@@ -43,11 +43,11 @@ public class CrewDTO {
     this.email = email;
   }
 
-  public Long getPhoneNumber() {
+  public String getPhoneNumber() {
     return phoneNumber;
   }
 
-  public void setPhoneNumber(Long phoneNumber) {
+  public void setPhoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
   }
 

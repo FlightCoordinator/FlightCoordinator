@@ -29,16 +29,6 @@ const EnumValues = {
     FLIGHT_SAFETY: { label: "FlightSafety International", value: "FLIGHT_SAFETY" },
     CAE: { label: "CAE", value: "CAE" },
   },
-  CertificationIssuingCountry: {
-    US: { label: "United States", value: "US" },
-    EU: { label: "European Union", value: "EU" },
-    CANADA: { label: "Canada", value: "CANADA" },
-    INDIA: { label: "India", value: "INDIA" },
-    CHINA: { label: "China", value: "CHINA" },
-    AUSTRALIA: { label: "Australia", value: "AUSTRALIA" },
-    UAE: { label: "United Arab Emirates", value: "UAE" },
-    GLOBAL: { label: "Global", value: "GLOBAL" },
-  },
   CrewAvailability: {
     AVAILABLE: { label: "Available", value: "AVAILABLE" },
     ON_DUTY: { label: "On-Duty", value: "ON_DUTY" },

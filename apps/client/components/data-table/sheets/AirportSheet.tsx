@@ -4,7 +4,7 @@ import React from "react";
 import { Controller, useForm } from "react-hook-form";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Loader2, Pen, PlusCircle, Save } from "lucide-react";
+import { Pen, PlusCircle } from "lucide-react";
 import { z } from "zod";
 
 import { Button } from "@/components/base-ui/button";
@@ -32,12 +32,16 @@ import { useToast } from "@/hooks/interface/use-toast";
 import useAirportCreateMutation from "@/hooks/resource/airport/useAirportCreateMutation";
 import useAirportUpdateMutation from "@/hooks/resource/airport/useAirportUpdateMutation";
 
-import labelValueArrays from "@/shared/constants/labelValueArrays";
+import { getAllValuesOf, getSelectItem, selectItems } from "@/shared/constants/selectItems";
+import CountryCodes from "@/shared/enum/countries";
+import Enums from "@/shared/enum/enums";
 import { cn } from "@/shared/lib/twUtils";
-import { getAllValuesOf, getLabelValueObject } from "@/shared/utils/enumUtils";
 
 import DataTransfer from "@/types/dto";
 
+import { invalidEnumValueMessage, requiredMessage, shouldBeStringMessage } from "../constants/validationMessages";
+import FormSelect from "../data-components/FormSelect";
+import SaveButton from "../partials/SaveButton";
 import ErrorLabel from "./base/ErrorLabel";
 import SheetRow from "./base/SheetRow";
 
@@ -46,23 +50,19 @@ interface AirportSheetProps {
 }
 
 const airportSchema = z.object({
-  name: z.string().nonempty({ message: "This field is required" }),
+  name: z.string().nonempty(requiredMessage),
   iataCode: z
-    .string()
-    .nonempty({ message: "This field is required" })
+    .string(shouldBeStringMessage)
+    .nonempty(requiredMessage)
     .min(3, { message: "IATA Code should be 3 characters long" })
     .max(3, { message: "IATA Code should be 3 characters long" }),
   icaoCode: z
-    .string()
-    .nonempty({ message: "This field is required" })
+    .string(shouldBeStringMessage)
+    .nonempty(requiredMessage)
     .min(4, { message: "IATA Code should be 4 characters long" })
     .max(4, { message: "IATA Code should be 4 characters long" }),
-  countryCode: z
-    .string()
-    .nonempty({ message: "This field is required" })
-    .min(3, { message: "Country Code should be 3 characters long" })
-    .max(3, { message: "Country Code should be 3 characters long" }),
-  type: z.enum(getAllValuesOf("AirportType")).default("INTERNATIONAL"),
+  countryCode: z.enum(getAllValuesOf("CountryCodes"), invalidEnumValueMessage),
+  type: z.enum(getAllValuesOf("AirportType"), invalidEnumValueMessage).default("INTERNATIONAL"),
 });
 
 const AirportSheet = ({ airport }: AirportSheetProps) => {
@@ -91,23 +91,37 @@ const AirportSheet = ({ airport }: AirportSheetProps) => {
   } = useAirportUpdateMutation();
 
   const handleCreateSubmit = async (formData: z.infer<typeof airportSchema>): Promise<void> => {
-    const response = await airportCreateMutation(formData);
-    if (!response.isSuccess || airportCreateError || airportUpdateError) {
-      toast({ title: "An error ocurred", description: response.message });
-      return;
-    }
-    toast({ title: "Created Successfully", description: response.message });
-    return;
+    airportCreateMutation(formData)
+      .then((response) => {
+        if (!response.isSuccess || airportCreateError || airportUpdateError) {
+          toast({ title: "An error ocurred", description: response.message });
+          return;
+        }
+        toast({ title: "Created Successfully", description: response.message });
+      })
+      .catch((error) =>
+        toast({
+          title: "An error ocurred",
+          description: error.message,
+        }),
+      );
   };
 
   const handleUpdateSubmit = async (formData: z.infer<typeof airportSchema>): Promise<void> => {
-    const response = await airportUpdateMutation({ id: airport!.id, ...formData });
-    if (!response.isSuccess) {
-      toast({ title: "An error ocurred", description: response.message });
-      return;
-    }
-    toast({ title: "Updated Successfully", description: response.message });
-    return;
+    airportUpdateMutation({ id: airport!.id, ...formData })
+      .then((response) => {
+        if (!response.isSuccess) {
+          toast({ title: "An error ocurred", description: response.message });
+          return;
+        }
+        toast({ title: "Updated Successfully", description: response.message });
+      })
+      .catch((error: Error) =>
+        toast({
+          title: "An error ocurred",
+          description: error.message,
+        }),
+      );
   };
 
   return (
@@ -184,10 +198,19 @@ const AirportSheet = ({ airport }: AirportSheetProps) => {
               render={({ field }) => (
                 <SheetRow>
                   <Label htmlFor="countryCode">Country Code</Label>
-                  <Input
-                    id="countryCode"
-                    className={cn(form.formState.errors.countryCode && "border-destructive")}
-                    {...field}
+                  <FormSelect
+                    items={selectItems.asArray.CountryCodes.map((code) => ({
+                      value: code.value,
+                      label: code.value + " - " + code.label,
+                    }))}
+                    placeholder={
+                      airport
+                        ? getSelectItem("CountryCodes", airport.countryCode as keyof typeof CountryCodes).label
+                        : "Select..."
+                    }
+                    hasError={!!form.formState.errors.countryCode}
+                    onchange={field.onChange}
+                    value={field.value}
                   />
                   {form.formState.errors.countryCode && (
                     <ErrorLabel>{form.formState.errors.countryCode.message}</ErrorLabel>
@@ -204,12 +227,17 @@ const AirportSheet = ({ airport }: AirportSheetProps) => {
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <SelectTrigger>
                       <SelectValue
-                        placeholder={airport ? getLabelValueObject("AirportType", airport.type).label : "Select..."}
+                        placeholder={
+                          airport
+                            ? getSelectItem("AirportType", airport.type as unknown as keyof typeof Enums.AirportType)
+                                .label
+                            : "Select..."
+                        }
                       />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectGroup>
-                        {labelValueArrays.AirportType.map((item) => (
+                        {selectItems.asArray.AirportType.map((item) => (
                           <SelectItem key={item.value} value={item.value}>
                             {item.label}
                           </SelectItem>
@@ -220,18 +248,7 @@ const AirportSheet = ({ airport }: AirportSheetProps) => {
                 </SheetRow>
               )}
             />
-            <span className="text-muted-foreground">Only editable fields are shown.</span>
-            <Button className="w-full" type="submit">
-              {isAirportUpdateLoading || isAirportCreateLoading ? (
-                <>
-                  <Loader2 className="animate-spin" /> Processing
-                </>
-              ) : (
-                <>
-                  <Save /> Save Changes
-                </>
-              )}
-            </Button>
+            <SaveButton isLoading={isAirportUpdateLoading || isAirportCreateLoading} />
           </form>
         </SheetBody>
       </SheetContent>

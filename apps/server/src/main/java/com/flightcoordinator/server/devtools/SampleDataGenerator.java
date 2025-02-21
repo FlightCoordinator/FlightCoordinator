@@ -78,7 +78,6 @@ public class SampleDataGenerator {
       certification.setName(SampleDataValues.sampleCertificationNames.get(i));
       certification.setCertificationNumber(randomValue.nextInt(100000000, 999999999));
       certification.setIssuer(SampleDataValues.sampleCertificationIssuers.get(i));
-      certification.setIssuingCountry(SampleDataValues.sampleCertificationIssuingCountries.get(i));
       certification.setExpirationDate(new Date());
       certification.setValidityPeriod(12);
       certification.setAssignableRole(SampleDataValues.sampleCertificationAssignableRoles.get(i));
@@ -97,7 +96,7 @@ public class SampleDataGenerator {
       CrewEntity crewMember = new CrewEntity();
       crewMember.setFullName(SampleDataValues.sampleCrewMemberFullNames.get(i));
       crewMember.setEmail(SampleDataValues.sampleCrewMemberEmails.get(i));
-      crewMember.setPhoneNumber((long) 1111111111);
+      crewMember.setPhoneNumber("+1 234 567 8900");
       crewMember.setRole(SampleDataValues.sampleCrewMemberRoles.get(i));
       crewMember.setCertifications(
           allCertifications.stream()

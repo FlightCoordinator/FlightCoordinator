@@ -1,4 +1,4 @@
-import type Enums from "../shared/constants/enums";
+import type Enums from "../shared/enum/enums";
 
 namespace EntityTypes {
   export interface BaseEntity {
@@ -44,7 +44,6 @@ namespace EntityTypes {
     name: string;
     certificationNumber: number;
     issuer: Enums.CertificationIssuer;
-    issuingCountry: Enums.CertificationIssuingCountry;
     expirationDate: Date;
     validityPeriod: number;
     assignableRole: Enums.CrewRoles;
@@ -54,7 +53,7 @@ namespace EntityTypes {
   export interface CrewEntity extends BaseEntity {
     fullName: string;
     email: string;
-    phoneNumber: number;
+    phoneNumber: string;
     role: Enums.CrewRoles;
     certifications: List<CertificationEntity>;
     totalFlightHours: number;

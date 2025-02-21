@@ -1,22 +1,16 @@
+"use client";
+
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Label } from "@radix-ui/react-label";
 import dayjs from "dayjs";
-import { Loader2, Pen, PlusCircle, Save } from "lucide-react";
+import { Pen, PlusCircle } from "lucide-react";
 import { z } from "zod";
 
 import { Button } from "@/components/base-ui/button";
 import { Input } from "@/components/base-ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/base-ui/select";
 import {
   Sheet,
   SheetBody,
@@ -32,14 +26,23 @@ import { useToast } from "@/hooks/interface/use-toast";
 import useCertificationCreateMutation from "@/hooks/resource/certification/useCertificationCreateMutation";
 import useCertificationUpdateMutation from "@/hooks/resource/certification/useCertificationUpdateMutation";
 
-import Enums from "@/shared/constants/enums";
-import labelValueArrays from "@/shared/constants/labelValueArrays";
+import { getAllValuesOf, getSelectItem, selectItems } from "@/shared/constants/selectItems";
+import Enums from "@/shared/enum/enums";
 import { cn } from "@/shared/lib/twUtils";
-import { getAllValuesOf, getLabelValueObject } from "@/shared/utils/enumUtils";
 
 import DataTransfer from "@/types/dto";
 
-import DatePicker from "../partials/DatePicker";
+import {
+  greaterThanZeroMessage,
+  invalidEnumValueMessage,
+  requiredMessage,
+  shouldBeNumberMessage,
+  shouldBeStringMessage,
+  invalidDateMessage,
+} from "../constants/validationMessages";
+import DatePicker from "../data-components/DatePicker";
+import FormSelect from "../data-components/FormSelect";
+import SaveButton from "../partials/SaveButton";
 import ErrorLabel from "./base/ErrorLabel";
 import SheetRow from "./base/SheetRow";
 
@@ -48,15 +51,14 @@ interface CertificationSheetProps {
 }
 
 const certificationSchema = z.object({
-  name: z.string().nonempty(),
-  certificationNumber: z.number(),
-  issuer: z.enum(getAllValuesOf("CertificationIssuer")),
-  issuingCountry: z.enum(getAllValuesOf("CertificationIssuingCountry")),
-  expirationDate: z.date(),
-  validityPeriod: z.number().positive(),
-  assignableRole: z.enum(getAllValuesOf("CrewRole")),
-  description: z.string().nonempty(),
-  assignedCrewMember: z.string().nonempty(),
+  name: z.string(shouldBeStringMessage).nonempty(requiredMessage),
+  certificationNumber: z.number(shouldBeNumberMessage).positive(greaterThanZeroMessage),
+  issuer: z.enum(getAllValuesOf("CertificationIssuer"), invalidEnumValueMessage),
+  expirationDate: z.date(invalidDateMessage),
+  validityPeriod: z.number(shouldBeNumberMessage).positive(greaterThanZeroMessage),
+  assignableRole: z.enum(getAllValuesOf("CrewRole"), invalidEnumValueMessage),
+  description: z.string(shouldBeStringMessage).nonempty(requiredMessage),
+  assignedCrewMember: z.string(shouldBeStringMessage).nonempty(requiredMessage),
 });
 
 const CertificationSheet = ({ certification }: CertificationSheetProps) => {
@@ -66,7 +68,6 @@ const CertificationSheet = ({ certification }: CertificationSheetProps) => {
       name: certification ? certification.name : "",
       certificationNumber: certification ? certification.certificationNumber : 0,
       issuer: certification ? certification.issuer : "",
-      issuingCountry: certification ? certification.issuingCountry : "",
       expirationDate: certification ? dayjs(certification.expirationDate).toDate() : dayjs().toDate(),
       validityPeriod: certification ? certification.validityPeriod : 0,
       assignableRole: certification ? certification.assignableRole : "",
@@ -88,24 +89,38 @@ const CertificationSheet = ({ certification }: CertificationSheetProps) => {
     error: certificationUpdateError,
   } = useCertificationUpdateMutation();
 
-  const handleCreateSubmit = async (formData: z.infer<typeof certificationSchema>): Promise<void> => {
-    const response = await certificationCreateMutation(formData);
-    if (!response.isSuccess || certificationCreateError || certificationUpdateError) {
-      toast({ title: "An error ocurred", description: response.message });
-      return;
-    }
-    toast({ title: "Created Successfully", description: response.message });
-    return;
+  const handleCreateSubmit = (formData: z.infer<typeof certificationSchema>): void => {
+    certificationCreateMutation(formData)
+      .then((response) => {
+        if (!response.isSuccess || certificationCreateError || certificationUpdateError) {
+          toast({ title: "An error ocurred", description: response.message });
+          return;
+        }
+        toast({ title: "Created Successfully", description: response.message });
+      })
+      .catch((error: Error) =>
+        toast({
+          title: "An error ocurred",
+          description: error.message,
+        }),
+      );
   };
 
-  const handleUpdateSubmit = async (formData: z.infer<typeof certificationSchema>): Promise<void> => {
-    const response = await certificationUpdateMutation({ id: certification!.id, ...formData });
-    if (!response.isSuccess) {
-      toast({ title: "An error ocurred", description: response.message });
-      return;
-    }
-    toast({ title: "Updated Successfully", description: response.message });
-    return;
+  const handleUpdateSubmit = (formData: z.infer<typeof certificationSchema>): void => {
+    certificationUpdateMutation({ id: certification!.id, ...formData })
+      .then((response) => {
+        if (!response.isSuccess) {
+          toast({ title: "An error ocurred", description: response.message });
+          return;
+        }
+        toast({ title: "Updated Successfully", description: response.message });
+      })
+      .catch((error: Error) =>
+        toast({
+          title: "An error ocurred",
+          description: error.message,
+        }),
+      );
   };
 
   return (
@@ -116,7 +131,7 @@ const CertificationSheet = ({ certification }: CertificationSheetProps) => {
             <Pen />
           ) : (
             <>
-              <PlusCircle /> Create a new Airport
+              <PlusCircle /> Create a new Certification
             </>
           )}
         </Button>
@@ -171,58 +186,21 @@ const CertificationSheet = ({ certification }: CertificationSheetProps) => {
               render={({ field }) => (
                 <SheetRow>
                   <Label htmlFor="issuer">Issuer</Label>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <SelectTrigger>
-                      <SelectValue
-                        placeholder={
-                          certification
-                            ? getLabelValueObject("CertificationIssuer", certification.issuer).label
-                            : "Select..."
-                        }
-                      />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectGroup>
-                        {labelValueArrays.CertificationIssuer.map((item) => (
-                          <SelectItem key={item.value} value={item.value}>
-                            {item.label}
-                          </SelectItem>
-                        ))}
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
-                </SheetRow>
-              )}
-            />
-            <Controller
-              control={form.control}
-              name="issuingCountry"
-              render={({ field }) => (
-                <SheetRow>
-                  <Label htmlFor="issuingcountry">Issuing Country</Label>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <SelectTrigger>
-                      <SelectValue
-                        placeholder={
-                          certification
-                            ? getLabelValueObject(
-                                "CertificationIssuingCountry",
-                                certification.issuingCountry as unknown as keyof typeof Enums.CertificationIssuingCountry,
-                              ).label
-                            : "Select..."
-                        }
-                      />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectGroup>
-                        {labelValueArrays.CertificationIssuingCountry.map((item) => (
-                          <SelectItem key={item.value} value={item.value}>
-                            {item.label}
-                          </SelectItem>
-                        ))}
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
+                  <FormSelect
+                    items={selectItems.asArray.CertificationIssuer}
+                    placeholder={
+                      certification
+                        ? getSelectItem(
+                            "CertificationIssuer",
+                            certification.issuer as unknown as keyof typeof Enums.CertificationIssuer,
+                          ).label
+                        : "Select..."
+                    }
+                    hasError={!!form.formState.errors.issuer}
+                    onchange={field.onChange}
+                    value={field.value}
+                  />
+                  {form.formState.errors.issuer && <ErrorLabel>{form.formState.errors.issuer.message}</ErrorLabel>}
                 </SheetRow>
               )}
             />
@@ -250,6 +228,7 @@ const CertificationSheet = ({ certification }: CertificationSheetProps) => {
                     type="number"
                     className={cn(form.formState.errors.validityPeriod && "border-destructive")}
                     {...field}
+                    onChange={(event) => field.onChange(Number(event.target.value))}
                   />
                   {form.formState.errors.validityPeriod && (
                     <ErrorLabel>{form.formState.errors.validityPeriod.message}</ErrorLabel>
@@ -263,26 +242,18 @@ const CertificationSheet = ({ certification }: CertificationSheetProps) => {
               render={({ field }) => (
                 <SheetRow>
                   <Label htmlFor="assignablerole">Assignable Role</Label>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
-                    <SelectTrigger>
-                      <SelectValue
-                        placeholder={
-                          certification
-                            ? getLabelValueObject("CrewRole", certification.assignableRole).label
-                            : "Select..."
-                        }
-                      />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectGroup>
-                        {labelValueArrays.CrewRole.map((item) => (
-                          <SelectItem key={item.value} value={item.value}>
-                            {item.label}
-                          </SelectItem>
-                        ))}
-                      </SelectGroup>
-                    </SelectContent>
-                  </Select>
+                  <FormSelect
+                    items={selectItems.asArray.CrewRole}
+                    placeholder={
+                      certification ? getSelectItem("CrewRole", certification.assignableRole).label : "Select..."
+                    }
+                    hasError={!!form.formState.errors.assignableRole}
+                    onchange={field.onChange}
+                    value={field.value}
+                  />
+                  {form.formState.errors.assignableRole && (
+                    <ErrorLabel>{form.formState.errors.assignableRole.message}</ErrorLabel>
+                  )}
                 </SheetRow>
               )}
             />
@@ -338,18 +309,7 @@ const CertificationSheet = ({ certification }: CertificationSheetProps) => {
                 </SheetRow>
               )}
             />
-            <span className="text-muted-foreground">Only editable fields are shown.</span>
-            <Button className="w-full" type="submit">
-              {isCertificationUpdateLoading || isCertificationCreateLoading ? (
-                <>
-                  <Loader2 className="animate-spin" /> Processing
-                </>
-              ) : (
-                <>
-                  <Save /> Save Changes
-                </>
-              )}
-            </Button>
+            <SaveButton isLoading={isCertificationUpdateLoading || isCertificationCreateLoading} />
           </form>
         </SheetBody>
       </SheetContent>

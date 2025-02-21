@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.flightcoordinator.server.enums.CertificationIssuer;
-import com.flightcoordinator.server.enums.CertificationIssuingCountry;
+import com.flightcoordinator.server.enums.CountryCode;
 import com.flightcoordinator.server.enums.CrewAvailability;
 import com.flightcoordinator.server.enums.CrewRole;
 import com.flightcoordinator.server.enums.PlaneAvailability;
@@ -116,16 +116,10 @@ public class SampleDataValues {
       CrewRole.FLIGHT_MEDIC, CrewRole.CAPTAIN);
 
   public static List<CertificationIssuer> sampleCertificationIssuers = Arrays.asList(
-      CertificationIssuer.FAA, CertificationIssuer.EASA, CertificationIssuer.CAA,
-      CertificationIssuer.BOEING, CertificationIssuer.AIRBUS, CertificationIssuer.FAA,
-      CertificationIssuer.ICAO, CertificationIssuer.IATA, CertificationIssuer.RED_CROSS,
+      CertificationIssuer.FAA, CertificationIssuer.EASA, CertificationIssuer.ANAC,
+      CertificationIssuer.CAA_NZ, CertificationIssuer.FLIGHT_SAFETY, CertificationIssuer.FAA,
+      CertificationIssuer.ICAO, CertificationIssuer.IATA, CertificationIssuer.CAA_UK,
       CertificationIssuer.CAE);
-
-  public static List<CertificationIssuingCountry> sampleCertificationIssuingCountries = Arrays.asList(
-      CertificationIssuingCountry.US, CertificationIssuingCountry.EU, CertificationIssuingCountry.GLOBAL,
-      CertificationIssuingCountry.GLOBAL, CertificationIssuingCountry.GLOBAL, CertificationIssuingCountry.US,
-      CertificationIssuingCountry.GLOBAL, CertificationIssuingCountry.GLOBAL, CertificationIssuingCountry.GLOBAL,
-      CertificationIssuingCountry.GLOBAL);
 
   public static List<String> sampleAirportNames = Arrays.asList(
       "Los Angeles International Airport",
@@ -161,9 +155,9 @@ public class SampleDataValues {
       "VHHH", "LSZH", "LTFM", "KSFO", "KDEN",
       "ZBAA", "CYYZ", "RKSI", "EDDM", "KMIA");
 
-  public static List<String> sampleAirportCountryCodes = Arrays.asList(
-      "USA", "USA", "GBR", "JPN", "UAE",
-      "DEU", "SGP", "AUS", "FRA", "NLD",
-      "HKG", "CHE", "TUR", "USA", "USA",
-      "CHN", "CAN", "KOR", "DEU", "USA");
+  public static List<CountryCode> sampleAirportCountryCodes = Arrays.asList(
+      CountryCode.US, CountryCode.US, CountryCode.GB, CountryCode.JP, CountryCode.AE,
+      CountryCode.DE, CountryCode.SG, CountryCode.AU, CountryCode.FR, CountryCode.NL,
+      CountryCode.HK, CountryCode.CH, CountryCode.TR, CountryCode.TR, CountryCode.TR,
+      CountryCode.CN, CountryCode.CA, CountryCode.KR, CountryCode.DE, CountryCode.US);
 }

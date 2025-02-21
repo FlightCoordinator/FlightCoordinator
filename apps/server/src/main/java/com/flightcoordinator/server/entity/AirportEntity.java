@@ -3,6 +3,7 @@ package com.flightcoordinator.server.entity;
 import java.util.List;
 
 import com.flightcoordinator.server.enums.AirportType;
+import com.flightcoordinator.server.enums.CountryCode;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -33,8 +34,9 @@ public class AirportEntity {
   @Column(name = "icao_code", nullable = false, unique = true)
   private String icaoCode;
 
+  @Enumerated(EnumType.STRING)
   @Column(name = "country_code", nullable = false)
-  private String countryCode;
+  private CountryCode countryCode;
 
   @Enumerated(EnumType.STRING)
   @Column(name = "type", nullable = false)
@@ -61,7 +63,7 @@ public class AirportEntity {
   public AirportEntity() {
   }
 
-  public AirportEntity(String id, String name, String iataCode, String icaoCode, String countryCode, AirportType type,
+  public AirportEntity(String id, String name, String iataCode, String icaoCode, CountryCode countryCode, AirportType type,
       List<RunwayEntity> runways, List<VehicleEntity> vehiclesPresent, List<PlaneEntity> planesPresent,
       List<RouteEntity> routesOriginatingFromAirport, List<RouteEntity> routesDestinedForAirport,
       List<CrewEntity> crewMembersPresent) {
@@ -111,11 +113,11 @@ public class AirportEntity {
     this.icaoCode = icaoCode;
   }
 
-  public String getCountryCode() {
+  public CountryCode getCountryCode() {
     return countryCode;
   }
 
-  public void setCountryCode(String countryCode) {
+  public void setCountryCode(CountryCode countryCode) {
     this.countryCode = countryCode;
   }
 

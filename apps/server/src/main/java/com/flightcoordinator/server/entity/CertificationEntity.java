@@ -3,7 +3,6 @@ package com.flightcoordinator.server.entity;
 import java.util.Date;
 
 import com.flightcoordinator.server.enums.CertificationIssuer;
-import com.flightcoordinator.server.enums.CertificationIssuingCountry;
 import com.flightcoordinator.server.enums.CrewRole;
 
 import jakarta.persistence.Column;
@@ -35,10 +34,6 @@ public class CertificationEntity {
   @Column(name = "issuer", nullable = false)
   private CertificationIssuer issuer;
 
-  @Enumerated(EnumType.STRING)
-  @Column(name = "issuing_country", nullable = false)
-  private CertificationIssuingCountry issuingCountry;
-
   @Column(name = "expiration_date", nullable = false)
   private Date expirationDate;
 
@@ -60,14 +55,13 @@ public class CertificationEntity {
   }
 
   public CertificationEntity(String id, String name, Integer certificationNumber, CertificationIssuer issuer,
-      CertificationIssuingCountry issuingCountry, Date expirationDate,
+      Date expirationDate,
       @Min(value = 1, message = "Validity period should be greater than '1'") Integer validityPeriod,
       CrewRole assignableRole, String description, CrewEntity assignedCrewMember) {
     this.id = id;
     this.name = name;
     this.certificationNumber = certificationNumber;
     this.issuer = issuer;
-    this.issuingCountry = issuingCountry;
     this.expirationDate = expirationDate;
     this.validityPeriod = validityPeriod;
     this.assignableRole = assignableRole;
@@ -105,14 +99,6 @@ public class CertificationEntity {
 
   public void setIssuer(CertificationIssuer issuer) {
     this.issuer = issuer;
-  }
-
-  public CertificationIssuingCountry getIssuingCountry() {
-    return issuingCountry;
-  }
-
-  public void setIssuingCountry(CertificationIssuingCountry issuingCountry) {
-    this.issuingCountry = issuingCountry;
   }
 
   public Date getExpirationDate() {

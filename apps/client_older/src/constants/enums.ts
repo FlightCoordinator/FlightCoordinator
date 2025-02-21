@@ -29,16 +29,6 @@ namespace Enums {
     FLIGHT_SAFETY = "FLIGHT_SAFETY",
     CAE = "CAE",
   }
-  export enum CertificationIssuingCountry {
-    US = "United States",
-    EU = "European Union",
-    CANADA = "Canada",
-    INDIA = "India",
-    CHINA = "China",
-    AUSTRALIA = "Australia",
-    UAE = "United Arab Emirates",
-    GLOBAL = "Global",
-  }
   export enum CrewAvailability {
     AVAILABLE = "Available",
     ON_DUTY = "On-Duty",

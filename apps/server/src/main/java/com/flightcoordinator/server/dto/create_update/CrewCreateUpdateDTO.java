@@ -7,7 +7,7 @@ public class CrewCreateUpdateDTO {
   private String id;
   private String fullName;
   private String email;
-  private Long phoneNumber;
+  private String phoneNumber;
   private CrewRole role;
   private Integer totalFlightHours;
   private String baseAirportId;
@@ -40,11 +40,11 @@ public class CrewCreateUpdateDTO {
     this.email = email;
   }
 
-  public Long getPhoneNumber() {
+  public String getPhoneNumber() {
     return phoneNumber;
   }
 
-  public void setPhoneNumber(Long phoneNumber) {
+  public void setPhoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
   }
 

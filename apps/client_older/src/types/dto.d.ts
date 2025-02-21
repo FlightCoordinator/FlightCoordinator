@@ -42,7 +42,6 @@ namespace DataTransfer {
     name: string;
     certificationNumber: string;
     issuer: Enums.CertificationIssuer;
-    issuingCountry: Enums.CertificationIssuingCountry;
     expirationDate: Date;
     validityPeriod: number;
     assignableRole: Enums.CrewRoles;

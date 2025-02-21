@@ -3,13 +3,14 @@ package com.flightcoordinator.server.dto;
 import java.util.List;
 
 import com.flightcoordinator.server.enums.AirportType;
+import com.flightcoordinator.server.enums.CountryCode;
 
 public class AirportDTO {
   private String id;
   private String name;
   private String iataCode;
   private String icaoCode;
-  private String countryCode;
+  private CountryCode countryCode;
   private AirportType type;
   private List<String> runwayIds;
   private List<String> vehiclesPresentIds;
@@ -53,11 +54,11 @@ public class AirportDTO {
     this.icaoCode = icaoCode;
   }
 
-  public String getCountryCode() {
+  public CountryCode getCountryCode() {
     return countryCode;
   }
 
-  public void setCountryCode(String countryCode) {
+  public void setCountryCode(CountryCode countryCode) {
     this.countryCode = countryCode;
   }
 

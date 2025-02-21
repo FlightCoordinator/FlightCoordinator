@@ -70,11 +70,6 @@ public class CrewService {
   }
 
   public void updateCrewMember(CrewCreateUpdateDTO updatedCrewMemberDTO) {
-    Boolean doesPhoneNumberValid = isPhoneNumberValid(updatedCrewMemberDTO.getPhoneNumber());
-    if (doesPhoneNumberValid) {
-      throw new AppError("genericMessages.badRequest", HttpStatus.BAD_REQUEST.value());
-    }
-
     CrewEntity existingCrewMember = crewRepository.findById(updatedCrewMemberDTO.getId())
         .orElseThrow(() -> new AppError("notFound.crew", HttpStatus.NOT_FOUND.value()));
 
@@ -92,10 +87,6 @@ public class CrewService {
     CrewEntity existingCrewMember = crewRepository.findById(entityIdDTO.getId())
         .orElseThrow(() -> new AppError("notFound.crew", HttpStatus.NOT_FOUND.value()));
     crewRepository.delete(existingCrewMember);
-  }
-
-  private Boolean isPhoneNumberValid(Long phoneNumber) {
-    return phoneNumber.toString().length() == 11;
   }
 
   public Boolean doesSingleCrewExist(CrewEntity crewMember) {

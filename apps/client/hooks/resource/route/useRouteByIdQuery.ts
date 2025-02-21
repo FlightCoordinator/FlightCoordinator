@@ -1,22 +1,33 @@
 import { useQuery } from "@tanstack/react-query";
 
-import ResourceTypes from "@/types/resource";
+import useAccessToken from "@/hooks/useAccessToken";
 
-import useAccessToken from "../../useAccessToken";
-import Requester from "@/utils/requester";
+import { config } from "@/shared/appConfig";
+import requester from "@/shared/lib/requester";
+
+import GlobalTypes from "@/types/globals";
+import ResourceTypes from "@/types/resource";
 
 const useRouteAllQuery = () => {
   const accessToken = useAccessToken();
   const routes = useQuery({
     queryKey: ["routeQuery"],
     queryFn: async () => {
-      const response = await new Requester()
-        .setConfig({
+      const response = await requester
+        .setRequestConfig({
+          url: {
+            baseURL: config.SERVER.BASE_URL,
+            port: Number(config.SERVER.PORT),
+            endpoint: {
+              prefix: config.SERVER.API_PREFIX,
+              controller: "route",
+              action: "getAll",
+            },
+          },
           method: "POST",
-          endpoint: { controller: "route", action: "getAll" },
-          accessToken: accessToken,
+          auth: { accessToken: accessToken },
         })
-        .sendRequest<ResourceTypes.Route.Queries.QueryResponseParams>();
+        .sendRequest<GlobalTypes.ServerResponseParams<ResourceTypes.Route.Queries.QueryResponseParams>, null>();
       return response;
     },
   });

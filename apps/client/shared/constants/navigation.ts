@@ -28,12 +28,12 @@ const navigation: NavigationProps[] = [
     sectionLabel: "Algorithm",
     sectionItems: [
       {
-        key: "algorithm/run",
+        key: "app/algorithm/run",
         label: "Algorithm Runs",
         icon: RefreshCcw,
       },
       {
-        key: "algorithm/result",
+        key: "app/algorithm/result",
         label: "Algorithm Results",
         icon: SearchCheck,
       },
@@ -44,42 +44,42 @@ const navigation: NavigationProps[] = [
     sectionLabel: "Resources",
     sectionItems: [
       {
-        key: "plane",
+        key: "app/plane",
         label: "Plane",
         icon: Plane,
       },
       {
-        key: "vehicle",
+        key: "app/vehicle",
         label: "Vehicle",
         icon: Bus,
       },
       {
-        key: "flight",
+        key: "app/flight",
         label: "Flight",
         icon: Luggage,
       },
       {
-        key: "route",
+        key: "app/route",
         label: "Route",
         icon: Route,
       },
       {
-        key: "crew",
+        key: "app/crew",
         label: "Crew",
         icon: UserRound,
       },
       {
-        key: "certification",
+        key: "app/certification",
         label: "Certification",
         icon: ClipboardCheck,
       },
       {
-        key: "airport",
+        key: "app/airport",
         label: "Airport",
         icon: TowerControl,
       },
       {
-        key: "runway",
+        key: "app/runway",
         label: "Runway",
         icon: PlaneTakeoff,
       },

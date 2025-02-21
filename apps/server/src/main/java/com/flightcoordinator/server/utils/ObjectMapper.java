@@ -88,7 +88,6 @@ public class ObjectMapper {
     certificationDTO.setName(certificationEntity.getName());
     certificationDTO.setCertificationNumber(certificationEntity.getCertificationNumber());
     certificationDTO.setIssuer(certificationEntity.getIssuer());
-    certificationDTO.setIssuingCountry(certificationEntity.getIssuingCountry());
     certificationDTO.setExpirationDate(certificationEntity.getExpirationDate());
     certificationDTO.setValidityPeriod(certificationEntity.getValidityPeriod());
     certificationDTO.setAssignableRole(certificationEntity.getAssignableRole());

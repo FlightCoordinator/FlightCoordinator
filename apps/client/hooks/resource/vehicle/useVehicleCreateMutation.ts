@@ -1,9 +1,12 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import ResourceTypes from "@/types/resource";
+import useAccessToken from "@/hooks/useAccessToken";
 
-import useAccessToken from "../../useAccessToken";
-import Requester from "@/utils/requester";
+import { config } from "@/shared/appConfig";
+import requester from "@/shared/lib/requester";
+
+import GlobalTypes from "@/types/globals";
+import ResourceTypes from "@/types/resource";
 
 const useVehicleCreateMutation = () => {
   const queryClient = useQueryClient();
@@ -11,14 +14,23 @@ const useVehicleCreateMutation = () => {
   const createVehicle = useMutation({
     mutationKey: ["createVehicleMutation"],
     mutationFn: async (vehicleCreateData: ResourceTypes.Vehicle.Mutations.CreateMutationParams) => {
-      const response = await new Requester()
-        .setConfig({
+      const response = await requester
+        .setRequestConfig({
+          url: {
+            baseURL: config.SERVER.BASE_URL,
+            port: Number(config.SERVER.PORT),
+            endpoint: {
+              prefix: config.SERVER.API_PREFIX,
+              controller: "vehicle",
+              action: "create",
+            },
+          },
           method: "POST",
-          endpoint: { controller: "vehicle", action: "create" },
-          payload: vehicleCreateData,
-          accessToken: accessToken,
+          auth: { accessToken: accessToken },
         })
-        .sendRequest();
+        .sendRequest<GlobalTypes.ServerResponseParams<null>, ResourceTypes.Vehicle.Mutations.CreateMutationParams>(
+          vehicleCreateData,
+        );
       return response;
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["vehicleQuery"] }),

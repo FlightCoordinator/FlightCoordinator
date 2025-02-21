@@ -26,7 +26,6 @@
       "name": "Adı",
       "certificationNumber": "Sertifika No.",
       "issuer": "Veren Kurum",
-      "issuingCountry": "Verildiği Ülke",
       "expirationDate": "Süresinin Dolma Tarihi",
       "validityPeriod": "Geçerlilik Süresi",
       "assignableRole": "Atanabilir Rol",
