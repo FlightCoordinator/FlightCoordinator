@@ -1,0 +1,43 @@
+{
+  "name": "easy-requester",
+  "version": "3.0.0",
+  "type": "module",
+  "license": "MIT",
+  "author": {
+    "name": "Çağan Seyrek",
+    "url": "https://caganseyrek.com"
+  },
+  "homepage": "https://caganseyrek.com/projects/EasyRequester",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/caganseyrek/EasyRequester.git"
+  },
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "lint": "eslint .",
+    "format:check": "prettier --check .",
+    "format:write": "prettier --write ."
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.20.0",
+    "@rollup/plugin-commonjs": "^28.0.2",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-typescript": "^12.1.2",
+    "@types/eslint-config-prettier": "^6.11.3",
+    "@types/node": "^22.13.4",
+    "eslint": "^9.20.1",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-plugin-react": "^7.37.4",
+    "eslint-plugin-react-hooks": "^5.1.0",
+    "globals": "^15.15.0",
+    "prettier": "^3.5.1",
+    "rollup": "^4.34.7",
+    "tslib": "^2.8.1",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.24.0"
+  }
+}
