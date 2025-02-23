@@ -3,31 +3,35 @@
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 ROOT_DIR="$SCRIPT_DIR/.."
 
-FRONTEND_PATH="$ROOT_DIR/apps/client"
-BACKEND_PATH="$ROOT_DIR/apps/server"
-ALGORITHM_PATH="$ROOT_DIR/apps/algorithm"
+WEB_CLIENT_PATH="$ROOT_DIR/apps/web-client"
+AUTH_SERVICE_PATH="$ROOT_DIR/apps/auth-service"
+DATA_SERVICE_PATH="$ROOT_DIR/apps/data-service"
+ALGORITHM_SERVICE_PATH="$ROOT_DIR/apps/algorithm-service"
 
-echo "Info: Running frontend tests..."
+echo "Info: Running web client tests..."
 
-cd "$FRONTEND_PATH"
+cd "$WEB_CLIENT_PATH"
 pnpm test
 
-echo "Info: Completed frontend tests."
-
+echo "Info: Completed web client tests."
 echo "---"
+echo "Info: Running auth service tests..."
 
-echo "Info: Running server tests..."
-
-cd "$BACKEND_PATH"
+cd "$AUTH_SERVICE_PATH"
 ./mvnw test
 
-echo "Info: Completed server tests."
-
+echo "Info: Completed auth service tests."
 echo "---"
+echo "Info: Running data service tests..."
 
-echo "Info: Running logic tests..."
+cd "$DATA_SERVICE_PATH"
+./mvnw test
 
-cd "$ALGORITHM_PATH"
+echo "Info: Completed data service tests."
+echo "---"
+echo "Info: Running algorithm service tests..."
+
+cd "$ALGORITHM_SERVICE_PATH"
 # TODO run tests
 
-echo "Info: Completed logic tests."
+echo "Info: Completed algorithm service tests."
