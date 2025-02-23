@@ -6,9 +6,24 @@
       "description": "Current version of the FlightCoordinator's Auth Service API."
     },
     {
-      "name": "server.secret_key",
+      "name": "server.keys.access_key",
       "type": "java.lang.String",
-      "description": "Secret key to validate requests between services."
+      "description": "Secret key to for issuing access tokens."
+    },
+    {
+      "name": "server.keys.refresh_key",
+      "type": "java.lang.String",
+      "description": "Secret key to for issuing refresh tokens."
+    },
+    {
+      "name": "server.uris.webclient",
+      "type": "java.lang.String",
+      "description": "URI for FlightCoordinator's Web Client"
+    },
+    {
+      "name": "server.uris.dataservice",
+      "type": "java.lang.String",
+      "description": "URI for FlightCoordinator's Data Service"
     }
   ]
 }

@@ -1,13 +1,13 @@
-package com.flightcoordinator.authservice.response;
+package com.flightcoordinator.authservice.entity;
 
-public class ResponseObject<T> {
+public class CustomResponseEntity<T> {
   private boolean isSuccess = false;
 
   private final String message;
 
   private final T data;
 
-  public ResponseObject(Boolean isSuccess, String message, T data) {
+  public CustomResponseEntity(Boolean isSuccess, String message, T data) {
     this.isSuccess = isSuccess;
     this.message = message;
     this.data = data;
