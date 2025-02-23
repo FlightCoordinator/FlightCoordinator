@@ -1,8 +1,8 @@
 spring:
   application:
-    name: FlightCoordinator Data Service
+    name: FlightCoordinator Auth Service
   datasource:
-    url: jdbc:postgresql://localhost:5432/fc_data_db
+    url: jdbc:postgresql://localhost:5432/fc_auth_db
     username: local
     password: local
     driver-class-name: org.postgresql.Driver
@@ -23,6 +23,6 @@ springdoc:
     path: /swagger.html
 
 server:
-  port: 8081
+  port: 8082
   api_version: v1
   secret_key: ""

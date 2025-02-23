@@ -3,7 +3,7 @@
     {
       "name": "server.api_version",
       "type": "java.lang.String",
-      "description": "Current version of the FlightCoordinator's Data Service API."
+      "description": "Current version of the FlightCoordinator's Auth Service API."
     },
     {
       "name": "server.secret_key",

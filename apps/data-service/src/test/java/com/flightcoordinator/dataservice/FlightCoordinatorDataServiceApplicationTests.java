@@ -1,10 +1,10 @@
-package com.flightcoordinator.server;
+package com.flightcoordinator.dataservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class FlightCoordinatorBackendServerApplicationTests {
+class FlightCoordinatorDataServiceApplicationTests {
   @Test
   void contextLoads() {
   }
