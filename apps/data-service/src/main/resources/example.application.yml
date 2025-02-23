@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: FlightCoordinator Backend Server
+  datasource:
+    url: jdbc:postgresql://localhost:5432/flightcoordinator_db
+    username: local
+    password: local
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        format-sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+springdoc:
+  swagger-ui:
+    path: /swagger.html
+
+server:
+  port: 8081
+  api_version: v1
+  services:
+    algorithm:
+      secret_key: ""

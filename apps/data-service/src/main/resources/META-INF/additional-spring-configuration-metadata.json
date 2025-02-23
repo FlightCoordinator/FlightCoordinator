@@ -1,0 +1,14 @@
+{
+  "properties": [
+    {
+      "name": "server.api_version",
+      "type": "java.lang.String",
+      "description": "Current version of the FlightCoordinator API."
+    },
+    {
+      "name": "server.services.algorithm.secret_key",
+      "type": "java.lang.String",
+      "description": "Secret key to validate requests between backend and algorithm service."
+    }
+  ]
+}
