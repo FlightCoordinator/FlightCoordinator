@@ -9,8 +9,8 @@ DATA_SERVICE_PATH="$ROOT_DIR/apps/data-service"
 ALGORITHM_SERVICE_PATH="$ROOT_DIR/apps/algorithm-service"
 
 pnpm concurrently -k \
-  -n "frontend,server" \
-  -c "bgBlue.bold,bgGreen.bold" \
+  -n "web_client,auth_service,data_service" \
+  -c "bgBlue.bold,bgRed.bold,bgGreen.bold" \
   "cd $WEB_CLIENT_PATH && pnpm dev" \
   "cd $AUTH_SERVICE_PATH && ./mvnw spring-boot:run" \
   "cd $DATA_SERVICE_PATH && ./mvnw spring-boot:run" # \
