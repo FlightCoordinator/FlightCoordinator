@@ -6,9 +6,9 @@
       "description": "Current version of the FlightCoordinator's Data Service API."
     },
     {
-      "name": "server.secret_key",
+      "name": "server.algorithm_service_key",
       "type": "java.lang.String",
-      "description": "Secret key to validate requests between services."
+      "description": "Secret key to validate requests between data and algorithm service."
     }
   ]
 }

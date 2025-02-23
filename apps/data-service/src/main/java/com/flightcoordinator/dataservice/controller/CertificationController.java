@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.flightcoordinator.dataservice.constants.Messages;
 import com.flightcoordinator.dataservice.dto.CertificationDTO;
 import com.flightcoordinator.dataservice.dto.EntityIdDTO;
 import com.flightcoordinator.dataservice.dto.create_update.CertificationCreateUpdateDTO;
@@ -48,7 +49,7 @@ public class CertificationController {
   public ResponseEntity<ResponseObject<Object>> createCertification(
       @RequestBody CertificationCreateUpdateDTO newCertification) {
     certificationService.createCertification(newCertification);
-    return ResponseHelper.generateResponse(HttpStatus.CREATED.value(), true, "controllers.createResponse", null);
+    return ResponseHelper.generateResponse(HttpStatus.CREATED.value(), true, Messages.CREATE_RESPONSE, null);
   }
 
   @PatchMapping("/update")
@@ -56,13 +57,13 @@ public class CertificationController {
   public ResponseEntity<ResponseObject<Object>> updateCertification(
       @RequestBody CertificationCreateUpdateDTO updatedCertification) {
     certificationService.updateCertification(updatedCertification);
-    return ResponseHelper.generateResponse(HttpStatus.OK.value(), true, "controllers.updateResponse", null);
+    return ResponseHelper.generateResponse(HttpStatus.OK.value(), true, Messages.UPDATE_RESPONSE, null);
   }
 
   @DeleteMapping("delete")
   @Operation(summary = "Delete a certification", description = "Delete an existing certification.")
   public ResponseEntity<ResponseObject<Object>> deleteCertification(@RequestBody EntityIdDTO id) {
     certificationService.deleteCertification(id);
-    return ResponseHelper.generateResponse(HttpStatus.OK.value(), true, "controllers.deleteResponse", null);
+    return ResponseHelper.generateResponse(HttpStatus.OK.value(), true, Messages.DELETE_RESPONSE, null);
   }
 }

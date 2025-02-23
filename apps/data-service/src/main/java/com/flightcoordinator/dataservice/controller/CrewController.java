@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.flightcoordinator.dataservice.constants.Messages;
 import com.flightcoordinator.dataservice.dto.CrewDTO;
 import com.flightcoordinator.dataservice.dto.EntityIdDTO;
 import com.flightcoordinator.dataservice.dto.create_update.CrewCreateUpdateDTO;
@@ -47,20 +48,20 @@ public class CrewController {
   @Operation(summary = "Create a new crew member", description = "Create a new crew member.")
   public ResponseEntity<ResponseObject<Object>> createCrewMember(@RequestBody CrewCreateUpdateDTO newCrewMember) {
     crewService.createCrewMember(newCrewMember);
-    return ResponseHelper.generateResponse(HttpStatus.CREATED.value(), true, "controllers.createResponse", null);
+    return ResponseHelper.generateResponse(HttpStatus.CREATED.value(), true, Messages.CREATE_RESPONSE, null);
   }
 
   @PatchMapping("/update")
   @Operation(summary = "Update an existing crew member", description = "Update an existing crew member.")
   public ResponseEntity<ResponseObject<Object>> updateCrewMember(@RequestBody CrewCreateUpdateDTO updatedCrewMember) {
     crewService.updateCrewMember(updatedCrewMember);
-    return ResponseHelper.generateResponse(HttpStatus.OK.value(), true, "controllers.updateResponse", null);
+    return ResponseHelper.generateResponse(HttpStatus.OK.value(), true, Messages.UPDATE_RESPONSE, null);
   }
 
   @DeleteMapping("/delete")
   @Operation(summary = "Delete an existing crew member", description = "Delete an existing crew member.")
   public ResponseEntity<ResponseObject<Object>> deleteCrewMember(@RequestBody EntityIdDTO id) {
     crewService.deleteCrewMember(id);
-    return ResponseHelper.generateResponse(HttpStatus.OK.value(), true, "controllers.deleteResponse", null);
+    return ResponseHelper.generateResponse(HttpStatus.OK.value(), true, Messages.DELETE_RESPONSE, null);
   }
 }

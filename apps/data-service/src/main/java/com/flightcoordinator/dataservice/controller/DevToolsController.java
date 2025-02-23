@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.flightcoordinator.dataservice.constants.Messages;
 import com.flightcoordinator.dataservice.response.ResponseHelper;
 import com.flightcoordinator.dataservice.response.ResponseObject;
 import com.flightcoordinator.dataservice.service.DevToolsService;
@@ -27,6 +28,6 @@ public class DevToolsController {
   @Operation(summary = "Create sample data for development", description = "Create sample data for development.")
   public ResponseEntity<ResponseObject<List<Object>>> createSampleData() {
     developmentService.createSampleData();
-    return ResponseHelper.generateResponse(HttpStatus.CREATED.value(), true, "controllers.createResponse", null);
+    return ResponseHelper.generateResponse(HttpStatus.CREATED.value(), true, Messages.CREATE_RESPONSE, null);
   }
 }

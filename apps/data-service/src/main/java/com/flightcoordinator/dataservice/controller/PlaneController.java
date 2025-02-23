@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.flightcoordinator.dataservice.constants.Messages;
 import com.flightcoordinator.dataservice.dto.EntityIdDTO;
 import com.flightcoordinator.dataservice.dto.PlaneDTO;
 import com.flightcoordinator.dataservice.response.ResponseHelper;
@@ -46,20 +47,20 @@ public class PlaneController {
   @Operation(summary = "Create a new plane", description = "Create a new plane.")
   public ResponseEntity<ResponseObject<Object>> createPlane(@RequestBody PlaneDTO newPlane) {
     planeService.createPlane(newPlane);
-    return ResponseHelper.generateResponse(HttpStatus.CREATED.value(), true, "controllers.createResponse", null);
+    return ResponseHelper.generateResponse(HttpStatus.CREATED.value(), true, Messages.CREATE_RESPONSE, null);
   }
 
   @PatchMapping("/update")
   @Operation(summary = "Update an plane", description = "Update an existing plane.")
   public ResponseEntity<ResponseObject<Object>> updatePlane(@RequestBody PlaneDTO updatedPlane) {
     planeService.updatePlane(updatedPlane);
-    return ResponseHelper.generateResponse(HttpStatus.OK.value(), true, "controllers.updateResponse", null);
+    return ResponseHelper.generateResponse(HttpStatus.OK.value(), true, Messages.UPDATE_RESPONSE, null);
   }
 
   @DeleteMapping("/delete")
   @Operation(summary = "Delete an plane", description = "Delete an existing plane.")
   public ResponseEntity<ResponseObject<Object>> deletePlane(@RequestBody EntityIdDTO id) {
     planeService.deletePlane(id);
-    return ResponseHelper.generateResponse(HttpStatus.OK.value(), true, "controllers.deleteResponse", null);
+    return ResponseHelper.generateResponse(HttpStatus.OK.value(), true, Messages.DELETE_RESPONSE, null);
   }
 }

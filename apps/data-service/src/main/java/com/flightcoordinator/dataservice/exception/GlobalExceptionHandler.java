@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.client.HttpClientErrorException.Forbidden;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
+import com.flightcoordinator.dataservice.constants.Messages;
 import com.flightcoordinator.dataservice.response.ResponseHelper;
 import com.flightcoordinator.dataservice.response.ResponseObject;
 
@@ -36,7 +37,7 @@ public class GlobalExceptionHandler {
     return ResponseHelper.generateResponse(
         HttpStatus.BAD_REQUEST.value(),
         false,
-        "exception.enumValidationError",
+        Messages.ENUM_VALIDATION_EXCEPTION_RESPONSE,
         null);
   }
 
@@ -46,7 +47,7 @@ public class GlobalExceptionHandler {
     return ResponseHelper.generateResponse(
         HttpStatus.BAD_REQUEST.value(),
         false,
-        "exception.illegalArgumentException",
+        Messages.ILLEGAL_ARGUMENT_EXCEPTION_RESPONSE,
         null);
   }
 
@@ -56,7 +57,7 @@ public class GlobalExceptionHandler {
     return ResponseHelper.generateResponse(
         HttpStatus.INTERNAL_SERVER_ERROR.value(),
         false,
-        "exception.optimisticLockingFailureException",
+        Messages.OPTIMISTIC_LOCKING_FAILURE_EXCEPTION_MESSAGE,
         null);
   }
 
@@ -65,7 +66,7 @@ public class GlobalExceptionHandler {
     return ResponseHelper.generateResponse(
         HttpStatus.UNAUTHORIZED.value(),
         false,
-        "exception.authenticationException",
+        Messages.AUTHENTICATION_EXCEPTION_MESSAGE,
         null);
   }
 
@@ -75,7 +76,7 @@ public class GlobalExceptionHandler {
     return ResponseHelper.generateResponse(
         HttpStatus.UNAUTHORIZED.value(),
         false,
-        "exception.authenticationException",
+        Messages.AUTHENTICATION_EXCEPTION_MESSAGE,
         null);
   }
 
@@ -84,7 +85,7 @@ public class GlobalExceptionHandler {
     return ResponseHelper.generateResponse(
         HttpStatus.UNAUTHORIZED.value(),
         false,
-        exception.getMessage(),
+        Messages.AUTHENTICATION_EXCEPTION_MESSAGE,
         null);
   }
 
@@ -93,7 +94,7 @@ public class GlobalExceptionHandler {
     return ResponseHelper.generateResponse(
         HttpStatus.FORBIDDEN.value(),
         false,
-        "exception.authenticationException",
+        Messages.AUTHENTICATION_EXCEPTION_MESSAGE,
         null);
   }
 
@@ -103,7 +104,7 @@ public class GlobalExceptionHandler {
     return ResponseHelper.generateResponse(
         HttpStatus.FORBIDDEN.value(),
         false,
-        "exception.dataIntegrityViolationException",
+        Messages.DATA_INTEGRITY_VIOLATION_EXCEPTION_MESSAGE,
         null);
   }
 
@@ -112,7 +113,7 @@ public class GlobalExceptionHandler {
     return ResponseHelper.generateResponse(
         HttpStatus.FORBIDDEN.value(),
         false,
-        "exception.constraintValidationException",
+        Messages.CONSTRAINT_VIOLATION_EXCEPTION_MESSAGE,
         null);
   }
 }

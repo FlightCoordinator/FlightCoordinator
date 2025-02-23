@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.flightcoordinator.dataservice.constants.Messages;
 import com.flightcoordinator.dataservice.dto.EntityIdDTO;
 import com.flightcoordinator.dataservice.dto.VehicleDTO;
 import com.flightcoordinator.dataservice.response.ResponseHelper;
@@ -46,20 +47,20 @@ public class VehicleController {
   @Operation(summary = "Create a new vehicle", description = "Create a new vehicle.")
   public ResponseEntity<ResponseObject<Object>> createVehicle(@RequestBody VehicleDTO newVehicle) {
     vehicleService.createVehicle(newVehicle);
-    return ResponseHelper.generateResponse(HttpStatus.CREATED.value(), true, "controllers.createResponse", null);
+    return ResponseHelper.generateResponse(HttpStatus.CREATED.value(), true, Messages.CREATE_RESPONSE, null);
   }
 
   @PatchMapping("/update")
   @Operation(summary = "Update an vehicle", description = "Update an existing vehicle.")
   public ResponseEntity<ResponseObject<Object>> updateVehicle(@RequestBody VehicleDTO updatedVehicle) {
     vehicleService.updateVehicle(updatedVehicle);
-    return ResponseHelper.generateResponse(HttpStatus.OK.value(), true, "controllers.updateResponse", null);
+    return ResponseHelper.generateResponse(HttpStatus.OK.value(), true, Messages.UPDATE_RESPONSE, null);
   }
 
   @DeleteMapping("/delete")
   @Operation(summary = "Delete an vehicle", description = "Delete an existing vehicle.")
   public ResponseEntity<ResponseObject<Object>> deleteVehicle(@RequestBody EntityIdDTO id) {
     vehicleService.deleteVehicle(id);
-    return ResponseHelper.generateResponse(HttpStatus.OK.value(), true, "controllers.deleteResponse", null);
+    return ResponseHelper.generateResponse(HttpStatus.OK.value(), true, Messages.DELETE_RESPONSE, null);
   }
 }

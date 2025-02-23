@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.flightcoordinator.dataservice.constants.Messages;
 import com.flightcoordinator.dataservice.dto.AlgorithmRunDTO;
 import com.flightcoordinator.dataservice.dto.EntityIdDTO;
 import com.flightcoordinator.dataservice.response.ResponseHelper;
@@ -46,7 +47,7 @@ public class AlgorithmRunController {
   @Operation(summary = "Create a new algorithm run", description = "Create a new algorithm run. (Not intended for manual use)")
   public ResponseEntity<ResponseObject<Object>> triggerAlgorithmRun(@RequestBody Map<String, String> algorithmName) {
     algorithmRunService.triggerAlgorithmRun(algorithmName.get("algorithmName"));
-    return ResponseHelper.generateResponse(HttpStatus.CREATED.value(), true, "controllers.createResponse", null);
+    return ResponseHelper.generateResponse(HttpStatus.CREATED.value(), true, Messages.CREATE_RESPONSE, null);
   }
 
   @PostMapping("/create")
@@ -54,13 +55,13 @@ public class AlgorithmRunController {
   public ResponseEntity<ResponseObject<Object>> createAlgorithmRun(
       @RequestBody AlgorithmRunDTO newAlgorithmRun) {
     algorithmRunService.createAlgorithmRun(newAlgorithmRun);
-    return ResponseHelper.generateResponse(HttpStatus.CREATED.value(), true, "controllers.createResponse", null);
+    return ResponseHelper.generateResponse(HttpStatus.CREATED.value(), true, Messages.CREATE_RESPONSE, null);
   }
 
   @DeleteMapping("/delete")
   @Operation(summary = "Delete an algorithm run", description = "Delete an algorithm run.")
   public ResponseEntity<ResponseObject<Object>> deleteAlgorithmRun(@RequestBody EntityIdDTO id) {
     algorithmRunService.deleteAlgorithmRun(id);
-    return ResponseHelper.generateResponse(HttpStatus.OK.value(), true, "controllers.deleteResponse", null);
+    return ResponseHelper.generateResponse(HttpStatus.OK.value(), true, Messages.DELETE_RESPONSE, null);
   }
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.flightcoordinator.dataservice.constants.Messages;
 import com.flightcoordinator.dataservice.dto.AlgorithmResultDTO;
 import com.flightcoordinator.dataservice.dto.EntityIdDTO;
 import com.flightcoordinator.dataservice.response.ResponseHelper;
@@ -46,13 +47,13 @@ public class AlgorithmResultController {
   public ResponseEntity<ResponseObject<Object>> createAlgorithmResult(
       @RequestBody AlgorithmResultDTO newAlgorithmResult) {
     algorithmResultService.createAlgorithmResult(newAlgorithmResult);
-    return ResponseHelper.generateResponse(HttpStatus.CREATED.value(), true, "controllers.createResponse", null);
+    return ResponseHelper.generateResponse(HttpStatus.CREATED.value(), true, Messages.CREATE_RESPONSE, null);
   }
 
   @DeleteMapping("/delete")
   @Operation(summary = "Delete an algorithm result", description = "Delete an algorithm result.")
   public ResponseEntity<ResponseObject<Object>> deleteAlgorithmResult(@RequestBody EntityIdDTO id) {
     algorithmResultService.deleteAlgorithmResult(id);
-    return ResponseHelper.generateResponse(HttpStatus.OK.value(), true, "controllers.deleteResponse", null);
+    return ResponseHelper.generateResponse(HttpStatus.OK.value(), true, Messages.DELETE_RESPONSE, null);
   }
 }

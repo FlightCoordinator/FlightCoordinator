@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.flightcoordinator.dataservice.constants.Messages;
 import com.flightcoordinator.dataservice.dto.EntityIdDTO;
 import com.flightcoordinator.dataservice.dto.RouteDTO;
 import com.flightcoordinator.dataservice.response.ResponseHelper;
@@ -46,20 +47,20 @@ public class RouteController {
   @Operation(summary = "Create a new route", description = "Create a new route.")
   public ResponseEntity<ResponseObject<Object>> createRoute(@RequestBody RouteDTO newRoute) {
     routeService.createRoute(newRoute);
-    return ResponseHelper.generateResponse(HttpStatus.CREATED.value(), true, "controllers.createResponse", null);
+    return ResponseHelper.generateResponse(HttpStatus.CREATED.value(), true, Messages.CREATE_RESPONSE, null);
   }
 
   @PatchMapping("/update")
   @Operation(summary = "Update an route", description = "Update an existing route.")
   public ResponseEntity<ResponseObject<Object>> updateRoute(@RequestBody RouteDTO updatedRoute) {
     routeService.updateRoute(updatedRoute);
-    return ResponseHelper.generateResponse(HttpStatus.OK.value(), true, "controllers.updateResponse", null);
+    return ResponseHelper.generateResponse(HttpStatus.OK.value(), true, Messages.UPDATE_RESPONSE, null);
   }
 
   @DeleteMapping("/delete")
   @Operation(summary = "Delete an route", description = "Delete an existing route.")
   public ResponseEntity<ResponseObject<Object>> deleteRoute(@RequestBody EntityIdDTO id) {
     routeService.deleteRoute(id);
-    return ResponseHelper.generateResponse(HttpStatus.OK.value(), true, "controllers.deleteResponse", null);
+    return ResponseHelper.generateResponse(HttpStatus.OK.value(), true, Messages.DELETE_RESPONSE, null);
   }
 }
