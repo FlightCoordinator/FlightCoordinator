@@ -19,6 +19,8 @@ import com.flightcoordinator.authservice.constants.Messages;
 import com.flightcoordinator.authservice.entity.CustomResponseEntity;
 import com.flightcoordinator.authservice.helpers.ResponseHelper;
 
+import io.jsonwebtoken.JwtException;
+
 @ControllerAdvice
 public class GlobalExceptionHandler {
   @ExceptionHandler(AppError.class)
@@ -115,6 +117,16 @@ public class GlobalExceptionHandler {
         HttpStatus.FORBIDDEN.value(),
         false,
         Messages.CONSTRAINT_VIOLATION_EXCEPTION_MESSAGE,
+        null);
+  }
+
+  @ExceptionHandler(JwtException.class)
+  public ResponseEntity<CustomResponseEntity<Object>> handleJwtException(
+      DataIntegrityViolationException ex) {
+    return ResponseHelper.generateResponse(
+        HttpStatus.FORBIDDEN.value(),
+        false,
+        Messages.DATA_INTEGRITY_VIOLATION_EXCEPTION_MESSAGE,
         null);
   }
 }

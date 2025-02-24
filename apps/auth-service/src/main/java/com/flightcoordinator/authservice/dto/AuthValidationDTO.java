@@ -1,6 +1,9 @@
 package com.flightcoordinator.authservice.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class AuthValidationDTO {
+  @JsonProperty("isAuthenticated")
   private boolean isAuthenticated;
 
   public AuthValidationDTO(boolean isAuthenticated) {

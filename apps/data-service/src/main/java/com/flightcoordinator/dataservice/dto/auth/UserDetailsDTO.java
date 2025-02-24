@@ -1,4 +1,4 @@
-package com.flightcoordinator.dataservice.auth;
+package com.flightcoordinator.dataservice.dto.auth;
 
 public class UserDetailsDTO {
   private String fullName;

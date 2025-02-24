@@ -8,14 +8,18 @@ import java.util.function.Function;
 import javax.crypto.SecretKey;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 import com.flightcoordinator.authservice.constants.AuthConstants;
 import com.flightcoordinator.authservice.enums.TokenType;
+import com.flightcoordinator.authservice.exception.AppError;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.InvalidKeyException;
 import io.jsonwebtoken.security.Keys;
 
 @Component
@@ -35,16 +39,20 @@ public class TokenHelper {
   }
 
   private String generateToken(String email, TokenType tokenType) {
-    Map<String, Object> claims = new HashMap<>();
+    try {
+      Map<String, Object> claims = new HashMap<>();
 
-    return Jwts.builder()
-        .claims().add(claims)
-        .subject(email)
-        .issuedAt(new Date(System.currentTimeMillis()))
-        .expiration(getExpiration(tokenType))
-        .and()
-        .signWith(getKey(tokenType))
-        .compact();
+      return Jwts.builder()
+          .claims().add(claims)
+          .subject(email)
+          .issuedAt(new Date(System.currentTimeMillis()))
+          .expiration(getExpiration(tokenType))
+          .and()
+          .signWith(getKey(tokenType))
+          .compact();
+    } catch (InvalidKeyException e) {
+      throw new AppError(HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(), HttpStatus.INTERNAL_SERVER_ERROR.value());
+    }
   }
 
   private SecretKey getKey(TokenType tokenType) {
@@ -69,12 +77,16 @@ public class TokenHelper {
   }
 
   private Claims extractAllClaims(String token, TokenType tokenType) {
-    return Jwts
-        .parser()
-        .verifyWith(getKey(tokenType))
-        .build()
-        .parseSignedClaims(token)
-        .getPayload();
+    try {
+      return Jwts
+          .parser()
+          .verifyWith(getKey(tokenType))
+          .build()
+          .parseSignedClaims(token)
+          .getPayload();
+    } catch (JwtException | IllegalArgumentException e) {
+      throw new AppError(HttpStatus.UNAUTHORIZED.getReasonPhrase(), HttpStatus.UNAUTHORIZED.value());
+    }
   }
 
   private Date extractExpiration(String token, TokenType tokenType) {

@@ -25,8 +25,8 @@ public class SecurityConfig {
         .csrf(customizer -> customizer.disable())
         .headers(headers -> headers.contentTypeOptions(contentTypeOptions -> contentTypeOptions.disable()))
         .authorizeHttpRequests(request -> request
-            .requestMatchers("api/*/auth/register", "api/*/auth/login").permitAll()
-            .anyRequest().access(authManager))
+            .requestMatchers("/api/*/auth/register", "/api/*/auth/login").permitAll()
+            .anyRequest().access((authentication, context) -> authManager.check(authentication, context)))
         .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .build();
   }
