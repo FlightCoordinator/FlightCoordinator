@@ -20,7 +20,7 @@ import {
   SheetTrigger,
 } from "@/components/base-ui/sheet";
 
-import { useToast } from "@/hooks/interface/use-toast";
+import { useToast } from "@/hooks/interface/useToast";
 import useFlightCreateMutation from "@/hooks/resource/flight/useFlightCreateMutation";
 import useFlightUpdateMutation from "@/hooks/resource/flight/useFlightUpdateMutation";
 

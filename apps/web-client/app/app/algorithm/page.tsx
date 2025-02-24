@@ -2,8 +2,11 @@
 
 import React from "react";
 
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
-const AlgorithmRootPage = () => React.useEffect(() => redirect("/algorithm/run"));
+const AlgorithmRootPage = () => {
+  const router = useRouter();
+  React.useEffect(() => router.replace("/app/algorithm/run"));
+};
 
 export default AlgorithmRootPage;

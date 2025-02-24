@@ -13,7 +13,7 @@ import { Sheet, SheetContent } from "@/components/base-ui/sheet";
 import { Skeleton } from "@/components/base-ui/skeleton";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/base-ui/tooltip";
 
-import { useIsMobile } from "@/hooks/interface/use-mobile";
+import { useIsMobile } from "@/hooks/interface/useMobile";
 
 import { cn } from "@/shared/lib/twUtils";
 

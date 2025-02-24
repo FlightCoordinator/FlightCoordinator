@@ -1,29 +1,15 @@
-"use client";
-
 import React from "react";
 
-import usePlaneColumns from "@/components/data-table/column-hooks/usePlaneColumns";
-import DataTable from "@/components/data-table/DataTable";
-import PlaneSheet from "@/components/data-table/sheets/PlaneSheet";
+import { Metadata } from "next";
 
-import usePlaneAllQuery from "@/hooks/resource/plane/usePlaneAllQuery";
+import PlanePageContents from "@/components/page-content/resources/PlanePageContents";
+
+export const metadata: Metadata = {
+  title: "Planes",
+};
 
 const PlanePage = () => {
-  const { isLoading: isPlaneQueryLoading, error: planeQueryError, data: plane } = usePlaneAllQuery();
-
-  const { planeColumns, planeColumnsVisibilities } = usePlaneColumns();
-
-  return (
-    <DataTable
-      columns={planeColumns}
-      data={(plane && plane.data) ?? []}
-      createSheet={<PlaneSheet />}
-      visibilities={planeColumnsVisibilities}
-      isLoading={isPlaneQueryLoading}
-      isError={planeQueryError}
-      isNotFound={!plane || !plane.data}
-    />
-  );
+  return <PlanePageContents />;
 };
 
 export default PlanePage;

@@ -28,7 +28,7 @@ import {
   SheetTrigger,
 } from "@/components/base-ui/sheet";
 
-import { useToast } from "@/hooks/interface/use-toast";
+import { useToast } from "@/hooks/interface/useToast";
 import useCrewCreateMutation from "@/hooks/resource/crew/useCrewCreateMutation";
 import useCrewUpdateMutation from "@/hooks/resource/crew/useCrewUpdateMutation";
 
@@ -39,6 +39,7 @@ import { cn } from "@/shared/lib/twUtils";
 import DataTransfer from "@/types/dto";
 
 import {
+  invalidEmailMessage,
   invalidEnumValueMessage,
   nonNegativeMessage,
   requiredMessage,
@@ -56,7 +57,7 @@ interface CrewSheetProps {
 
 const crewSchema = z.object({
   fullName: z.string(shouldBeStringMessage).nonempty(requiredMessage),
-  email: z.string(shouldBeStringMessage).email({ message: "Please enter a valid e-mail." }).nonempty(requiredMessage),
+  email: z.string(shouldBeStringMessage).email(invalidEmailMessage).nonempty(requiredMessage),
   phoneNumber: z.string(shouldBeNumberMessage).nonempty(requiredMessage),
   role: z.enum(getAllValuesOf("CrewRole"), invalidEnumValueMessage),
   totalFlightHours: z.number(shouldBeNumberMessage).nonnegative(nonNegativeMessage),

@@ -8,6 +8,7 @@ import {
   RefreshCcw,
   Route,
   SearchCheck,
+  SmartphoneNfc,
   TowerControl,
   UserRound,
 } from "lucide-react";
@@ -82,6 +83,17 @@ const navigation: NavigationProps[] = [
         key: "app/runway",
         label: "Runway",
         icon: PlaneTakeoff,
+      },
+    ],
+  },
+  {
+    sectionKey: "datasource",
+    sectionLabel: "Data Source",
+    sectionItems: [
+      {
+        key: "app/external-apis",
+        label: "External APIs",
+        icon: SmartphoneNfc,
       },
     ],
   },

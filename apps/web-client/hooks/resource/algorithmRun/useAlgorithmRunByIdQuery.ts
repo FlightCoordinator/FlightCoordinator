@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import ResourceTypes from "@/types/resource";
 
-import useAccessToken from "../../useAccessToken";
+import useAccessToken from "../../auth/useValidateAuth";
 import Requester from "@/utils/requester";
 
 const useAlgorithmRunAllQuery = () => {

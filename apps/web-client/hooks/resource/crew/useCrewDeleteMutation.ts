@@ -1,7 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import useAccessToken from "@/hooks/useAccessToken";
-
 import { config } from "@/shared/appConfig";
 import requester from "@/shared/lib/requester";
 
@@ -10,23 +8,22 @@ import ResourceTypes from "@/types/resource";
 
 const useCrewDeleteMutation = () => {
   const queryClient = useQueryClient();
-  const accessToken = useAccessToken();
   const deleteCrew = useMutation({
     mutationKey: ["deleteCrewMutation"],
     mutationFn: async (crewDeleteData: ResourceTypes.Crew.Mutations.DeleteMutationParams) => {
       const response = await requester
         .setRequestConfig({
           url: {
-            baseURL: config.SERVER.BASE_URL,
-            port: Number(config.SERVER.PORT),
+            baseURL: config.DATA.BASE_URL,
+            port: Number(config.DATA.PORT),
             endpoint: {
-              prefix: config.SERVER.API_PREFIX,
+              prefix: config.DATA.API_PREFIX,
               controller: "crew",
               action: "delete",
             },
           },
           method: "DELETE",
-          auth: { accessToken: accessToken },
+          auth: { includeCookies: true },
         })
         .sendRequest<GlobalTypes.ServerResponseParams<null>, ResourceTypes.Crew.Mutations.DeleteMutationParams>(
           crewDeleteData,

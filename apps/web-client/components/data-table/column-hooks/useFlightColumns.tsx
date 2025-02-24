@@ -4,7 +4,7 @@ import React from "react";
 
 import { ColumnDef, VisibilityState } from "@tanstack/react-table";
 
-import { useToast } from "@/hooks/interface/use-toast";
+import { useToast } from "@/hooks/interface/useToast";
 import useFlightDeleteMutation from "@/hooks/resource/flight/useFlightDeleteMutation";
 
 import DataTransfer from "@/types/dto";

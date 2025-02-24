@@ -15,6 +15,7 @@ export interface ClientConfig {
   onNewRequest?: RaceConditionHandlerParams;
   acceptStatusCodes?: number[];
   isDebugMode?: boolean;
+  tokenRotationUrl: RequestConfig["url"];
 }
 
 export interface RequestConfig {

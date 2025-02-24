@@ -6,7 +6,7 @@ import { ColumnDef, VisibilityState } from "@tanstack/react-table";
 
 import AirportSheet from "@/components/data-table/sheets/AirportSheet";
 
-import { useToast } from "@/hooks/interface/use-toast";
+import { useToast } from "@/hooks/interface/useToast";
 import useAirportDeleteMutation from "@/hooks/resource/airport/useAirportDeleteMutation";
 
 import { getSelectItem } from "@/shared/constants/selectItems";

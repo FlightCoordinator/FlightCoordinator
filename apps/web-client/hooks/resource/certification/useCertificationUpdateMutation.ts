@@ -1,7 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import useAccessToken from "@/hooks/useAccessToken";
-
 import { config } from "@/shared/appConfig";
 import requester from "@/shared/lib/requester";
 
@@ -10,23 +8,22 @@ import ResourceTypes from "@/types/resource";
 
 const useCertificationUpdateMutation = () => {
   const queryClient = useQueryClient();
-  const accessToken = useAccessToken();
   const updateCertification = useMutation({
     mutationKey: ["updateCertificationMutation"],
     mutationFn: async (useCertificationUpdateData: ResourceTypes.Certification.Mutations.UpdateMutationParams) => {
       const response = await requester
         .setRequestConfig({
           url: {
-            baseURL: config.SERVER.BASE_URL,
-            port: Number(config.SERVER.PORT),
+            baseURL: config.DATA.BASE_URL,
+            port: Number(config.DATA.PORT),
             endpoint: {
-              prefix: config.SERVER.API_PREFIX,
+              prefix: config.DATA.API_PREFIX,
               controller: "certification",
               action: "update",
             },
           },
           method: "PATCH",
-          auth: { accessToken: accessToken },
+          auth: { includeCookies: true },
         })
         .sendRequest<
           GlobalTypes.ServerResponseParams<null>,

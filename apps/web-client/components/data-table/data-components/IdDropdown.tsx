@@ -13,7 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/base-ui/dropdown-menu";
 
-import { useToast } from "@/hooks/interface/use-toast";
+import { useToast } from "@/hooks/interface/useToast";
 
 interface IdDropdownProps {
   ids: string[];

@@ -21,14 +21,14 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "../base-ui/sidebar";
-import UserDetails from "./SidebarFooter";
+import SettingsDialog from "./SettingsDialog";
 
 const MainSidebar = () => {
   const pathname = usePathname();
 
   return (
     <Sidebar collapsible="none" className="border-r h-dvh">
-      <SidebarHeader className="pt-4">
+      <SidebarHeader className="py-4 border-b">
         <Link className="flex flex-row items-center justify-start gap-2 overflow-hidden" href={"/app"}>
           <Image src="/images/logo.png" alt="Flight Coordinator Logo" width={48} height={48} />
           <h1 className="text-xl leading-none tracking-tight font-semibold select-none">
@@ -58,8 +58,8 @@ const MainSidebar = () => {
           </SidebarGroup>
         ))}
       </SidebarContent>
-      <SidebarFooter>
-        <UserDetails />
+      <SidebarFooter className="border-t">
+        <SettingsDialog />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

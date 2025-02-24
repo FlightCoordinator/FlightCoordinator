@@ -30,6 +30,7 @@ class BaseRequester {
         new Set([...this.POSSIBLE_STATUS_CODES, ...(clientConfig.acceptStatusCodes ?? [])]),
       ),
       isDebugMode: clientConfig.isDebugMode ?? false,
+      tokenRotationUrl: clientConfig.tokenRotationUrl,
     };
     Logger.info("EasyRequestre Constructor", "EasyRequester is initialized with client config.");
   }

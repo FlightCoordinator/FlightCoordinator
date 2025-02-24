@@ -36,7 +36,6 @@ class Logger {
       // eslint-disable-next-line no-console
       console.debug(`[EasyRequester_ERROR] ${errorMessage} at ${location}`);
     }
-    throw new Error(`EasyRequesterError: ${errorMessage} at ${location}`);
   }
 }
 

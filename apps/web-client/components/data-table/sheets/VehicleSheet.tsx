@@ -21,7 +21,7 @@ import {
   SheetTrigger,
 } from "@/components/base-ui/sheet";
 
-import { useToast } from "@/hooks/interface/use-toast";
+import { useToast } from "@/hooks/interface/useToast";
 import useVehicleCreateMutation from "@/hooks/resource/vehicle/useVehicleCreateMutation";
 import useVehicleUpdateMutation from "@/hooks/resource/vehicle/useVehicleUpdateMutation";
 

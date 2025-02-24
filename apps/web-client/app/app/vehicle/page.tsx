@@ -1,29 +1,15 @@
-"use client";
-
 import React from "react";
 
-import useVehicleColumns from "@/components/data-table/column-hooks/useVehicleColumns";
-import DataTable from "@/components/data-table/DataTable";
-import VehicleSheet from "@/components/data-table/sheets/VehicleSheet";
+import { Metadata } from "next";
 
-import useVehicleAllQuery from "@/hooks/resource/vehicle/useVehicleAllQuery";
+import VehiclePageContents from "@/components/page-content/resources/VehiclePageContents";
+
+export const metadata: Metadata = {
+  title: "Ground Vehicles",
+};
 
 const VehiclePage = () => {
-  const { isLoading: isVehicleQueryLoading, error: vehicleQueryError, data: vehicle } = useVehicleAllQuery();
-
-  const { vehicleColumns, vehicleColumnsVisibilities } = useVehicleColumns();
-
-  return (
-    <DataTable
-      columns={vehicleColumns}
-      data={(vehicle && vehicle.data) ?? []}
-      createSheet={<VehicleSheet />}
-      visibilities={vehicleColumnsVisibilities}
-      isLoading={isVehicleQueryLoading}
-      isError={vehicleQueryError}
-      isNotFound={!vehicle || !vehicle.data}
-    />
-  );
+  return <VehiclePageContents />;
 };
 
 export default VehiclePage;

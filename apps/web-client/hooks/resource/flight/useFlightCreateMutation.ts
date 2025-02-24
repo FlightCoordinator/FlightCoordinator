@@ -1,7 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import useAccessToken from "@/hooks/useAccessToken";
-
 import { config } from "@/shared/appConfig";
 import requester from "@/shared/lib/requester";
 
@@ -10,23 +8,22 @@ import ResourceTypes from "@/types/resource";
 
 const useFlightCreateMutation = () => {
   const queryClient = useQueryClient();
-  const accessToken = useAccessToken();
   const createFlight = useMutation({
     mutationKey: ["createFlightMutation"],
     mutationFn: async (flightCreateData: ResourceTypes.Flight.Mutations.CreateMutationParams) => {
       const response = await requester
         .setRequestConfig({
           url: {
-            baseURL: config.SERVER.BASE_URL,
-            port: Number(config.SERVER.PORT),
+            baseURL: config.DATA.BASE_URL,
+            port: Number(config.DATA.PORT),
             endpoint: {
-              prefix: config.SERVER.API_PREFIX,
+              prefix: config.DATA.API_PREFIX,
               controller: "flight",
               action: "create",
             },
           },
           method: "POST",
-          auth: { accessToken: accessToken },
+          auth: { includeCookies: true },
         })
         .sendRequest<GlobalTypes.ServerResponseParams<null>, ResourceTypes.Flight.Mutations.CreateMutationParams>(
           flightCreateData,

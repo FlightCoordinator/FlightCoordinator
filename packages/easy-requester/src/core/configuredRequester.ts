@@ -5,12 +5,14 @@ import RequestQueuer from "@/core/handlers/requestQueuer";
 
 import Logger from "@/utils/logger";
 import Generators from "@/utils/generator";
+import TokenRotater from "@/extensions/tokenRotater";
 
 class ConfiguredRequester {
   private requestConfig!: RequestConfig;
   private clientConfig: ClientConfig;
   private requestQueuer: RequestQueuer;
   private requestAborter: RequestAborter;
+  private tokenRotater: TokenRotater;
 
   /**
    * Initializes the ConfiguredRequester with request and client configurations, queuer, and aborter.
@@ -31,6 +33,8 @@ class ConfiguredRequester {
     this.requestQueuer = requestQueuer;
     this.requestAborter = requestAborter;
 
+    this.tokenRotater = new TokenRotater(clientConfig.tokenRotationUrl, this.requestQueuer);
+
     Logger.info("ConfiguredRequester Constuctor", "ConfiguredRequester is initialized.");
   }
 
@@ -47,9 +51,7 @@ class ConfiguredRequester {
    * - `message`: An optional string containing any error message or additional info.
    */
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  public async sendRequest<TResponse = any, TPayload = any>(
-    payload?: TPayload,
-  ): Promise<TResponse> {
+  public async sendRequest<TResponse = any, TPayload = any>(payload?: TPayload): Promise<TResponse> {
     const generatedURL: string = Generators.generateURL(this.requestConfig.url);
     const generatedHeaders: HeadersInit = Generators.generateHeaders({
       contentType: this.requestConfig.header?.contentType,
@@ -81,6 +83,16 @@ class ConfiguredRequester {
         }
         Logger.info(requestFn.name, "Sending request...");
         const response = await fetch(generatedURL, requestConfig);
+
+        if (response.status === 401 && response.statusText == "Expired Token") {
+          const receivedNewToken: boolean = await this.tokenRotater.tryGetNewRefreshToken();
+          if (!receivedNewToken) {
+            return {
+              isSuccess: false,
+              message: "Your session is expired. Please login again.",
+            } as TResponse;
+          } else return this.sendRequest<TResponse, TPayload>(payload);
+        }
 
         if (this.clientConfig.acceptStatusCodes && this.clientConfig.acceptStatusCodes.includes(response.status)) {
           Logger.info(requestFn.name, "Successfully received a response with an expected status code");

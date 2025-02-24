@@ -5,7 +5,7 @@ import React from "react";
 import { ColumnDef, VisibilityState } from "@tanstack/react-table";
 import dayjs from "dayjs";
 
-import { useToast } from "@/hooks/interface/use-toast";
+import { useToast } from "@/hooks/interface/useToast";
 import useCertificationDeleteMutation from "@/hooks/resource/certification/useCertificationDeleteMutation";
 
 import { getSelectItem } from "@/shared/constants/selectItems";

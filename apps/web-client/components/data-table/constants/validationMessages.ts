@@ -11,3 +11,4 @@ export const nonNegativeMessage: MessageProps = { message: "This value should be
 
 export const invalidDateMessage: MessageProps = { message: "Please select a valid date." };
 export const invalidEnumValueMessage: MessageProps = { message: "This value is not valid" };
+export const invalidEmailMessage: MessageProps = { message: "Please enter a valid e-mail." };

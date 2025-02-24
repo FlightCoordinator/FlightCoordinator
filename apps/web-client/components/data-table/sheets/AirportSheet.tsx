@@ -28,7 +28,7 @@ import {
   SheetTrigger,
 } from "@/components/base-ui/sheet";
 
-import { useToast } from "@/hooks/interface/use-toast";
+import { useToast } from "@/hooks/interface/useToast";
 import useAirportCreateMutation from "@/hooks/resource/airport/useAirportCreateMutation";
 import useAirportUpdateMutation from "@/hooks/resource/airport/useAirportUpdateMutation";
 
@@ -145,7 +145,7 @@ const AirportSheet = ({ airport }: AirportSheetProps) => {
         <SheetBody>
           <form
             noValidate
-            className="-full flex flex-col items-start justify-start gap-5"
+            className="w-full flex flex-col items-start justify-start gap-5"
             onSubmit={form.handleSubmit(airport ? handleUpdateSubmit : handleCreateSubmit)}>
             <Controller
               control={form.control}

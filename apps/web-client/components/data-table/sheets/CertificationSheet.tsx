@@ -22,7 +22,7 @@ import {
 } from "@/components/base-ui/sheet";
 import { Textarea } from "@/components/base-ui/textarea";
 
-import { useToast } from "@/hooks/interface/use-toast";
+import { useToast } from "@/hooks/interface/useToast";
 import useCertificationCreateMutation from "@/hooks/resource/certification/useCertificationCreateMutation";
 import useCertificationUpdateMutation from "@/hooks/resource/certification/useCertificationUpdateMutation";
 
