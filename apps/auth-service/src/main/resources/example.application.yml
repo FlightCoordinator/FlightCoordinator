@@ -2,9 +2,9 @@ spring:
   application:
     name: FlightCoordinator Auth Service
   datasource:
-    url: jdbc:postgresql://localhost:5432/fc_auth_db
-    username: local
-    password: local
+    url: jdbc:postgresql://localhost:5432/db_name
+    username: username
+    password: password
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 10
@@ -25,4 +25,9 @@ springdoc:
 server:
   port: 8082
   api_version: v1
-  secret_key: ""
+  uris:
+    webclient: ""
+    dataservice: ""
+  keys:
+    access_key: ""
+    refresh_key: ""
