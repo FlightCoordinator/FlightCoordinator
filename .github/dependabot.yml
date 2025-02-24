@@ -9,7 +9,7 @@ updates:
     reviewers:
       - "caganseyrek"
   - package-ecosystem: "npm"
-    directory: "/frontend"
+    directory: "/apps/web-client"
     schedule:
       interval: "weekly"
       day: "monday"
@@ -17,7 +17,15 @@ updates:
     reviewers:
       - "caganseyrek"
   - package-ecosystem: "maven"
-    directory: "/server"
+    directory: "/apps/data-service"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+    reviewers:
+      - "caganseyrek"
+  - package-ecosystem: "maven"
+    directory: "/apps/auth-service"
     schedule:
       interval: "weekly"
       day: "monday"
