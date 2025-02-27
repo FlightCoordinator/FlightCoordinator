@@ -25,7 +25,7 @@ springdoc:
 server:
   port: 8082
   api_version: v1
-  uris:
+  urls:
     webclient: ""
     dataservice: ""
   keys:

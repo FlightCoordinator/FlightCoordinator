@@ -2,8 +2,7 @@ package com.flightcoordinator.dataservice.entity;
 
 import java.util.Date;
 
-import com.flightcoordinator.dataservice.enums.CertificationIssuer;
-import com.flightcoordinator.dataservice.enums.CrewRole;
+import com.flightcoordinator.dataservice.enums.Certifier;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,60 +12,67 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "certification_table")
 public class CertificationEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
+  @Column(name = "id", nullable = false)
   private String id;
 
+  @NotEmpty(message = "Name is required")
   @Column(name = "name", nullable = false)
   private String name;
 
   @Column(name = "certification_number", nullable = false)
-  private Integer certificationNumber;
+  @NotEmpty(message = "Certification number is required")
+  private String certificationNumber;
 
   @Enumerated(EnumType.STRING)
+  @NotEmpty(message = "Issuer is required")
   @Column(name = "issuer", nullable = false)
-  private CertificationIssuer issuer;
+  private Certifier issuer;
 
+  @NotEmpty(message = "Expiration date is required")
   @Column(name = "expiration_date", nullable = false)
   private Date expirationDate;
 
-  @Min(value = 1, message = "Validity period should be greater than '1'")
+  @Min(value = 1, message = "Validity period should be >= 1")
+  @NotEmpty(message = "Validity preiod is required")
   @Column(name = "validity_period", nullable = false)
   private Integer validityPeriod;
 
-  @Enumerated(EnumType.STRING)
-  @Column(name = "assignable_roles", nullable = false)
-  private CrewRole assignableRole;
-
+  @NotEmpty(message = "Description is required")
   @Column(name = "description", nullable = false)
   private String description;
 
   @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "assigned_crew_member", nullable = false)
   private CrewEntity assignedCrewMember;
 
-  public CertificationEntity() {
-  }
-
-  public CertificationEntity(String id, String name, Integer certificationNumber, CertificationIssuer issuer,
-      Date expirationDate,
-      @Min(value = 1, message = "Validity period should be greater than '1'") Integer validityPeriod,
-      CrewRole assignableRole, String description, CrewEntity assignedCrewMember) {
+  public CertificationEntity(String id, @NotEmpty(message = "Name is required") String name,
+      @NotEmpty(message = "Certification number is required") String certificationNumber,
+      @NotEmpty(message = "Issuer is required") Certifier issuer,
+      @NotEmpty(message = "Expiration date is required") Date expirationDate,
+      @Min(value = 1, message = "Validity period should be >= 1") @NotEmpty(message = "Validity preiod is required") Integer validityPeriod,
+      @NotEmpty(message = "Description is required") String description, CrewEntity assignedCrewMember) {
     this.id = id;
     this.name = name;
     this.certificationNumber = certificationNumber;
     this.issuer = issuer;
     this.expirationDate = expirationDate;
     this.validityPeriod = validityPeriod;
-    this.assignableRole = assignableRole;
     this.description = description;
     this.assignedCrewMember = assignedCrewMember;
+  }
+
+  public CertificationEntity() {
   }
 
   public String getId() {
@@ -85,19 +91,19 @@ public class CertificationEntity {
     this.name = name;
   }
 
-  public Integer getCertificationNumber() {
+  public String getCertificationNumber() {
     return certificationNumber;
   }
 
-  public void setCertificationNumber(Integer certificationNumber) {
+  public void setCertificationNumber(String certificationNumber) {
     this.certificationNumber = certificationNumber;
   }
 
-  public CertificationIssuer getIssuer() {
+  public Certifier getIssuer() {
     return issuer;
   }
 
-  public void setIssuer(CertificationIssuer issuer) {
+  public void setIssuer(Certifier issuer) {
     this.issuer = issuer;
   }
 
@@ -117,14 +123,6 @@ public class CertificationEntity {
     this.validityPeriod = validityPeriod;
   }
 
-  public CrewRole getAssignableRole() {
-    return assignableRole;
-  }
-
-  public void setAssignableRole(CrewRole assignableRole) {
-    this.assignableRole = assignableRole;
-  }
-
   public String getDescription() {
     return description;
   }
@@ -140,5 +138,4 @@ public class CertificationEntity {
   public void setAssignedCrewMember(CrewEntity assignedCrewMember) {
     this.assignedCrewMember = assignedCrewMember;
   }
-
 }

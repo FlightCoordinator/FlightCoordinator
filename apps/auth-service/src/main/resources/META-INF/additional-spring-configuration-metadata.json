@@ -16,12 +16,12 @@
       "description": "Secret key to for issuing refresh tokens."
     },
     {
-      "name": "server.uris.webclient",
+      "name": "server.urls.webclient",
       "type": "java.lang.String",
       "description": "URI for FlightCoordinator's Web Client"
     },
     {
-      "name": "server.uris.dataservice",
+      "name": "server.urls.dataservice",
       "type": "java.lang.String",
       "description": "URI for FlightCoordinator's Data Service"
     }

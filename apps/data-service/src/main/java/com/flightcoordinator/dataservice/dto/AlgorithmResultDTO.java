@@ -7,10 +7,22 @@ public class AlgorithmResultDTO {
   private String flightId;
   private String planeId;
   private List<String> crewMemberIds;
+  private String takeoffTaxiwayId;
   private String takeoffRunwayId;
   private String landingRunwayId;
-  private List<String> originAirportGroundVehicleIds;
-  private List<String> destinationAirportGroundVehicleIds;
+  private String landingTaxiwayId;
+
+  public AlgorithmResultDTO(String id, String flightId, String planeId, List<String> crewMembersIds,
+      String takeoffTaxiwayId, String takeoffRunwayId, String landingRunwayId, String landingTaxiwayId) {
+    this.id = id;
+    this.flightId = flightId;
+    this.planeId = planeId;
+    this.crewMemberIds = crewMembersIds;
+    this.takeoffTaxiwayId = takeoffTaxiwayId;
+    this.takeoffRunwayId = takeoffRunwayId;
+    this.landingRunwayId = landingRunwayId;
+    this.landingTaxiwayId = landingTaxiwayId;
+  }
 
   public AlgorithmResultDTO() {
   }
@@ -43,8 +55,16 @@ public class AlgorithmResultDTO {
     return crewMemberIds;
   }
 
-  public void setCrewMemberIds(List<String> crewMemberIds) {
-    this.crewMemberIds = crewMemberIds;
+  public void setCrewMemberIds(List<String> crewMembersIds) {
+    this.crewMemberIds = crewMembersIds;
+  }
+
+  public String getTakeoffTaxiwayId() {
+    return takeoffTaxiwayId;
+  }
+
+  public void setTakeoffTaxiwayId(String takeoffTaxiwayId) {
+    this.takeoffTaxiwayId = takeoffTaxiwayId;
   }
 
   public String getTakeoffRunwayId() {
@@ -63,19 +83,11 @@ public class AlgorithmResultDTO {
     this.landingRunwayId = landingRunwayId;
   }
 
-  public List<String> getOriginAirportGroundVehicleIds() {
-    return originAirportGroundVehicleIds;
+  public String getLandingTaxiwayId() {
+    return landingTaxiwayId;
   }
 
-  public void setOriginAirportGroundVehicleIds(List<String> originAirportGroundVehicleIds) {
-    this.originAirportGroundVehicleIds = originAirportGroundVehicleIds;
-  }
-
-  public List<String> getDestinationAirportGroundVehicleIds() {
-    return destinationAirportGroundVehicleIds;
-  }
-
-  public void setDestinationAirportGroundVehicleIds(List<String> destinationAirportGroundVehicleIds) {
-    this.destinationAirportGroundVehicleIds = destinationAirportGroundVehicleIds;
+  public void setLandingTaxiwayId(String landingTaxiwayId) {
+    this.landingTaxiwayId = landingTaxiwayId;
   }
 }

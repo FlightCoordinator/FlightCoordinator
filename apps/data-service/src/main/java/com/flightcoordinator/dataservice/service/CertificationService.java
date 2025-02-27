@@ -9,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import com.flightcoordinator.dataservice.constants.Messages;
 import com.flightcoordinator.dataservice.dto.CertificationDTO;
-import com.flightcoordinator.dataservice.dto.EntityIdDTO;
-import com.flightcoordinator.dataservice.dto.create_update.CertificationCreateUpdateDTO;
+import com.flightcoordinator.dataservice.dto.misc.EntityIdDTO;
 import com.flightcoordinator.dataservice.entity.CertificationEntity;
 import com.flightcoordinator.dataservice.entity.CrewEntity;
 import com.flightcoordinator.dataservice.exception.AppError;
@@ -29,7 +29,7 @@ public class CertificationService {
 
   public CertificationDTO getSingleCertificationById(EntityIdDTO entityIdDTO) {
     CertificationEntity certification = certificationRepository.findById(entityIdDTO.getId())
-        .orElseThrow(() -> new AppError("notFound.certification", HttpStatus.NOT_FOUND.value()));
+        .orElseThrow(() -> new AppError(Messages.NOT_FOUND_SINGLE, HttpStatus.NOT_FOUND.value()));
     CertificationDTO certificationDTO = ObjectMapper.toCertificationDTO(certification);
     return certificationDTO;
   }
@@ -38,7 +38,7 @@ public class CertificationService {
     List<CertificationEntity> certifications = certificationRepository.findAllById(entityIdDTOs.stream().map(
         entityId -> entityId.getId()).collect(Collectors.toList()));
     if (certifications.isEmpty()) {
-      throw new AppError("notFound.certification", HttpStatus.NOT_FOUND.value());
+      throw new AppError(Messages.NOT_FOUND_MULTIPLE, HttpStatus.NOT_FOUND.value());
     }
     List<CertificationDTO> certificationDTOs = certifications.stream().map(ObjectMapper::toCertificationDTO)
         .collect(Collectors.toList());
@@ -48,53 +48,55 @@ public class CertificationService {
   public List<CertificationDTO> getAllCertifications() {
     List<CertificationEntity> certifications = certificationRepository.findAll();
     if (certifications.isEmpty()) {
-      throw new AppError("notFound.certification", HttpStatus.NOT_FOUND.value());
+      throw new AppError(Messages.NOT_FOUND_MULTIPLE, HttpStatus.NOT_FOUND.value());
     }
     List<CertificationDTO> certificationDTOs = certifications.stream().map(ObjectMapper::toCertificationDTO)
         .collect(Collectors.toList());
     return certificationDTOs;
   }
 
-  public void createCertification(CertificationCreateUpdateDTO newCertificationDTO) {
+  public void createCertification(CertificationDTO newCertificationDTO) {
     CrewEntity crewEntity = crewRepository.findById(newCertificationDTO.getAssignedCrewMemberId())
-        .orElseThrow(() -> new AppError("genericMessages.badRequest", HttpStatus.BAD_REQUEST.value()));
+        .orElseThrow(() -> new AppError(Messages.BAD_REQUEST, HttpStatus.BAD_REQUEST.value()));
 
     CertificationEntity certificationEntity = new CertificationEntity();
     certificationEntity.setName(newCertificationDTO.getName());
+    certificationEntity.setCertificationNumber(newCertificationDTO.getCertificationNumber());
     certificationEntity.setIssuer(newCertificationDTO.getIssuer());
     certificationEntity.setExpirationDate(newCertificationDTO.getExpirationDate());
     certificationEntity.setValidityPeriod(newCertificationDTO.getValidityPeriod());
-    certificationEntity.setAssignableRole(newCertificationDTO.getAssignableRole());
-    certificationEntity.setAssignedCrewMember(crewEntity);
     certificationEntity.setDescription(newCertificationDTO.getDescription());
+    certificationEntity.setAssignedCrewMember(crewEntity);
 
     certificationRepository.save(certificationEntity);
   }
 
-  public void updateCertification(CertificationCreateUpdateDTO updatedCertificationDTO) {
+  public void updateCertification(CertificationDTO updatedCertificationDTO) {
+    CrewEntity crewEntity = crewRepository.findById(updatedCertificationDTO.getAssignedCrewMemberId())
+        .orElseThrow(() -> new AppError(Messages.NOT_FOUND_SINGLE, HttpStatus.NOT_FOUND.value()));
+
     CertificationEntity existingCertification = certificationRepository.findById(updatedCertificationDTO.getId())
-        .orElseThrow(() -> new AppError("notFound.certification", HttpStatus.NOT_FOUND.value()));
+        .orElseThrow(() -> new AppError(Messages.NOT_FOUND_SINGLE, HttpStatus.NOT_FOUND.value()));
 
     existingCertification.setName(updatedCertificationDTO.getName());
     existingCertification.setCertificationNumber(updatedCertificationDTO.getCertificationNumber());
     existingCertification.setIssuer(updatedCertificationDTO.getIssuer());
     existingCertification.setExpirationDate(updatedCertificationDTO.getExpirationDate());
     existingCertification.setValidityPeriod(updatedCertificationDTO.getValidityPeriod());
-    existingCertification.setAssignableRole(updatedCertificationDTO.getAssignableRole());
     existingCertification.setDescription(updatedCertificationDTO.getDescription());
+    existingCertification.setAssignedCrewMember(crewEntity);
 
     certificationRepository.save(existingCertification);
   }
 
   public void deleteCertification(EntityIdDTO entityIdDTO) {
     CertificationEntity existingCertification = certificationRepository.findById(entityIdDTO.getId())
-        .orElseThrow(() -> new AppError("notFound.certification", HttpStatus.NOT_FOUND.value()));
+        .orElseThrow(() -> new AppError(Messages.NOT_FOUND_SINGLE, HttpStatus.NOT_FOUND.value()));
     certificationRepository.delete(existingCertification);
   }
 
   public Boolean doesSingleCertificationExist(CertificationEntity certification) {
-    String id = certification.getId();
-    Optional<CertificationEntity> certificationFound = certificationRepository.findById(id);
+    Optional<CertificationEntity> certificationFound = certificationRepository.findById(certification.getId());
     return certificationFound.isPresent();
   }
 

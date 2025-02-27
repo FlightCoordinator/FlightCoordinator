@@ -2,7 +2,7 @@ package com.flightcoordinator.dataservice.entity;
 
 import java.util.Date;
 
-import com.flightcoordinator.dataservice.enums.PlaneAvailability;
+import com.flightcoordinator.dataservice.enums.PlaneStatus;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,89 +16,96 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "plane_table")
 public class PlaneEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
+  @Column(name = "id")
   private String id;
 
-  @Column(name = "model", nullable = false)
-  private String model;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "plane_model", nullable = false)
+  private ModelEntity model;
 
-  @Column(name = "registration_number", nullable = false)
-  private String registrationNumber;
+  @NotEmpty(message = "Tail number is required")
+  @Column(name = "tail_number", nullable = false)
+  private String tailNumber;
 
-  @Min(value = 1, message = "Passenger capacity should be greater than '1'")
-  @Column(name = "passenger_capacity", nullable = false)
-  private Integer passengerCapacity;
+  @NotEmpty(message = "Next maintenance is required")
+  @Column(name = "next_maintenance_date", nullable = false)
+  private Date nextMaintenanceDate;
 
-  @Min(value = 1, message = "Fuel efficiency should be greater than '1'")
-  @Column(name = "fuel_efficiency", nullable = false)
-  private Float fuelEfficiency;
+  @Min(value = 0, message = "Cycles since last maintenance should be >= 0")
+  @NotEmpty(message = "Cycles since last maintenance is required")
+  @Column(name = "cycles_since_last_maintenance", nullable = false)
+  private Integer cyclesSinceLastMaintenance;
 
-  @Min(value = 1, message = "Max flight range should be greater than '1'")
-  @Column(name = "max_flight_range", nullable = false)
-  private Float maxFlightRange;
+  @NotEmpty(message = "Retirement date is required")
+  @Column(name = "retirement_date", nullable = false)
+  private Date retirementDate;
 
-  @Column(name = "last_maintenance", nullable = false)
-  private Date lastMaintenance;
+  @Min(value = 0, message = "Engine hours should be >= 0")
+  @NotEmpty(message = "Engine hours is required")
+  @Column(name = "engine_hours", nullable = false)
+  private Float engineHours;
 
-  @Min(value = 0, message = "Total flight hours should be equal or greater than '0'")
+  @Min(value = 0, message = "Current wear level should be >= 0")
+  @NotEmpty(message = "Current wear level is required")
+  @Column(name = "current_wear_level", nullable = false)
+  private Float currentWearLevel;
+
+  @Min(value = 0, message = "Total flight hours should be >= 0")
+  @NotEmpty(message = "Total flight hours is required")
   @Column(name = "total_flight_hours", nullable = false)
   private Float totalFlightHours;
 
-  @Min(value = 1, message = "Max takeoff weight should be greater than '1'")
-  @Column(name = "max_takeoff_weight", nullable = false)
-  private Float maxTakeoffWeight;
-
-  @Min(value = 1, message = "Shortest runway length required should be greater than '1'")
-  @Column(name = "shortest_runway_length_required", nullable = false)
-  private Float shortestRunwayLengthRequired;
-
-  @Min(value = 1, message = "Shortest runway width required should be greater than '1'")
-  @Column(name = "shortest_runway_width_required", nullable = false)
-  private Float shortestRunwayWidthRequired;
+  @Min(value = 1, message = "Fuel amount should be >= 1")
+  @NotEmpty(message = "Fuel capacity is required")
+  @Column(name = "fuel_capacity", nullable = false)
+  private Float fuelAmount;
 
   @Enumerated(EnumType.STRING)
+  @NotEmpty(message = "Plane status is required")
   @Column(name = "plane_status", nullable = false)
-  private PlaneAvailability planeStatus = PlaneAvailability.AVAILABLE;
+  private PlaneStatus planeStatus;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "current_location_id", nullable = false)
+  @ManyToOne
+  @JoinColumn(name = "airport_id", nullable = false)
   private AirportEntity currentLocation;
 
+  @NotEmpty(message = "Aircraft operator is required")
   @Column(name = "aircraft_operator", nullable = false)
   private String aircraftOperator;
 
-  public PlaneEntity() {
-  }
-
-  public PlaneEntity(String id, String model, String registrationNumber,
-      @Min(value = 1, message = "Passenger capacity should be greater than '1'") Integer passengerCapacity,
-      @Min(value = 1, message = "Fuel efficiency should be greater than '1'") Float fuelEfficiency,
-      @Min(value = 1, message = "Max flight range should be greater than '1'") Float maxFlightRange,
-      Date lastMaintenance,
-      @Min(value = 0, message = "Total flight hours should be equal or greater than '0'") Float totalFlightHours,
-      @Min(value = 1, message = "Max takeoff weight should be greater than '1'") Float maxTakeoffWeight,
-      @Min(value = 1, message = "Shortest runway length required should be greater than '1'") Float shortestRunwayLengthRequired,
-      @Min(value = 1, message = "Shortest runway width required should be greater than '1'") Float shortestRunwayWidthRequired,
-      PlaneAvailability planeStatus, AirportEntity currentLocation, String aircraftOperator) {
+  public PlaneEntity(String id, ModelEntity model, @NotEmpty(message = "Tail number is required") String tailNumber,
+      @NotEmpty(message = "Next maintenance is required") Date nextMaintenanceDate,
+      @Min(value = 0, message = "Cycles since last maintenance should be >= 0") @NotEmpty(message = "Cycles since last maintenance is required") Integer cyclesSinceLastMaintenance,
+      @NotEmpty(message = "Retirement date is required") Date retirementDate,
+      @Min(value = 0, message = "Engine hours should be >= 0") @NotEmpty(message = "Engine hours is required") Float engineHours,
+      @Min(value = 0, message = "Current wear level should be >= 0") @NotEmpty(message = "Current wear level is required") Float currentWearLevel,
+      @Min(value = 0, message = "Total flight hours should be >= 0") @NotEmpty(message = "Total flight hours is required") Float totalFlightHours,
+      @Min(value = 1, message = "Fuel amount should be >= 1") @NotEmpty(message = "Fuel capacity is required") Float fuelAmount,
+      @NotEmpty(message = "Plane status is required") PlaneStatus planeStatus, AirportEntity currentLocation,
+      @NotEmpty(message = "Aircraft operator is required") String aircraftOperator) {
     this.id = id;
     this.model = model;
-    this.registrationNumber = registrationNumber;
-    this.passengerCapacity = passengerCapacity;
-    this.fuelEfficiency = fuelEfficiency;
-    this.maxFlightRange = maxFlightRange;
-    this.lastMaintenance = lastMaintenance;
+    this.tailNumber = tailNumber;
+    this.nextMaintenanceDate = nextMaintenanceDate;
+    this.cyclesSinceLastMaintenance = cyclesSinceLastMaintenance;
+    this.retirementDate = retirementDate;
+    this.engineHours = engineHours;
+    this.currentWearLevel = currentWearLevel;
     this.totalFlightHours = totalFlightHours;
-    this.maxTakeoffWeight = maxTakeoffWeight;
-    this.shortestRunwayLengthRequired = shortestRunwayLengthRequired;
-    this.shortestRunwayWidthRequired = shortestRunwayWidthRequired;
+    this.fuelAmount = fuelAmount;
     this.planeStatus = planeStatus;
     this.currentLocation = currentLocation;
     this.aircraftOperator = aircraftOperator;
+  }
+
+  public PlaneEntity() {
   }
 
   public String getId() {
@@ -109,52 +116,60 @@ public class PlaneEntity {
     this.id = id;
   }
 
-  public String getModel() {
+  public ModelEntity getModel() {
     return model;
   }
 
-  public void setModel(String model) {
+  public void setModel(ModelEntity model) {
     this.model = model;
   }
 
-  public String getRegistrationNumber() {
-    return registrationNumber;
+  public String getTailNumber() {
+    return tailNumber;
   }
 
-  public void setRegistrationNumber(String registrationNumber) {
-    this.registrationNumber = registrationNumber;
+  public void setTailNumber(String tailNumber) {
+    this.tailNumber = tailNumber;
   }
 
-  public Integer getPassengerCapacity() {
-    return passengerCapacity;
+  public Date getNextMaintenanceDate() {
+    return nextMaintenanceDate;
   }
 
-  public void setPassengerCapacity(Integer passengerCapacity) {
-    this.passengerCapacity = passengerCapacity;
+  public void setNextMaintenanceDate(Date nextMaintenanceDate) {
+    this.nextMaintenanceDate = nextMaintenanceDate;
   }
 
-  public Float getFuelEfficiency() {
-    return fuelEfficiency;
+  public Integer getCyclesSinceLastMaintenance() {
+    return cyclesSinceLastMaintenance;
   }
 
-  public void setFuelEfficiency(Float fuelEfficiency) {
-    this.fuelEfficiency = fuelEfficiency;
+  public void setCyclesSinceLastMaintenance(Integer cyclesSinceLastMaintenance) {
+    this.cyclesSinceLastMaintenance = cyclesSinceLastMaintenance;
   }
 
-  public Float getMaxFlightRange() {
-    return maxFlightRange;
+  public Date getRetirementDate() {
+    return retirementDate;
   }
 
-  public void setMaxFlightRange(Float maxFlightRange) {
-    this.maxFlightRange = maxFlightRange;
+  public void setRetirementDate(Date retirementDate) {
+    this.retirementDate = retirementDate;
   }
 
-  public Date getLastMaintenance() {
-    return lastMaintenance;
+  public Float getEngineHours() {
+    return engineHours;
   }
 
-  public void setLastMaintenance(Date lastMaintenance) {
-    this.lastMaintenance = lastMaintenance;
+  public void setEngineHours(Float engineHours) {
+    this.engineHours = engineHours;
+  }
+
+  public Float getCurrentWearLevel() {
+    return currentWearLevel;
+  }
+
+  public void setCurrentWearLevel(Float currentWearLevel) {
+    this.currentWearLevel = currentWearLevel;
   }
 
   public Float getTotalFlightHours() {
@@ -165,35 +180,19 @@ public class PlaneEntity {
     this.totalFlightHours = totalFlightHours;
   }
 
-  public Float getMaxTakeoffWeight() {
-    return maxTakeoffWeight;
+  public Float getFuelAmount() {
+    return fuelAmount;
   }
 
-  public void setMaxTakeoffWeight(Float maxTakeoffWeight) {
-    this.maxTakeoffWeight = maxTakeoffWeight;
+  public void setFuelAmount(Float fuelAmount) {
+    this.fuelAmount = fuelAmount;
   }
 
-  public Float getShortestRunwayLengthRequired() {
-    return shortestRunwayLengthRequired;
-  }
-
-  public void setShortestRunwayLengthRequired(Float shortestRunwayLengthRequired) {
-    this.shortestRunwayLengthRequired = shortestRunwayLengthRequired;
-  }
-
-  public Float getShortestRunwayWidthRequired() {
-    return shortestRunwayWidthRequired;
-  }
-
-  public void setShortestRunwayWidthRequired(Float shortestRunwayWidthRequired) {
-    this.shortestRunwayWidthRequired = shortestRunwayWidthRequired;
-  }
-
-  public PlaneAvailability getPlaneStatus() {
+  public PlaneStatus getPlaneStatus() {
     return planeStatus;
   }
 
-  public void setPlaneStatus(PlaneAvailability planeStatus) {
+  public void setPlaneStatus(PlaneStatus planeStatus) {
     this.planeStatus = planeStatus;
   }
 

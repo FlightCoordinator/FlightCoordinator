@@ -5,9 +5,9 @@ public enum AirportType {
   REGIONAL("Regional"),
   DOMESTIC("Domestic");
 
-  public final String type;
+  public final String name;
 
-  private AirportType(String type) {
-    this.type = type;
+  private AirportType(String name) {
+    this.name = name;
   }
 }

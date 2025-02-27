@@ -135,7 +135,7 @@ All applications in the project require environment variables to function correc
   server:
     port: 8082 # The port auth service will be listening
     api_version: v1 # Current auth service API version
-    uris:
+    urls:
       webclient: http://localhost:3000/ # web client's uri
       dataservice: http://localhost:8081/ # data service's uri
     keys:

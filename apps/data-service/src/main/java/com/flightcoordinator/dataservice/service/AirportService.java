@@ -9,9 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import com.flightcoordinator.dataservice.constants.Messages;
 import com.flightcoordinator.dataservice.dto.AirportDTO;
-import com.flightcoordinator.dataservice.dto.EntityIdDTO;
-import com.flightcoordinator.dataservice.dto.create_update.AirportCreateUpdateDTO;
+import com.flightcoordinator.dataservice.dto.misc.EntityIdDTO;
+import com.flightcoordinator.dataservice.dto.partial.PartialAirportDTO;
 import com.flightcoordinator.dataservice.entity.AirportEntity;
 import com.flightcoordinator.dataservice.exception.AppError;
 import com.flightcoordinator.dataservice.repository.AirportRepository;
@@ -24,7 +25,7 @@ public class AirportService {
 
   public AirportDTO getSingleAirportById(EntityIdDTO entityIdDTO) {
     AirportEntity airport = airportRepository.findById(entityIdDTO.getId())
-        .orElseThrow(() -> new AppError("notFound.airport", HttpStatus.NOT_FOUND.value()));
+        .orElseThrow(() -> new AppError(Messages.NOT_FOUND_SINGLE, HttpStatus.NOT_FOUND.value()));
     AirportDTO airportDto = ObjectMapper.toAirportDTO(airport);
     return airportDto;
   }
@@ -33,7 +34,7 @@ public class AirportService {
     List<AirportEntity> airports = airportRepository.findAllById(entityIdDTOs.stream().map(
         entityId -> entityId.getId()).collect(Collectors.toList()));
     if (airports.isEmpty()) {
-      throw new AppError("notFound.airport", HttpStatus.NOT_FOUND.value());
+      throw new AppError(Messages.NOT_FOUND_MULTIPLE, HttpStatus.NOT_FOUND.value());
     }
     List<AirportDTO> airportDTOs = airports.stream().map(ObjectMapper::toAirportDTO).collect(Collectors.toList());
     return airportDTOs;
@@ -42,13 +43,13 @@ public class AirportService {
   public List<AirportDTO> getAllAirports() {
     List<AirportEntity> airports = airportRepository.findAll();
     if (airports.isEmpty()) {
-      throw new AppError("notFound.airport", HttpStatus.NOT_FOUND.value());
+      throw new AppError(Messages.NOT_FOUND_MULTIPLE, HttpStatus.NOT_FOUND.value());
     }
     List<AirportDTO> airportDTOs = airports.stream().map(ObjectMapper::toAirportDTO).collect(Collectors.toList());
     return airportDTOs;
   }
 
-  public void createAirport(AirportCreateUpdateDTO newAirportDTO) {
+  public void createAirport(PartialAirportDTO newAirportDTO) {
     AirportEntity newAirportEntity = new AirportEntity();
 
     newAirportEntity.setName(newAirportDTO.getName());
@@ -56,32 +57,41 @@ public class AirportService {
     newAirportEntity.setIcaoCode(newAirportDTO.getIcaoCode());
     newAirportEntity.setCountryCode(newAirportDTO.getCountryCode());
     newAirportEntity.setType(newAirportDTO.getType());
+    newAirportEntity.setOperationStartTime(newAirportDTO.getOperationStartTime());
+    newAirportEntity.setOperationStopTime(newAirportDTO.getOperationStopTime());
+    newAirportEntity.setElevation(newAirportDTO.getElevation());
+    newAirportEntity.setSlope(newAirportDTO.getSlope());
+    newAirportEntity.setPossibleNoiseCategory(newAirportDTO.getPossibleNoiseCategory());
 
     airportRepository.save(newAirportEntity);
   }
 
-  public void updateAirport(AirportCreateUpdateDTO updatedAirportDTO) {
+  public void updateAirport(PartialAirportDTO updatedAirportDTO) {
     AirportEntity existingAirport = airportRepository.findById(updatedAirportDTO.getId())
-        .orElseThrow(() -> new AppError("notFound.airport", HttpStatus.NOT_FOUND.value()));
+        .orElseThrow(() -> new AppError(Messages.NOT_FOUND_SINGLE, HttpStatus.NOT_FOUND.value()));
 
     existingAirport.setName(updatedAirportDTO.getName());
     existingAirport.setIataCode(updatedAirportDTO.getIataCode());
     existingAirport.setIcaoCode(updatedAirportDTO.getIcaoCode());
     existingAirport.setCountryCode(updatedAirportDTO.getCountryCode());
     existingAirport.setType(updatedAirportDTO.getType());
+    existingAirport.setOperationStartTime(updatedAirportDTO.getOperationStartTime());
+    existingAirport.setOperationStopTime(updatedAirportDTO.getOperationStopTime());
+    existingAirport.setElevation(updatedAirportDTO.getElevation());
+    existingAirport.setSlope(updatedAirportDTO.getSlope());
+    existingAirport.setPossibleNoiseCategory(updatedAirportDTO.getPossibleNoiseCategory());
 
     airportRepository.save(existingAirport);
   }
 
   public void deleteAirport(EntityIdDTO entityIdDTO) {
     AirportEntity existingAirport = airportRepository.findById(entityIdDTO.getId())
-        .orElseThrow(() -> new AppError("notFound.airport", HttpStatus.NOT_FOUND.value()));
+        .orElseThrow(() -> new AppError(Messages.NOT_FOUND_SINGLE, HttpStatus.NOT_FOUND.value()));
     airportRepository.delete(existingAirport);
   }
 
   public Boolean doesSingleAirportExist(AirportEntity airport) {
-    String id = airport.getId();
-    Optional<AirportEntity> airportFound = airportRepository.findById(id);
+    Optional<AirportEntity> airportFound = airportRepository.findById(airport.getId());
     return airportFound.isPresent();
   }
 

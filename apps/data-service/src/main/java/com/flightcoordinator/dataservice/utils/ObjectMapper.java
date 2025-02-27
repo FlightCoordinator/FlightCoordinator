@@ -5,23 +5,23 @@ import java.util.stream.Collectors;
 import com.flightcoordinator.dataservice.dto.AirportDTO;
 import com.flightcoordinator.dataservice.dto.AlgorithmResultDTO;
 import com.flightcoordinator.dataservice.dto.AlgorithmRunDTO;
+import com.flightcoordinator.dataservice.dto.FlightDTO;
+import com.flightcoordinator.dataservice.dto.ModelDTO;
+import com.flightcoordinator.dataservice.dto.PlaneDTO;
+import com.flightcoordinator.dataservice.dto.RunwayDTO;
+import com.flightcoordinator.dataservice.dto.TaxiwayDTO;
 import com.flightcoordinator.dataservice.dto.CertificationDTO;
 import com.flightcoordinator.dataservice.dto.CrewDTO;
-import com.flightcoordinator.dataservice.dto.FlightDTO;
-import com.flightcoordinator.dataservice.dto.PlaneDTO;
-import com.flightcoordinator.dataservice.dto.RouteDTO;
-import com.flightcoordinator.dataservice.dto.RunwayDTO;
-import com.flightcoordinator.dataservice.dto.VehicleDTO;
 import com.flightcoordinator.dataservice.entity.AirportEntity;
 import com.flightcoordinator.dataservice.entity.AlgorithmResultEntity;
 import com.flightcoordinator.dataservice.entity.AlgorithmRunEntity;
 import com.flightcoordinator.dataservice.entity.CertificationEntity;
 import com.flightcoordinator.dataservice.entity.CrewEntity;
 import com.flightcoordinator.dataservice.entity.FlightEntity;
+import com.flightcoordinator.dataservice.entity.ModelEntity;
 import com.flightcoordinator.dataservice.entity.PlaneEntity;
-import com.flightcoordinator.dataservice.entity.RouteEntity;
 import com.flightcoordinator.dataservice.entity.RunwayEntity;
-import com.flightcoordinator.dataservice.entity.VehicleEntity;
+import com.flightcoordinator.dataservice.entity.TaxiwayEntity;
 
 public class ObjectMapper {
   public static AirportDTO toAirportDTO(AirportEntity airportEntity) {
@@ -34,14 +34,14 @@ public class ObjectMapper {
     airportDTO.setType(airportEntity.getType());
     airportDTO.setRunwayIds(airportEntity.getRunways().stream()
         .map(runway -> runway.getId()).collect(Collectors.toList()));
-    airportDTO.setVehiclesPresentIds(airportEntity.getVehiclesPresent().stream()
+    airportDTO.setTaxiwayIds(airportEntity.getTaxiways().stream()
         .map(vehicle -> vehicle.getId()).collect(Collectors.toList()));
     airportDTO.setPlanesPresentIds(airportEntity.getPlanesPresent().stream()
         .map(plane -> plane.getId()).collect(Collectors.toList()));
-    airportDTO.setRoutesOriginatingFromAirportIds(airportEntity.getRoutesOriginatingFromAirport().stream()
-        .map(route -> route.getId()).collect(Collectors.toList()));
-    airportDTO.setRoutesDestinedForAirportIds(airportEntity.getRoutesDestinedForAirport().stream()
-        .map(route -> route.getId()).collect(Collectors.toList()));
+    airportDTO.setFlightFromAirportIds(airportEntity.getFlightFromAirport().stream()
+        .map(flight -> flight.getId()).collect(Collectors.toList()));
+    airportDTO.setFlightToAirportIds(airportEntity.getFlightFromAirport().stream()
+        .map(flight -> flight.getId()).collect(Collectors.toList()));
     airportDTO.setCrewMembersPresentIds(airportEntity.getCrewMembersPresent().stream()
         .map(crew -> crew.getId()).collect(Collectors.toList()));
     return airportDTO;
@@ -56,11 +56,8 @@ public class ObjectMapper {
         .map(crew -> crew.getId()).collect(Collectors.toList()));
     algorithmResultDTO.setTakeoffRunwayId(algorithmResultEntity.getTakeoffRunway().getId());
     algorithmResultDTO.setLandingRunwayId(algorithmResultEntity.getLandingRunway().getId());
-    algorithmResultDTO.setOriginAirportGroundVehicleIds(algorithmResultEntity.getOriginAirportGroundVehicles().stream()
-        .map(vehicle -> vehicle.getId()).collect(Collectors.toList()));
-    algorithmResultDTO
-        .setDestinationAirportGroundVehicleIds(algorithmResultEntity.getDestinationAirportGroundVehicles().stream()
-            .map(vehicle -> vehicle.getId()).collect(Collectors.toList()));
+    algorithmResultDTO.setTakeoffTaxiwayId(algorithmResultEntity.getTakeoffTaxiway().getId());
+    algorithmResultDTO.setLandingTaxiwayId(algorithmResultEntity.getLandingTaxiway().getId());
     return algorithmResultDTO;
   }
 
@@ -70,14 +67,13 @@ public class ObjectMapper {
     algorithmRunDTO.setAlgorithmName(algorithmRunEntity.getAlgorithmName());
     algorithmRunDTO.setStartTime(algorithmRunEntity.getStartTime());
     algorithmRunDTO.setEndTime(algorithmRunEntity.getEndTime());
-    algorithmRunDTO.setRuntimeInMilliseconds(algorithmRunEntity.getRuntimeInMilliseconds());
-    algorithmRunDTO.setParametersJson(algorithmRunEntity.getParametersJson());
+    algorithmRunDTO.setRuntimeInMs(algorithmRunEntity.getRuntimeInMs());
     algorithmRunDTO.setResourcesJson(algorithmRunEntity.getResourcesJson());
-    algorithmRunDTO.setConstraintsMet(algorithmRunEntity.getConstraintsMet());
-    algorithmRunDTO.setLogs(algorithmRunEntity.getLogs());
-    algorithmRunDTO.setIsResultsSaved(algorithmRunEntity.isSuccessful());
+    algorithmRunDTO.setConstraintsJson(algorithmRunEntity.getConstraintsJson());
+    algorithmRunDTO.setLogsJson(algorithmRunEntity.getLogsJson());
+    algorithmRunDTO.setIsSuccessful(algorithmRunEntity.getIsSuccessful());
     algorithmRunDTO.setFailureReason(algorithmRunEntity.getFailureReason());
-    algorithmRunDTO.setIsResultsSaved(algorithmRunEntity.isResultsSaved());
+    algorithmRunDTO.setAreResultsSaved(algorithmRunEntity.getAreResultsSaved());
     algorithmRunDTO.setResultId(algorithmRunEntity.getResult().getId());
     return algorithmRunDTO;
   }
@@ -90,9 +86,8 @@ public class ObjectMapper {
     certificationDTO.setIssuer(certificationEntity.getIssuer());
     certificationDTO.setExpirationDate(certificationEntity.getExpirationDate());
     certificationDTO.setValidityPeriod(certificationEntity.getValidityPeriod());
-    certificationDTO.setAssignableRole(certificationEntity.getAssignableRole());
     certificationDTO.setDescription(certificationEntity.getDescription());
-    certificationDTO.setAssignedCrewMember(certificationEntity.getAssignedCrewMember().getId());
+    certificationDTO.setAssignedCrewMemberId(certificationEntity.getAssignedCrewMember().getId());
     return certificationDTO;
   }
 
@@ -107,7 +102,7 @@ public class ObjectMapper {
         .map(certification -> certification.getId()).collect(Collectors.toList()));
     crewDTO.setTotalFlightHours(crewEntity.getTotalFlightHours());
     crewDTO.setBaseAirportId(crewEntity.getBaseAirport().getId());
-    crewDTO.setAvailability(crewEntity.getAvailability());
+    crewDTO.setStatus(crewEntity.getStatus());
     return crewDTO;
   }
 
@@ -115,59 +110,107 @@ public class ObjectMapper {
     FlightDTO flightDTO = new FlightDTO();
     flightDTO.setId(flightEntity.getId());
     flightDTO.setPassengerCount(flightEntity.getPassengerCount());
-    flightDTO.setFlightRouteId(flightEntity.getFlightRoute().getId());
+    flightDTO.setCargoWeight(flightEntity.getCargoWeight());
+    flightDTO.setOriginAirportId(flightEntity.getOriginAirport().getId());
+    flightDTO.setDestinationAirportId(flightEntity.getDestinationAirport().getId());
+    flightDTO.setDistance(flightEntity.getDistance());
+    flightDTO.setEstimatedTakeoffTime(flightEntity.getEstimatedTakeoffTime());
+    flightDTO.setEstimatedLandingTime(flightEntity.getEstimatedLandingTime());
+    flightDTO.setEstimatedFlightDuration(flightEntity.getEstimatedFlightDuration());
     return flightDTO;
   }
 
   public static PlaneDTO toPlaneDTO(PlaneEntity planeEntity) {
     PlaneDTO planeDTO = new PlaneDTO();
     planeDTO.setId(planeEntity.getId());
-    planeDTO.setModel(planeEntity.getModel());
-    planeDTO.setRegistrationNumber(planeEntity.getRegistrationNumber());
-    planeDTO.setPassengerCapacity(planeEntity.getPassengerCapacity());
-    planeDTO.setFuelEfficiency(planeEntity.getFuelEfficiency());
-    planeDTO.setMaxFlightRange(planeEntity.getMaxFlightRange());
-    planeDTO.setLastMaintenance(planeEntity.getLastMaintenance());
+    planeDTO.setModelId(planeEntity.getModel().getId());
+    planeDTO.setTailNumber(planeEntity.getTailNumber());
+    planeDTO.setNextMaintenanceDate(planeEntity.getNextMaintenanceDate());
+    planeDTO.setCyclesSinceLastMaintenance(planeEntity.getCyclesSinceLastMaintenance());
+    planeDTO.setRetirementDate(planeEntity.getRetirementDate());
+    planeDTO.setEngineHours(planeEntity.getEngineHours());
+    planeDTO.setCurrentWearLevel(planeEntity.getCurrentWearLevel());
     planeDTO.setTotalFlightHours(planeEntity.getTotalFlightHours());
-    planeDTO.setShortestRunwayLengthRequired(planeEntity.getShortestRunwayLengthRequired());
-    planeDTO.setShortestRunwayWidthRequired(planeEntity.getShortestRunwayWidthRequired());
+    planeDTO.setFuelAmount(planeEntity.getFuelAmount());
     planeDTO.setPlaneStatus(planeEntity.getPlaneStatus());
     planeDTO.setCurrentLocationId(planeEntity.getCurrentLocation().getId());
     planeDTO.setAircraftOperator(planeEntity.getAircraftOperator());
     return planeDTO;
   }
 
-  public static RouteDTO toRouteDTO(RouteEntity routeEntity) {
-    RouteDTO routeDTO = new RouteDTO();
-    routeDTO.setId(routeEntity.getId());
-    routeDTO.setOriginAirportId(routeEntity.getOriginAirport().getId());
-    routeDTO.setDestinationAirportId(routeEntity.getDestinationAirport().getId());
-    routeDTO.setDistance(routeEntity.getDistance());
-    routeDTO.setEstimatedTime(routeEntity.getEstimatedTime());
-    return routeDTO;
+  public static ModelDTO toModelDTO(ModelEntity modelEntity) {
+    ModelDTO modelDTO = new ModelDTO();
+    modelDTO.setId(modelEntity.getId());
+    modelDTO.setManufacturer(modelEntity.getManufacturer());
+    modelDTO.setPlaneIdentifier(modelEntity.getPlaneIdentifier());
+    modelDTO.setModelName(modelEntity.getModelName());
+    modelDTO.setCertifier(modelEntity.getCertifier());
+    modelDTO.setCertificationStatus(modelEntity.getCertificationStatus());
+    modelDTO.setNoiseCategory(modelEntity.getNoiseCategory());
+    modelDTO.setFuelCapacity(modelEntity.getFuelCapacity());
+    modelDTO.setFuelEfficiency(modelEntity.getFuelEfficiency());
+    modelDTO.setMaxPassengerCapacity(modelEntity.getMaxPassengerCapacity());
+    modelDTO.setMaxCargoCapacity(modelEntity.getMaxCargoCapacity());
+    modelDTO.setEmptyWeight(modelEntity.getEmptyWeight());
+    modelDTO.setTailHeight(modelEntity.getTailHeight());
+    modelDTO.setWingSpan(modelEntity.getWingSpan());
+    modelDTO.setEngineType(modelEntity.getEngineType());
+    modelDTO.setEngineCount(modelEntity.getEngineCount());
+    modelDTO.setThrustPerEngine(modelEntity.getThrustPerEngine());
+    modelDTO.setMaxCrosswindComp(modelEntity.getMaxCrosswindComp());
+    modelDTO.setRequiredRunwayLength(modelEntity.getRequiredRunwayLength());
+    modelDTO.setRequiredRunwayWidth(modelEntity.getRequiredRunwayWidth());
+    modelDTO.setMinRotationRadius(modelEntity.getMinRotationRadius());
+    modelDTO.setCruiseSpeed(modelEntity.getCruiseSpeed());
+    modelDTO.setMaxSpeed(modelEntity.getMaxSpeed());
+    modelDTO.setStallSpeed(modelEntity.getStallSpeed());
+    modelDTO.setMaxAltitude(modelEntity.getMaxAltitude());
+    modelDTO.setClimbRate(modelEntity.getClimbRate());
+    modelDTO.setDescentRate(modelEntity.getDescentRate());
+    modelDTO.setMaxFlightRange(modelEntity.getMaxFlightRange());
+    modelDTO.setHasWeatherRadar(modelEntity.getHasWeatherRadar());
+    modelDTO.setHasAutopilot(modelEntity.getHasAutopilot());
+    modelDTO.setHasFlyByWire(modelEntity.getHasFlyByWire());
+    modelDTO.setHasFireSupression(modelEntity.getHasFireSupression());
+    modelDTO.setGpsEnabled(modelEntity.getGpsEnabled());
+    return modelDTO;
   }
 
   public static RunwayDTO toRunwayDTO(RunwayEntity runwayEntity) {
     RunwayDTO runwayDTO = new RunwayDTO();
     runwayDTO.setId(runwayEntity.getId());
+    runwayDTO.setRunwayNumber(runwayEntity.getRunwayNumber());
+    runwayDTO.setAirportId(runwayEntity.getAirport().getId());
     runwayDTO.setLength(runwayEntity.getLength());
     runwayDTO.setWidth(runwayEntity.getWidth());
     runwayDTO.setSurfaceType(runwayEntity.getSurfaceType());
     runwayDTO.setMaxWeightCapacity(runwayEntity.getMaxWeightCapacity());
-    runwayDTO.setOrientation(runwayEntity.getOrientation());
-    runwayDTO.setAirportId(runwayEntity.getAirport().getId());
+    runwayDTO.setHasMarkings(runwayEntity.getHasMarkings());
+    runwayDTO.setHasLighting(runwayEntity.getHasLighting());
+    runwayDTO.setHasILS(runwayEntity.getHasILS());
+    runwayDTO.setHasSafetyArea(runwayEntity.getHasSafetyArea());
+    runwayDTO.setVisualApproachAid(runwayEntity.getVisualApproachAid());
+    runwayDTO.setAltitude(runwayEntity.getAltitude());
+    runwayDTO.setStatus(runwayEntity.getStatus());
+    runwayDTO.setCrosswindLimit(runwayEntity.getCrosswindLimit());
     return runwayDTO;
   }
 
-  public static VehicleDTO toVehicleDTO(VehicleEntity vehicleEntity) {
-    VehicleDTO vehicleDTO = new VehicleDTO();
-    vehicleDTO.setId(vehicleEntity.getId());
-    vehicleDTO.setType(vehicleEntity.getType());
-    vehicleDTO.setVehicleCode(vehicleEntity.getVehicleCode());
-    vehicleDTO.setCapacity(vehicleEntity.getCapacity());
-    vehicleDTO.setAvailability(vehicleEntity.getAvailability());
-    vehicleDTO.setMaintenanceDue(vehicleEntity.getMaintenanceDue());
-    vehicleDTO.setAirportId(vehicleEntity.getAirport().getId());
-    return vehicleDTO;
+  public static TaxiwayDTO toTaxiwayDTO(TaxiwayEntity taxiwayEntity) {
+    TaxiwayDTO taxiwayDTO = new TaxiwayDTO();
+    taxiwayDTO.setId(taxiwayEntity.getId());
+    taxiwayDTO.setName(taxiwayEntity.getName());
+    taxiwayDTO.setAirportId(taxiwayEntity.getAirport().getId());
+    taxiwayDTO.setLoadCapacity(taxiwayEntity.getLoadCapacity());
+    taxiwayDTO.setHasHoldingPoint(taxiwayEntity.getHasHoldingPoint());
+    taxiwayDTO.setHasHighSpeedExit(taxiwayEntity.getHasHighSpeedExit());
+    taxiwayDTO.setWidth(taxiwayEntity.getWidth());
+    taxiwayDTO.setLength(taxiwayEntity.getLength());
+    taxiwayDTO.setMaxTurningRadius(taxiwayEntity.getMaxTurningRadius());
+    taxiwayDTO.setMaxWeightCapacity(taxiwayEntity.getMaxWeightCapacity());
+    taxiwayDTO.setHasLighting(taxiwayEntity.getHasLighting());
+    taxiwayDTO.setHasSignage(taxiwayEntity.getHasSignage());
+    taxiwayDTO.setConnectedRunwayId(taxiwayEntity.getConnectedRunway().getId());
+    return taxiwayDTO;
   }
 }

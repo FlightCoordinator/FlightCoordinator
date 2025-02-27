@@ -5,6 +5,11 @@ public class Messages {
   public static String UPDATE_RESPONSE = "Resource updated successfully";
   public static String DELETE_RESPONSE = "Resource deleted successfully";
 
+  public static String NOT_FOUND_SINGLE = "Ressource not found";
+  public static String NOT_FOUND_MULTIPLE = "Resources not found";
+
+  public static String BAD_REQUEST = "Cannot validate saved data. Please update the saved data and try again";
+
   public static String ENUM_VALIDATION_EXCEPTION_RESPONSE = "Invalid value provided. Please choose a valid option";
   public static String ILLEGAL_ARGUMENT_EXCEPTION_RESPONSE = "Invalid input. Please check your request and try again.";
   public static String OPTIMISTIC_LOCKING_FAILURE_EXCEPTION_MESSAGE = "This resource has been modified bu another process. Please refresh the page and try again.";

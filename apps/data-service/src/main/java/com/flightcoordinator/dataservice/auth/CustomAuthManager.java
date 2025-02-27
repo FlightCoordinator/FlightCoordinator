@@ -16,7 +16,7 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
 import com.flightcoordinator.dataservice.constants.AuthConstants;
-import com.flightcoordinator.dataservice.dto.auth.AuthValidationDTO;
+import com.flightcoordinator.dataservice.dto.misc.AuthValidationDTO;
 
 import jakarta.servlet.http.Cookie;
 

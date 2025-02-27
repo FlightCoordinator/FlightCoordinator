@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.flightcoordinator.dataservice.constants.Messages;
-import com.flightcoordinator.dataservice.dto.EntityIdDTO;
 import com.flightcoordinator.dataservice.dto.RunwayDTO;
+import com.flightcoordinator.dataservice.dto.misc.EntityIdDTO;
 import com.flightcoordinator.dataservice.response.ResponseHelper;
 import com.flightcoordinator.dataservice.response.ResponseObject;
 import com.flightcoordinator.dataservice.service.RunwayService;

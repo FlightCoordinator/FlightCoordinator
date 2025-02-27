@@ -22,12 +22,12 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "Development Tools' Controller", description = "Endpoint for various tools for development operations.")
 public class DevToolsController {
   @Autowired
-  private DevToolsService developmentService;
+  private DevToolsService devToolsService;
 
-  @PostMapping("/createSampleData")
-  @Operation(summary = "Create sample data for development", description = "Create sample data for development.")
+  @PostMapping("/generateSampleData")
+  @Operation(summary = "Generate sample data for development", description = "Generate sample data for development.")
   public ResponseEntity<ResponseObject<List<Object>>> createSampleData() {
-    developmentService.createSampleData();
+    devToolsService.generateSampleData();
     return ResponseHelper.generateResponse(HttpStatus.CREATED.value(), true, Messages.CREATE_RESPONSE, null);
   }
 }

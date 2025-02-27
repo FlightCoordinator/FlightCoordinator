@@ -9,12 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import com.flightcoordinator.dataservice.dto.EntityIdDTO;
+import com.flightcoordinator.dataservice.constants.Messages;
 import com.flightcoordinator.dataservice.dto.PlaneDTO;
+import com.flightcoordinator.dataservice.dto.misc.EntityIdDTO;
 import com.flightcoordinator.dataservice.entity.AirportEntity;
+import com.flightcoordinator.dataservice.entity.ModelEntity;
 import com.flightcoordinator.dataservice.entity.PlaneEntity;
 import com.flightcoordinator.dataservice.exception.AppError;
 import com.flightcoordinator.dataservice.repository.AirportRepository;
+import com.flightcoordinator.dataservice.repository.ModelRepository;
 import com.flightcoordinator.dataservice.repository.PlaneRepository;
 import com.flightcoordinator.dataservice.utils.ObjectMapper;
 
@@ -24,11 +27,14 @@ public class PlaneService {
   private PlaneRepository planeRepository;
 
   @Autowired
+  private ModelRepository modelRepository;
+
+  @Autowired
   private AirportRepository airportRepository;
 
   public PlaneDTO getSinglePlaneById(EntityIdDTO entityIdDTO) {
     PlaneEntity plane = planeRepository.findById(entityIdDTO.getId())
-        .orElseThrow(() -> new AppError("notFound.plane", HttpStatus.NOT_FOUND.value()));
+        .orElseThrow(() -> new AppError(Messages.NOT_FOUND_SINGLE, HttpStatus.NOT_FOUND.value()));
     PlaneDTO planeDTO = ObjectMapper.toPlaneDTO(plane);
     return planeDTO;
   }
@@ -37,7 +43,7 @@ public class PlaneService {
     List<PlaneEntity> planes = planeRepository.findAllById(entityIdDTOs.stream().map(
         entityId -> entityId.getId()).collect(Collectors.toList()));
     if (planes.isEmpty()) {
-      throw new AppError("notFound.plane", HttpStatus.NOT_FOUND.value());
+      throw new AppError(Messages.NOT_FOUND_MULTIPLE, HttpStatus.NOT_FOUND.value());
     }
     List<PlaneDTO> planeDTOs = planes.stream().map(ObjectMapper::toPlaneDTO).collect(Collectors.toList());
     return planeDTOs;
@@ -46,7 +52,7 @@ public class PlaneService {
   public List<PlaneDTO> getAllPlanes() {
     List<PlaneEntity> planes = planeRepository.findAll();
     if (planes.isEmpty()) {
-      throw new AppError("notFound.plane", HttpStatus.NOT_FOUND.value());
+      throw new AppError(Messages.NOT_FOUND_MULTIPLE, HttpStatus.NOT_FOUND.value());
     }
     List<PlaneDTO> planeDTOs = planes.stream().map(ObjectMapper::toPlaneDTO).collect(Collectors.toList());
     return planeDTOs;
@@ -54,19 +60,21 @@ public class PlaneService {
 
   public void createPlane(PlaneDTO newPlaneDTO) {
     AirportEntity airportEntity = airportRepository.findById(newPlaneDTO.getCurrentLocationId())
-        .orElseThrow(() -> new AppError("genericMessages.badRequest", HttpStatus.BAD_REQUEST.value()));
+        .orElseThrow(() -> new AppError(Messages.BAD_REQUEST, HttpStatus.BAD_REQUEST.value()));
+
+    ModelEntity modelEntity = modelRepository.findById(newPlaneDTO.getModelId())
+        .orElseThrow(() -> new AppError(Messages.BAD_REQUEST, HttpStatus.BAD_REQUEST.value()));
 
     PlaneEntity planeEntity = new PlaneEntity();
-    planeEntity.setModel(newPlaneDTO.getModel());
-    planeEntity.setRegistrationNumber(newPlaneDTO.getRegistrationNumber());
-    planeEntity.setPassengerCapacity(newPlaneDTO.getPassengerCapacity());
-    planeEntity.setFuelEfficiency(newPlaneDTO.getFuelEfficiency());
-    planeEntity.setMaxFlightRange(newPlaneDTO.getMaxFlightRange());
-    planeEntity.setLastMaintenance(newPlaneDTO.getLastMaintenance());
+    planeEntity.setModel(modelEntity);
+    planeEntity.setTailNumber(newPlaneDTO.getTailNumber());
+    planeEntity.setNextMaintenanceDate(newPlaneDTO.getNextMaintenanceDate());
+    planeEntity.setCyclesSinceLastMaintenance(newPlaneDTO.getCyclesSinceLastMaintenance());
+    planeEntity.setRetirementDate(newPlaneDTO.getRetirementDate());
+    planeEntity.setEngineHours(newPlaneDTO.getEngineHours());
+    planeEntity.setCurrentWearLevel(newPlaneDTO.getCurrentWearLevel());
     planeEntity.setTotalFlightHours(newPlaneDTO.getTotalFlightHours());
-    planeEntity.setMaxTakeoffWeight(newPlaneDTO.getMaxTakeoffWeight());
-    planeEntity.setShortestRunwayLengthRequired(newPlaneDTO.getShortestRunwayLengthRequired());
-    planeEntity.setShortestRunwayWidthRequired(newPlaneDTO.getShortestRunwayWidthRequired());
+    planeEntity.setFuelAmount(newPlaneDTO.getFuelAmount());
     planeEntity.setPlaneStatus(newPlaneDTO.getPlaneStatus());
     planeEntity.setCurrentLocation(airportEntity);
     planeEntity.setAircraftOperator(newPlaneDTO.getAircraftOperator());
@@ -75,24 +83,26 @@ public class PlaneService {
   }
 
   public void updatePlane(PlaneDTO updatedPlaneDTO) {
-    AirportEntity newAirportEntity = airportRepository.findById(updatedPlaneDTO.getCurrentLocationId())
-        .orElseThrow(() -> new AppError("genericMessages.badRequest", HttpStatus.BAD_REQUEST.value()));
+    ModelEntity modelEntity = modelRepository.findById(updatedPlaneDTO.getModelId())
+        .orElseThrow(() -> new AppError(Messages.BAD_REQUEST, HttpStatus.BAD_REQUEST.value()));
+
+    AirportEntity airportEntity = airportRepository.findById(updatedPlaneDTO.getCurrentLocationId())
+        .orElseThrow(() -> new AppError(Messages.BAD_REQUEST, HttpStatus.BAD_REQUEST.value()));
 
     PlaneEntity existingPlane = planeRepository.findById(updatedPlaneDTO.getId())
-        .orElseThrow(() -> new AppError("notFound.plane", HttpStatus.NOT_FOUND.value()));
+        .orElseThrow(() -> new AppError(Messages.NOT_FOUND_SINGLE, HttpStatus.NOT_FOUND.value()));
 
-    existingPlane.setModel(updatedPlaneDTO.getModel());
-    existingPlane.setRegistrationNumber(updatedPlaneDTO.getRegistrationNumber());
-    existingPlane.setPassengerCapacity(updatedPlaneDTO.getPassengerCapacity());
-    existingPlane.setFuelEfficiency(updatedPlaneDTO.getFuelEfficiency());
-    existingPlane.setMaxFlightRange(updatedPlaneDTO.getMaxFlightRange());
-    existingPlane.setLastMaintenance(updatedPlaneDTO.getLastMaintenance());
+    existingPlane.setModel(modelEntity);
+    existingPlane.setTailNumber(updatedPlaneDTO.getTailNumber());
+    existingPlane.setNextMaintenanceDate(updatedPlaneDTO.getNextMaintenanceDate());
+    existingPlane.setCyclesSinceLastMaintenance(updatedPlaneDTO.getCyclesSinceLastMaintenance());
+    existingPlane.setRetirementDate(updatedPlaneDTO.getRetirementDate());
+    existingPlane.setEngineHours(updatedPlaneDTO.getEngineHours());
+    existingPlane.setCurrentWearLevel(updatedPlaneDTO.getCurrentWearLevel());
     existingPlane.setTotalFlightHours(updatedPlaneDTO.getTotalFlightHours());
-    existingPlane.setMaxTakeoffWeight(updatedPlaneDTO.getMaxTakeoffWeight());
-    existingPlane.setShortestRunwayLengthRequired(updatedPlaneDTO.getShortestRunwayLengthRequired());
-    existingPlane.setShortestRunwayWidthRequired(updatedPlaneDTO.getShortestRunwayWidthRequired());
+    existingPlane.setFuelAmount(updatedPlaneDTO.getFuelAmount());
     existingPlane.setPlaneStatus(updatedPlaneDTO.getPlaneStatus());
-    existingPlane.setCurrentLocation(newAirportEntity);
+    existingPlane.setCurrentLocation(airportEntity);
     existingPlane.setAircraftOperator(updatedPlaneDTO.getAircraftOperator());
 
     planeRepository.save(existingPlane);
@@ -100,13 +110,12 @@ public class PlaneService {
 
   public void deletePlane(EntityIdDTO entityIdDTO) {
     PlaneEntity existingPlane = planeRepository.findById(entityIdDTO.getId())
-        .orElseThrow(() -> new AppError("notFound.plane", HttpStatus.NOT_FOUND.value()));
+        .orElseThrow(() -> new AppError(Messages.NOT_FOUND_SINGLE, HttpStatus.NOT_FOUND.value()));
     planeRepository.delete(existingPlane);
   }
 
   public Boolean doesSinglePlaneExist(PlaneEntity plane) {
-    String id = plane.getId();
-    Optional<PlaneEntity> planeFound = planeRepository.findById(id);
+    Optional<PlaneEntity> planeFound = planeRepository.findById(plane.getId());
     return planeFound.isPresent();
   }
 

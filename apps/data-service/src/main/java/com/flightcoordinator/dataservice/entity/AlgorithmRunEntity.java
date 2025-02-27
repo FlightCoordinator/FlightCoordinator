@@ -1,88 +1,93 @@
 package com.flightcoordinator.dataservice.entity;
 
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
 
-import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.MapKeyColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "algorithm_run_table")
 public class AlgorithmRunEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
+  @Column(name = "id", nullable = false)
   private String id;
 
+  @NotBlank(message = "Algorithm name is required")
   @Column(name = "algorithm_name", nullable = false)
   private String algorithmName;
 
+  @NotBlank(message = "Start time is required")
   @Column(name = "start_time", nullable = false)
   private Date startTime;
 
+  @NotBlank(message = "End time is required")
   @Column(name = "end_time", nullable = false)
   private Date endTime;
 
+  @NotBlank(message = "Runtime in ms is required")
   @Column(name = "runtime_in_milliseconds", nullable = false)
-  private Long runtimeInMilliseconds;
+  private Long runtimeInMs;
 
-  @Column(name = "parameters_json")
-  private String parametersJson;
-
-  @Column(name = "resources_json")
+  @NotBlank(message = "Resources JSON is required")
+  @Column(name = "resources_json", nullable = false)
   private String resourcesJson;
 
-  @ElementCollection
-  @CollectionTable(name = "algorithm_run_constraints", joinColumns = @JoinColumn(name = "algorithm_run_id"))
-  @MapKeyColumn(name = "constraint_name")
-  @Column(name = "constraint_value")
-  private Map<String, Boolean> constraintsMet;
+  @NotBlank(message = "Constraints JSON is required")
+  @Column(name = "constraints_json", nullable = false)
+  private String constraintsJson;
 
-  @ElementCollection
-  @CollectionTable(name = "algorithm_run_logs", joinColumns = @JoinColumn(name = "algorithm_run_id"))
-  @Column(name = "log_entry")
-  private List<String> logs;
+  @NotBlank(message = "Logs JSON is required")
+  @Column(name = "logs_json", nullable = false)
+  private String logsJson;
 
+  @NotBlank(message = "Is successful is required")
   @Column(name = "is_successful", nullable = false)
   private Boolean isSuccessful;
 
+  @NotBlank(message = "Failure reason is required")
   @Column(name = "failure_reason", nullable = true)
   private String failureReason;
 
-  @Column(name = "is_results_saved", nullable = false)
-  private Boolean isResultsSaved;
+  @NotBlank(message = "Are results saved is required")
+  @Column(name = "are_results_saved", nullable = false)
+  private Boolean areResultsSaved;
 
   @OneToOne
-  @JoinColumn(name = "result_id", nullable = false)
+  @JoinColumn(name = "run_result", nullable = false)
   private AlgorithmResultEntity result;
 
   public AlgorithmRunEntity() {
   }
 
-  public AlgorithmRunEntity(String id, String algorithmName, Date startTime, Date endTime, Long runtimeInMilliseconds,
-      String parametersJson, String resourcesJson, Map<String, Boolean> constraintsMet, List<String> logs,
-      Boolean isSuccessful, String failureReason, Boolean isResultsSaved, AlgorithmResultEntity result) {
+  public AlgorithmRunEntity(String id, @NotBlank(message = "Algorithm name is required") String algorithmName,
+      @NotBlank(message = "Start time is required") Date startTime,
+      @NotBlank(message = "End time is required") Date endTime,
+      @NotBlank(message = "Runtime in ms is required") Long runtimeInMilliseconds,
+      @NotBlank(message = "Resources JSON is required") String resourcesJson,
+      @NotBlank(message = "Constraints JSON is required") String constraintsJson,
+      @NotBlank(message = "Logs JSON is required") String logsJson,
+      @NotBlank(message = "Is successful is required") Boolean isSuccessful,
+      @NotBlank(message = "Failure reason is required") String failureReason,
+      @NotBlank(message = "Are results saved is required") Boolean areResultsSaved, AlgorithmResultEntity result) {
     this.id = id;
     this.algorithmName = algorithmName;
     this.startTime = startTime;
     this.endTime = endTime;
-    this.runtimeInMilliseconds = runtimeInMilliseconds;
-    this.parametersJson = parametersJson;
+    this.runtimeInMs = runtimeInMilliseconds;
     this.resourcesJson = resourcesJson;
-    this.constraintsMet = constraintsMet;
-    this.logs = logs;
+    this.constraintsJson = constraintsJson;
+    this.logsJson = logsJson;
     this.isSuccessful = isSuccessful;
     this.failureReason = failureReason;
-    this.isResultsSaved = isResultsSaved;
+    this.areResultsSaved = areResultsSaved;
     this.result = result;
   }
 
@@ -118,20 +123,12 @@ public class AlgorithmRunEntity {
     this.endTime = endTime;
   }
 
-  public Long getRuntimeInMilliseconds() {
-    return runtimeInMilliseconds;
+  public Long getRuntimeInMs() {
+    return runtimeInMs;
   }
 
-  public void setRuntimeInMilliseconds(Long runtimeInMilliseconds) {
-    this.runtimeInMilliseconds = runtimeInMilliseconds;
-  }
-
-  public String getParametersJson() {
-    return parametersJson;
-  }
-
-  public void setParametersJson(String parametersJson) {
-    this.parametersJson = parametersJson;
+  public void setRuntimeInMs(Long runtimeInMilliseconds) {
+    this.runtimeInMs = runtimeInMilliseconds;
   }
 
   public String getResourcesJson() {
@@ -142,27 +139,27 @@ public class AlgorithmRunEntity {
     this.resourcesJson = resourcesJson;
   }
 
-  public Map<String, Boolean> getConstraintsMet() {
-    return constraintsMet;
+  public String getConstraintsJson() {
+    return constraintsJson;
   }
 
-  public void setConstraintsMet(Map<String, Boolean> constraintsMet) {
-    this.constraintsMet = constraintsMet;
+  public void setConstraintsJson(String constraintsJson) {
+    this.constraintsJson = constraintsJson;
   }
 
-  public List<String> getLogs() {
-    return logs;
+  public String getLogsJson() {
+    return logsJson;
   }
 
-  public void setLogs(List<String> logs) {
-    this.logs = logs;
+  public void setLogsJson(String logsJson) {
+    this.logsJson = logsJson;
   }
 
-  public Boolean isSuccessful() {
+  public Boolean getIsSuccessful() {
     return isSuccessful;
   }
 
-  public void setSuccessful(Boolean isSuccessful) {
+  public void setIsSuccessful(Boolean isSuccessful) {
     this.isSuccessful = isSuccessful;
   }
 
@@ -174,12 +171,12 @@ public class AlgorithmRunEntity {
     this.failureReason = failureReason;
   }
 
-  public Boolean isResultsSaved() {
-    return isResultsSaved;
+  public Boolean getAreResultsSaved() {
+    return areResultsSaved;
   }
 
-  public void setResultsSaved(Boolean isResultsSaved) {
-    this.isResultsSaved = isResultsSaved;
+  public void setAreResultsSaved(Boolean areResultsSaved) {
+    this.areResultsSaved = areResultsSaved;
   }
 
   public AlgorithmResultEntity getResult() {

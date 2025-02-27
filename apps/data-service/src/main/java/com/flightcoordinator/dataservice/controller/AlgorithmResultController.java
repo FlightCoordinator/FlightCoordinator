@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.flightcoordinator.dataservice.constants.Messages;
 import com.flightcoordinator.dataservice.dto.AlgorithmResultDTO;
-import com.flightcoordinator.dataservice.dto.EntityIdDTO;
+import com.flightcoordinator.dataservice.dto.misc.EntityIdDTO;
 import com.flightcoordinator.dataservice.response.ResponseHelper;
 import com.flightcoordinator.dataservice.response.ResponseObject;
 import com.flightcoordinator.dataservice.service.AlgorithmResultService;
@@ -40,14 +40,6 @@ public class AlgorithmResultController {
   public ResponseEntity<ResponseObject<AlgorithmResultDTO>> getAlgorithmResultById(@RequestBody EntityIdDTO id) {
     AlgorithmResultDTO algorithmResult = algorithmResultService.getSingleAlgorithmResultById(id);
     return ResponseHelper.generateResponse(HttpStatus.OK.value(), true, "", algorithmResult);
-  }
-
-  @PostMapping("/create")
-  @Operation(summary = "Create a new algorithm result", description = "Create a new algorithm result. (Not intended for manual use)")
-  public ResponseEntity<ResponseObject<Object>> createAlgorithmResult(
-      @RequestBody AlgorithmResultDTO newAlgorithmResult) {
-    algorithmResultService.createAlgorithmResult(newAlgorithmResult);
-    return ResponseHelper.generateResponse(HttpStatus.CREATED.value(), true, Messages.CREATE_RESPONSE, null);
   }
 
   @DeleteMapping("/delete")

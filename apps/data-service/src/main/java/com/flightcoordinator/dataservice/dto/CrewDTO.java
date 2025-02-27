@@ -2,19 +2,35 @@ package com.flightcoordinator.dataservice.dto;
 
 import java.util.List;
 
-import com.flightcoordinator.dataservice.enums.CrewAvailability;
-import com.flightcoordinator.dataservice.enums.CrewRole;
+import com.flightcoordinator.dataservice.enums.CrewMemberRole;
+import com.flightcoordinator.dataservice.enums.CrewMemberStatus;
 
 public class CrewDTO {
   private String id;
   private String fullName;
   private String email;
   private String phoneNumber;
-  private CrewRole role;
+  private CrewMemberRole role;
   private List<String> certificationIds;
   private Integer totalFlightHours;
   private String baseAirportId;
-  private CrewAvailability availability;
+  private String currentAirportId;
+  private CrewMemberStatus status;
+
+  public CrewDTO(String id, String fullName, String email, String phoneNumber, CrewMemberRole role,
+      List<String> certificationIds, Integer totalFlightHours, String baseAirportId, String currentAirportId,
+      CrewMemberStatus status) {
+    this.id = id;
+    this.fullName = fullName;
+    this.email = email;
+    this.phoneNumber = phoneNumber;
+    this.role = role;
+    this.certificationIds = certificationIds;
+    this.totalFlightHours = totalFlightHours;
+    this.baseAirportId = baseAirportId;
+    this.currentAirportId = currentAirportId;
+    this.status = status;
+  }
 
   public CrewDTO() {
   }
@@ -51,11 +67,11 @@ public class CrewDTO {
     this.phoneNumber = phoneNumber;
   }
 
-  public CrewRole getRole() {
+  public CrewMemberRole getRole() {
     return role;
   }
 
-  public void setRole(CrewRole role) {
+  public void setRole(CrewMemberRole role) {
     this.role = role;
   }
 
@@ -83,11 +99,19 @@ public class CrewDTO {
     this.baseAirportId = baseAirportId;
   }
 
-  public CrewAvailability getAvailability() {
-    return availability;
+  public String getCurrentAirportId() {
+    return currentAirportId;
   }
 
-  public void setAvailability(CrewAvailability availability) {
-    this.availability = availability;
+  public void setCurrentAirportId(String currentAirportId) {
+    this.currentAirportId = currentAirportId;
+  }
+
+  public CrewMemberStatus getStatus() {
+    return status;
+  }
+
+  public void setStatus(CrewMemberStatus status) {
+    this.status = status;
   }
 }

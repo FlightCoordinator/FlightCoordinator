@@ -14,8 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.flightcoordinator.dataservice.constants.Messages;
 import com.flightcoordinator.dataservice.dto.CertificationDTO;
-import com.flightcoordinator.dataservice.dto.EntityIdDTO;
-import com.flightcoordinator.dataservice.dto.create_update.CertificationCreateUpdateDTO;
+import com.flightcoordinator.dataservice.dto.misc.EntityIdDTO;
 import com.flightcoordinator.dataservice.response.ResponseHelper;
 import com.flightcoordinator.dataservice.response.ResponseObject;
 import com.flightcoordinator.dataservice.service.CertificationService;
@@ -46,8 +45,7 @@ public class CertificationController {
 
   @PostMapping("/create")
   @Operation(summary = "Create a new certification", description = "Create a new certification.")
-  public ResponseEntity<ResponseObject<Object>> createCertification(
-      @RequestBody CertificationCreateUpdateDTO newCertification) {
+  public ResponseEntity<ResponseObject<Object>> createCertification(@RequestBody CertificationDTO newCertification) {
     certificationService.createCertification(newCertification);
     return ResponseHelper.generateResponse(HttpStatus.CREATED.value(), true, Messages.CREATE_RESPONSE, null);
   }
@@ -55,7 +53,7 @@ public class CertificationController {
   @PatchMapping("/update")
   @Operation(summary = "Update a certification", description = "Update an existing certification.")
   public ResponseEntity<ResponseObject<Object>> updateCertification(
-      @RequestBody CertificationCreateUpdateDTO updatedCertification) {
+      @RequestBody CertificationDTO updatedCertification) {
     certificationService.updateCertification(updatedCertification);
     return ResponseHelper.generateResponse(HttpStatus.OK.value(), true, Messages.UPDATE_RESPONSE, null);
   }

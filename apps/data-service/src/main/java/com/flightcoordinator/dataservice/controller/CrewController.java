@@ -14,8 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.flightcoordinator.dataservice.constants.Messages;
 import com.flightcoordinator.dataservice.dto.CrewDTO;
-import com.flightcoordinator.dataservice.dto.EntityIdDTO;
-import com.flightcoordinator.dataservice.dto.create_update.CrewCreateUpdateDTO;
+import com.flightcoordinator.dataservice.dto.misc.EntityIdDTO;
 import com.flightcoordinator.dataservice.response.ResponseHelper;
 import com.flightcoordinator.dataservice.response.ResponseObject;
 import com.flightcoordinator.dataservice.service.CrewService;
@@ -46,14 +45,14 @@ public class CrewController {
 
   @PostMapping("/create")
   @Operation(summary = "Create a new crew member", description = "Create a new crew member.")
-  public ResponseEntity<ResponseObject<Object>> createCrewMember(@RequestBody CrewCreateUpdateDTO newCrewMember) {
+  public ResponseEntity<ResponseObject<Object>> createCrewMember(@RequestBody CrewDTO newCrewMember) {
     crewService.createCrewMember(newCrewMember);
     return ResponseHelper.generateResponse(HttpStatus.CREATED.value(), true, Messages.CREATE_RESPONSE, null);
   }
 
   @PatchMapping("/update")
   @Operation(summary = "Update an existing crew member", description = "Update an existing crew member.")
-  public ResponseEntity<ResponseObject<Object>> updateCrewMember(@RequestBody CrewCreateUpdateDTO updatedCrewMember) {
+  public ResponseEntity<ResponseObject<Object>> updateCrewMember(@RequestBody CrewDTO updatedCrewMember) {
     crewService.updateCrewMember(updatedCrewMember);
     return ResponseHelper.generateResponse(HttpStatus.OK.value(), true, Messages.UPDATE_RESPONSE, null);
   }

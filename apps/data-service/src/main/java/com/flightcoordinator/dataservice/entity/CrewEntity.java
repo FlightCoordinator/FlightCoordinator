@@ -2,8 +2,8 @@ package com.flightcoordinator.dataservice.entity;
 
 import java.util.List;
 
-import com.flightcoordinator.dataservice.enums.CrewAvailability;
-import com.flightcoordinator.dataservice.enums.CrewRole;
+import com.flightcoordinator.dataservice.enums.CrewMemberRole;
+import com.flightcoordinator.dataservice.enums.CrewMemberStatus;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -19,50 +19,62 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "crew_table")
 public class CrewEntity {
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
+  @Column(name = "id", nullable = false)
   private String id;
 
+  @NotEmpty(message = "Full name is required")
   @Column(name = "full_name", nullable = false)
   private String fullName;
 
   @Email(message = "E-Mail is invalid")
+  @NotEmpty(message = "E-mail is required")
   @Column(name = "email", nullable = false, unique = true)
   private String email;
 
+  @NotEmpty(message = "Phone number is required")
   @Column(name = "phone_number", nullable = false)
   private String phoneNumber;
 
   @Enumerated(EnumType.STRING)
+  @NotEmpty(message = "Role is required")
   @Column(name = "role", nullable = false)
-  private CrewRole role;
+  private CrewMemberRole role;
 
   @OneToMany(mappedBy = "assignedCrewMember", cascade = CascadeType.PERSIST, orphanRemoval = true)
   private List<CertificationEntity> certifications;
 
-  @Min(value = 0, message = "Total flight hours cannot be negative")
+  @Min(value = 0, message = "Total flight hours should be >= 1")
+  @NotEmpty(message = "Total flight hours is required")
   @Column(name = "total_flight_hours", nullable = false)
-  private Integer totalFlightHours = 0;
+  private Integer totalFlightHours;
 
   @ManyToOne
   @JoinColumn(name = "base_airport", nullable = false)
   private AirportEntity baseAirport;
 
+  @ManyToOne
+  @JoinColumn(name = "airport_id", nullable = false)
+  private AirportEntity currentAirport;
+
   @Enumerated(EnumType.STRING)
-  @Column(name = "availability", nullable = false)
-  private CrewAvailability availability;
+  @NotEmpty(message = "Status is required")
+  @Column(name = "status", nullable = false)
+  private CrewMemberStatus status;
 
-  public CrewEntity() {
-  }
-
-  public CrewEntity(String id, String fullName, @Email(message = "E-Mail is invalid") String email, String phoneNumber,
-      CrewRole role, List<CertificationEntity> certifications,
-      @Min(value = 0, message = "Total flight hours cannot be negative") Integer totalFlightHours,
-      AirportEntity baseAirport, CrewAvailability availability) {
+  public CrewEntity(String id, @NotEmpty(message = "Full name is required") String fullName,
+      @Email(message = "E-Mail is invalid") @NotEmpty(message = "E-mail is required") String email,
+      @NotEmpty(message = "Phone number is required") String phoneNumber,
+      @NotEmpty(message = "Role is required") CrewMemberRole role, List<CertificationEntity> certifications,
+      @Min(value = 0, message = "Total flight hours should be >= 1") @NotEmpty(message = "Total flight hours is required") Integer totalFlightHours,
+      AirportEntity baseAirport, AirportEntity currentAirport,
+      @NotEmpty(message = "Status is required") CrewMemberStatus status) {
     this.id = id;
     this.fullName = fullName;
     this.email = email;
@@ -71,7 +83,11 @@ public class CrewEntity {
     this.certifications = certifications;
     this.totalFlightHours = totalFlightHours;
     this.baseAirport = baseAirport;
-    this.availability = availability;
+    this.currentAirport = currentAirport;
+    this.status = status;
+  }
+
+  public CrewEntity() {
   }
 
   public String getId() {
@@ -106,11 +122,11 @@ public class CrewEntity {
     this.phoneNumber = phoneNumber;
   }
 
-  public CrewRole getRole() {
+  public CrewMemberRole getRole() {
     return role;
   }
 
-  public void setRole(CrewRole role) {
+  public void setRole(CrewMemberRole role) {
     this.role = role;
   }
 
@@ -138,11 +154,19 @@ public class CrewEntity {
     this.baseAirport = baseAirport;
   }
 
-  public CrewAvailability getAvailability() {
-    return availability;
+  public AirportEntity getCurrentAirport() {
+    return currentAirport;
   }
 
-  public void setAvailability(CrewAvailability availability) {
-    this.availability = availability;
+  public void setCurrentAirport(AirportEntity currentAirport) {
+    this.currentAirport = currentAirport;
+  }
+
+  public CrewMemberStatus getStatus() {
+    return status;
+  }
+
+  public void setStatus(CrewMemberStatus status) {
+    this.status = status;
   }
 }

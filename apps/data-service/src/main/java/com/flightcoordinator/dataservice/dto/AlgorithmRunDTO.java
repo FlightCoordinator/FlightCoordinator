@@ -1,23 +1,37 @@
 package com.flightcoordinator.dataservice.dto;
 
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
 
 public class AlgorithmRunDTO {
   private String id;
   private String algorithmName;
   private Date startTime;
   private Date endTime;
-  private Long runtimeInMilliseconds;
-  private String parametersJson;
+  private Long runtimeInMs;
   private String resourcesJson;
-  private Map<String, Boolean> constraintsMet;
-  private List<String> logs;
+  private String constraintsJson;
+  private String logsJson;
   private Boolean isSuccessful;
   private String failureReason;
-  private Boolean isResultsSaved;
+  private Boolean areResultsSaved;
   private String resultId;
+
+  public AlgorithmRunDTO(String id, String algorithmName, Date startTime, Date endTime, Long runtimeInMilliseconds,
+      String resourcesJson, String constraintsJson, String logsJson, Boolean isSuccessful, String failureReason,
+      Boolean areResultsSaved, String resultId) {
+    this.id = id;
+    this.algorithmName = algorithmName;
+    this.startTime = startTime;
+    this.endTime = endTime;
+    this.runtimeInMs = runtimeInMilliseconds;
+    this.resourcesJson = resourcesJson;
+    this.constraintsJson = constraintsJson;
+    this.logsJson = logsJson;
+    this.isSuccessful = isSuccessful;
+    this.failureReason = failureReason;
+    this.areResultsSaved = areResultsSaved;
+    this.resultId = resultId;
+  }
 
   public AlgorithmRunDTO() {
   }
@@ -54,20 +68,12 @@ public class AlgorithmRunDTO {
     this.endTime = endTime;
   }
 
-  public Long getRuntimeInMilliseconds() {
-    return runtimeInMilliseconds;
+  public Long getRuntimeInMs() {
+    return runtimeInMs;
   }
 
-  public void setRuntimeInMilliseconds(Long runtimeInMilliseconds) {
-    this.runtimeInMilliseconds = runtimeInMilliseconds;
-  }
-
-  public String getParametersJson() {
-    return parametersJson;
-  }
-
-  public void setParametersJson(String parametersJson) {
-    this.parametersJson = parametersJson;
+  public void setRuntimeInMs(Long runtimeInMilliseconds) {
+    this.runtimeInMs = runtimeInMilliseconds;
   }
 
   public String getResourcesJson() {
@@ -78,20 +84,20 @@ public class AlgorithmRunDTO {
     this.resourcesJson = resourcesJson;
   }
 
-  public Map<String, Boolean> getConstraintsMet() {
-    return constraintsMet;
+  public String getConstraintsJson() {
+    return constraintsJson;
   }
 
-  public void setConstraintsMet(Map<String, Boolean> constraintsMet) {
-    this.constraintsMet = constraintsMet;
+  public void setConstraintsJson(String constraintsJson) {
+    this.constraintsJson = constraintsJson;
   }
 
-  public List<String> getLogs() {
-    return logs;
+  public String getLogsJson() {
+    return logsJson;
   }
 
-  public void setLogs(List<String> logs) {
-    this.logs = logs;
+  public void setLogsJson(String logsJson) {
+    this.logsJson = logsJson;
   }
 
   public Boolean getIsSuccessful() {
@@ -110,12 +116,12 @@ public class AlgorithmRunDTO {
     this.failureReason = failureReason;
   }
 
-  public Boolean getIsResultsSaved() {
-    return isResultsSaved;
+  public Boolean getAreResultsSaved() {
+    return areResultsSaved;
   }
 
-  public void setIsResultsSaved(Boolean isResultsSaved) {
-    this.isResultsSaved = isResultsSaved;
+  public void setAreResultsSaved(Boolean areResultsSaved) {
+    this.areResultsSaved = areResultsSaved;
   }
 
   public String getResultId() {

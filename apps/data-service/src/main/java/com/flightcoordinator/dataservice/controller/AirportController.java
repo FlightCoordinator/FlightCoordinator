@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.flightcoordinator.dataservice.constants.Messages;
 import com.flightcoordinator.dataservice.dto.AirportDTO;
-import com.flightcoordinator.dataservice.dto.EntityIdDTO;
-import com.flightcoordinator.dataservice.dto.create_update.AirportCreateUpdateDTO;
+import com.flightcoordinator.dataservice.dto.misc.EntityIdDTO;
+import com.flightcoordinator.dataservice.dto.partial.PartialAirportDTO;
 import com.flightcoordinator.dataservice.response.ResponseHelper;
 import com.flightcoordinator.dataservice.response.ResponseObject;
 import com.flightcoordinator.dataservice.service.AirportService;
@@ -46,7 +46,7 @@ public class AirportController {
 
   @PostMapping("/create")
   @Operation(summary = "Create a new airport", description = "Create a new airport.")
-  public ResponseEntity<ResponseObject<Object>> createAirport(@RequestBody AirportCreateUpdateDTO newAirport) {
+  public ResponseEntity<ResponseObject<Object>> createAirport(@RequestBody PartialAirportDTO newAirport) {
     airportService.createAirport(newAirport);
     return ResponseHelper.generateResponse(HttpStatus.CREATED.value(), true, Messages.CREATE_RESPONSE,
         null);
@@ -54,7 +54,7 @@ public class AirportController {
 
   @PatchMapping("/update")
   @Operation(summary = "Update an airport", description = "Update an existing airport.")
-  public ResponseEntity<ResponseObject<Object>> updateAirport(@RequestBody AirportCreateUpdateDTO updatedAirport) {
+  public ResponseEntity<ResponseObject<Object>> updateAirport(@RequestBody PartialAirportDTO updatedAirport) {
     airportService.updateAirport(updatedAirport);
     return ResponseHelper.generateResponse(HttpStatus.OK.value(), true, Messages.UPDATE_RESPONSE, null);
   }

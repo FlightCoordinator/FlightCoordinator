@@ -2,19 +2,29 @@ package com.flightcoordinator.dataservice.dto;
 
 import java.util.Date;
 
-import com.flightcoordinator.dataservice.enums.CertificationIssuer;
-import com.flightcoordinator.dataservice.enums.CrewRole;
+import com.flightcoordinator.dataservice.enums.Certifier;
 
 public class CertificationDTO {
   private String id;
   private String name;
-  private Integer certificationNumber;
-  private CertificationIssuer issuer;
+  private String certificationNumber;
+  private Certifier issuer;
   private Date expirationDate;
   private Integer validityPeriod;
-  private CrewRole assignableRole;
   private String description;
-  private String assignedCrewMember;
+  private String assignedCrewMemberId;
+
+  public CertificationDTO(String id, String name, String certificationNumber, Certifier issuer, Date expirationDate,
+      Integer validityPeriod, String description, String assignedCrewMemberId) {
+    this.id = id;
+    this.name = name;
+    this.certificationNumber = certificationNumber;
+    this.issuer = issuer;
+    this.expirationDate = expirationDate;
+    this.validityPeriod = validityPeriod;
+    this.description = description;
+    this.assignedCrewMemberId = assignedCrewMemberId;
+  }
 
   public CertificationDTO() {
   }
@@ -35,19 +45,19 @@ public class CertificationDTO {
     this.name = name;
   }
 
-  public Integer getCertificationNumber() {
+  public String getCertificationNumber() {
     return certificationNumber;
   }
 
-  public void setCertificationNumber(Integer certificationNumber) {
+  public void setCertificationNumber(String certificationNumber) {
     this.certificationNumber = certificationNumber;
   }
 
-  public CertificationIssuer getIssuer() {
+  public Certifier getIssuer() {
     return issuer;
   }
 
-  public void setIssuer(CertificationIssuer issuer) {
+  public void setIssuer(Certifier issuer) {
     this.issuer = issuer;
   }
 
@@ -67,14 +77,6 @@ public class CertificationDTO {
     this.validityPeriod = validityPeriod;
   }
 
-  public CrewRole getAssignableRole() {
-    return assignableRole;
-  }
-
-  public void setAssignableRole(CrewRole assignableRole) {
-    this.assignableRole = assignableRole;
-  }
-
   public String getDescription() {
     return description;
   }
@@ -83,11 +85,11 @@ public class CertificationDTO {
     this.description = description;
   }
 
-  public String getAssignedCrewMember() {
-    return assignedCrewMember;
+  public String getAssignedCrewMemberId() {
+    return assignedCrewMemberId;
   }
 
-  public void setAssignedCrewMember(String assignedCrewMember) {
-    this.assignedCrewMember = assignedCrewMember;
+  public void setAssignedCrewMemberId(String assignedCrewMemberId) {
+    this.assignedCrewMemberId = assignedCrewMemberId;
   }
 }

@@ -2,23 +2,41 @@ package com.flightcoordinator.dataservice.dto;
 
 import java.util.Date;
 
-import com.flightcoordinator.dataservice.enums.PlaneAvailability;
+import com.flightcoordinator.dataservice.enums.PlaneStatus;
 
 public class PlaneDTO {
   private String id;
-  private String model;
-  private String registrationNumber;
-  private Integer passengerCapacity;
-  private Float fuelEfficiency;
-  private Float maxFlightRange;
-  private Date lastMaintenance;
+  private String modelId;
+  private String tailNumber;
+  private Date nextMaintenanceDate;
+  private Integer cyclesSinceLastMaintenance;
+  private Date retirementDate;
+  private Float engineHours;
+  private Float currentWearLevel;
   private Float totalFlightHours;
-  private Float maxTakeoffWeight;
-  private Float shortestRunwayLengthRequired;
-  private Float shortestRunwayWidthRequired;
-  private PlaneAvailability planeStatus;
+  private Float fuelAmount;
+  private PlaneStatus planeStatus;
   private String currentLocationId;
   private String aircraftOperator;
+
+  public PlaneDTO(String id, String modelId, String tailNumber, Date nextMaintenanceDate,
+      Integer cyclesSinceLastMaintenance, Date retirementDate, Float engineHours, Float currentWearLevel,
+      Float totalFlightHours, Float fuelAmount, PlaneStatus planeStatus, String currentLocationId,
+      String aircraftOperator) {
+    this.id = id;
+    this.modelId = modelId;
+    this.tailNumber = tailNumber;
+    this.nextMaintenanceDate = nextMaintenanceDate;
+    this.cyclesSinceLastMaintenance = cyclesSinceLastMaintenance;
+    this.retirementDate = retirementDate;
+    this.engineHours = engineHours;
+    this.currentWearLevel = currentWearLevel;
+    this.totalFlightHours = totalFlightHours;
+    this.fuelAmount = fuelAmount;
+    this.planeStatus = planeStatus;
+    this.currentLocationId = currentLocationId;
+    this.aircraftOperator = aircraftOperator;
+  }
 
   public PlaneDTO() {
   }
@@ -31,52 +49,60 @@ public class PlaneDTO {
     this.id = id;
   }
 
-  public String getModel() {
-    return model;
+  public String getModelId() {
+    return modelId;
   }
 
-  public void setModel(String model) {
-    this.model = model;
+  public void setModelId(String modelId) {
+    this.modelId = modelId;
   }
 
-  public String getRegistrationNumber() {
-    return registrationNumber;
+  public String getTailNumber() {
+    return tailNumber;
   }
 
-  public void setRegistrationNumber(String registrationNumber) {
-    this.registrationNumber = registrationNumber;
+  public void setTailNumber(String tailNumber) {
+    this.tailNumber = tailNumber;
   }
 
-  public Integer getPassengerCapacity() {
-    return passengerCapacity;
+  public Date getNextMaintenanceDate() {
+    return nextMaintenanceDate;
   }
 
-  public void setPassengerCapacity(Integer passengerCapacity) {
-    this.passengerCapacity = passengerCapacity;
+  public void setNextMaintenanceDate(Date nextMaintenanceDate) {
+    this.nextMaintenanceDate = nextMaintenanceDate;
   }
 
-  public Float getFuelEfficiency() {
-    return fuelEfficiency;
+  public Integer getCyclesSinceLastMaintenance() {
+    return cyclesSinceLastMaintenance;
   }
 
-  public void setFuelEfficiency(Float fuelEfficiency) {
-    this.fuelEfficiency = fuelEfficiency;
+  public void setCyclesSinceLastMaintenance(Integer cyclesSinceLastMaintenance) {
+    this.cyclesSinceLastMaintenance = cyclesSinceLastMaintenance;
   }
 
-  public Float getMaxFlightRange() {
-    return maxFlightRange;
+  public Date getRetirementDate() {
+    return retirementDate;
   }
 
-  public void setMaxFlightRange(Float maxFlightRange) {
-    this.maxFlightRange = maxFlightRange;
+  public void setRetirementDate(Date retirementDate) {
+    this.retirementDate = retirementDate;
   }
 
-  public Date getLastMaintenance() {
-    return lastMaintenance;
+  public Float getEngineHours() {
+    return engineHours;
   }
 
-  public void setLastMaintenance(Date lastMaintenance) {
-    this.lastMaintenance = lastMaintenance;
+  public void setEngineHours(Float engineHours) {
+    this.engineHours = engineHours;
+  }
+
+  public Float getCurrentWearLevel() {
+    return currentWearLevel;
+  }
+
+  public void setCurrentWearLevel(Float currentWearLevel) {
+    this.currentWearLevel = currentWearLevel;
   }
 
   public Float getTotalFlightHours() {
@@ -87,35 +113,19 @@ public class PlaneDTO {
     this.totalFlightHours = totalFlightHours;
   }
 
-  public Float getMaxTakeoffWeight() {
-    return maxTakeoffWeight;
+  public Float getFuelAmount() {
+    return fuelAmount;
   }
 
-  public void setMaxTakeoffWeight(Float maxTakeoffWeight) {
-    this.maxTakeoffWeight = maxTakeoffWeight;
+  public void setFuelAmount(Float fuelAmount) {
+    this.fuelAmount = fuelAmount;
   }
 
-  public Float getShortestRunwayLengthRequired() {
-    return shortestRunwayLengthRequired;
-  }
-
-  public void setShortestRunwayLengthRequired(Float shortestRunwayLengthRequired) {
-    this.shortestRunwayLengthRequired = shortestRunwayLengthRequired;
-  }
-
-  public Float getShortestRunwayWidthRequired() {
-    return shortestRunwayWidthRequired;
-  }
-
-  public void setShortestRunwayWidthRequired(Float shortestRunwayWidthRequired) {
-    this.shortestRunwayWidthRequired = shortestRunwayWidthRequired;
-  }
-
-  public PlaneAvailability getPlaneStatus() {
+  public PlaneStatus getPlaneStatus() {
     return planeStatus;
   }
 
-  public void setPlaneStatus(PlaneAvailability planeStatus) {
+  public void setPlaneStatus(PlaneStatus planeStatus) {
     this.planeStatus = planeStatus;
   }
 
