@@ -32,6 +32,11 @@ public class ObjectMapper {
     airportDTO.setIcaoCode(airportEntity.getIcaoCode());
     airportDTO.setCountryCode(airportEntity.getCountryCode());
     airportDTO.setType(airportEntity.getType());
+    airportDTO.setOperationStartTime(airportEntity.getOperationStartTime());
+    airportDTO.setOperationStopTime(airportEntity.getOperationStopTime());
+    airportDTO.setElevation(airportEntity.getElevation());
+    airportDTO.setSlope(airportEntity.getSlope());
+    airportDTO.setPossibleNoiseCategory(airportEntity.getPossibleNoiseCategory());
     airportDTO.setRunwayIds(airportEntity.getRunways().stream()
         .map(runway -> runway.getId()).collect(Collectors.toList()));
     airportDTO.setTaxiwayIds(airportEntity.getTaxiways().stream()

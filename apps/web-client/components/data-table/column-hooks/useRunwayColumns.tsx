@@ -102,7 +102,7 @@ const useRunwayColumns = () => {
         accessorKey: "visualApproachAid",
         header: ({ column }) => <ColumnHeader column={column} title="Visual Approach Aid" />,
         cell: ({ row }) => (
-          <NoWrapCell className="w-[200px] truncate">
+          <NoWrapCell>
             {
               getSelectItem(
                 "VisualApproachAid",

@@ -5,7 +5,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { config } from "@/shared/appConfig";
 import requester from "@/shared/lib/requester";
 
-import AuthTypes from "@/types/auth";
 import GlobalTypes from "@/types/globals";
 
 const useGetUserDetails = () => {
@@ -27,7 +26,7 @@ const useGetUserDetails = () => {
           method: "POST",
           auth: { includeCookies: true },
         })
-        .sendRequest<GlobalTypes.ServerResponseParams<AuthTypes.Protected.UserDetailsProps>, null>();
+        .sendRequest<GlobalTypes.ServerResponseParams<GlobalTypes.Auth.Protected.UserDetailsProps>, null>();
       return response;
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["userDetailsMutation"] }),

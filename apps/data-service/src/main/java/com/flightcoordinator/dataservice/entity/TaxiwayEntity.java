@@ -9,7 +9,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "taxiway_table")
@@ -19,7 +19,7 @@ public class TaxiwayEntity {
   @Column(name = "id", nullable = false)
   private String id;
 
-  @NotEmpty(message = "Name is required")
+  @NotBlank(message = "Name is required")
   @Column(name = "name", nullable = false)
   private String name;
 
@@ -27,43 +27,34 @@ public class TaxiwayEntity {
   @JoinColumn(name = "taxiway_airport_id", nullable = false)
   private AirportEntity airport;
 
-  @NotEmpty(message = "Load capacity is required")
   @Column(name = "load_capacity", nullable = false)
   private Float loadCapacity;
 
-  @NotEmpty(message = "Has holding point is required")
   @Column(name = "has_holding_point", nullable = false)
   private Boolean hasHoldingPoint;
 
-  @NotEmpty(message = "Has high speed exit required")
   @Column(name = "has_high_speed_exit", nullable = false)
   private Boolean hasHighSpeedExit;
 
   @Min(value = 1, message = "Width should be >= 1")
-  @NotEmpty(message = "Width is required")
   @Column(name = "width", nullable = false)
   private Float width;
 
   @Min(value = 1, message = "Length should be >= 1")
-  @NotEmpty(message = "Length is required")
   @Column(name = "length", nullable = false)
   private Float length;
 
   @Min(value = 1, message = "Max turning radius should be >= 1")
-  @NotEmpty(message = "Max turning radius is required")
   @Column(name = "max_turning_radius", nullable = false)
   private Float maxTurningRadius;
 
   @Min(value = 1, message = "Max weight capacity should be >= 1")
-  @NotEmpty(message = "Max weight capacity is required")
   @Column(name = "max_weight_capacity", nullable = false)
   private Float maxWeightCapacity;
 
-  @NotEmpty(message = "Has lighting is required")
   @Column(name = "has_lighting", nullable = false)
   private Boolean hasLighting;
 
-  @NotEmpty(message = "Has signage is required")
   @Column(name = "has_signage", nullable = false)
   private Boolean hasSignage;
 
@@ -71,16 +62,16 @@ public class TaxiwayEntity {
   @JoinColumn(name = "runway_id", nullable = false)
   private RunwayEntity connectedRunway;
 
-  public TaxiwayEntity(String id, @NotEmpty(message = "Name is required") String name, AirportEntity airport,
-      @NotEmpty(message = "Load capacity is required") Float loadCapacity,
-      @NotEmpty(message = "Has holding point is required") Boolean hasHoldingPoint,
-      @NotEmpty(message = "Has high speed exit required") Boolean hasHighSpeedExit,
-      @Min(value = 1, message = "Width should be >= 1") @NotEmpty(message = "Width is required") Float width,
-      @Min(value = 1, message = "Length should be >= 1") @NotEmpty(message = "Length is required") Float length,
-      @Min(value = 1, message = "Max turning radius should be >= 1") @NotEmpty(message = "Max turning radius is required") Float maxTurningRadius,
-      @Min(value = 1, message = "Max weight capacity should be >= 1") @NotEmpty(message = "Max weight capacity is required") Float maxWeightCapacity,
-      @NotEmpty(message = "Has lighting is required") Boolean hasLighting,
-      @NotEmpty(message = "Has signage is required") Boolean hasSignage, RunwayEntity connectedToRunway) {
+  public TaxiwayEntity() {
+  }
+
+  public TaxiwayEntity(String id, @NotBlank(message = "Name is required") String name, AirportEntity airport,
+      Float loadCapacity, Boolean hasHoldingPoint, Boolean hasHighSpeedExit,
+      @Min(value = 1, message = "Width should be >= 1") Float width,
+      @Min(value = 1, message = "Length should be >= 1") Float length,
+      @Min(value = 1, message = "Max turning radius should be >= 1") Float maxTurningRadius,
+      @Min(value = 1, message = "Max weight capacity should be >= 1") Float maxWeightCapacity, Boolean hasLighting,
+      Boolean hasSignage, RunwayEntity connectedRunway) {
     this.id = id;
     this.name = name;
     this.airport = airport;
@@ -93,10 +84,7 @@ public class TaxiwayEntity {
     this.maxWeightCapacity = maxWeightCapacity;
     this.hasLighting = hasLighting;
     this.hasSignage = hasSignage;
-    this.connectedRunway = connectedToRunway;
-  }
-
-  public TaxiwayEntity() {
+    this.connectedRunway = connectedRunway;
   }
 
   public String getId() {

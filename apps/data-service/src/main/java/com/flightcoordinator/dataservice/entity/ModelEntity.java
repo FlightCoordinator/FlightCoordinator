@@ -14,7 +14,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "model_table")
@@ -24,193 +24,157 @@ public class ModelEntity {
   @Column(name = "id", nullable = false)
   private String id;
 
-  @NotEmpty(message = "Manufacturer is required")
+  @NotBlank(message = "Manufacturer is required")
   @Column(name = "manufacturer", nullable = false)
   private String manufacturer;
 
-  @NotEmpty(message = "Plane identifier is required")
+  @NotBlank(message = "Plane identifier is required")
   @Column(name = "plane_identifier", nullable = false)
   private String planeIdentifier;
 
-  @NotEmpty(message = "Model name is required")
+  @NotBlank(message = "Model name is required")
   @Column(name = "model_name", nullable = false)
   private String modelName;
 
   @Enumerated(EnumType.STRING)
-  @NotEmpty(message = "Certifier is required")
   @Column(name = "certifier", nullable = false)
   private Certifier certifier;
 
   @Enumerated(EnumType.STRING)
-  @NotEmpty(message = "Certification status is required")
   @Column(name = "certification_status", nullable = false)
   private CertificationStatus certificationStatus;
 
   @Enumerated(EnumType.STRING)
-  @NotEmpty(message = "Noise category is required")
   @Column(name = "noise_category", nullable = false)
   private NoiseCategory noiseCategory;
 
   @Min(value = 1, message = "Fuel capacity should be >= 1")
-  @NotEmpty(message = "Fuel capacity is required")
   @Column(name = "fuel_capacity", nullable = false)
   private Float fuelCapacity;
 
-  @Min(value = 1, message = "Fuel efficiency should be >= 1")
-  @NotEmpty(message = "Fuel efficiency is required")
+  @Min(value = 0, message = "Fuel efficiency should be >= 1")
   @Column(name = "fuel_efficiency", nullable = false)
   private Float fuelEfficiency; // per passenger per km
 
   @Min(value = 1, message = "Max passenger capacity should be >= 1")
-  @NotEmpty(message = "Max passenger capacity is required")
   @Column(name = "max_passenger_capacity", nullable = false)
   private Integer maxPassengerCapacity;
 
-  @Min(value = 1, message = "Max cargo capacity should be >= 1")
-  @NotEmpty(message = "Max cargo capacity is required")
+  @Min(value = 0, message = "Max cargo capacity should be >= 1")
   @Column(name = "max_cargo_capacity", nullable = false)
   private Float maxCargoCapacity;
 
   @Min(value = 1, message = "Empty weight should be >= 1")
-  @NotEmpty(message = "Empty weight is required")
   @Column(name = "empty_weight", nullable = false)
   private Float emptyWeight;
 
   @Min(value = 1, message = "Tail height should be >= 1")
-  @NotEmpty(message = "Tail weight is required")
   @Column(name = "tail_height", nullable = false)
   private Float tailHeight;
 
   @Min(value = 1, message = "Wing span should be >= 1")
-  @NotEmpty(message = "Wing span is required")
   @Column(name = "wing_span", nullable = false)
   private Float wingspan;
 
   @Enumerated(EnumType.STRING)
-  @NotEmpty(message = "Engine type is required")
   @Column(name = "engine_type", nullable = false)
   private EngineType engineType;
 
   @Min(value = 1, message = "Engine count should be >= 1")
-  @NotEmpty(message = "Engine count is required")
   @Column(name = "engine_count", nullable = false)
   private Integer engineCount;
 
   @Min(value = 1, message = "Thrust per engine should be >= 1")
-  @NotEmpty(message = "Thrust per engine is required")
   @Column(name = "thrust_per_engine", nullable = false)
   private Float thrustPerEngine;
 
   @Min(value = 1, message = "Max crosswind component should be >= 1")
-  @NotEmpty(message = "Max crosswind component is required")
   @Column(name = "max_crosswind_comp", nullable = false)
   private Float maxCrosswindComp;
 
   @Min(value = 1, message = "Required runway length should be >= 1")
-  @NotEmpty(message = "Required runway length is required")
   @Column(name = "required_runway_length", nullable = false)
   private Float requiredRunwayLength;
 
   @Min(value = 1, message = "Required runway width should be >= 1")
-  @NotEmpty(message = "Required runway width is required")
   @Column(name = "required_runway_width", nullable = false)
   private Float requiredRunwayWidth;
 
   @Min(value = 1, message = "Min rotation radius should be >= 1")
-  @NotEmpty(message = "Min rotation radius is required")
   @Column(name = "min_rotation_radius", nullable = false)
   private Float minRotationRadius;
 
   @Min(value = 1, message = "Cruise speed should be >= 1")
-  @NotEmpty(message = "Cruise speed is required")
   @Column(name = "cruise_speed", nullable = false)
   private Float cruiseSpeed;
 
   @Min(value = 1, message = "Max speed should be >= 1")
-  @NotEmpty(message = "Max speed is required")
   @Column(name = "max_speed", nullable = false)
   private Float maxSpeed;
 
   @Min(value = 1, message = "Stall speed should be >= 1")
-  @NotEmpty(message = "Stall speed is required")
   @Column(name = "stall_speed", nullable = false)
   private Float stallSpeed;
 
   @Min(value = 1, message = "Max altitude should be >= 1")
-  @NotEmpty(message = "Max altitude is required")
   @Column(name = "max_altitude", nullable = false)
   private Float maxAltitude;
 
   @Min(value = 1, message = "Climb rate should be >= 1")
-  @NotEmpty(message = "Climb rate is required")
   @Column(name = "climb_rate", nullable = false)
   private Float climbRate;
 
   @Min(value = 1, message = "Descent rate should be >= 1")
-  @NotEmpty(message = "Descent rate is required")
   @Column(name = "descent_rate", nullable = false)
   private Float descentRate;
 
   @Min(value = 1, message = "Max flight range should be >= 1")
-  @NotEmpty(message = "Max flight range is required")
   @Column(name = "max_flight_range", nullable = false)
   private Float maxFlightRange;
 
-  @NotEmpty(message = "Has weather radar is required")
   @Column(name = "has_weather_radar", nullable = false)
   private Boolean hasWeatherRadar;
 
-  @NotEmpty(message = "Has autopilot is required")
   @Column(name = "has_autopilot", nullable = false)
   private Boolean hasAutopilot;
 
-  @NotEmpty(message = "Has fly by wire is required")
   @Column(name = "has_fly_by_wire", nullable = false)
   private Boolean hasFlyByWire;
 
-  @NotEmpty(message = "Has fire supression is required")
   @Column(name = "has_fire_supression", nullable = false)
   private Boolean hasFireSupression;
 
-  @NotEmpty(message = "GPS enabled is required")
   @Column(name = "gps_enabled", nullable = false)
   private Boolean gpsEnabled;
 
   public ModelEntity() {
   }
 
-  public ModelEntity(String id, @NotEmpty(message = "Manufacturer is required") String manufacturer,
-      @NotEmpty(message = "Plane identifier is required") String planeIdentifier,
-      @NotEmpty(message = "Model name is required") String modelName,
-      @NotEmpty(message = "Certifier is required") Certifier certifier,
-      @NotEmpty(message = "Certification status is required") CertificationStatus certificationStatus,
-      @NotEmpty(message = "Noise category is required") NoiseCategory noiseCategory,
-      @Min(value = 1, message = "Fuel capacity should be >= 1") @NotEmpty(message = "Fuel capacity is required") Float fuelCapacity,
-      @Min(value = 1, message = "Fuel efficiency should be >= 1") @NotEmpty(message = "Fuel efficiency is required") Float fuelEfficiency,
-      @Min(value = 1, message = "Max passenger capacity should be >= 1") @NotEmpty(message = "Max passenger capacity is required") Integer maxPassengerCapacity,
-      @Min(value = 1, message = "Max cargo capacity should be >= 1") @NotEmpty(message = "Max cargo capacity is required") Float maxCargoCapacity,
-      @Min(value = 1, message = "Empty weight should be >= 1") @NotEmpty(message = "Empty weight is required") Float emptyWeight,
-      @Min(value = 1, message = "Tail height should be >= 1") @NotEmpty(message = "Tail weight is required") Float tailHeight,
-      @Min(value = 1, message = "Wing span should be >= 1") @NotEmpty(message = "Wing span is required") Float wingspan,
-      @NotEmpty(message = "Engine type is required") EngineType engineType,
-      @Min(value = 1, message = "Engine count should be >= 1") @NotEmpty(message = "Engine count is required") Integer engineCount,
-      @Min(value = 1, message = "Thrust per engine should be >= 1") @NotEmpty(message = "Thrust per engine is required") Float thrustPerEngine,
-      @Min(value = 1, message = "Max crosswind component should be >= 1") @NotEmpty(message = "Max crosswind component is required") Float maxCrosswindComp,
-      @Min(value = 1, message = "Required runway length should be >= 1") @NotEmpty(message = "Required runway length is required") Float requiredRunwayLength,
-      @Min(value = 1, message = "Required runway width should be >= 1") @NotEmpty(message = "Required runway width is required") Float requiredRunwayWidth,
-      @Min(value = 1, message = "Min rotation radius should be >= 1") @NotEmpty(message = "Min rotation radius is required") Float minRotationRadius,
-      @Min(value = 1, message = "Cruise speed should be >= 1") @NotEmpty(message = "Cruise speed is required") Float cruiseSpeed,
-      @Min(value = 1, message = "Max speed should be >= 1") @NotEmpty(message = "Max speed is required") Float maxSpeed,
-      @Min(value = 1, message = "Stall speed should be >= 1") @NotEmpty(message = "Stall speed is required") Float stallSpeed,
-      @Min(value = 1, message = "Max altitude should be >= 1") @NotEmpty(message = "Max altitude is required") Float maxAltitude,
-      @Min(value = 1, message = "Climb rate should be >= 1") @NotEmpty(message = "Climb rate is required") Float climbRate,
-      @Min(value = 1, message = "Descent rate should be >= 1") @NotEmpty(message = "Descent rate is required") Float descentRate,
-      @Min(value = 1, message = "Max flight range should be >= 1") @NotEmpty(message = "Max flight range is required") Float maxFlightRange,
-      @NotEmpty(message = "Has weather radar is required") Boolean hasWeatherRadar,
-      @NotEmpty(message = "Has autopilot is required") Boolean hasAutopilot,
-      @NotEmpty(message = "Has fly by wire is required") Boolean hasFlyByWire,
-      @NotEmpty(message = "Has fire supression is required") Boolean hasFireSupression,
-      @NotEmpty(message = "GPS enabled is required") Boolean gpsEnabled) {
+  public ModelEntity(String id, @NotBlank(message = "Manufacturer is required") String manufacturer,
+      @NotBlank(message = "Plane identifier is required") String planeIdentifier,
+      @NotBlank(message = "Model name is required") String modelName, Certifier certifier,
+      CertificationStatus certificationStatus, NoiseCategory noiseCategory,
+      @Min(value = 1, message = "Fuel capacity should be >= 1") Float fuelCapacity,
+      @Min(value = 1, message = "Fuel efficiency should be >= 1") Float fuelEfficiency,
+      @Min(value = 1, message = "Max passenger capacity should be >= 1") Integer maxPassengerCapacity,
+      @Min(value = 1, message = "Max cargo capacity should be >= 1") Float maxCargoCapacity,
+      @Min(value = 1, message = "Empty weight should be >= 1") Float emptyWeight,
+      @Min(value = 1, message = "Tail height should be >= 1") Float tailHeight,
+      @Min(value = 1, message = "Wing span should be >= 1") Float wingspan, EngineType engineType,
+      @Min(value = 1, message = "Engine count should be >= 1") Integer engineCount,
+      @Min(value = 1, message = "Thrust per engine should be >= 1") Float thrustPerEngine,
+      @Min(value = 1, message = "Max crosswind component should be >= 1") Float maxCrosswindComp,
+      @Min(value = 1, message = "Required runway length should be >= 1") Float requiredRunwayLength,
+      @Min(value = 1, message = "Required runway width should be >= 1") Float requiredRunwayWidth,
+      @Min(value = 1, message = "Min rotation radius should be >= 1") Float minRotationRadius,
+      @Min(value = 1, message = "Cruise speed should be >= 1") Float cruiseSpeed,
+      @Min(value = 1, message = "Max speed should be >= 1") Float maxSpeed,
+      @Min(value = 1, message = "Stall speed should be >= 1") Float stallSpeed,
+      @Min(value = 1, message = "Max altitude should be >= 1") Float maxAltitude,
+      @Min(value = 1, message = "Climb rate should be >= 1") Float climbRate,
+      @Min(value = 1, message = "Descent rate should be >= 1") Float descentRate,
+      @Min(value = 1, message = "Max flight range should be >= 1") Float maxFlightRange, Boolean hasWeatherRadar,
+      Boolean hasAutopilot, Boolean hasFlyByWire, Boolean hasFireSupression, Boolean gpsEnabled) {
     this.id = id;
     this.manufacturer = manufacturer;
     this.planeIdentifier = planeIdentifier;

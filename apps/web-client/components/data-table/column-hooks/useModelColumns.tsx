@@ -60,11 +60,6 @@ const useModelColumns = () => {
         cell: ({ row }) => <NoWrapCell>{row.original.modelName}</NoWrapCell>,
       },
       {
-        accessorKey: "",
-        header: ({ column }) => <ColumnHeader column={column} title="Manufacturer" />,
-        cell: ({ row }) => <NoWrapCell>{row.original.manufacturer}</NoWrapCell>,
-      },
-      {
         accessorKey: "certifier",
         header: ({ column }) => <ColumnHeader column={column} title="Certifier" />,
         cell: ({ row }) => (
@@ -144,11 +139,6 @@ const useModelColumns = () => {
         ),
       },
       {
-        accessorKey: "",
-        header: ({ column }) => <ColumnHeader column={column} title="Manufacturer" />,
-        cell: ({ row }) => <NoWrapCell>{row.original.manufacturer}</NoWrapCell>,
-      },
-      {
         accessorKey: "engineCount",
         header: ({ column }) => <ColumnHeader column={column} title="Engine Count" />,
         cell: ({ row }) => <NoWrapCell>{row.original.engineCount}</NoWrapCell>,
@@ -157,11 +147,6 @@ const useModelColumns = () => {
         accessorKey: "thrustPerEngine",
         header: ({ column }) => <ColumnHeader column={column} title="Thrust Per Engine" />,
         cell: ({ row }) => <NoWrapCell>{row.original.thrustPerEngine}</NoWrapCell>,
-      },
-      {
-        accessorKey: "",
-        header: ({ column }) => <ColumnHeader column={column} title="Manufacturer" />,
-        cell: ({ row }) => <NoWrapCell>{row.original.manufacturer}</NoWrapCell>,
       },
       {
         accessorKey: "maxCrosswindComp",

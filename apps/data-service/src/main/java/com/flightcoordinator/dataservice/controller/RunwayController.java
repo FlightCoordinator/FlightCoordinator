@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.flightcoordinator.dataservice.constants.Messages;
 import com.flightcoordinator.dataservice.dto.RunwayDTO;
+import com.flightcoordinator.dataservice.dto.misc.CustomResponseDTO;
 import com.flightcoordinator.dataservice.dto.misc.EntityIdDTO;
-import com.flightcoordinator.dataservice.response.ResponseHelper;
-import com.flightcoordinator.dataservice.response.ResponseObject;
 import com.flightcoordinator.dataservice.service.RunwayService;
+import com.flightcoordinator.dataservice.utils.AppResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -31,36 +31,36 @@ public class RunwayController {
 
   @PostMapping("/getAll")
   @Operation(summary = "Get all the runways", description = "Retrieve the details of all runways.")
-  public ResponseEntity<ResponseObject<List<RunwayDTO>>> getAllRunways() {
+  public ResponseEntity<CustomResponseDTO<List<RunwayDTO>>> getAllRunways() {
     List<RunwayDTO> runways = runwayService.getAllRunways();
-    return ResponseHelper.generateResponse(HttpStatus.OK.value(), true, "", runways);
+    return AppResponse.generateResponse(HttpStatus.OK.value(), true, "", runways);
   }
 
   @PostMapping("/getById")
   @Operation(summary = "Get a runway by id", description = "Retrieve the details of a spesific runway using it's ID.")
-  public ResponseEntity<ResponseObject<RunwayDTO>> getRunwayById(@RequestBody EntityIdDTO id) {
+  public ResponseEntity<CustomResponseDTO<RunwayDTO>> getRunwayById(@RequestBody EntityIdDTO id) {
     RunwayDTO runway = runwayService.getSingleRunwayById(id);
-    return ResponseHelper.generateResponse(HttpStatus.OK.value(), true, "", runway);
+    return AppResponse.generateResponse(HttpStatus.OK.value(), true, "", runway);
   }
 
   @PostMapping("/create")
   @Operation(summary = "Create a new runway", description = "Create a new runway.")
-  public ResponseEntity<ResponseObject<Object>> createRunway(@RequestBody RunwayDTO newRunway) {
+  public ResponseEntity<CustomResponseDTO<Object>> createRunway(@RequestBody RunwayDTO newRunway) {
     runwayService.createRunway(newRunway);
-    return ResponseHelper.generateResponse(HttpStatus.CREATED.value(), true, Messages.CREATE_RESPONSE, null);
+    return AppResponse.generateResponse(HttpStatus.CREATED.value(), true, Messages.CREATE_RESPONSE, null);
   }
 
   @PatchMapping("/update")
   @Operation(summary = "Update a runway", description = "Update an existing runway.")
-  public ResponseEntity<ResponseObject<Object>> updateRunway(@RequestBody RunwayDTO updatedRunway) {
+  public ResponseEntity<CustomResponseDTO<Object>> updateRunway(@RequestBody RunwayDTO updatedRunway) {
     runwayService.updateRunway(updatedRunway);
-    return ResponseHelper.generateResponse(HttpStatus.OK.value(), true, Messages.UPDATE_RESPONSE, null);
+    return AppResponse.generateResponse(HttpStatus.OK.value(), true, Messages.UPDATE_RESPONSE, null);
   }
 
   @DeleteMapping("/delete")
   @Operation(summary = "Delete a runway", description = "Delete an existing runway.")
-  public ResponseEntity<ResponseObject<Object>> deleteRunway(@RequestBody EntityIdDTO id) {
+  public ResponseEntity<CustomResponseDTO<Object>> deleteRunway(@RequestBody EntityIdDTO id) {
     runwayService.deleteRunway(id);
-    return ResponseHelper.generateResponse(HttpStatus.OK.value(), true, Messages.DELETE_RESPONSE, null);
+    return AppResponse.generateResponse(HttpStatus.OK.value(), true, Messages.DELETE_RESPONSE, null);
   }
 }

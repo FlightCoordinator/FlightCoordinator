@@ -1,4 +1,4 @@
-package com.flightcoordinator.dataservice.validator;
+package com.flightcoordinator.dataservice.validation;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;

@@ -37,7 +37,7 @@ function Pagination<TData>({ table }: PaginationProps<TData>) {
           </Select>
         </div>
         <div className="flex w-[100px] items-center justify-center text-sm font-medium">
-          Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+          Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount() !== 0 ? table.getPageCount() : 1}
         </div>
         <div className="flex items-center space-x-2">
           <Button

@@ -21,15 +21,15 @@ public class SampleData {
     // assume 20
 
     public static List<Integer> samplepassengerCount = Arrays.asList(
-        150, 200, 180, 220, 130, 250, 160, 170, 140, 210, 190, 175, 125, 230, 145, 155, 165, 135, 225, 115, 160, 185);
+        150, 200, 180, 220, 130, 250, 160, 170, 140, 210, 190, 175, 125, 230, 145, 155, 165, 135, 225, 115);
 
     public static List<Float> samplecargoWeight = Arrays.asList(
         5000.0F, 8000.0F, 6000.0F, 9000.0F, 4500.0F, 10000.0F, 5500.0F, 7000.0F, 4000.0F, 8500.0F, 7500.0F,
-        6500.0F, 3000.0F, 9500.0F, 5000.0F, 6000.0F, 5500.0F, 4000.0F, 9000.0F, 2500.0F, 5000.0F, 7000.0F);
+        6500.0F, 3000.0F, 9500.0F, 5000.0F, 6000.0F, 5500.0F, 4000.0F, 9000.0F, 2500.0F);
 
     public static List<Float> sampledistance = Arrays.asList(
         400.0F, 1200.0F, 900.0F, 2500.0F, 350.0F, 3000.0F, 700.0F, 1200.0F, 500.0F, 2500.0F, 1400.0F,
-        800.0F, 300.0F, 2000.0F, 600.0F, 800.0F, 1000.0F, 450.0F, 2200.0F, 200.0F, 750.0F, 1500.0F);
+        800.0F, 300.0F, 2000.0F, 600.0F, 800.0F, 1000.0F, 450.0F, 2200.0F, 200.0F);
   }
 
   public static class Crew {
@@ -93,34 +93,34 @@ public class SampleData {
         "Performance-Based Navigation Training", "Emergency Evacuation Procedures Certification",
         "Aviation Security Awareness Training", "Cockpit Resource Management Certification",
         "Weather Radar Operations Certification", "Avionics Systems Certification", "Maintenance Management Training",
-        "Flight Operations Safety Certification", "Human Factors in Maintenance Training", "Aircraft Systems Training",
-        "Air Traffic Control Procedures Training");
+        "Flight Operations Safety Certification", "Human Factors in Maintenance Training");
 
     public static List<String> sampleCertificationNumber = Arrays.asList(
         "CPL12345", "ATPL67890", "FIC11122", "ME123456", "SE98765", "CFEL4321", "FD56789", "TR-A320-001",
         "TR-B737-002", "TR-B787-003", "FAC0001", "AGI1001", "AME1234", "SMS5678", "HFAC9876", "AST4567", "CRM1234",
         "TEG1001", "FACP123", "FSMC234", "TR-B757-004", "TR-B767-005", "TR-A330-006", "TR-A350-007", "TR-E190-008",
         "TR-Q400-009", "GHC1010", "DGA1111", "SET1212", "ARST1313", "AWBT1414", "PBN1515", "EEP1616", "ASAT1717",
-        "CRM1818", "WROC1919", "ASC2020", "MMT2121", "FOSC2222", "HFM2323", "AST2424", "ATC2525");
+        "CRM1818", "WROC1919", "ASC2020", "MMT2121", "FOSC2222", "HFM2323");
 
     public static List<Certifier> sampleIssuer = Arrays.asList(
         Certifier.FAA, Certifier.EASA, Certifier.CAA_UK, Certifier.CAA_NZ, Certifier.CAA_PK, Certifier.CAD_HK,
+        Certifier.GCAA, Certifier.SACAA, Certifier.IATA, Certifier.FLIGHT_SAFETY, Certifier.ATRA, Certifier.LAT,
         Certifier.CAA_PH, Certifier.CAA_SG, Certifier.TRANSPORT_CANADA, Certifier.DGCA_TR, Certifier.DGCA_IN,
         Certifier.DGCA_ID, Certifier.DGCA_KW, Certifier.CAAC, Certifier.CASA, Certifier.ICAO, Certifier.ANAC,
         Certifier.GCAA, Certifier.SACAA, Certifier.IATA, Certifier.FLIGHT_SAFETY, Certifier.ATRA, Certifier.LAT,
-        Certifier.CAE);
+        Certifier.CAE, Certifier.TRANSPORT_CANADA, Certifier.DGCA_ID, Certifier.FAA, Certifier.EASA, Certifier.CAA_UK,
+        Certifier.CAA_NZ, Certifier.CAAC, Certifier.CASA, Certifier.DGCA_TR, Certifier.FLIGHT_SAFETY);
 
     public static List<String> sampleExpirationDate = Arrays.asList(
         "2028-05-10", "2026-11-20", "2025-07-15", "2027-03-30", "2024-08-25", "2026-01-12", "2029-09-10", "2025-05-22",
         "2028-10-05", "2027-02-15", "2029-06-30", "2025-04-11", "2024-12-01", "2026-09-22", "2027-03-15", "2024-06-18",
         "2025-02-28", "2028-08-20", "2026-04-16", "2027-12-31", "2029-03-01", "2025-05-15", "2026-07-20", "2028-01-10",
         "2027-11-18", "2024-05-05", "2029-07-12", "2026-08-14", "2025-10-01", "2028-12-20", "2024-11-01", "2026-03-05",
-        "2027-09-15", "2028-06-12", "2025-01-30", "2029-05-25", "2026-02-14", "2027-08-10", "2025-03-22", "2028-04-25",
-        "2026-10-18", "2029-01-15");
+        "2027-09-15", "2028-06-12", "2025-01-30", "2029-05-25", "2026-02-14", "2027-08-10", "2025-03-22", "2028-04-25");
 
     public static List<Integer> sampleValidityPeriod = Arrays.asList(
         60, 120, 24, 36, 48, 24, 12, 12, 24, 36, 60, 48, 36, 12, 36, 24, 24, 12, 36, 24, 60, 48, 12,
-        36, 24, 60, 24, 12, 36, 24, 60, 48, 12, 36, 24, 60, 36, 24, 12, 12, 36, 48, 60, 24, 36);
+        36, 24, 60, 24, 12, 36, 24, 60, 48, 12, 36, 24, 60, 36, 24, 12, 12);
 
     public static List<String> sampleDescription = Arrays.asList(
         "License to operate as a pilot.", "License required for airline transport.",
@@ -141,8 +141,7 @@ public class SampleData {
         "Training for aviation security awareness.", "Certification for cockpit resource management.",
         "Certification for weather radar operations.", "Certification for avionics systems.",
         "Training for maintenance management.", "Certification for flight operations safety.",
-        "Training for human factors in maintenance.", "Training for aircraft systems.",
-        "Training for air traffic control procedures.");
+        "Training for human factors in maintenance.");
   }
 
   public static class Airport {
@@ -189,31 +188,30 @@ public class SampleData {
         AirportType.INTERNATIONAL, AirportType.INTERNATIONAL, AirportType.INTERNATIONAL, AirportType.INTERNATIONAL,
         AirportType.INTERNATIONAL, AirportType.INTERNATIONAL, AirportType.INTERNATIONAL, AirportType.INTERNATIONAL,
         AirportType.INTERNATIONAL, AirportType.INTERNATIONAL, AirportType.INTERNATIONAL, AirportType.INTERNATIONAL,
-        AirportType.INTERNATIONAL, AirportType.INTERNATIONAL, AirportType.INTERNATIONAL);
+        AirportType.INTERNATIONAL, AirportType.INTERNATIONAL, AirportType.INTERNATIONAL, AirportType.INTERNATIONAL);
 
     public static List<String> sampleOperationStartTime = Arrays.asList(
         "04:00", "05:00", "00:00", "00:00", "05:30", "04:30", "06:00", "05:00", "00:00", "04:30",
-        "05:00", "00:00", "00:00", "04:30", "05:00", "00:00", "00:00", "05:30", "06:00", "06:00", "05:30");
+        "05:00", "00:00", "00:00", "04:30", "05:00", "00:00", "00:00", "05:30", "06:00", "06:00");
 
     public static List<String> sampleOperationStopTime = Arrays.asList(
         "23:59", "23:30", "23:59", "23:59", "23:59", "23:00", "23:00", "23:30", "23:59", "23:59",
-        "23:59", "23:59", "23:59", "23:59", "23:30", "23:59", "23:59", "23:59", "23:30", "23:30", "23:00");
+        "23:59", "23:59", "23:59", "23:59", "23:30", "23:59", "23:59", "23:59", "23:30", "23:30");
 
     public static List<Float> sampleElevation = Arrays.asList(
         38.0F, 25.0F, 6.0F, 19.0F, 4.0F, 111.0F, 9.0F, 119.0F, 35.0F, 750.0F,
-        173.0F, 1655.0F, 7.0F, 4.0F, 610.0F, 7.0F, 9.0F, 11.0F, 192.0F, 150.0F, 200.0F);
+        173.0F, 1655.0F, 7.0F, 4.0F, 610.0F, 7.0F, 9.0F, 11.0F, 192.0F, 150.0F);
 
     public static List<Float> sampleSlope = Arrays.asList(
         0.2F, 0.1F, 0.05F, 0.07F, 0.09F, 0.15F, 0.1F, 0.12F, 0.08F, 0.2F,
-        0.1F, 0.3F, 0.05F, 0.09F, 0.15F, 0.07F, 0.05F, 0.06F, 0.1F, 0.13F, 0.09F);
+        0.1F, 0.3F, 0.05F, 0.09F, 0.15F, 0.07F, 0.05F, 0.06F, 0.1F, 0.13F);
 
     public static List<NoiseCategory> samplePossibleNoiseCategory = Arrays.asList(
         NoiseCategory.CHAPTER_14, NoiseCategory.CHAPTER_14, NoiseCategory.CHAPTER_4, NoiseCategory.CHAPTER_14,
         NoiseCategory.CHAPTER_14, NoiseCategory.CHAPTER_4, NoiseCategory.CHAPTER_4, NoiseCategory.CHAPTER_4,
         NoiseCategory.CHAPTER_14, NoiseCategory.CHAPTER_14, NoiseCategory.CHAPTER_4, NoiseCategory.CHAPTER_3,
         NoiseCategory.CHAPTER_4, NoiseCategory.CHAPTER_14, NoiseCategory.CHAPTER_4, NoiseCategory.CHAPTER_4,
-        NoiseCategory.CHAPTER_14, NoiseCategory.CHAPTER_14, NoiseCategory.CHAPTER_4, NoiseCategory.CHAPTER_2,
-        NoiseCategory.CHAPTER_3);
+        NoiseCategory.CHAPTER_14, NoiseCategory.CHAPTER_14, NoiseCategory.CHAPTER_4, NoiseCategory.CHAPTER_2);
   }
 
   public static class Plane {
@@ -349,8 +347,8 @@ public class SampleData {
         39.0F, 28.0F, 30.0F, 35.0F, 34.0F, 29.0F, 36.0F, 42.0F, 31.0F, 40.0F);
 
     public static List<Float> sampleRequiredRunwayLength = Arrays.asList(
-        2800.0F, 3000.0F, 3500.0F, 3400.0F, 2300.0F, 2000.0F, 3100.0F, 2700.0F, 2200.0F,
-        4000.0F, 2900.0F, 1500.0F, 2500.0F, 3000.0F, 3100.0F, 1800.0F, 2800.0F, 3200F);
+        2800.0F, 3000.0F, 3500.0F, 3400.0F, 2300.0F, 2000.0F, 3100.0F, 2700.0F, 2200.0F, 4000.0F,
+        2900.0F, 1500.0F, 2500.0F, 3000.0F, 3100.0F, 1800.0F, 2800.0F, 3200F, 2000.0F, 3100.0F);
 
     public static List<Float> sampleRequiredRunwayWidth = Arrays.asList(
         45.0F, 45.0F, 60.0F, 50.0F, 30.0F, 25.0F, 50.0F, 40.0F, 35.0F, 60.0F,
@@ -563,7 +561,7 @@ public class SampleData {
         60000.0F, 50000.0F, 55000.0F, 60000.0F, 65000.0F, 70000.0F, 75000.0F, 80000.0F, 85000.0F, 90000.0F,
         100000.0F, 90000.0F, 80000.0F, 70000.0F, 60000.0F, 50000.0F, 60000.0F, 70000.0F, 80000.0F, 90000.0F,
         100000.0F, 90000.0F, 80000.0F, 70000.0F, 60000.0F, 50000.0F, 60000.0F, 70000.0F, 80000.0F, 90000.0F,
-        100000.0F, 90000.0F, 80000.0F, 70000.0F, 60000.0F);
+        100000.0F, 90000.0F, 80000.0F, 70000.0F, 60000.0F, 80000.0F, 70000.0F, 60000.0F, 50000.0F, 60000.0F);
 
     public static List<Boolean> sampleHasLighting = Arrays.asList(
         true, false, true, false, true, false, true, true, false, true, false, true, true, false, true,

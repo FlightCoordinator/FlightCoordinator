@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.flightcoordinator.dataservice.constants.Messages;
 import com.flightcoordinator.dataservice.dto.TaxiwayDTO;
+import com.flightcoordinator.dataservice.dto.misc.CustomResponseDTO;
 import com.flightcoordinator.dataservice.dto.misc.EntityIdDTO;
-import com.flightcoordinator.dataservice.response.ResponseHelper;
-import com.flightcoordinator.dataservice.response.ResponseObject;
 import com.flightcoordinator.dataservice.service.TaxiwayService;
+import com.flightcoordinator.dataservice.utils.AppResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -31,36 +31,36 @@ public class TaxiwayController {
 
   @PostMapping("/getAll")
   @Operation(summary = "Get all the taxiways", description = "Retrieve the details of all taxiways.")
-  public ResponseEntity<ResponseObject<List<TaxiwayDTO>>> getAllTaxiways() {
+  public ResponseEntity<CustomResponseDTO<List<TaxiwayDTO>>> getAllTaxiways() {
     List<TaxiwayDTO> taxiways = taxiwayService.getAllTaxiways();
-    return ResponseHelper.generateResponse(HttpStatus.OK.value(), true, "", taxiways);
+    return AppResponse.generateResponse(HttpStatus.OK.value(), true, "", taxiways);
   }
 
   @PostMapping("/getById")
   @Operation(summary = "Get a taxiway by id", description = "Retrieve the details of a spesific taxiway using it's ID.")
-  public ResponseEntity<ResponseObject<TaxiwayDTO>> getTaxiwayById(@RequestBody EntityIdDTO id) {
+  public ResponseEntity<CustomResponseDTO<TaxiwayDTO>> getTaxiwayById(@RequestBody EntityIdDTO id) {
     TaxiwayDTO taxiway = taxiwayService.getSingleTaxiwayById(id);
-    return ResponseHelper.generateResponse(HttpStatus.OK.value(), true, "", taxiway);
+    return AppResponse.generateResponse(HttpStatus.OK.value(), true, "", taxiway);
   }
 
   @PostMapping("/create")
   @Operation(summary = "Create a new taxiway", description = "Create a new taxiway.")
-  public ResponseEntity<ResponseObject<Object>> createTaxiway(@RequestBody TaxiwayDTO newTaxiway) {
+  public ResponseEntity<CustomResponseDTO<Object>> createTaxiway(@RequestBody TaxiwayDTO newTaxiway) {
     taxiwayService.createTaxiway(newTaxiway);
-    return ResponseHelper.generateResponse(HttpStatus.CREATED.value(), true, Messages.CREATE_RESPONSE, null);
+    return AppResponse.generateResponse(HttpStatus.CREATED.value(), true, Messages.CREATE_RESPONSE, null);
   }
 
   @PatchMapping("/update")
   @Operation(summary = "Update a taxiway", description = "Update an existing taxiway.")
-  public ResponseEntity<ResponseObject<Object>> updateTaxiway(@RequestBody TaxiwayDTO updatedTaxiway) {
+  public ResponseEntity<CustomResponseDTO<Object>> updateTaxiway(@RequestBody TaxiwayDTO updatedTaxiway) {
     taxiwayService.updateTaxiway(updatedTaxiway);
-    return ResponseHelper.generateResponse(HttpStatus.OK.value(), true, Messages.UPDATE_RESPONSE, null);
+    return AppResponse.generateResponse(HttpStatus.OK.value(), true, Messages.UPDATE_RESPONSE, null);
   }
 
   @DeleteMapping("/delete")
   @Operation(summary = "Delete a taxiway", description = "Delete an existing taxiway.")
-  public ResponseEntity<ResponseObject<Object>> deleteTaxiway(@RequestBody EntityIdDTO id) {
+  public ResponseEntity<CustomResponseDTO<Object>> deleteTaxiway(@RequestBody EntityIdDTO id) {
     taxiwayService.deleteTaxiway(id);
-    return ResponseHelper.generateResponse(HttpStatus.OK.value(), true, Messages.DELETE_RESPONSE, null);
+    return AppResponse.generateResponse(HttpStatus.OK.value(), true, Messages.DELETE_RESPONSE, null);
   }
 }

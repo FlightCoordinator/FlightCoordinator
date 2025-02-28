@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.flightcoordinator.dataservice.constants.Messages;
 import com.flightcoordinator.dataservice.dto.AlgorithmResultDTO;
+import com.flightcoordinator.dataservice.dto.misc.CustomResponseDTO;
 import com.flightcoordinator.dataservice.dto.misc.EntityIdDTO;
-import com.flightcoordinator.dataservice.response.ResponseHelper;
-import com.flightcoordinator.dataservice.response.ResponseObject;
 import com.flightcoordinator.dataservice.service.AlgorithmResultService;
+import com.flightcoordinator.dataservice.utils.AppResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -30,22 +30,22 @@ public class AlgorithmResultController {
 
   @PostMapping("/getAll")
   @Operation(summary = "Get all the algorithm results", description = "Retrieve the details of all a spesific algorithm results.")
-  public ResponseEntity<ResponseObject<List<AlgorithmResultDTO>>> getAllAlgorithms() {
+  public ResponseEntity<CustomResponseDTO<List<AlgorithmResultDTO>>> getAllAlgorithms() {
     List<AlgorithmResultDTO> algorithmResults = algorithmResultService.getAllAlgorithmResults();
-    return ResponseHelper.generateResponse(HttpStatus.OK.value(), true, "", algorithmResults);
+    return AppResponse.generateResponse(HttpStatus.OK.value(), true, "", algorithmResults);
   }
 
   @PostMapping("/getById")
   @Operation(summary = "Get an algorithm result by id", description = "Retrieve the details of a spesific algorithm result using it's ID.")
-  public ResponseEntity<ResponseObject<AlgorithmResultDTO>> getAlgorithmResultById(@RequestBody EntityIdDTO id) {
+  public ResponseEntity<CustomResponseDTO<AlgorithmResultDTO>> getAlgorithmResultById(@RequestBody EntityIdDTO id) {
     AlgorithmResultDTO algorithmResult = algorithmResultService.getSingleAlgorithmResultById(id);
-    return ResponseHelper.generateResponse(HttpStatus.OK.value(), true, "", algorithmResult);
+    return AppResponse.generateResponse(HttpStatus.OK.value(), true, "", algorithmResult);
   }
 
   @DeleteMapping("/delete")
   @Operation(summary = "Delete an algorithm result", description = "Delete an algorithm result.")
-  public ResponseEntity<ResponseObject<Object>> deleteAlgorithmResult(@RequestBody EntityIdDTO id) {
+  public ResponseEntity<CustomResponseDTO<Object>> deleteAlgorithmResult(@RequestBody EntityIdDTO id) {
     algorithmResultService.deleteAlgorithmResult(id);
-    return ResponseHelper.generateResponse(HttpStatus.OK.value(), true, Messages.DELETE_RESPONSE, null);
+    return AppResponse.generateResponse(HttpStatus.OK.value(), true, Messages.DELETE_RESPONSE, null);
   }
 }

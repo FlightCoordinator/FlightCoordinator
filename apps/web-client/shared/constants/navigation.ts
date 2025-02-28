@@ -1,10 +1,15 @@
 import {
+  CircleHelp,
   ClipboardCheck,
+  CodeXml,
+  FlipHorizontal,
+  Logs,
   LucideProps,
   Luggage,
   Plane,
   PlaneTakeoff,
   RefreshCcw,
+  Scroll,
   SearchCheck,
   SmartphoneNfc,
   TowerControl,
@@ -49,12 +54,12 @@ const navigation: NavigationProps[] = [
     sectionItems: [
       {
         key: "app/plane",
-        label: "Plane",
-        icon: Plane,
+        label: "Plane Details",
+        icon: Logs,
       },
       {
         key: "app/model",
-        label: "Plane Model",
+        label: "Plane Models",
         icon: Plane,
       },
     ],
@@ -92,7 +97,7 @@ const navigation: NavigationProps[] = [
       {
         key: "app/taxiway",
         label: "Taxiway Details",
-        icon: PlaneTakeoff,
+        icon: FlipHorizontal,
       },
     ],
   },
@@ -104,6 +109,32 @@ const navigation: NavigationProps[] = [
         key: "app/external-apis",
         label: "External APIs",
         icon: SmartphoneNfc,
+      },
+    ],
+  },
+  {
+    sectionKey: "help",
+    sectionLabel: "Help & About",
+    sectionItems: [
+      {
+        key: "docs/v1/getting-started",
+        label: "How to Use",
+        icon: CircleHelp,
+      },
+      {
+        key: "docs/v1/how-does-fc-work",
+        label: "How Does FC Work?",
+        icon: CircleHelp,
+      },
+      {
+        key: "docs/v1",
+        label: "Documentation",
+        icon: Scroll,
+      },
+      {
+        key: "repo",
+        label: "Repository",
+        icon: CodeXml,
       },
     ],
   },

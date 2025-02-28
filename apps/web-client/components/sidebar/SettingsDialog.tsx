@@ -12,7 +12,7 @@ import useGetUserDetails from "@/hooks/auth/useGetUserDetails";
 import useLogoutMutation from "@/hooks/auth/useLogoutMutation";
 import { toast } from "@/hooks/interface/useToast";
 
-import AuthTypes from "@/types/auth";
+import GlobalTypes from "@/types/globals";
 
 import { Button } from "../base-ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "../base-ui/dialog";
@@ -46,7 +46,7 @@ const SettingsDialog = () => {
       .catch((error) => toast({ title: "An error ocurred", description: error.message }));
   };
 
-  const [userDetails, setUserDetails] = React.useState<AuthTypes.Protected.UserDetailsProps>({
+  const [userDetails, setUserDetails] = React.useState<GlobalTypes.Auth.Protected.UserDetailsProps>({
     fullName: "",
     email: "",
     isActive: true,
@@ -81,7 +81,7 @@ const SettingsDialog = () => {
           }),
         );
     } else if (userDetailsQueryData && (userDetails.fullName.trim() === "" || userDetails.fullName.trim() === "")) {
-      setUserDetails(() => userDetailsQueryData as AuthTypes.Protected.UserDetailsProps);
+      setUserDetails(() => userDetailsQueryData as GlobalTypes.Auth.Protected.UserDetailsProps);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

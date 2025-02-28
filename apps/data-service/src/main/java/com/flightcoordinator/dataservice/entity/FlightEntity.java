@@ -9,6 +9,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "flight_table")
@@ -38,9 +39,11 @@ public class FlightEntity {
   @Column(name = "distance", nullable = false)
   private Float distance;
 
+  @NotBlank(message = "Estimated takeoff time is required")
   @Column(name = "estimated_takeoff_time", nullable = false)
   private String estimatedTakeoffTime;
 
+  @NotBlank(message = "Estimated landing Time is required")
   @Column(name = "estimated_landing_time", nullable = false)
   private String estimatedLandingTime;
 
@@ -48,10 +51,14 @@ public class FlightEntity {
   @Column(name = "estimated_flight_duration", nullable = false)
   private Float estimatedFlightDuration;
 
+  public FlightEntity() {
+  }
+
   public FlightEntity(String id, @Min(value = 1, message = "Passenger count should be >= 1") Integer passengerCount,
       @Min(value = 0, message = "Passenger count should be >= 1") Float cargoWeight, AirportEntity originAirport,
       AirportEntity destinationAirport, @Min(value = 1, message = "Distance should be >=1") Float distance,
-      String estimatedTakeoffTime, String estimatedLandingTime,
+      @NotBlank(message = "Estimated takeoff time is required") String estimatedTakeoffTime,
+      @NotBlank(message = "Estimated landing Time is required") String estimatedLandingTime,
       @Min(value = 1, message = "Estimated flight duration should be >= 1") Float estimatedFlightDuration) {
     this.id = id;
     this.passengerCount = passengerCount;
@@ -62,9 +69,6 @@ public class FlightEntity {
     this.estimatedTakeoffTime = estimatedTakeoffTime;
     this.estimatedLandingTime = estimatedLandingTime;
     this.estimatedFlightDuration = estimatedFlightDuration;
-  }
-
-  public FlightEntity() {
   }
 
   public String getId() {

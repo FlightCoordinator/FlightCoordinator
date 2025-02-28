@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.flightcoordinator.dataservice.constants.Messages;
 import com.flightcoordinator.dataservice.dto.AlgorithmRunDTO;
+import com.flightcoordinator.dataservice.dto.misc.CustomResponseDTO;
 import com.flightcoordinator.dataservice.dto.misc.EntityIdDTO;
-import com.flightcoordinator.dataservice.response.ResponseHelper;
-import com.flightcoordinator.dataservice.response.ResponseObject;
 import com.flightcoordinator.dataservice.service.AlgorithmRunService;
+import com.flightcoordinator.dataservice.utils.AppResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
@@ -31,29 +31,29 @@ public class AlgorithmRunController {
 
   @PostMapping("/getAll")
   @Operation(summary = "Get all the algorithm runs", description = "Retrieve the details of all a spesific algorithm runs.")
-  public ResponseEntity<ResponseObject<List<AlgorithmRunDTO>>> getAllAlgorithms() {
+  public ResponseEntity<CustomResponseDTO<List<AlgorithmRunDTO>>> getAllAlgorithms() {
     List<AlgorithmRunDTO> algorithmRuns = algorithmRunService.getAllAlgorithmRuns();
-    return ResponseHelper.generateResponse(HttpStatus.OK.value(), true, "", algorithmRuns);
+    return AppResponse.generateResponse(HttpStatus.OK.value(), true, "", algorithmRuns);
   }
 
   @PostMapping("/getById")
   @Operation(summary = "Get an algorithm run by id", description = "Retrieve the details of a spesific algorithm run using it's ID.")
-  public ResponseEntity<ResponseObject<AlgorithmRunDTO>> getAlgorithmRunById(@RequestBody EntityIdDTO id) {
+  public ResponseEntity<CustomResponseDTO<AlgorithmRunDTO>> getAlgorithmRunById(@RequestBody EntityIdDTO id) {
     AlgorithmRunDTO algorithmRun = algorithmRunService.getSingleAlgorithmRunById(id);
-    return ResponseHelper.generateResponse(HttpStatus.OK.value(), true, "", algorithmRun);
+    return AppResponse.generateResponse(HttpStatus.OK.value(), true, "", algorithmRun);
   }
 
   @PostMapping("/trigger")
   @Operation(summary = "Create a new algorithm run", description = "Create a new algorithm run. (Not intended for manual use)")
-  public ResponseEntity<ResponseObject<Object>> triggerAlgorithmRun(@RequestBody Map<String, String> algorithmName) {
+  public ResponseEntity<CustomResponseDTO<Object>> triggerAlgorithmRun(@RequestBody Map<String, String> algorithmName) {
     algorithmRunService.triggerAlgorithmRun(algorithmName.get("algorithmName"));
-    return ResponseHelper.generateResponse(HttpStatus.CREATED.value(), true, Messages.CREATE_RESPONSE, null);
+    return AppResponse.generateResponse(HttpStatus.CREATED.value(), true, Messages.CREATE_RESPONSE, null);
   }
 
   @DeleteMapping("/delete")
   @Operation(summary = "Delete an algorithm run", description = "Delete an algorithm run.")
-  public ResponseEntity<ResponseObject<Object>> deleteAlgorithmRun(@RequestBody EntityIdDTO id) {
+  public ResponseEntity<CustomResponseDTO<Object>> deleteAlgorithmRun(@RequestBody EntityIdDTO id) {
     algorithmRunService.deleteAlgorithmRun(id);
-    return ResponseHelper.generateResponse(HttpStatus.OK.value(), true, Messages.DELETE_RESPONSE, null);
+    return AppResponse.generateResponse(HttpStatus.OK.value(), true, Messages.DELETE_RESPONSE, null);
   }
 }

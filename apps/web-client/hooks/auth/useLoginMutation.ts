@@ -5,14 +5,13 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { config } from "@/shared/appConfig";
 import requester from "@/shared/lib/requester";
 
-import AuthTypes from "@/types/auth";
 import GlobalTypes from "@/types/globals";
 
 const useLoginMutation = () => {
   const queryClient = useQueryClient();
   const login = useMutation({
     mutationKey: ["loginMutation"],
-    mutationFn: async (loginData: AuthTypes.Public.LoginProps) => {
+    mutationFn: async (loginData: GlobalTypes.Auth.Public.LoginProps) => {
       const response = await requester
         .setRequestConfig({
           url: {
@@ -27,7 +26,7 @@ const useLoginMutation = () => {
           method: "POST",
           auth: { includeCookies: true },
         })
-        .sendRequest<GlobalTypes.ServerResponseParams<null>, AuthTypes.Public.LoginProps>(loginData);
+        .sendRequest<GlobalTypes.ServerResponseParams<null>, GlobalTypes.Auth.Public.LoginProps>(loginData);
       return response;
     },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["loginMutation"] }),

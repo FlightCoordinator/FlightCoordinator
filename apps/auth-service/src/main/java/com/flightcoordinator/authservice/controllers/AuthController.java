@@ -39,7 +39,7 @@ public class AuthController {
   }
 
   @PostMapping("/login")
-  @CrossOrigin(origins = "${server.uris.webclient}", allowCredentials = "true")
+  @CrossOrigin(origins = "${server.urls.webclient}", allowCredentials = "true")
   @Operation(summary = "Login an existing user", description = "Login an existing user.")
   public ResponseEntity<CustomResponseEntity<Object>> login(@RequestBody LoginDTO loginDetails,
       HttpServletResponse response) {
@@ -50,7 +50,7 @@ public class AuthController {
   }
 
   @PostMapping("/logout")
-  @CrossOrigin(origins = "${server.uris.webclient}", allowCredentials = "true")
+  @CrossOrigin(origins = "${server.urls.webclient}", allowCredentials = "true")
   @Operation(summary = "Logout an existing user", description = "Logout an existing user.")
   public ResponseEntity<CustomResponseEntity<Object>> logout(HttpServletRequest request, HttpServletResponse response) {
     Cookie[] cookies = request.getCookies();
@@ -64,7 +64,7 @@ public class AuthController {
   // }
 
   @PostMapping("/validate")
-  @CrossOrigin(origins = "${server.uris.webclient}", allowCredentials = "true")
+  @CrossOrigin(origins = "${server.urls.webclient}", allowCredentials = "true")
   @Operation(summary = "Validates if user is authenticated", description = "Validates if user is authenticated.")
   public ResponseEntity<CustomResponseEntity<AuthValidationDTO>> validate(HttpServletRequest request) {
     Cookie[] cookies = request.getCookies();
@@ -73,7 +73,7 @@ public class AuthController {
   }
 
   @PostMapping("/getUserDetails")
-  @CrossOrigin(origins = "${server.uris.webclient}", allowCredentials = "true")
+  @CrossOrigin(origins = "${server.urls.webclient}", allowCredentials = "true")
   @Operation(summary = "Retrieves user details", description = "Retrieves user details.")
   public ResponseEntity<CustomResponseEntity<UserDetailsDTO>> getUserDetails(HttpServletRequest request) {
     Cookie[] cookies = request.getCookies();
@@ -82,7 +82,7 @@ public class AuthController {
   }
 
   @PostMapping("/rotateToken")
-  @CrossOrigin(origins = "${server.uris.webclient}", allowCredentials = "true")
+  @CrossOrigin(origins = "${server.urls.webclient}", allowCredentials = "true")
   @Operation(summary = "Issues a new access token", description = "Issues a new access token with existing refresh token.")
   public ResponseEntity<CustomResponseEntity<String>> rotateToken(HttpServletRequest request,
       HttpServletResponse response) {

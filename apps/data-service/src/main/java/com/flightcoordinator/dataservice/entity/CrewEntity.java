@@ -19,7 +19,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "crew_table")
@@ -29,21 +29,20 @@ public class CrewEntity {
   @Column(name = "id", nullable = false)
   private String id;
 
-  @NotEmpty(message = "Full name is required")
+  @NotBlank(message = "Full name is required")
   @Column(name = "full_name", nullable = false)
   private String fullName;
 
   @Email(message = "E-Mail is invalid")
-  @NotEmpty(message = "E-mail is required")
+  @NotBlank(message = "E-mail is required")
   @Column(name = "email", nullable = false, unique = true)
   private String email;
 
-  @NotEmpty(message = "Phone number is required")
+  @NotBlank(message = "Phone number is required")
   @Column(name = "phone_number", nullable = false)
   private String phoneNumber;
 
   @Enumerated(EnumType.STRING)
-  @NotEmpty(message = "Role is required")
   @Column(name = "role", nullable = false)
   private CrewMemberRole role;
 
@@ -51,7 +50,6 @@ public class CrewEntity {
   private List<CertificationEntity> certifications;
 
   @Min(value = 0, message = "Total flight hours should be >= 1")
-  @NotEmpty(message = "Total flight hours is required")
   @Column(name = "total_flight_hours", nullable = false)
   private Integer totalFlightHours;
 
@@ -64,17 +62,18 @@ public class CrewEntity {
   private AirportEntity currentAirport;
 
   @Enumerated(EnumType.STRING)
-  @NotEmpty(message = "Status is required")
   @Column(name = "status", nullable = false)
   private CrewMemberStatus status;
 
-  public CrewEntity(String id, @NotEmpty(message = "Full name is required") String fullName,
-      @Email(message = "E-Mail is invalid") @NotEmpty(message = "E-mail is required") String email,
-      @NotEmpty(message = "Phone number is required") String phoneNumber,
-      @NotEmpty(message = "Role is required") CrewMemberRole role, List<CertificationEntity> certifications,
-      @Min(value = 0, message = "Total flight hours should be >= 1") @NotEmpty(message = "Total flight hours is required") Integer totalFlightHours,
-      AirportEntity baseAirport, AirportEntity currentAirport,
-      @NotEmpty(message = "Status is required") CrewMemberStatus status) {
+  public CrewEntity() {
+  }
+
+  public CrewEntity(String id, @NotBlank(message = "Full name is required") String fullName,
+      @Email(message = "E-Mail is invalid") @NotBlank(message = "E-mail is required") String email,
+      @NotBlank(message = "Phone number is required") String phoneNumber, CrewMemberRole role,
+      List<CertificationEntity> certifications,
+      @Min(value = 0, message = "Total flight hours should be >= 1") Integer totalFlightHours,
+      AirportEntity baseAirport, AirportEntity currentAirport, CrewMemberStatus status) {
     this.id = id;
     this.fullName = fullName;
     this.email = email;
@@ -85,9 +84,6 @@ public class CrewEntity {
     this.baseAirport = baseAirport;
     this.currentAirport = currentAirport;
     this.status = status;
-  }
-
-  public CrewEntity() {
   }
 
   public String getId() {

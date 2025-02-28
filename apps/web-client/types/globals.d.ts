@@ -11,7 +11,7 @@ namespace GlobalTypes {
     label: string;
     value: string;
   }
-  export namespace AuthTypes {
+  export namespace Auth {
     export namespace Public {
       export interface RegisterProps {
         fullName: string;

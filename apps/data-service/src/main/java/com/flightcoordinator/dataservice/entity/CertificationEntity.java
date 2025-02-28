@@ -16,7 +16,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "certification_table")
@@ -26,29 +26,26 @@ public class CertificationEntity {
   @Column(name = "id", nullable = false)
   private String id;
 
-  @NotEmpty(message = "Name is required")
+  @NotBlank(message = "Name is required")
   @Column(name = "name", nullable = false)
   private String name;
 
   @Column(name = "certification_number", nullable = false)
-  @NotEmpty(message = "Certification number is required")
+  @NotBlank(message = "Certification number is required")
   private String certificationNumber;
 
   @Enumerated(EnumType.STRING)
-  @NotEmpty(message = "Issuer is required")
   @Column(name = "issuer", nullable = false)
   private Certifier issuer;
 
-  @NotEmpty(message = "Expiration date is required")
   @Column(name = "expiration_date", nullable = false)
   private Date expirationDate;
 
   @Min(value = 1, message = "Validity period should be >= 1")
-  @NotEmpty(message = "Validity preiod is required")
   @Column(name = "validity_period", nullable = false)
   private Integer validityPeriod;
 
-  @NotEmpty(message = "Description is required")
+  @NotBlank(message = "Description is required")
   @Column(name = "description", nullable = false)
   private String description;
 
@@ -56,12 +53,13 @@ public class CertificationEntity {
   @JoinColumn(name = "assigned_crew_member", nullable = false)
   private CrewEntity assignedCrewMember;
 
-  public CertificationEntity(String id, @NotEmpty(message = "Name is required") String name,
-      @NotEmpty(message = "Certification number is required") String certificationNumber,
-      @NotEmpty(message = "Issuer is required") Certifier issuer,
-      @NotEmpty(message = "Expiration date is required") Date expirationDate,
-      @Min(value = 1, message = "Validity period should be >= 1") @NotEmpty(message = "Validity preiod is required") Integer validityPeriod,
-      @NotEmpty(message = "Description is required") String description, CrewEntity assignedCrewMember) {
+  public CertificationEntity() {
+  }
+
+  public CertificationEntity(String id, @NotBlank(message = "Name is required") String name,
+      @NotBlank(message = "Certification number is required") String certificationNumber, Certifier issuer,
+      Date expirationDate, @Min(value = 1, message = "Validity period should be >= 1") Integer validityPeriod,
+      @NotBlank(message = "Description is required") String description, CrewEntity assignedCrewMember) {
     this.id = id;
     this.name = name;
     this.certificationNumber = certificationNumber;
@@ -70,9 +68,6 @@ public class CertificationEntity {
     this.validityPeriod = validityPeriod;
     this.description = description;
     this.assignedCrewMember = assignedCrewMember;
-  }
-
-  public CertificationEntity() {
   }
 
   public String getId() {

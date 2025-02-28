@@ -6,7 +6,6 @@ import { config } from "../appConfig";
 
 const requester: EasyRequester = new EasyRequester({
   onNewRequest: "enqueue-new",
-  acceptStatusCodes: [401, 403],
   isDebugMode: false,
   tokenRotationUrl: {
     baseURL: config.AUTH.BASE_URL,

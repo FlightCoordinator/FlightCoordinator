@@ -27,7 +27,7 @@ const MainSidebar = () => {
   const pathname = usePathname();
 
   return (
-    <Sidebar collapsible="none" className="border-r h-dvh">
+    <Sidebar collapsible="none" className="border-r h-dvh w-[18rem]">
       <SidebarHeader className="py-4 border-b">
         <Link className="flex flex-row items-center justify-start gap-2 overflow-hidden" href={"/app"}>
           <Image src="/images/logo.png" alt="Flight Coordinator Logo" width={48} height={48} />

@@ -5,7 +5,7 @@ import java.util.List;
 import com.flightcoordinator.dataservice.enums.AirportType;
 import com.flightcoordinator.dataservice.enums.CountryCode;
 import com.flightcoordinator.dataservice.enums.NoiseCategory;
-import com.flightcoordinator.dataservice.validator.Timestamp;
+import com.flightcoordinator.dataservice.validation.Timestamp;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -18,7 +18,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "airport_table")
@@ -28,50 +28,45 @@ public class AirportEntity {
   @Column(name = "id", nullable = false)
   private String id;
 
-  @NotEmpty(message = "Name is required")
+  @NotBlank(message = "Name is required")
   @Column(name = "name", nullable = false)
   private String name;
 
-  @NotEmpty(message = "IATA code is required")
+  @NotBlank(message = "IATA code is required")
   @Column(name = "iata_code", nullable = false)
   private String iataCode;
 
-  @NotEmpty(message = "ICAO code is required")
+  @NotBlank(message = "ICAO code is required")
   @Column(name = "icao_code", nullable = false)
   private String icaoCode;
 
   @Enumerated(EnumType.STRING)
-  @NotEmpty(message = "Country is required")
   @Column(name = "country_code", nullable = false)
   private CountryCode countryCode;
 
   @Enumerated(EnumType.STRING)
-  @NotEmpty(message = "Type is required")
   @Column(name = "type", nullable = false)
   private AirportType type;
 
   @Timestamp
-  @NotEmpty(message = "Operation start time is required")
+  @NotBlank(message = "Operation start time is required")
   @Column(name = "operation_start_time", nullable = false)
   private String operationStartTime;
 
   @Timestamp
-  @NotEmpty(message = "Operation stop time is required")
+  @NotBlank(message = "Operation stop time is required")
   @Column(name = "operation_end_time", nullable = false)
   private String operationStopTime;
 
-  @NotEmpty(message = "Elevation is required")
-  @Min(value = 1, message = "Elevation should be >= 1")
+  @Min(value = 0, message = "Elevation should be >= 1")
   @Column(name = "elevation", nullable = false)
   private Float elevation;
 
-  @NotEmpty(message = "Slope is required")
-  @Min(value = 1, message = "Slope should be >= 1")
+  @Min(value = 0, message = "Slope should be >= 1")
   @Column(name = "slope", nullable = false)
   private Float slope;
 
   @Enumerated(EnumType.STRING)
-  @NotEmpty(message = "Possible noise category is required")
   @Column(name = "possible_noise_category", nullable = false)
   private NoiseCategory possibleNoiseCategory;
 
@@ -96,16 +91,13 @@ public class AirportEntity {
   public AirportEntity() {
   }
 
-  public AirportEntity(String id, @NotEmpty(message = "Name is required") String name,
-      @NotEmpty(message = "IATA code is required") String iataCode,
-      @NotEmpty(message = "ICAO code is required") String icaoCode,
-      @NotEmpty(message = "Country is required") CountryCode countryCode,
-      @NotEmpty(message = "Type is required") AirportType type,
-      @NotEmpty(message = "Operation start time is required") String operationStartTime,
-      @NotEmpty(message = "Operation stop time is required") String operationStopTime,
-      @NotEmpty(message = "Elevation is required") @Min(value = 1, message = "Elevation should be >= 1") Float elevation,
-      @NotEmpty(message = "Slope is required") @Min(value = 1, message = "Slope should be >= 1") Float slope,
-      @NotEmpty(message = "Possible noise category is required") NoiseCategory possibleNoiseCategory,
+  public AirportEntity(String id, @NotBlank(message = "Name is required") String name,
+      @NotBlank(message = "IATA code is required") String iataCode,
+      @NotBlank(message = "ICAO code is required") String icaoCode, CountryCode countryCode, AirportType type,
+      @NotBlank(message = "Operation start time is required") String operationStartTime,
+      @NotBlank(message = "Operation stop time is required") String operationStopTime,
+      @Min(value = 1, message = "Elevation should be >= 1") Float elevation,
+      @Min(value = 1, message = "Slope should be >= 1") Float slope, NoiseCategory possibleNoiseCategory,
       List<RunwayEntity> runways, List<TaxiwayEntity> taxiways, List<PlaneEntity> planesPresent,
       List<FlightEntity> flightFromAirport, List<FlightEntity> flightToAirport, List<CrewEntity> crewMembersPresent) {
     this.id = id;

@@ -19,7 +19,7 @@ const useLoadSampleDataMutation = () => {
             endpoint: {
               prefix: config.DATA.API_PREFIX,
               controller: "devTools",
-              action: "createSampleData",
+              action: "generateSampleData",
             },
           },
           method: "POST",

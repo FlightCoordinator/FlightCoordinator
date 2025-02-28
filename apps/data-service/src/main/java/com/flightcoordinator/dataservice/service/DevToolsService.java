@@ -73,6 +73,21 @@ public class DevToolsService {
   }
 
   private void generateSampleAirports() {
+    if (SampleData.Airport.sampleAirportName.size() < 20 ||
+        SampleData.Airport.sampleIATACode.size() < 20 ||
+        SampleData.Airport.sampleICAOCode.size() < 20 ||
+        SampleData.Airport.sampleCountryCode.size() < 20 ||
+        SampleData.Airport.sampleType.size() < 20 ||
+        SampleData.Airport.sampleOperationStartTime.size() < 20 ||
+        SampleData.Airport.sampleOperationStopTime.size() < 20 ||
+        SampleData.Airport.sampleElevation.size() < 20 ||
+        SampleData.Airport.sampleSlope.size() < 20 ||
+        SampleData.Airport.samplePossibleNoiseCategory.size() < 20) {
+      throw new AppError(
+          "Sample airport data is incomplete. Each list should have at least 20 entries",
+          HttpStatus.INTERNAL_SERVER_ERROR.value());
+    }
+
     for (int i = 0; i < 20; i++) {
       AirportEntity airport = new AirportEntity();
 
@@ -94,6 +109,25 @@ public class DevToolsService {
   private void generateSampleCrewMembers() {
     List<AirportEntity> allAirports = airportRepository.findAll();
 
+    if (SampleData.Crew.sampleFullName.size() < 20 ||
+        SampleData.Crew.sampleEmail.size() < 20 ||
+        SampleData.Crew.samplePhoneNumber.size() < 20 ||
+        SampleData.Crew.sampleRole.size() < 20 ||
+        SampleData.Crew.sampleTotalFlightHours.size() < 20 ||
+        SampleData.Crew.sampleStatus.size() < 20 ||
+        allAirports.size() < 20) {
+      System.out.println("sampleFullName: " + SampleData.Crew.sampleFullName.size());
+      System.out.println("sampleEmail: " + SampleData.Crew.sampleEmail.size());
+      System.out.println("samplePhoneNumber: " + SampleData.Crew.samplePhoneNumber.size());
+      System.out.println("sampleRole: " + SampleData.Crew.sampleRole.size());
+      System.out.println("sampleTotalFlightHours: " + SampleData.Crew.sampleTotalFlightHours.size());
+      System.out.println("sampleStatus: " + SampleData.Crew.sampleStatus.size());
+      System.out.println("AirportEntity count: " + allAirports.size());
+      throw new AppError(
+          "Sample crew member data is incomplete. Each list should have at least 20 entries",
+          HttpStatus.INTERNAL_SERVER_ERROR.value());
+    }
+
     for (int i = 0; i < 20; i++) {
       CrewEntity crewMember = new CrewEntity();
 
@@ -102,7 +136,8 @@ public class DevToolsService {
       crewMember.setPhoneNumber(SampleData.Crew.samplePhoneNumber.get(i));
       crewMember.setRole(SampleData.Crew.sampleRole.get(i));
       crewMember.setTotalFlightHours(SampleData.Crew.sampleTotalFlightHours.get(i));
-      crewMember.setBaseAirport(allAirports.get((allAirports.size() - 1) - i));
+      crewMember.setCurrentAirport(allAirports.get((allAirports.size() - 1) - i));
+      crewMember.setBaseAirport(allAirports.get(i));
       crewMember.setStatus(SampleData.Crew.sampleStatus.get(i));
 
       crewRepository.save(crewMember);
@@ -111,6 +146,26 @@ public class DevToolsService {
 
   private void generateSampleCertifications() throws ParseException {
     List<CrewEntity> allCrewEntities = crewRepository.findAll();
+
+    if (SampleData.Certification.sampleName.size() < 40
+        || SampleData.Certification.sampleCertificationNumber.size() < 40
+        || SampleData.Certification.sampleIssuer.size() < 40
+        || SampleData.Certification.sampleExpirationDate.size() < 40
+        || SampleData.Certification.sampleValidityPeriod.size() < 40
+        || SampleData.Certification.sampleDescription.size() < 40
+        || allCrewEntities.size() < 20) {
+      System.out.println("sampleName count: " + SampleData.Certification.sampleName.size());
+      System.out
+          .println("sampleCertificationNumber count: " + SampleData.Certification.sampleCertificationNumber.size());
+      System.out.println("sampleIssuer count: " + SampleData.Certification.sampleIssuer.size());
+      System.out.println("sampleExpirationDate count: " + SampleData.Certification.sampleExpirationDate.size());
+      System.out.println("sampleValidityPeriod count: " + SampleData.Certification.sampleValidityPeriod.size());
+      System.out.println("sampleDescription count: " + SampleData.Certification.sampleDescription.size());
+      System.out.println("CrewEntity count: " + allCrewEntities.size());
+      throw new AppError(
+          "Sample certification data is incomplete. Each list should have at least 20 entries",
+          HttpStatus.INTERNAL_SERVER_ERROR.value());
+    }
 
     for (int i = 0; i < 40; i++) {
       CertificationEntity certification = new CertificationEntity();
@@ -121,7 +176,7 @@ public class DevToolsService {
       certification.setExpirationDate(dateFormat.parse(SampleData.Certification.sampleExpirationDate.get(i)));
       certification.setValidityPeriod(SampleData.Certification.sampleValidityPeriod.get(i));
       certification.setDescription(SampleData.Certification.sampleDescription.get(i));
-      certification.setAssignedCrewMember(allCrewEntities.removeFirst());
+      certification.setAssignedCrewMember(allCrewEntities.get((i + 1) % allCrewEntities.size()));
 
       certificationRepository.save(certification);
     }
@@ -129,6 +184,19 @@ public class DevToolsService {
 
   private void generateSampleFlights() {
     List<AirportEntity> allAirportEntities = airportRepository.findAll();
+
+    if (SampleData.Flight.samplepassengerCount.size() < 10 ||
+        SampleData.Flight.samplecargoWeight.size() < 10 ||
+        SampleData.Flight.sampledistance.size() < 10 ||
+        allAirportEntities.size() < 10) {
+      System.out.println("samplepassengerCount: " + SampleData.Flight.samplepassengerCount.size());
+      System.out.println("samplecargoWeight: " + SampleData.Flight.samplecargoWeight.size());
+      System.out.println("sampledistance: " + SampleData.Flight.sampledistance.size());
+      System.out.println("AirportEntity count: " + allAirportEntities.size());
+      throw new AppError(
+          "Sample flight data is incomplete. Each list should have at least 10 entries",
+          HttpStatus.INTERNAL_SERVER_ERROR.value());
+    }
 
     for (int i = 0; i < 10; i++) {
       FlightEntity flight = new FlightEntity();
@@ -141,8 +209,8 @@ public class DevToolsService {
       flight.setOriginAirport(allAirportEntities.get(randomValue.nextInt(0, allAirportEntities.size() - 1)));
       flight.setDestinationAirport(allAirportEntities.get(randomValue.nextInt(0, allAirportEntities.size() - 1)));
       flight.setDistance(SampleData.Flight.sampledistance.get(i));
-      flight.setEstimatedTakeoffTime(times.get(1).toString());
-      flight.setEstimatedLandingTime(times.get(2).toString());
+      flight.setEstimatedTakeoffTime(times.get(0).toString());
+      flight.setEstimatedLandingTime(times.get(1).toString());
       flight.setEstimatedFlightDuration(flightDuration);
 
       flightRepository.save(flight);
@@ -150,6 +218,75 @@ public class DevToolsService {
   }
 
   private void generateSampleModels() {
+    if (SampleData.Model.sampleManufacturer.size() < 20 ||
+        SampleData.Model.samplePlaneIdentifier.size() < 20 ||
+        SampleData.Model.sampleModelName.size() < 20 ||
+        SampleData.Model.sampleCertifier.size() < 20 ||
+        SampleData.Model.sampleCertificationStatus.size() < 20 ||
+        SampleData.Model.sampleNoiseCategory.size() < 20 ||
+        SampleData.Model.sampleFuelCapacity.size() < 20 ||
+        SampleData.Model.sampleFuelEfficiency.size() < 20 ||
+        SampleData.Model.samplePassengerCapacity.size() < 20 ||
+        SampleData.Model.sampleMaxCargoCapacity.size() < 20 ||
+        SampleData.Model.sampleEmptyWeight.size() < 20 ||
+        SampleData.Model.sampleTailHeight.size() < 20 ||
+        SampleData.Model.sampleWingspan.size() < 20 ||
+        SampleData.Model.sampleEngineType.size() < 20 ||
+        SampleData.Model.sampleEngineCount.size() < 20 ||
+        SampleData.Model.sampleThrustPerEngine.size() < 20 ||
+        SampleData.Model.sampleMaxCrosswindComp.size() < 20 ||
+        SampleData.Model.sampleRequiredRunwayLength.size() < 20 ||
+        SampleData.Model.sampleRequiredRunwayWidth.size() < 20 ||
+        SampleData.Model.sampleMinRotationRadius.size() < 20 ||
+        SampleData.Model.sampleCruiseSpeed.size() < 20 ||
+        SampleData.Model.sampleMaxSpeed.size() < 20 ||
+        SampleData.Model.sampleStallSpeed.size() < 20 ||
+        SampleData.Model.sampleMaxAltitude.size() < 20 ||
+        SampleData.Model.sampleClimbRate.size() < 20 ||
+        SampleData.Model.sampleDescentRate.size() < 20 ||
+        SampleData.Model.sampleMaxFlightRange.size() < 20 ||
+        SampleData.Model.sampleHasWeatherRadar.size() < 20 ||
+        SampleData.Model.sampleHasAutopilot.size() < 20 ||
+        SampleData.Model.sampleHasFlyByWire.size() < 20 ||
+        SampleData.Model.sampleHasFireSupression.size() < 20 ||
+        SampleData.Model.sampleGpsEnabled.size() < 20) {
+      System.out.println("sampleManufacturer count: " + SampleData.Model.sampleManufacturer.size());
+      System.out.println("samplePlaneIdentifier count: " + SampleData.Model.samplePlaneIdentifier.size());
+      System.out.println("sampleModelName count: " + SampleData.Model.sampleModelName.size());
+      System.out.println("sampleCertifier count: " + SampleData.Model.sampleCertifier.size());
+      System.out.println("sampleCertificationStatus count: " + SampleData.Model.sampleCertificationStatus.size());
+      System.out.println("sampleNoiseCategory count: " + SampleData.Model.sampleNoiseCategory.size());
+      System.out.println("sampleFuelCapacity count: " + SampleData.Model.sampleFuelCapacity.size());
+      System.out.println("sampleFuelEfficiency count: " + SampleData.Model.sampleFuelEfficiency.size());
+      System.out.println("samplePassengerCapacity count: " + SampleData.Model.samplePassengerCapacity.size());
+      System.out.println("sampleMaxCargoCapacity count: " + SampleData.Model.sampleMaxCargoCapacity.size());
+      System.out.println("sampleEmptyWeight count: " + SampleData.Model.sampleEmptyWeight.size());
+      System.out.println("sampleTailHeight count: " + SampleData.Model.sampleTailHeight.size());
+      System.out.println("sampleWingspan count: " + SampleData.Model.sampleWingspan.size());
+      System.out.println("sampleEngineType count: " + SampleData.Model.sampleEngineType.size());
+      System.out.println("sampleEngineCount count: " + SampleData.Model.sampleEngineCount.size());
+      System.out.println("sampleThrustPerEngine count: " + SampleData.Model.sampleThrustPerEngine.size());
+      System.out.println("sampleMaxCrosswindComp count: " + SampleData.Model.sampleMaxCrosswindComp.size());
+      System.out.println("sampleRequiredRunwayLength count: " + SampleData.Model.sampleRequiredRunwayLength.size());
+      System.out.println("sampleRequiredRunwayWidth count: " + SampleData.Model.sampleRequiredRunwayWidth.size());
+      System.out.println("sampleMinRotationRadius count: " + SampleData.Model.sampleMinRotationRadius.size());
+      System.out.println("sampleCruiseSpeed count: " + SampleData.Model.sampleCruiseSpeed.size());
+      System.out.println("sampleMaxSpeed count: " + SampleData.Model.sampleMaxSpeed.size());
+      System.out.println("sampleStallSpeed count: " + SampleData.Model.sampleStallSpeed.size());
+      System.out.println("sampleMaxAltitude count: " + SampleData.Model.sampleMaxAltitude.size());
+      System.out.println("sampleClimbRate count: " + SampleData.Model.sampleClimbRate.size());
+      System.out.println("sampleDescentRate count: " + SampleData.Model.sampleDescentRate.size());
+      System.out.println("sampleMaxFlightRange count: " + SampleData.Model.sampleMaxFlightRange.size());
+      System.out.println("sampleHasWeatherRadar count: " + SampleData.Model.sampleHasWeatherRadar.size());
+      System.out.println("sampleHasAutopilot count: " + SampleData.Model.sampleHasAutopilot.size());
+      System.out.println("sampleHasFlyByWire count: " + SampleData.Model.sampleHasFlyByWire.size());
+      System.out.println("sampleHasFireSupression count: " + SampleData.Model.sampleHasFireSupression.size());
+      System.out.println("sampleGpsEnabled count: " + SampleData.Model.sampleGpsEnabled.size());
+      throw new AppError(
+          "Sample model data is incomplete. Each list should have at least 20 entries",
+          HttpStatus.INTERNAL_SERVER_ERROR.value());
+    }
+
     for (int i = 0; i < 20; i++) {
       ModelEntity model = new ModelEntity();
 
@@ -194,6 +331,30 @@ public class DevToolsService {
     List<ModelEntity> allPlaneModels = modelRepository.findAll();
     List<AirportEntity> allAirports = airportRepository.findAll();
 
+    if (SampleData.Plane.sampleTailNumber.size() < 20 ||
+        SampleData.Plane.sampleNextMaintenanceDate.size() < 20 ||
+        SampleData.Plane.sampleRetirementDate.size() < 20 ||
+        SampleData.Plane.sampleEngineHours.size() < 20 ||
+        SampleData.Plane.sampleWearLevel.size() < 20 ||
+        SampleData.Plane.sampleTotalFlightHours.size() < 20 ||
+        SampleData.Plane.sampleFuelAmount.size() < 20 ||
+        SampleData.Plane.samplePlaneStatus.size() < 20 ||
+        SampleData.Plane.sampleAircraftOperator.size() < 20 ||
+        allPlaneModels.size() < 20 || allAirports.size() < 20) {
+      System.out.println("sampleTailNumber: " + SampleData.Plane.sampleTailNumber.size());
+      System.out.println("sampleNextMaintenanceDate: " + SampleData.Plane.sampleNextMaintenanceDate.size());
+      System.out.println("sampleRetirementDate: " + SampleData.Plane.sampleRetirementDate.size());
+      System.out.println("sampleEngineHours: " + SampleData.Plane.sampleEngineHours.size());
+      System.out.println("sampleWearLevel: " + SampleData.Plane.sampleWearLevel.size());
+      System.out.println("sampleTotalFlightHours: " + SampleData.Plane.sampleTotalFlightHours.size());
+      System.out.println("sampleFuelAmount: " + SampleData.Plane.sampleFuelAmount.size());
+      System.out.println("samplePlaneStatus: " + SampleData.Plane.samplePlaneStatus.size());
+      System.out.println("sampleAircraftOperator: " + SampleData.Plane.sampleAircraftOperator.size());
+      throw new AppError(
+          "Sample plane data is incomplete. Each list should have at least 20 entries",
+          HttpStatus.INTERNAL_SERVER_ERROR.value());
+    }
+
     for (int i = 0; i < 20; i++) {
       PlaneEntity plane = new PlaneEntity();
 
@@ -207,7 +368,7 @@ public class DevToolsService {
       plane.setTotalFlightHours(SampleData.Plane.sampleTotalFlightHours.get(i));
       plane.setFuelAmount(SampleData.Plane.sampleFuelAmount.get(i));
       plane.setPlaneStatus(SampleData.Plane.samplePlaneStatus.get(i));
-      plane.setCurrentLocation(i % 2 == 0 ? allAirports.removeFirst() : allAirports.removeLast());
+      plane.setCurrentLocation(allAirports.get((i + 1) % allAirports.size()));
       plane.setAircraftOperator(SampleData.Plane.sampleAircraftOperator.get(i));
 
       planeRepository.save(plane);
@@ -217,11 +378,46 @@ public class DevToolsService {
   private void generateSampleRunways() {
     List<AirportEntity> allAirports = airportRepository.findAll();
 
+    if (SampleData.Runway.sampleRunwayNumber.size() < 40 ||
+        SampleData.Runway.sampleLength.size() < 40 ||
+        SampleData.Runway.sampleWidth.size() < 40 ||
+        SampleData.Runway.sampleSurfaceType.size() < 40 ||
+        SampleData.Runway.sampleMaxWeightCapacity.size() < 40 ||
+        SampleData.Runway.sampleHasMarking.size() < 40 ||
+        SampleData.Runway.sampleHasLighting.size() < 40 ||
+        SampleData.Runway.sampleHasILS.size() < 40 ||
+        SampleData.Runway.sampleHasSafetyArea.size() < 40 ||
+        SampleData.Runway.sampleVisualApproachAid.size() < 40 ||
+        SampleData.Runway.sampleAltitude.size() < 40 ||
+        SampleData.Runway.sampleRunwayStatus.size() < 40 ||
+        SampleData.Runway.sampleCrosswindLimit.size() < 40 ||
+        allAirports.size() < 20) {
+      System.out.println("sampleRunwayNumber: " + SampleData.Runway.sampleRunwayNumber.size());
+      System.out.println("sampleLength: " + SampleData.Runway.sampleLength.size());
+      System.out.println("sampleWidth: " + SampleData.Runway.sampleWidth.size());
+      System.out.println("sampleSurfaceType: " + SampleData.Runway.sampleSurfaceType.size());
+      System.out.println("sampleMaxWeightCapacity: " + SampleData.Runway.sampleMaxWeightCapacity.size());
+      System.out.println("sampleHasMarking: " + SampleData.Runway.sampleHasMarking.size());
+      System.out.println("sampleHasLighting: " + SampleData.Runway.sampleHasLighting.size());
+      System.out.println("sampleHasILS: " + SampleData.Runway.sampleHasILS.size());
+      System.out.println("sampleHasSafetyArea: " + SampleData.Runway.sampleHasSafetyArea.size());
+      System.out.println("sampleVisualApproachAid: " + SampleData.Runway.sampleVisualApproachAid.size());
+      System.out.println("sampleAltitude: " + SampleData.Runway.sampleAltitude.size());
+      System.out.println("sampleRunwayStatus: " + SampleData.Runway.sampleRunwayStatus.size());
+      System.out.println("sampleCrosswindLimit: " + SampleData.Runway.sampleCrosswindLimit.size());
+      System.out.println("AirportEntity count: " + allAirports.size());
+      throw new AppError(
+          "Sample runway data is incomplete. Each list should have at least 40 entries",
+          HttpStatus.INTERNAL_SERVER_ERROR.value());
+    }
+
+    int airportIter = 0;
+
     for (int i = 0; i < 40; i++) {
       RunwayEntity runway = new RunwayEntity();
 
       runway.setRunwayNumber(SampleData.Runway.sampleRunwayNumber.get(i));
-      runway.setAirport(allAirports.get(allAirports.size() % i));
+      runway.setAirport(allAirports.get(airportIter));
       runway.setLength(SampleData.Runway.sampleLength.get(i));
       runway.setWidth(SampleData.Runway.sampleWidth.get(i));
       runway.setSurfaceType(SampleData.Runway.sampleSurfaceType.get(i));
@@ -235,6 +431,9 @@ public class DevToolsService {
       runway.setStatus(SampleData.Runway.sampleRunwayStatus.get(i));
       runway.setCrosswindLimit(SampleData.Runway.sampleCrosswindLimit.get(i));
 
+      if (i % 2 == 0 && airportIter < (allAirports.size() - 1))
+        airportIter++;
+
       runwayRepository.save(runway);
     }
   }
@@ -242,6 +441,25 @@ public class DevToolsService {
   private void generateSampleTaxiways() {
     List<AirportEntity> allAirports = airportRepository.findAll();
     List<RunwayEntity> allRunways = runwayRepository.findAll();
+
+    if (SampleData.Taxiway.sampleName.size() < 50 ||
+        SampleData.Taxiway.sampleLoadCapacity.size() < 50 ||
+        SampleData.Taxiway.sampleHasHighSpeedExit.size() < 50 ||
+        SampleData.Taxiway.sampleWidth.size() < 50 ||
+        SampleData.Taxiway.sampleLength.size() < 50 ||
+        SampleData.Taxiway.sampleMaxTurningRadius.size() < 50 ||
+        SampleData.Taxiway.sampleMaxWeightCapacity.size() < 50) {
+      System.out.println("sampleName: " + SampleData.Taxiway.sampleName.size());
+      System.out.println("sampleLoadCapacity: " + SampleData.Taxiway.sampleLoadCapacity.size());
+      System.out.println("sampleHasHighSpeedExit: " + SampleData.Taxiway.sampleHasHighSpeedExit.size());
+      System.out.println("sampleWidth: " + SampleData.Taxiway.sampleWidth.size());
+      System.out.println("sampleLength: " + SampleData.Taxiway.sampleLength.size());
+      System.out.println("sampleMaxTurningRadius: " + SampleData.Taxiway.sampleMaxTurningRadius.size());
+      System.out.println("sampleMaxWeightCapacity: " + SampleData.Taxiway.sampleMaxWeightCapacity.size());
+      throw new AppError(
+          "Sample taxiway data is incomplete. Each list should have at least 50 entries",
+          HttpStatus.INTERNAL_SERVER_ERROR.value());
+    }
 
     for (int i = 0; i < 50; i++) {
       TaxiwayEntity taxiway = new TaxiwayEntity();

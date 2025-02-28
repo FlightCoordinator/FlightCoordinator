@@ -16,15 +16,17 @@ import org.springframework.web.client.HttpClientErrorException.Forbidden;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import com.flightcoordinator.dataservice.constants.Messages;
-import com.flightcoordinator.dataservice.response.ResponseHelper;
-import com.flightcoordinator.dataservice.response.ResponseObject;
+import com.flightcoordinator.dataservice.dto.misc.CustomResponseDTO;
+import com.flightcoordinator.dataservice.utils.AppResponse;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
   @ExceptionHandler(AppError.class)
-  public ResponseEntity<ResponseObject<Object>> handleAppError(AppError exception) {
+  public ResponseEntity<CustomResponseDTO<Object>> handleAppError(AppError exception) {
+    ExceptionLogger.log(exception);
+
     boolean isNotFound = exception.getStatus() == HttpStatus.NOT_FOUND.value();
-    return ResponseHelper.generateResponse(
+    return AppResponse.generateResponse(
         exception.getStatus(),
         isNotFound,
         exception.getMessage(),
@@ -32,9 +34,11 @@ public class GlobalExceptionHandler {
   }
 
   @ExceptionHandler(MethodArgumentTypeMismatchException.class)
-  public ResponseEntity<ResponseObject<Object>> handleEnumValidationError(
+  public ResponseEntity<CustomResponseDTO<Object>> handleEnumValidationError(
       MethodArgumentTypeMismatchException exception) {
-    return ResponseHelper.generateResponse(
+    ExceptionLogger.log(exception);
+
+    return AppResponse.generateResponse(
         HttpStatus.BAD_REQUEST.value(),
         false,
         Messages.ENUM_VALIDATION_EXCEPTION_RESPONSE,
@@ -42,9 +46,11 @@ public class GlobalExceptionHandler {
   }
 
   @ExceptionHandler(IllegalArgumentException.class)
-  public ResponseEntity<ResponseObject<Object>> handleIllegalArgumentException(
+  public ResponseEntity<CustomResponseDTO<Object>> handleIllegalArgumentException(
       IllegalArgumentException exception) {
-    return ResponseHelper.generateResponse(
+    ExceptionLogger.log(exception);
+
+    return AppResponse.generateResponse(
         HttpStatus.BAD_REQUEST.value(),
         false,
         Messages.ILLEGAL_ARGUMENT_EXCEPTION_RESPONSE,
@@ -52,9 +58,11 @@ public class GlobalExceptionHandler {
   }
 
   @ExceptionHandler(OptimisticLockingFailureException.class)
-  public ResponseEntity<ResponseObject<Object>> handleOptimisticLockingFailureException(
+  public ResponseEntity<CustomResponseDTO<Object>> handleOptimisticLockingFailureException(
       OptimisticLockingFailureException exception) {
-    return ResponseHelper.generateResponse(
+    ExceptionLogger.log(exception);
+
+    return AppResponse.generateResponse(
         HttpStatus.INTERNAL_SERVER_ERROR.value(),
         false,
         Messages.OPTIMISTIC_LOCKING_FAILURE_EXCEPTION_MESSAGE,
@@ -62,8 +70,10 @@ public class GlobalExceptionHandler {
   }
 
   @ExceptionHandler(AuthenticationException.class)
-  public ResponseEntity<ResponseObject<Object>> handleAuthenticationException(AuthenticationException exception) {
-    return ResponseHelper.generateResponse(
+  public ResponseEntity<CustomResponseDTO<Object>> handleAuthenticationException(AuthenticationException exception) {
+    ExceptionLogger.log(exception);
+
+    return AppResponse.generateResponse(
         HttpStatus.UNAUTHORIZED.value(),
         false,
         Messages.AUTHENTICATION_EXCEPTION_MESSAGE,
@@ -71,9 +81,11 @@ public class GlobalExceptionHandler {
   }
 
   @ExceptionHandler(InternalAuthenticationServiceException.class)
-  public ResponseEntity<ResponseObject<Object>> handleInternalAuthenticationServiceException(
+  public ResponseEntity<CustomResponseDTO<Object>> handleInternalAuthenticationServiceException(
       InternalAuthenticationServiceException exception) {
-    return ResponseHelper.generateResponse(
+    ExceptionLogger.log(exception);
+
+    return AppResponse.generateResponse(
         HttpStatus.UNAUTHORIZED.value(),
         false,
         Messages.AUTHENTICATION_EXCEPTION_MESSAGE,
@@ -81,8 +93,10 @@ public class GlobalExceptionHandler {
   }
 
   @ExceptionHandler(BadCredentialsException.class)
-  public ResponseEntity<ResponseObject<Object>> handleBadCredentialsException(BadCredentialsException exception) {
-    return ResponseHelper.generateResponse(
+  public ResponseEntity<CustomResponseDTO<Object>> handleBadCredentialsException(BadCredentialsException exception) {
+    ExceptionLogger.log(exception);
+
+    return AppResponse.generateResponse(
         HttpStatus.UNAUTHORIZED.value(),
         false,
         Messages.AUTHENTICATION_EXCEPTION_MESSAGE,
@@ -90,8 +104,10 @@ public class GlobalExceptionHandler {
   }
 
   @ExceptionHandler(Forbidden.class)
-  public ResponseEntity<ResponseObject<Object>> handleForbiddenException(Forbidden exception) {
-    return ResponseHelper.generateResponse(
+  public ResponseEntity<CustomResponseDTO<Object>> handleForbiddenException(Forbidden exception) {
+    ExceptionLogger.log(exception);
+
+    return AppResponse.generateResponse(
         HttpStatus.FORBIDDEN.value(),
         false,
         Messages.AUTHENTICATION_EXCEPTION_MESSAGE,
@@ -99,9 +115,11 @@ public class GlobalExceptionHandler {
   }
 
   @ExceptionHandler(DataIntegrityViolationException.class)
-  public ResponseEntity<ResponseObject<Object>> handleDataIntegrityViolationException(
-      DataIntegrityViolationException ex) {
-    return ResponseHelper.generateResponse(
+  public ResponseEntity<CustomResponseDTO<Object>> handleDataIntegrityViolationException(
+      DataIntegrityViolationException exception) {
+    ExceptionLogger.log(exception);
+
+    return AppResponse.generateResponse(
         HttpStatus.FORBIDDEN.value(),
         false,
         Messages.DATA_INTEGRITY_VIOLATION_EXCEPTION_MESSAGE,
@@ -109,8 +127,11 @@ public class GlobalExceptionHandler {
   }
 
   @ExceptionHandler(ConstraintViolationException.class)
-  public ResponseEntity<ResponseObject<Object>> handleConstrainViolationException(ConstraintViolationException ex) {
-    return ResponseHelper.generateResponse(
+  public ResponseEntity<CustomResponseDTO<Object>> handleConstrainViolationException(
+      ConstraintViolationException exception) {
+    ExceptionLogger.log(exception);
+
+    return AppResponse.generateResponse(
         HttpStatus.FORBIDDEN.value(),
         false,
         Messages.CONSTRAINT_VIOLATION_EXCEPTION_MESSAGE,

@@ -1,4 +1,4 @@
-package com.flightcoordinator.dataservice.auth;
+package com.flightcoordinator.dataservice.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

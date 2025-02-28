@@ -1,4 +1,4 @@
-package com.flightcoordinator.dataservice.validator;
+package com.flightcoordinator.dataservice.validation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

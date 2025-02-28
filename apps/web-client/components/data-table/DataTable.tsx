@@ -78,7 +78,7 @@ const DataTable = <TData, TValue>({
       ) : isNotFound || data.length === 0 || data.length < 1 ? (
         <NotFoundOverlay />
       ) : (
-        <Table className="w-full h-full flex-1">
+        <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>

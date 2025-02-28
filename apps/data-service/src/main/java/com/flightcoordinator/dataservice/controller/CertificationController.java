@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.flightcoordinator.dataservice.constants.Messages;
 import com.flightcoordinator.dataservice.dto.CertificationDTO;
+import com.flightcoordinator.dataservice.dto.misc.CustomResponseDTO;
 import com.flightcoordinator.dataservice.dto.misc.EntityIdDTO;
-import com.flightcoordinator.dataservice.response.ResponseHelper;
-import com.flightcoordinator.dataservice.response.ResponseObject;
 import com.flightcoordinator.dataservice.service.CertificationService;
+import com.flightcoordinator.dataservice.utils.AppResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -31,37 +31,37 @@ public class CertificationController {
 
   @PostMapping("/getAll")
   @Operation(summary = "Get all the certifications", description = "Retrieve the details of all certifications.")
-  public ResponseEntity<ResponseObject<List<CertificationDTO>>> getAllCertification() {
+  public ResponseEntity<CustomResponseDTO<List<CertificationDTO>>> getAllCertification() {
     List<CertificationDTO> certifications = certificationService.getAllCertifications();
-    return ResponseHelper.generateResponse(HttpStatus.OK.value(), true, "", certifications);
+    return AppResponse.generateResponse(HttpStatus.OK.value(), true, "", certifications);
   }
 
   @PostMapping("/getById")
   @Operation(summary = "Get a certification by id", description = "Retrieve the details of a spesific certification using it's ID.")
-  public ResponseEntity<ResponseObject<CertificationDTO>> getCertificationById(@RequestBody EntityIdDTO id) {
+  public ResponseEntity<CustomResponseDTO<CertificationDTO>> getCertificationById(@RequestBody EntityIdDTO id) {
     CertificationDTO certification = certificationService.getSingleCertificationById(id);
-    return ResponseHelper.generateResponse(HttpStatus.OK.value(), true, "", certification);
+    return AppResponse.generateResponse(HttpStatus.OK.value(), true, "", certification);
   }
 
   @PostMapping("/create")
   @Operation(summary = "Create a new certification", description = "Create a new certification.")
-  public ResponseEntity<ResponseObject<Object>> createCertification(@RequestBody CertificationDTO newCertification) {
+  public ResponseEntity<CustomResponseDTO<Object>> createCertification(@RequestBody CertificationDTO newCertification) {
     certificationService.createCertification(newCertification);
-    return ResponseHelper.generateResponse(HttpStatus.CREATED.value(), true, Messages.CREATE_RESPONSE, null);
+    return AppResponse.generateResponse(HttpStatus.CREATED.value(), true, Messages.CREATE_RESPONSE, null);
   }
 
   @PatchMapping("/update")
   @Operation(summary = "Update a certification", description = "Update an existing certification.")
-  public ResponseEntity<ResponseObject<Object>> updateCertification(
+  public ResponseEntity<CustomResponseDTO<Object>> updateCertification(
       @RequestBody CertificationDTO updatedCertification) {
     certificationService.updateCertification(updatedCertification);
-    return ResponseHelper.generateResponse(HttpStatus.OK.value(), true, Messages.UPDATE_RESPONSE, null);
+    return AppResponse.generateResponse(HttpStatus.OK.value(), true, Messages.UPDATE_RESPONSE, null);
   }
 
   @DeleteMapping("delete")
   @Operation(summary = "Delete a certification", description = "Delete an existing certification.")
-  public ResponseEntity<ResponseObject<Object>> deleteCertification(@RequestBody EntityIdDTO id) {
+  public ResponseEntity<CustomResponseDTO<Object>> deleteCertification(@RequestBody EntityIdDTO id) {
     certificationService.deleteCertification(id);
-    return ResponseHelper.generateResponse(HttpStatus.OK.value(), true, Messages.DELETE_RESPONSE, null);
+    return AppResponse.generateResponse(HttpStatus.OK.value(), true, Messages.DELETE_RESPONSE, null);
   }
 }

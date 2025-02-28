@@ -1,4 +1,4 @@
-package com.flightcoordinator.dataservice.auth;
+package com.flightcoordinator.dataservice.security;
 
 import java.util.function.Supplier;
 

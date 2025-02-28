@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.flightcoordinator.dataservice.constants.Messages;
 import com.flightcoordinator.dataservice.dto.CrewDTO;
+import com.flightcoordinator.dataservice.dto.misc.CustomResponseDTO;
 import com.flightcoordinator.dataservice.dto.misc.EntityIdDTO;
-import com.flightcoordinator.dataservice.response.ResponseHelper;
-import com.flightcoordinator.dataservice.response.ResponseObject;
 import com.flightcoordinator.dataservice.service.CrewService;
+import com.flightcoordinator.dataservice.utils.AppResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -31,36 +31,36 @@ public class CrewController {
 
   @PostMapping("/getAll")
   @Operation(summary = "Get a crew member by id", description = "Retrieve the details of a spesific crew member by their ID.")
-  public ResponseEntity<ResponseObject<List<CrewDTO>>> getAllCrewMembers() {
+  public ResponseEntity<CustomResponseDTO<List<CrewDTO>>> getAllCrewMembers() {
     List<CrewDTO> crewMembers = crewService.getAllCrewMembers();
-    return ResponseHelper.generateResponse(HttpStatus.OK.value(), true, "", crewMembers);
+    return AppResponse.generateResponse(HttpStatus.OK.value(), true, "", crewMembers);
   }
 
   @PostMapping("/getById")
   @Operation(summary = "Get a crew member by id", description = "Retrieve the details of a spesific crew member by their ID.")
-  public ResponseEntity<ResponseObject<CrewDTO>> getCrewMemberById(@RequestBody EntityIdDTO id) {
+  public ResponseEntity<CustomResponseDTO<CrewDTO>> getCrewMemberById(@RequestBody EntityIdDTO id) {
     CrewDTO crewMember = crewService.getSingleCrewMemberById(id);
-    return ResponseHelper.generateResponse(HttpStatus.OK.value(), true, "", crewMember);
+    return AppResponse.generateResponse(HttpStatus.OK.value(), true, "", crewMember);
   }
 
   @PostMapping("/create")
   @Operation(summary = "Create a new crew member", description = "Create a new crew member.")
-  public ResponseEntity<ResponseObject<Object>> createCrewMember(@RequestBody CrewDTO newCrewMember) {
+  public ResponseEntity<CustomResponseDTO<Object>> createCrewMember(@RequestBody CrewDTO newCrewMember) {
     crewService.createCrewMember(newCrewMember);
-    return ResponseHelper.generateResponse(HttpStatus.CREATED.value(), true, Messages.CREATE_RESPONSE, null);
+    return AppResponse.generateResponse(HttpStatus.CREATED.value(), true, Messages.CREATE_RESPONSE, null);
   }
 
   @PatchMapping("/update")
   @Operation(summary = "Update an existing crew member", description = "Update an existing crew member.")
-  public ResponseEntity<ResponseObject<Object>> updateCrewMember(@RequestBody CrewDTO updatedCrewMember) {
+  public ResponseEntity<CustomResponseDTO<Object>> updateCrewMember(@RequestBody CrewDTO updatedCrewMember) {
     crewService.updateCrewMember(updatedCrewMember);
-    return ResponseHelper.generateResponse(HttpStatus.OK.value(), true, Messages.UPDATE_RESPONSE, null);
+    return AppResponse.generateResponse(HttpStatus.OK.value(), true, Messages.UPDATE_RESPONSE, null);
   }
 
   @DeleteMapping("/delete")
   @Operation(summary = "Delete an existing crew member", description = "Delete an existing crew member.")
-  public ResponseEntity<ResponseObject<Object>> deleteCrewMember(@RequestBody EntityIdDTO id) {
+  public ResponseEntity<CustomResponseDTO<Object>> deleteCrewMember(@RequestBody EntityIdDTO id) {
     crewService.deleteCrewMember(id);
-    return ResponseHelper.generateResponse(HttpStatus.OK.value(), true, Messages.DELETE_RESPONSE, null);
+    return AppResponse.generateResponse(HttpStatus.OK.value(), true, Messages.DELETE_RESPONSE, null);
   }
 }

@@ -1,13 +1,13 @@
-package com.flightcoordinator.dataservice.response;
+package com.flightcoordinator.dataservice.dto.misc;
 
-public class ResponseObject<T> {
+public class CustomResponseDTO<T> {
   private boolean isSuccess = false;
 
-  private final String message;
+  private String message;
 
-  private final T data;
+  private T data;
 
-  public ResponseObject(Boolean isSuccess, String message, T data) {
+  public CustomResponseDTO(Boolean isSuccess, String message, T data) {
     this.isSuccess = isSuccess;
     this.message = message;
     this.data = data;
