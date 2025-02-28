@@ -37,9 +37,16 @@ import CountryCodes from "@/shared/enum/countries";
 import Enums from "@/shared/enum/enums";
 import { cn } from "@/shared/lib/twUtils";
 
-import DataTransfer from "@/types/dto";
+import DataTransfer from "@/types/dataTransfer";
 
-import { invalidEnumValueMessage, requiredMessage, shouldBeStringMessage } from "../constants/validationMessages";
+import {
+  invalidEnumValueMessage,
+  invalidTimeMessage,
+  nonEmptyMessage,
+  nonNegativeMessage,
+  shouldBeNumberMessage,
+  shouldBeStringMessage,
+} from "../constants/validationMessages";
 import FormSelect from "../data-components/FormSelect";
 import SaveButton from "../partials/SaveButton";
 import ErrorLabel from "./base/ErrorLabel";
@@ -50,19 +57,24 @@ interface AirportSheetProps {
 }
 
 const airportSchema = z.object({
-  name: z.string().nonempty(requiredMessage),
+  name: z.string().nonempty(nonEmptyMessage),
   iataCode: z
     .string(shouldBeStringMessage)
-    .nonempty(requiredMessage)
+    .nonempty(nonEmptyMessage)
     .min(3, { message: "IATA Code should be 3 characters long" })
     .max(3, { message: "IATA Code should be 3 characters long" }),
   icaoCode: z
     .string(shouldBeStringMessage)
-    .nonempty(requiredMessage)
+    .nonempty(nonEmptyMessage)
     .min(4, { message: "IATA Code should be 4 characters long" })
     .max(4, { message: "IATA Code should be 4 characters long" }),
   countryCode: z.enum(getAllValuesOf("CountryCodes"), invalidEnumValueMessage),
   type: z.enum(getAllValuesOf("AirportType"), invalidEnumValueMessage).default("INTERNATIONAL"),
+  operationStartTime: z.string(shouldBeStringMessage).nonempty(nonEmptyMessage).time(invalidTimeMessage),
+  operationStopTime: z.string(shouldBeStringMessage).nonempty(nonEmptyMessage).time(invalidTimeMessage),
+  elevation: z.number(shouldBeNumberMessage).nonnegative(nonNegativeMessage),
+  slope: z.number(shouldBeNumberMessage).nonnegative(nonNegativeMessage),
+  possibleNoiseCategory: z.enum(getAllValuesOf("NoiseCategory"), invalidEnumValueMessage),
 });
 
 const AirportSheet = ({ airport }: AirportSheetProps) => {
@@ -74,6 +86,11 @@ const AirportSheet = ({ airport }: AirportSheetProps) => {
       icaoCode: airport ? airport.icaoCode : "",
       countryCode: airport ? airport.countryCode : "",
       type: airport ? airport.type : "INTERNATIONAL",
+      operationStartTime: airport ? airport.operationStartTime : "",
+      operationStopTime: airport ? airport.operationStopTime : "",
+      elevation: airport ? airport.elevation : 0,
+      slope: airport ? airport.elevation : 0,
+      possibleNoiseCategory: airport ? airport.possibleNoiseCategory : "CHAPTER_4",
     },
   });
 
@@ -205,7 +222,8 @@ const AirportSheet = ({ airport }: AirportSheetProps) => {
                     }))}
                     placeholder={
                       airport
-                        ? getSelectItem("CountryCodes", airport.countryCode as keyof typeof CountryCodes).label
+                        ? getSelectItem("CountryCodes", airport.countryCode as unknown as keyof typeof CountryCodes)
+                            .label
                         : "Select..."
                     }
                     hasError={!!form.formState.errors.countryCode}
@@ -238,6 +256,108 @@ const AirportSheet = ({ airport }: AirportSheetProps) => {
                     <SelectContent>
                       <SelectGroup>
                         {selectItems.asArray.AirportType.map((item) => (
+                          <SelectItem key={item.value} value={item.value}>
+                            {item.label}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
+                    </SelectContent>
+                  </Select>
+                </SheetRow>
+              )}
+            />
+            <Controller
+              control={form.control}
+              name="operationStartTime"
+              render={({ field }) => (
+                <SheetRow>
+                  <Label htmlFor="operationStartTime">Operation Start Time</Label>
+                  <Input
+                    id="operationStartTime"
+                    className={cn(form.formState.errors.operationStartTime && "border-destructive")}
+                    {...field}
+                  />
+                  {form.formState.errors.operationStartTime && (
+                    <ErrorLabel>{form.formState.errors.operationStartTime.message}</ErrorLabel>
+                  )}
+                </SheetRow>
+              )}
+            />
+            <Controller
+              control={form.control}
+              name="operationStopTime"
+              render={({ field }) => (
+                <SheetRow>
+                  <Label htmlFor="operationStopTime">Operation Stop Time</Label>
+                  <Input
+                    id="operationStopTime"
+                    className={cn(form.formState.errors.operationStopTime && "border-destructive")}
+                    {...field}
+                  />
+                  {form.formState.errors.operationStopTime && (
+                    <ErrorLabel>{form.formState.errors.operationStopTime.message}</ErrorLabel>
+                  )}
+                </SheetRow>
+              )}
+            />
+            <Controller
+              control={form.control}
+              name="elevation"
+              render={({ field }) => (
+                <SheetRow>
+                  <Label htmlFor="elevation">Elevation</Label>
+                  <Input
+                    id="elevation"
+                    type="number"
+                    className={cn(form.formState.errors.elevation && "border-destructive")}
+                    {...field}
+                    onChange={(event) => field.onChange(Number(event.target.value))}
+                  />
+                  {form.formState.errors.elevation && (
+                    <ErrorLabel>{form.formState.errors.elevation.message}</ErrorLabel>
+                  )}
+                </SheetRow>
+              )}
+            />
+            <Controller
+              control={form.control}
+              name="slope"
+              render={({ field }) => (
+                <SheetRow>
+                  <Label htmlFor="slope">Slope</Label>
+                  <Input
+                    id="slope"
+                    type="number"
+                    className={cn(form.formState.errors.slope && "border-destructive")}
+                    {...field}
+                    onChange={(event) => field.onChange(Number(event.target.value))}
+                  />
+                  {form.formState.errors.slope && <ErrorLabel>{form.formState.errors.slope.message}</ErrorLabel>}
+                </SheetRow>
+              )}
+            />
+            <Controller
+              control={form.control}
+              name="possibleNoiseCategory"
+              render={({ field }) => (
+                <SheetRow>
+                  <Label htmlFor="possibleNoiseCategory">Possible Noise Category</Label>
+                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                    <SelectTrigger>
+                      <SelectValue
+                        placeholder={
+                          airport
+                            ? getSelectItem(
+                                "NoiseCategory",
+                                airport.possibleNoiseCategory as unknown as keyof typeof Enums.NoiseCategory,
+                              ).label
+                            : "Select..."
+                        }
+                      />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectGroup>
+                        {selectItems.asArray.NoiseCategory.map((item) => (
                           <SelectItem key={item.value} value={item.value}>
                             {item.label}
                           </SelectItem>

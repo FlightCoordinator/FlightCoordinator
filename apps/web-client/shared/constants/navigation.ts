@@ -1,12 +1,10 @@
 import {
-  Bus,
   ClipboardCheck,
   LucideProps,
   Luggage,
   Plane,
   PlaneTakeoff,
   RefreshCcw,
-  Route,
   SearchCheck,
   SmartphoneNfc,
   TowerControl,
@@ -25,9 +23,14 @@ interface NavigationProps {
 
 const navigation: NavigationProps[] = [
   {
-    sectionKey: "algorithm",
-    sectionLabel: "Algorithm",
+    sectionKey: "main",
+    sectionLabel: "Main",
     sectionItems: [
+      {
+        key: "app/flight",
+        label: "Flights",
+        icon: Luggage,
+      },
       {
         key: "app/algorithm/run",
         label: "Algorithm Runs",
@@ -41,8 +44,8 @@ const navigation: NavigationProps[] = [
     ],
   },
   {
-    sectionKey: "resources",
-    sectionLabel: "Resources",
+    sectionKey: "aircraft",
+    sectionLabel: "Aircraft",
     sectionItems: [
       {
         key: "app/plane",
@@ -50,38 +53,45 @@ const navigation: NavigationProps[] = [
         icon: Plane,
       },
       {
-        key: "app/vehicle",
-        label: "Vehicle",
-        icon: Bus,
+        key: "app/model",
+        label: "Plane Model",
+        icon: Plane,
       },
-      {
-        key: "app/flight",
-        label: "Flight",
-        icon: Luggage,
-      },
-      {
-        key: "app/route",
-        label: "Route",
-        icon: Route,
-      },
+    ],
+  },
+  {
+    sectionKey: "crew",
+    sectionLabel: "Crew",
+    sectionItems: [
       {
         key: "app/crew",
-        label: "Crew",
+        label: "Crew Members",
         icon: UserRound,
       },
       {
         key: "app/certification",
-        label: "Certification",
+        label: "Crew Certifications",
         icon: ClipboardCheck,
       },
+    ],
+  },
+  {
+    sectionKey: "infrastructure",
+    sectionLabel: "Infrastructure",
+    sectionItems: [
       {
         key: "app/airport",
-        label: "Airport",
+        label: "Airport Details",
         icon: TowerControl,
       },
       {
         key: "app/runway",
-        label: "Runway",
+        label: "Runway Details",
+        icon: PlaneTakeoff,
+      },
+      {
+        key: "app/taxiway",
+        label: "Taxiway Details",
         icon: PlaneTakeoff,
       },
     ],

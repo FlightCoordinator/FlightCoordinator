@@ -19,7 +19,7 @@ public class ModelDTO {
   private Float maxCargoCapacity;
   private Float emptyWeight;
   private Float tailHeight;
-  private Float wingSpan;
+  private Float wingspan;
   private EngineType engineType;
   private Integer engineCount;
   private Float thrustPerEngine;
@@ -45,7 +45,7 @@ public class ModelDTO {
 
   public ModelDTO(String id, String manufacturer, String planeIdentifier, String modelName, Certifier certifier,
       CertificationStatus certificationStatus, NoiseCategory noiseCategory, Float fuelCapacity, Float fuelEfficiency,
-      Integer maxPassengerCapacity, Float maxCargoCapacity, Float emptyWeight, Float tailHeight, Float wingSpan,
+      Integer maxPassengerCapacity, Float maxCargoCapacity, Float emptyWeight, Float tailHeight, Float wingspan,
       EngineType engineType, Integer engineCount, Float thrustPerEngine, Float maxCrosswindComp,
       Float requiredRunwayLength, Float requiredRunwayWidth, Float minRotationRadius, Float cruiseSpeed, Float maxSpeed,
       Float stallSpeed, Float maxAltitude, Float climbRate, Float descentRate, Float maxFlightRange,
@@ -64,7 +64,7 @@ public class ModelDTO {
     this.maxCargoCapacity = maxCargoCapacity;
     this.emptyWeight = emptyWeight;
     this.tailHeight = tailHeight;
-    this.wingSpan = wingSpan;
+    this.wingspan = wingspan;
     this.engineType = engineType;
     this.engineCount = engineCount;
     this.thrustPerEngine = thrustPerEngine;
@@ -190,12 +190,12 @@ public class ModelDTO {
     this.tailHeight = tailHeight;
   }
 
-  public Float getWingSpan() {
-    return wingSpan;
+  public Float getWingspan() {
+    return wingspan;
   }
 
-  public void setWingSpan(Float wingSpan) {
-    this.wingSpan = wingSpan;
+  public void setWingspan(Float wingspan) {
+    this.wingspan = wingspan;
   }
 
   public EngineType getEngineType() {

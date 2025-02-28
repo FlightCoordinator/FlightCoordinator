@@ -12,7 +12,7 @@ import useAirportDeleteMutation from "@/hooks/resource/airport/useAirportDeleteM
 import { getSelectItem } from "@/shared/constants/selectItems";
 import Enums from "@/shared/enum/enums";
 
-import DataTransfer from "@/types/dto";
+import DataTransfer from "@/types/dataTransfer";
 
 import IdDropdown from "../data-components/IdDropdown";
 import ColumnHeader from "../partials/ColumnHeader";
@@ -53,20 +53,60 @@ const useAirportColumns = () => {
       {
         accessorKey: "iataCode",
         header: ({ column }) => <ColumnHeader column={column} title="IATA Code" />,
+        cell: ({ row }) => <NoWrapCell>{row.original.iataCode}</NoWrapCell>,
       },
       {
         accessorKey: "icaoCode",
         header: ({ column }) => <ColumnHeader column={column} title="ICAO Code" />,
+        cell: ({ row }) => <NoWrapCell>{row.original.icaoCode}</NoWrapCell>,
       },
       {
         accessorKey: "countryCode",
         header: ({ column }) => <ColumnHeader column={column} title="Country Code" />,
+        cell: ({ row }) => <NoWrapCell>{row.original.countryCode}</NoWrapCell>,
       },
       {
         accessorKey: "type",
         header: ({ column }) => <ColumnHeader column={column} title="Airport Type" />,
-        cell: ({ row }) =>
-          getSelectItem("AirportType", row.original.type as unknown as keyof typeof Enums.AirportType).label,
+        cell: ({ row }) => (
+          <NoWrapCell>
+            {getSelectItem("AirportType", row.original.type as unknown as keyof typeof Enums.AirportType).label}
+          </NoWrapCell>
+        ),
+      },
+      {
+        accessorKey: "operationStartTime",
+        header: ({ column }) => <ColumnHeader column={column} title="Operation Start Time" />,
+        cell: ({ row }) => <NoWrapCell>{row.original.operationStartTime}</NoWrapCell>,
+      },
+      {
+        accessorKey: "operationStopTime",
+        header: ({ column }) => <ColumnHeader column={column} title="Operation Stop Time" />,
+        cell: ({ row }) => <NoWrapCell>{row.original.operationStopTime}</NoWrapCell>,
+      },
+      {
+        accessorKey: "elevation",
+        header: ({ column }) => <ColumnHeader column={column} title="Elevation" />,
+        cell: ({ row }) => <NoWrapCell>{row.original.elevation}</NoWrapCell>,
+      },
+      {
+        accessorKey: "slope",
+        header: ({ column }) => <ColumnHeader column={column} title="Slope" />,
+        cell: ({ row }) => <NoWrapCell>{row.original.slope}</NoWrapCell>,
+      },
+      {
+        accessorKey: "possibleNoiseCategory",
+        header: ({ column }) => <ColumnHeader column={column} title="Possible Noise Category" />,
+        cell: ({ row }) => (
+          <NoWrapCell>
+            {
+              getSelectItem(
+                "NoiseCategory",
+                row.original.possibleNoiseCategory as unknown as keyof typeof Enums.NoiseCategory,
+              ).label
+            }
+          </NoWrapCell>
+        ),
       },
       {
         accessorKey: "runwayIds",
@@ -74,9 +114,9 @@ const useAirportColumns = () => {
         cell: ({ row }) => <IdDropdown ids={row.original.runwayIds} />,
       },
       {
-        accessorKey: "vehiclesPresentIds",
-        header: ({ column }) => <ColumnHeader column={column} title="Vehicles Present Ids" />,
-        cell: ({ row }) => <IdDropdown ids={row.original.vehiclesPresentIds} />,
+        accessorKey: "taxiwayIds",
+        header: ({ column }) => <ColumnHeader column={column} title="Taxiway Ids" />,
+        cell: ({ row }) => <IdDropdown ids={row.original.taxiwayIds} />,
       },
       {
         accessorKey: "planesPresentIds",
@@ -84,14 +124,14 @@ const useAirportColumns = () => {
         cell: ({ row }) => <IdDropdown ids={row.original.planesPresentIds} />,
       },
       {
-        accessorKey: "routesOriginatingFromAirportIds",
-        header: ({ column }) => <ColumnHeader column={column} title="Route Originating for Airport Ids" />,
-        cell: ({ row }) => <IdDropdown ids={row.original.routesOriginatingFromAirportIds} />,
+        accessorKey: "flightFromAirportIds",
+        header: ({ column }) => <ColumnHeader column={column} title="Flight From Airport Ids" />,
+        cell: ({ row }) => <IdDropdown ids={row.original.flightFromAirportIds} />,
       },
       {
-        accessorKey: "routesDestinedForAirportIds",
-        header: ({ column }) => <ColumnHeader column={column} title="Route Destined for Airport Ids" />,
-        cell: ({ row }) => <IdDropdown ids={row.original.routesDestinedForAirportIds} />,
+        accessorKey: "flightToAirportIds",
+        header: ({ column }) => <ColumnHeader column={column} title="Flight To Airport Ids" />,
+        cell: ({ row }) => <IdDropdown ids={row.original.flightToAirportIds} />,
       },
       {
         accessorKey: "crewMembersPresentIds",
@@ -116,17 +156,21 @@ const useAirportColumns = () => {
   );
   const airportColumnsVisibilities = React.useMemo<VisibilityState>(
     () => ({
-      id: true,
       name: true,
       iataCode: true,
       icaoCode: true,
       countryCode: true,
       type: true,
+      operationStartTime: true,
+      operationStopTime: true,
+      elevation: true,
+      slope: true,
+      possibleNoiseCategory: true,
       runwayIds: false,
-      vehiclesPresentIds: false,
+      taxiwayIds: false,
       planesPresentIds: false,
-      routesOriginatingFromAirportIds: false,
-      routesDestinedForAirportIds: false,
+      flightFromAirportIds: false,
+      flightToAirportIds: false,
       crewMembersPresentIds: false,
     }),
     [],

@@ -5,6 +5,7 @@ import java.util.List;
 import com.flightcoordinator.dataservice.enums.AirportType;
 import com.flightcoordinator.dataservice.enums.CountryCode;
 import com.flightcoordinator.dataservice.enums.NoiseCategory;
+import com.flightcoordinator.dataservice.validator.Timestamp;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -49,10 +50,12 @@ public class AirportEntity {
   @Column(name = "type", nullable = false)
   private AirportType type;
 
+  @Timestamp
   @NotEmpty(message = "Operation start time is required")
   @Column(name = "operation_start_time", nullable = false)
   private String operationStartTime;
 
+  @Timestamp
   @NotEmpty(message = "Operation stop time is required")
   @Column(name = "operation_end_time", nullable = false)
   private String operationStopTime;

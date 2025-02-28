@@ -6,9 +6,9 @@ import requester from "@/shared/lib/requester";
 import GlobalTypes from "@/types/globals";
 import ResourceTypes from "@/types/resource";
 
-const useRouteAllQuery = () => {
-  const routes = useQuery({
-    queryKey: ["routeQuery"],
+const useTaxiwayAllQuery = () => {
+  const taxiways = useQuery({
+    queryKey: ["taxiwayQuery"],
     queryFn: async () => {
       const response = await requester
         .setRequestConfig({
@@ -17,18 +17,18 @@ const useRouteAllQuery = () => {
             port: Number(config.DATA.PORT),
             endpoint: {
               prefix: config.DATA.API_PREFIX,
-              controller: "route",
+              controller: "taxiway",
               action: "getAll",
             },
           },
           method: "POST",
           auth: { includeCookies: true },
         })
-        .sendRequest<GlobalTypes.ServerResponseParams<ResourceTypes.Route.Queries.QueryResponseParams>, null>();
+        .sendRequest<GlobalTypes.ServerResponseParams<ResourceTypes.Taxiway.Queries.QueryResponseParams>, null>();
       return response;
     },
   });
-  return routes;
+  return taxiways;
 };
 
-export default useRouteAllQuery;
+export default useTaxiwayAllQuery;

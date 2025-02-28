@@ -9,6 +9,8 @@ import { Button } from "@/components/base-ui/button";
 import { Calendar } from "@/components/base-ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/base-ui/popover";
 
+import { dateFormat } from "@/shared/constants/dateFormat";
+
 interface DatePickerProps {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any, no-unused-vars
   onchange: (...event: any[]) => void;
@@ -20,7 +22,7 @@ const DatePicker = ({ onchange, value }: DatePickerProps) => {
     <Popover>
       <PopoverTrigger asChild>
         <Button variant="outline" className="w-full justify-between font-normal text-left">
-          {dayjs(value).format("DD MMM YYYY")}
+          {dayjs(value).format(dateFormat)}
           <CalendarIcon />
         </Button>
       </PopoverTrigger>

@@ -30,15 +30,15 @@ import { getAllValuesOf, getSelectItem, selectItems } from "@/shared/constants/s
 import Enums from "@/shared/enum/enums";
 import { cn } from "@/shared/lib/twUtils";
 
-import DataTransfer from "@/types/dto";
+import DataTransfer from "@/types/dataTransfer";
 
 import {
-  greaterThanZeroMessage,
+  invalidDateMessage,
   invalidEnumValueMessage,
-  requiredMessage,
+  nonEmptyMessage,
+  positiveMessage,
   shouldBeNumberMessage,
   shouldBeStringMessage,
-  invalidDateMessage,
 } from "../constants/validationMessages";
 import DatePicker from "../data-components/DatePicker";
 import FormSelect from "../data-components/FormSelect";
@@ -51,14 +51,13 @@ interface CertificationSheetProps {
 }
 
 const certificationSchema = z.object({
-  name: z.string(shouldBeStringMessage).nonempty(requiredMessage),
-  certificationNumber: z.number(shouldBeNumberMessage).positive(greaterThanZeroMessage),
-  issuer: z.enum(getAllValuesOf("CertificationIssuer"), invalidEnumValueMessage),
+  name: z.string(shouldBeStringMessage).nonempty(nonEmptyMessage),
+  certificationNumber: z.string(shouldBeStringMessage).nonempty(nonEmptyMessage),
+  issuer: z.enum(getAllValuesOf("Certifier"), invalidEnumValueMessage),
   expirationDate: z.date(invalidDateMessage),
-  validityPeriod: z.number(shouldBeNumberMessage).positive(greaterThanZeroMessage),
-  assignableRole: z.enum(getAllValuesOf("CrewRole"), invalidEnumValueMessage),
-  description: z.string(shouldBeStringMessage).nonempty(requiredMessage),
-  assignedCrewMember: z.string(shouldBeStringMessage).nonempty(requiredMessage),
+  validityPeriod: z.number(shouldBeNumberMessage).positive(positiveMessage),
+  description: z.string(shouldBeStringMessage).nonempty(nonEmptyMessage),
+  assignedCrewMemberId: z.string(shouldBeStringMessage).nonempty(nonEmptyMessage),
 });
 
 const CertificationSheet = ({ certification }: CertificationSheetProps) => {
@@ -66,13 +65,12 @@ const CertificationSheet = ({ certification }: CertificationSheetProps) => {
     resolver: zodResolver(certificationSchema),
     defaultValues: {
       name: certification ? certification.name : "",
-      certificationNumber: certification ? certification.certificationNumber : 0,
+      certificationNumber: certification ? certification.certificationNumber : "",
       issuer: certification ? certification.issuer : "",
       expirationDate: certification ? dayjs(certification.expirationDate).toDate() : dayjs().toDate(),
       validityPeriod: certification ? certification.validityPeriod : 0,
-      assignableRole: certification ? certification.assignableRole : "",
       description: certification ? certification.description : "",
-      assignedCrewMember: certification ? certification.assignedCrewMember : "",
+      assignedCrewMemberId: certification ? certification.assignedCrewMemberId : "",
     },
   });
 
@@ -169,10 +167,8 @@ const CertificationSheet = ({ certification }: CertificationSheetProps) => {
                   <Label htmlFor="certificationnumber">Certification Number</Label>
                   <Input
                     id="certificationnumber"
-                    type="number"
                     className={cn(form.formState.errors.certificationNumber && "border-destructive")}
                     {...field}
-                    onChange={(event) => field.onChange(Number(event.target.value))}
                   />
                   {form.formState.errors.certificationNumber && (
                     <ErrorLabel>{form.formState.errors.certificationNumber.message}</ErrorLabel>
@@ -187,13 +183,11 @@ const CertificationSheet = ({ certification }: CertificationSheetProps) => {
                 <SheetRow>
                   <Label htmlFor="issuer">Issuer</Label>
                   <FormSelect
-                    items={selectItems.asArray.CertificationIssuer}
+                    items={selectItems.asArray.Certifier}
                     placeholder={
                       certification
-                        ? getSelectItem(
-                            "CertificationIssuer",
-                            certification.issuer as unknown as keyof typeof Enums.CertificationIssuer,
-                          ).label
+                        ? getSelectItem("Certifier", certification.issuer as unknown as keyof typeof Enums.Certifier)
+                            .label
                         : "Select..."
                     }
                     hasError={!!form.formState.errors.issuer}
@@ -238,27 +232,6 @@ const CertificationSheet = ({ certification }: CertificationSheetProps) => {
             />
             <Controller
               control={form.control}
-              name="assignableRole"
-              render={({ field }) => (
-                <SheetRow>
-                  <Label htmlFor="assignablerole">Assignable Role</Label>
-                  <FormSelect
-                    items={selectItems.asArray.CrewRole}
-                    placeholder={
-                      certification ? getSelectItem("CrewRole", certification.assignableRole).label : "Select..."
-                    }
-                    hasError={!!form.formState.errors.assignableRole}
-                    onchange={field.onChange}
-                    value={field.value}
-                  />
-                  {form.formState.errors.assignableRole && (
-                    <ErrorLabel>{form.formState.errors.assignableRole.message}</ErrorLabel>
-                  )}
-                </SheetRow>
-              )}
-            />
-            <Controller
-              control={form.control}
               name="validityPeriod"
               render={({ field }) => (
                 <SheetRow>
@@ -294,17 +267,17 @@ const CertificationSheet = ({ certification }: CertificationSheetProps) => {
             />
             <Controller
               control={form.control}
-              name="assignedCrewMember"
+              name="assignedCrewMemberId"
               render={({ field }) => (
                 <SheetRow>
-                  <Label htmlFor="assignedcrewmember">Assigned Crew Member</Label>
+                  <Label htmlFor="assignedCrewMemberId">Assigned Crew Member Id</Label>
                   <Input
-                    id="assignedcrewmember"
-                    className={cn(form.formState.errors.assignedCrewMember && "border-destructive")}
+                    id="assignedCrewMemberId"
+                    className={cn(form.formState.errors.assignedCrewMemberId && "border-destructive")}
                     {...field}
                   />
-                  {form.formState.errors.assignedCrewMember && (
-                    <ErrorLabel>{form.formState.errors.assignedCrewMember.message}</ErrorLabel>
+                  {form.formState.errors.assignedCrewMemberId && (
+                    <ErrorLabel>{form.formState.errors.assignedCrewMemberId.message}</ErrorLabel>
                   )}
                 </SheetRow>
               )}

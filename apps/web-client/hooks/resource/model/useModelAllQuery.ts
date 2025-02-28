@@ -6,9 +6,9 @@ import requester from "@/shared/lib/requester";
 import GlobalTypes from "@/types/globals";
 import ResourceTypes from "@/types/resource";
 
-const useVehicleAllQuery = () => {
-  const vehicles = useQuery({
-    queryKey: ["vehicleQuery"],
+const useModelAllQuery = () => {
+  const models = useQuery({
+    queryKey: ["modelQuery"],
     queryFn: async () => {
       const response = await requester
         .setRequestConfig({
@@ -17,18 +17,18 @@ const useVehicleAllQuery = () => {
             port: Number(config.DATA.PORT),
             endpoint: {
               prefix: config.DATA.API_PREFIX,
-              controller: "vehicle",
+              controller: "model",
               action: "getAll",
             },
           },
           method: "POST",
           auth: { includeCookies: true },
         })
-        .sendRequest<GlobalTypes.ServerResponseParams<null>, ResourceTypes.Vehicle.Queries.QueryResponseParams>();
+        .sendRequest<GlobalTypes.ServerResponseParams<ResourceTypes.Model.Queries.QueryResponseParams>, null>();
       return response;
     },
   });
-  return vehicles;
+  return models;
 };
 
-export default useVehicleAllQuery;
+export default useModelAllQuery;

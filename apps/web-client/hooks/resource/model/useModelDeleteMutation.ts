@@ -6,11 +6,11 @@ import requester from "@/shared/lib/requester";
 import GlobalTypes from "@/types/globals";
 import ResourceTypes from "@/types/resource";
 
-const useVehicleUpdateMutation = () => {
+const useModelDeleteMutation = () => {
   const queryClient = useQueryClient();
-  const updateVehicle = useMutation({
-    mutationKey: ["updateVehicleMutation"],
-    mutationFn: async (useVehicleUpdateData: ResourceTypes.Vehicle.Mutations.UpdateMutationParams) => {
+  const deleteModel = useMutation({
+    mutationKey: ["deleteModelMutation"],
+    mutationFn: async (modelDeleteData: ResourceTypes.Model.Mutations.DeleteMutationParams) => {
       const response = await requester
         .setRequestConfig({
           url: {
@@ -18,21 +18,21 @@ const useVehicleUpdateMutation = () => {
             port: Number(config.DATA.PORT),
             endpoint: {
               prefix: config.DATA.API_PREFIX,
-              controller: "vehicle",
-              action: "update",
+              controller: "model",
+              action: "delete",
             },
           },
-          method: "PATCH",
+          method: "DELETE",
           auth: { includeCookies: true },
         })
-        .sendRequest<GlobalTypes.ServerResponseParams<null>, ResourceTypes.Vehicle.Mutations.UpdateMutationParams>(
-          useVehicleUpdateData,
+        .sendRequest<GlobalTypes.ServerResponseParams<null>, ResourceTypes.Model.Mutations.DeleteMutationParams>(
+          modelDeleteData,
         );
       return response;
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["vehicleQuery"] }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["modelQuery"] }),
   });
-  return updateVehicle;
+  return deleteModel;
 };
 
-export default useVehicleUpdateMutation;
+export default useModelDeleteMutation;

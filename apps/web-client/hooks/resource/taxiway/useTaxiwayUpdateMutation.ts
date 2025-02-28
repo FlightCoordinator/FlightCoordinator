@@ -6,11 +6,11 @@ import requester from "@/shared/lib/requester";
 import GlobalTypes from "@/types/globals";
 import ResourceTypes from "@/types/resource";
 
-const useVehicleDeleteMutation = () => {
+const useTaxiwayUpdateMutation = () => {
   const queryClient = useQueryClient();
-  const deleteVehicle = useMutation({
-    mutationKey: ["deleteVehicleMutation"],
-    mutationFn: async (vehicleDeleteData: ResourceTypes.Vehicle.Mutations.DeleteMutationParams) => {
+  const updateTaxiway = useMutation({
+    mutationKey: ["updateTaxiwayMutation"],
+    mutationFn: async (useTaxiwayUpdateData: ResourceTypes.Taxiway.Mutations.UpdateMutationParams) => {
       const response = await requester
         .setRequestConfig({
           url: {
@@ -18,21 +18,21 @@ const useVehicleDeleteMutation = () => {
             port: Number(config.DATA.PORT),
             endpoint: {
               prefix: config.DATA.API_PREFIX,
-              controller: "vehicle",
-              action: "delete",
+              controller: "taxiway",
+              action: "update",
             },
           },
-          method: "DELETE",
+          method: "PATCH",
           auth: { includeCookies: true },
         })
-        .sendRequest<GlobalTypes.ServerResponseParams<null>, ResourceTypes.Vehicle.Mutations.DeleteMutationParams>(
-          vehicleDeleteData,
+        .sendRequest<GlobalTypes.ServerResponseParams<null>, ResourceTypes.Taxiway.Mutations.UpdateMutationParams>(
+          useTaxiwayUpdateData,
         );
       return response;
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["vehicleQuery"] }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["taxiwayQuery"] }),
   });
-  return deleteVehicle;
+  return updateTaxiway;
 };
 
-export default useVehicleDeleteMutation;
+export default useTaxiwayUpdateMutation;

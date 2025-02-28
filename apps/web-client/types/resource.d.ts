@@ -1,4 +1,4 @@
-import type DataTransfer from "./dto";
+import type DataTransfer from "./dataTransfer";
 
 namespace ResourceTypes {
   interface ObjectBase {
@@ -11,6 +11,11 @@ namespace ResourceTypes {
       icaoCode: string;
       countryCode: string;
       type: string;
+      operationStartTime: string;
+      operationStopTime: string;
+      elevation: number;
+      slope: number;
+      possibleNoiseCategory: string;
     }
     export namespace Mutations {
       export type CreateMutationParams = Omit<AirportObject, "id">;
@@ -25,13 +30,12 @@ namespace ResourceTypes {
   export namespace Certification {
     export interface CertificationObject extends ObjectBase {
       name: string;
-      certificationNumber: number;
+      certificationNumber: string;
       issuer: string;
       expirationDate: Date;
       validityPeriod: number;
-      assignableRole: string;
       description: string;
-      assignedCrewMember: string;
+      assignedCrewMemberId: string;
     }
     export namespace Mutations {
       export type CreateMutationParams = Omit<CertificationObject, "id">;
@@ -51,7 +55,8 @@ namespace ResourceTypes {
       role: string;
       totalFlightHours: number;
       baseAirportId: string;
-      availability: string;
+      currentAirportId: string;
+      status: string;
     }
     export namespace Mutations {
       export type CreateMutationParams = Omit<CrewObject, "id">;
@@ -63,18 +68,62 @@ namespace ResourceTypes {
       export type QueryResponseParams = DataTransfer.CrewDTO[];
     }
   }
+  export namespace Model {
+    export interface ModelObject extends ObjectBase {
+      manufacturer: string;
+      planeIdentifier: string;
+      modelName: string;
+      certifier: string;
+      certificationStatus: string;
+      noiseCategory: string;
+      fuelCapacity: number;
+      fuelEfficiency: number;
+      maxPassengerCapacity: number;
+      maxCargoCapacity: number;
+      emptyWeight: number;
+      tailHeight: number;
+      wingspan: number;
+      engineType: string;
+      engineCount: number;
+      thrustPerEngine: number;
+      maxCrosswindComp: number;
+      requiredRunwayLength: number;
+      requiredRunwayWidth: number;
+      minRotationRadius: number;
+      cruiseSpeed: number;
+      maxSpeed: number;
+      stallSpeed: number;
+      maxAltitude: number;
+      climbRate: number;
+      descentRate: number;
+      maxFlightRange: number;
+      hasWeatherRadar: string;
+      hasAutopilot: string;
+      hasFlyByWire: string;
+      hasFireSupression: string;
+      gpsEnabled: string;
+    }
+    export namespace Mutations {
+      export type CreateMutationParams = Omit<ModelObject, "id">;
+      export type UpdateMutationParams = ModelObject;
+      export type DeleteMutationParams = ObjectBase;
+    }
+    export namespace Queries {
+      export type QueryByIdRequestParams = ObjectBase;
+      export type QueryResponseParams = DataTransfer.ModelDTO[];
+    }
+  }
   export namespace Plane {
     export interface PlaneObject extends ObjectBase {
-      model: string;
-      registrationNumber: string;
-      passengerCapacity: number;
-      fuelEfficiency: number;
-      maxFlightRange: number;
-      lastMaintenance: Date;
+      modelId: string;
+      tailNumber: string;
+      nextMaintenanceDate: Date;
+      cyclesSinceLastMaintenance: number;
+      retirementDate: Date;
+      engineHours: number;
+      currentWearLevel: number;
       totalFlightHours: number;
-      maxTakeoffWeight: number;
-      shortestRunwayLengthRequired: number;
-      shortestRunwayWidthRequired: number;
+      fuelAmount: number;
       planeStatus: string;
       currentLocationId: string;
       aircraftOperator: string;
@@ -89,31 +138,22 @@ namespace ResourceTypes {
       export type QueryResponseParams = DataTransfer.PlaneDTO[];
     }
   }
-  export namespace Route {
-    export interface RouteObject extends ObjectBase {
-      originAirportId: string;
-      destinationAirportId: string;
-      distance: number;
-      estimatedTime: number;
-    }
-    export namespace Mutations {
-      export type CreateMutationParams = Omit<RouteObject, "id">;
-      export type UpdateMutationParams = RouteObject;
-      export type DeleteMutationParams = ObjectBase;
-    }
-    export namespace Queries {
-      export type QueryByIdRequestParams = ObjectBase;
-      export type QueryResponseParams = DataTransfer.RouteDTO[];
-    }
-  }
   export namespace Runway {
     export interface RunwayObject extends ObjectBase {
+      runwayNumber: string;
+      airportId: string;
       length: number;
       width: number;
       surfaceType: string;
       maxWeightCapacity: number;
-      orientation: string;
-      airportId: string;
+      hasMarkings: string;
+      hasLighting: string;
+      hasILS: string;
+      hasSafetyArea: string;
+      visualApproachAid: string;
+      altitude: number;
+      status: string;
+      crosswindLimit: number;
     }
     export namespace Mutations {
       export type CreateMutationParams = Omit<RunwayObject, "id">;
@@ -122,32 +162,44 @@ namespace ResourceTypes {
     }
     export namespace Queries {
       export type QueryByIdRequestParams = ObjectBase;
-      export type QueryResponseParams = EntityTypes.RunwayEntity[];
+      export type QueryResponseParams = DataTransfer.RunwayDTO[];
     }
   }
-  export namespace Vehicle {
-    export interface VehicleObject extends ObjectBase {
-      type: string;
-      vehicleCode: string;
-      capacity: number;
-      availability: string;
-      maintenanceDue: Date;
+  export namespace Taxiway {
+    export interface TaxiwayObject extends ObjectBase {
+      name: string;
       airportId: string;
+      loadCapacity: number;
+      hasHoldingPoint: string;
+      hasHighSpeedExit: string;
+      width: number;
+      length: number;
+      maxTurningRadius: number;
+      maxWeightCapacity: number;
+      hasLighting: string;
+      hasSignage: string;
+      connectedRunwayId: string;
     }
     export namespace Mutations {
-      export type CreateMutationParams = Omit<VehicleObject, "id">;
-      export type UpdateMutationParams = VehicleObject;
+      export type CreateMutationParams = Omit<TaxiwayObject, "id">;
+      export type UpdateMutationParams = TaxiwayObject;
       export type DeleteMutationParams = ObjectBase;
     }
     export namespace Queries {
       export type QueryByIdRequestParams = ObjectBase;
-      export type QueryResponseParams = EntityTypes.VehicleEntity[];
+      export type QueryResponseParams = DataTransfer.TaxiwayDTO[];
     }
   }
   export namespace Flight {
     export interface FlightObject extends ObjectBase {
       passengerCount: number;
-      flightRouteId: string;
+      cargoWeight: number;
+      originAirportId: string;
+      destinationAirportId: string;
+      distance: number;
+      estimatedTakeoffTime: string;
+      estimatedLandingTime: string;
+      estimatedFlightDuration: number;
     }
     export namespace Mutations {
       export type CreateMutationParams = Omit<PlaneObject, "id">;
@@ -157,30 +209,6 @@ namespace ResourceTypes {
     export namespace Queries {
       export type QueryByIdRequestParams = ObjectBase;
       export type QueryResponseParams = DataTransfer.FlightDTO[];
-    }
-  }
-  export namespace AlgorithmResult {
-    type AlgorithmResultId = { algorithmResultId: string };
-    export namespace Mutations {
-      export type CreateMutationParams = DataTransfer.AlgorithmResultDTO;
-      export type UpdateMutationParams = AlgorithmResultId & DataTransfer.AlgorithmResultDTO;
-      export type DeleteMutationParams = AlgorithmResultId;
-    }
-    export namespace Queries {
-      export type QueryByIdRequestParams = AlgorithmResultId;
-      export type QueryResponseParams = DataTransfer.AlgorithmResultDTO[];
-    }
-  }
-  export namespace AlgorithmRun {
-    type AlgorithmRunId = { algorithmRunId: string };
-    export namespace Mutations {
-      export type CreateMutationParams = DataTransfer.AlgorithmRunDTO;
-      export type UpdateMutationParams = AlgorithmRunId & DataTransfer.AlgorithmRunDTO;
-      export type DeleteMutationParams = AlgorithmRunId;
-    }
-    export namespace Queries {
-      export type QueryByIdRequestParams = AlgorithmRunId;
-      export type QueryResponseParams = DataTransfer.AlgorithmRunDTO[];
     }
   }
 }

@@ -27,13 +27,15 @@ import useRunwayUpdateMutation from "@/hooks/resource/runway/useRunwayUpdateMuta
 import { getAllValuesOf, getSelectItem, selectItems } from "@/shared/constants/selectItems";
 import Enums from "@/shared/enum/enums";
 import { cn } from "@/shared/lib/twUtils";
+import Utils from "@/shared/utils";
 
-import DataTransfer from "@/types/dto";
+import DataTransfer from "@/types/dataTransfer";
 
 import {
-  greaterThanZeroMessage,
   invalidEnumValueMessage,
-  requiredMessage,
+  nonEmptyMessage,
+  nonNegativeMessage,
+  positiveMessage,
   shouldBeNumberMessage,
   shouldBeStringMessage,
 } from "../constants/validationMessages";
@@ -47,24 +49,40 @@ interface RunwaySheetProps {
 }
 
 const runwaySchema = z.object({
-  length: z.number(shouldBeNumberMessage).positive(greaterThanZeroMessage),
-  width: z.number(shouldBeNumberMessage).positive(greaterThanZeroMessage),
-  surfaceType: z.enum(getAllValuesOf("RunwaySurfaceType"), invalidEnumValueMessage),
-  maxWeightCapacity: z.number(shouldBeNumberMessage).positive(greaterThanZeroMessage),
-  orientation: z.string(shouldBeStringMessage).nonempty(requiredMessage),
-  airportId: z.string(shouldBeStringMessage).nonempty(requiredMessage),
+  runwayNumber: z.string(shouldBeStringMessage).nonempty(nonEmptyMessage),
+  airportId: z.string(shouldBeStringMessage).nonempty(nonEmptyMessage),
+  length: z.number(shouldBeNumberMessage).positive(positiveMessage),
+  width: z.number(shouldBeNumberMessage).positive(positiveMessage),
+  surfaceType: z.enum(getAllValuesOf("SurfaceType"), invalidEnumValueMessage),
+  maxWeightCapacity: z.number(shouldBeNumberMessage).nonnegative(nonNegativeMessage),
+  hasMarkings: z.enum(getAllValuesOf("Boolean"), invalidEnumValueMessage),
+  hasLighting: z.enum(getAllValuesOf("Boolean"), invalidEnumValueMessage),
+  hasILS: z.enum(getAllValuesOf("Boolean"), invalidEnumValueMessage),
+  hasSafetyArea: z.enum(getAllValuesOf("Boolean"), invalidEnumValueMessage),
+  visualApproachAid: z.enum(getAllValuesOf("VisualApproachAid"), invalidEnumValueMessage),
+  altitude: z.number(shouldBeNumberMessage).positive(positiveMessage),
+  status: z.enum(getAllValuesOf("RunwayStatus"), invalidEnumValueMessage),
+  crosswindLimit: z.number(shouldBeNumberMessage).positive(positiveMessage),
 });
 
 const RunwaySheet = ({ runway }: RunwaySheetProps) => {
   const form = useForm<z.infer<typeof runwaySchema>>({
     resolver: zodResolver(runwaySchema),
     defaultValues: {
+      runwayNumber: runway ? runway.runwayNumber : "",
+      airportId: runway ? runway.airportId : "",
       length: runway ? runway.length : 1,
       width: runway ? runway.width : 1,
-      surfaceType: runway ? runway.surfaceType : "Concrete",
-      maxWeightCapacity: runway ? runway.maxWeightCapacity : 1,
-      orientation: runway ? runway.orientation : "",
-      airportId: runway ? runway.airportId : "",
+      surfaceType: runway ? runway.surfaceType : "",
+      maxWeightCapacity: runway ? runway.maxWeightCapacity : 0,
+      hasMarkings: runway ? Utils.boolToLabel(String(runway.hasMarkings)) : "true",
+      hasLighting: runway ? Utils.boolToLabel(String(runway.hasLighting)) : "true",
+      hasILS: runway ? Utils.boolToLabel(String(runway.hasILS)) : "true",
+      hasSafetyArea: runway ? Utils.boolToLabel(String(runway.hasSafetyArea)) : "true",
+      visualApproachAid: runway ? runway.visualApproachAid : "",
+      altitude: runway ? runway.altitude : 1,
+      status: runway ? runway.status : "",
+      crosswindLimit: runway ? runway.crosswindLimit : 1,
     },
   });
 
@@ -140,12 +158,47 @@ const RunwaySheet = ({ runway }: RunwaySheetProps) => {
             onSubmit={form.handleSubmit(runway ? handleUpdateSubmit : handleCreateSubmit)}>
             <Controller
               control={form.control}
+              name="runwayNumber"
+              render={({ field }) => (
+                <SheetRow>
+                  <Label htmlFor="runwayNumber">Runway Number</Label>
+                  <Input
+                    id="runwayNumber"
+                    className={cn(form.formState.errors.runwayNumber && "border-destructive")}
+                    {...field}
+                  />
+                  {form.formState.errors.runwayNumber && (
+                    <ErrorLabel>{form.formState.errors.runwayNumber.message}</ErrorLabel>
+                  )}
+                </SheetRow>
+              )}
+            />
+            <Controller
+              control={form.control}
+              name="airportId"
+              render={({ field }) => (
+                <SheetRow>
+                  <Label htmlFor="airportId">Airport Id</Label>
+                  <Input
+                    id="airportId"
+                    className={cn(form.formState.errors.airportId && "border-destructive")}
+                    {...field}
+                  />
+                  {form.formState.errors.airportId && (
+                    <ErrorLabel>{form.formState.errors.airportId.message}</ErrorLabel>
+                  )}
+                </SheetRow>
+              )}
+            />
+            <Controller
+              control={form.control}
               name="length"
               render={({ field }) => (
                 <SheetRow>
                   <Label htmlFor="length">Length</Label>
                   <Input
                     id="length"
+                    type="number"
                     className={cn(form.formState.errors.length && "border-destructive")}
                     {...field}
                     onChange={(event) => field.onChange(Number(event.target.value))}
@@ -162,6 +215,7 @@ const RunwaySheet = ({ runway }: RunwaySheetProps) => {
                   <Label htmlFor="width">Width</Label>
                   <Input
                     id="width"
+                    type="number"
                     className={cn(form.formState.errors.width && "border-destructive")}
                     {...field}
                     onChange={(event) => field.onChange(Number(event.target.value))}
@@ -177,13 +231,11 @@ const RunwaySheet = ({ runway }: RunwaySheetProps) => {
                 <SheetRow>
                   <Label htmlFor="surfaceType">Surface Type</Label>
                   <FormSelect
-                    items={selectItems.asArray.RunwaySurfaceType}
+                    items={selectItems.asArray.SurfaceType}
                     placeholder={
                       runway
-                        ? getSelectItem(
-                            "RunwaySurfaceType",
-                            runway.surfaceType as unknown as keyof typeof Enums.RunwaySurfaceType,
-                          ).label
+                        ? getSelectItem("SurfaceType", runway.surfaceType as unknown as keyof typeof Enums.SurfaceType)
+                            .label
                         : "Select..."
                     }
                     hasError={!!form.formState.errors.surfaceType}
@@ -202,6 +254,7 @@ const RunwaySheet = ({ runway }: RunwaySheetProps) => {
                   <Label htmlFor="maxWeightCapacity">Max Weight Capacity</Label>
                   <Input
                     id="maxWeightCapacity"
+                    type="number"
                     className={cn(form.formState.errors.maxWeightCapacity && "border-destructive")}
                     {...field}
                     onChange={(event) => field.onChange(Number(event.target.value))}
@@ -214,34 +267,156 @@ const RunwaySheet = ({ runway }: RunwaySheetProps) => {
             />
             <Controller
               control={form.control}
-              name="orientation"
+              name="hasMarkings"
               render={({ field }) => (
                 <SheetRow>
-                  <Label htmlFor="orientation">Orientation</Label>
-                  <Input
-                    id="orientation"
-                    className={cn(form.formState.errors.orientation && "border-destructive")}
-                    {...field}
+                  <Label htmlFor="hasMarkings">Has Markings</Label>
+                  <FormSelect
+                    items={selectItems.asArray.Boolean}
+                    placeholder={runway ? Utils.boolToLabel(String(runway.hasMarkings)) : "Select..."}
+                    hasError={!!form.formState.errors.hasMarkings}
+                    onchange={field.onChange}
+                    value={field.value}
                   />
-                  {form.formState.errors.orientation && (
-                    <ErrorLabel>{form.formState.errors.orientation.message}</ErrorLabel>
+                  {form.formState.errors.hasMarkings && (
+                    <ErrorLabel>{form.formState.errors.hasMarkings.message}</ErrorLabel>
                   )}
                 </SheetRow>
               )}
             />
             <Controller
               control={form.control}
-              name="airportId"
+              name="hasLighting"
               render={({ field }) => (
                 <SheetRow>
-                  <Label htmlFor="airportId">Airport Id</Label>
-                  <Input
-                    id="airportId"
-                    className={cn(form.formState.errors.airportId && "border-destructive")}
-                    {...field}
+                  <Label htmlFor="hasLighting">Has Lighting</Label>
+                  <FormSelect
+                    items={selectItems.asArray.Boolean}
+                    placeholder={runway ? Utils.boolToLabel(String(runway.hasLighting)) : "Select..."}
+                    hasError={!!form.formState.errors.hasLighting}
+                    onchange={field.onChange}
+                    value={field.value}
                   />
-                  {form.formState.errors.airportId && (
-                    <ErrorLabel>{form.formState.errors.airportId.message}</ErrorLabel>
+                  {form.formState.errors.hasLighting && (
+                    <ErrorLabel>{form.formState.errors.hasLighting.message}</ErrorLabel>
+                  )}
+                </SheetRow>
+              )}
+            />
+            <Controller
+              control={form.control}
+              name="hasILS"
+              render={({ field }) => (
+                <SheetRow>
+                  <Label htmlFor="hasILS">Has ILS</Label>
+                  <FormSelect
+                    items={selectItems.asArray.Boolean}
+                    placeholder={runway ? Utils.boolToLabel(String(runway.hasILS)) : "Select..."}
+                    hasError={!!form.formState.errors.hasILS}
+                    onchange={field.onChange}
+                    value={field.value}
+                  />
+                  {form.formState.errors.hasILS && <ErrorLabel>{form.formState.errors.hasILS.message}</ErrorLabel>}
+                </SheetRow>
+              )}
+            />
+            <Controller
+              control={form.control}
+              name="hasSafetyArea"
+              render={({ field }) => (
+                <SheetRow>
+                  <Label htmlFor="hasSafetyArea">Has Safety Area</Label>
+                  <FormSelect
+                    items={selectItems.asArray.Boolean}
+                    placeholder={runway ? Utils.boolToLabel(String(runway.hasSafetyArea)) : "Select..."}
+                    hasError={!!form.formState.errors.hasSafetyArea}
+                    onchange={field.onChange}
+                    value={field.value}
+                  />
+                  {form.formState.errors.hasSafetyArea && (
+                    <ErrorLabel>{form.formState.errors.hasSafetyArea.message}</ErrorLabel>
+                  )}
+                </SheetRow>
+              )}
+            />
+            <Controller
+              control={form.control}
+              name="visualApproachAid"
+              render={({ field }) => (
+                <SheetRow>
+                  <Label htmlFor="visualApproachAid">Visual Approach Aid</Label>
+                  <FormSelect
+                    items={selectItems.asArray.VisulApproachAid}
+                    placeholder={
+                      runway
+                        ? getSelectItem(
+                            "VisualApproachAid",
+                            runway.visualApproachAid as unknown as keyof typeof Enums.VisualApproachAid,
+                          ).label
+                        : "Select..."
+                    }
+                    hasError={!!form.formState.errors.visualApproachAid}
+                    onchange={field.onChange}
+                    value={field.value}
+                  />
+                  {form.formState.errors.visualApproachAid && (
+                    <ErrorLabel>{form.formState.errors.visualApproachAid.message}</ErrorLabel>
+                  )}
+                </SheetRow>
+              )}
+            />
+            <Controller
+              control={form.control}
+              name="altitude"
+              render={({ field }) => (
+                <SheetRow>
+                  <Label htmlFor="altitude">Altitude</Label>
+                  <Input
+                    id="altitude"
+                    className={cn(form.formState.errors.altitude && "border-destructive")}
+                    {...field}
+                    onChange={(event) => field.onChange(Number(event.target.value))}
+                  />
+                  {form.formState.errors.altitude && <ErrorLabel>{form.formState.errors.altitude.message}</ErrorLabel>}
+                </SheetRow>
+              )}
+            />
+            <Controller
+              control={form.control}
+              name="status"
+              render={({ field }) => (
+                <SheetRow>
+                  <Label htmlFor="status">Status</Label>
+                  <FormSelect
+                    items={selectItems.asArray.RunwayStatus}
+                    placeholder={
+                      runway
+                        ? getSelectItem("RunwayStatus", runway.status as unknown as keyof typeof Enums.RunwayStatus)
+                            .label
+                        : "Select..."
+                    }
+                    hasError={!!form.formState.errors.status}
+                    onchange={field.onChange}
+                    value={field.value}
+                  />
+                  {form.formState.errors.status && <ErrorLabel>{form.formState.errors.status.message}</ErrorLabel>}
+                </SheetRow>
+              )}
+            />
+            <Controller
+              control={form.control}
+              name="crosswindLimit"
+              render={({ field }) => (
+                <SheetRow>
+                  <Label htmlFor="crosswindLimit">Crosswind Limit</Label>
+                  <Input
+                    id="crosswindLimit"
+                    className={cn(form.formState.errors.crosswindLimit && "border-destructive")}
+                    {...field}
+                    onChange={(event) => field.onChange(Number(event.target.value))}
+                  />
+                  {form.formState.errors.crosswindLimit && (
+                    <ErrorLabel>{form.formState.errors.crosswindLimit.message}</ErrorLabel>
                   )}
                 </SheetRow>
               )}

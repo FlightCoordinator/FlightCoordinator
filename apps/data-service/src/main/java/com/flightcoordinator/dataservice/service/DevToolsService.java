@@ -165,7 +165,7 @@ public class DevToolsService {
       model.setMaxCargoCapacity(SampleData.Model.sampleMaxCargoCapacity.get(i));
       model.setEmptyWeight(SampleData.Model.sampleEmptyWeight.get(i));
       model.setTailHeight(SampleData.Model.sampleTailHeight.get(i));
-      model.setWingSpan(SampleData.Model.sampleWingSpan.get(i));
+      model.setWingspan(SampleData.Model.sampleWingspan.get(i));
       model.setEngineType(SampleData.Model.sampleEngineType.get(i));
       model.setEngineCount(SampleData.Model.sampleEngineCount.get(i));
       model.setThrustPerEngine(SampleData.Model.sampleThrustPerEngine.get(i));

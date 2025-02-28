@@ -21,18 +21,18 @@ import { Input } from "../../base-ui/input";
 import { Label } from "../../base-ui/label";
 import {
   invalidEmailMessage,
-  requiredMessage,
+  nonEmptyMessage,
   shouldBeStringMessage,
 } from "../../data-table/constants/validationMessages";
 import ErrorLabel from "../../data-table/sheets/base/ErrorLabel";
 import { default as FormRow } from "../../data-table/sheets/base/SheetRow";
 
 const registerSchema = z.object({
-  fullName: z.string(shouldBeStringMessage).nonempty(requiredMessage),
-  email: z.string(shouldBeStringMessage).email(invalidEmailMessage).nonempty(requiredMessage),
+  fullName: z.string(shouldBeStringMessage).nonempty(nonEmptyMessage),
+  email: z.string(shouldBeStringMessage).email(invalidEmailMessage).nonempty(nonEmptyMessage),
   password: z
     .string(shouldBeStringMessage)
-    .nonempty(requiredMessage)
+    .nonempty(nonEmptyMessage)
     .min(8, { message: "Password should be at least 8 characters long." }),
 });
 

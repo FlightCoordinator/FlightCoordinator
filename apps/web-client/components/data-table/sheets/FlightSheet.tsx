@@ -26,11 +26,13 @@ import useFlightUpdateMutation from "@/hooks/resource/flight/useFlightUpdateMuta
 
 import { cn } from "@/shared/lib/twUtils";
 
-import DataTransfer from "@/types/dto";
+import DataTransfer from "@/types/dataTransfer";
 
 import {
-  greaterThanZeroMessage,
-  requiredMessage,
+  invalidTimeMessage,
+  nonEmptyMessage,
+  nonNegativeMessage,
+  positiveMessage,
   shouldBeNumberMessage,
   shouldBeStringMessage,
 } from "../constants/validationMessages";
@@ -43,16 +45,28 @@ interface FlightSheetProps {
 }
 
 const flightSchema = z.object({
-  passengerCount: z.number(shouldBeNumberMessage).positive(greaterThanZeroMessage),
-  flightRouteId: z.string(shouldBeStringMessage).nonempty(requiredMessage),
+  passengerCount: z.number(shouldBeNumberMessage).positive(positiveMessage),
+  cargoWeight: z.number(shouldBeNumberMessage).nonnegative(nonNegativeMessage),
+  originAirportId: z.string(shouldBeStringMessage).nonempty(nonEmptyMessage),
+  destinationAirportId: z.string(shouldBeStringMessage).nonempty(nonEmptyMessage),
+  distance: z.number(shouldBeNumberMessage).positive(positiveMessage),
+  estimatedTakeoffTime: z.string(shouldBeStringMessage).time(invalidTimeMessage).nonempty(nonEmptyMessage),
+  estimatedLandingTime: z.string(shouldBeStringMessage).time(invalidTimeMessage).nonempty(nonEmptyMessage),
+  estimatedFlightDuration: z.number(shouldBeNumberMessage).positive(positiveMessage),
 });
 
 const FlightSheet = ({ flight }: FlightSheetProps) => {
   const form = useForm<z.infer<typeof flightSchema>>({
     resolver: zodResolver(flightSchema),
     defaultValues: {
-      passengerCount: flight ? flight.passengerCount : 0,
-      flightRouteId: flight ? flight.flightRouteId : "",
+      passengerCount: flight ? flight.passengerCount : 1,
+      cargoWeight: flight ? flight.cargoWeight : 0,
+      originAirportId: flight ? flight.originAirportId : "",
+      destinationAirportId: flight ? flight.destinationAirportId : "",
+      distance: flight ? flight.distance : 1,
+      estimatedTakeoffTime: flight ? flight.estimatedTakeoffTime : "",
+      estimatedLandingTime: flight ? flight.estimatedLandingTime : "",
+      estimatedFlightDuration: flight ? flight.estimatedFlightDuration : 1,
     },
   });
 
@@ -134,6 +148,7 @@ const FlightSheet = ({ flight }: FlightSheetProps) => {
                   <Label htmlFor="passengerCount">Passenger Count</Label>
                   <Input
                     id="passengerCount"
+                    type="number"
                     className={cn(form.formState.errors.passengerCount && "border-destructive")}
                     {...field}
                     onChange={(event) => field.onChange(Number(event.target.value))}
@@ -146,17 +161,142 @@ const FlightSheet = ({ flight }: FlightSheetProps) => {
             />
             <Controller
               control={form.control}
-              name="flightRouteId"
+              name="passengerCount"
               render={({ field }) => (
                 <SheetRow>
-                  <Label htmlFor="flightRouteId">Flight Route Id</Label>
+                  <Label htmlFor="passengerCount">Passenger Count</Label>
                   <Input
-                    id="flightRouteId"
-                    className={cn(form.formState.errors.flightRouteId && "border-destructive")}
+                    id="passengerCount"
+                    type="number"
+                    className={cn(form.formState.errors.passengerCount && "border-destructive")}
+                    {...field}
+                    onChange={(event) => field.onChange(Number(event.target.value))}
+                  />
+                  {form.formState.errors.passengerCount && (
+                    <ErrorLabel>{form.formState.errors.passengerCount.message}</ErrorLabel>
+                  )}
+                </SheetRow>
+              )}
+            />
+            <Controller
+              control={form.control}
+              name="cargoWeight"
+              render={({ field }) => (
+                <SheetRow>
+                  <Label htmlFor="cargoWeight">Cargo Weight</Label>
+                  <Input
+                    id="cargoWeight"
+                    type="number"
+                    className={cn(form.formState.errors.cargoWeight && "border-destructive")}
+                    {...field}
+                    onChange={(event) => field.onChange(Number(event.target.value))}
+                  />
+                  {form.formState.errors.cargoWeight && (
+                    <ErrorLabel>{form.formState.errors.cargoWeight.message}</ErrorLabel>
+                  )}
+                </SheetRow>
+              )}
+            />
+            <Controller
+              control={form.control}
+              name="originAirportId"
+              render={({ field }) => (
+                <SheetRow>
+                  <Label htmlFor="originAirportId">Origin Airport Id</Label>
+                  <Input
+                    id="originAirportId"
+                    className={cn(form.formState.errors.originAirportId && "border-destructive")}
                     {...field}
                   />
-                  {form.formState.errors.flightRouteId && (
-                    <ErrorLabel>{form.formState.errors.flightRouteId.message}</ErrorLabel>
+                  {form.formState.errors.originAirportId && (
+                    <ErrorLabel>{form.formState.errors.originAirportId.message}</ErrorLabel>
+                  )}
+                </SheetRow>
+              )}
+            />
+            <Controller
+              control={form.control}
+              name="destinationAirportId"
+              render={({ field }) => (
+                <SheetRow>
+                  <Label htmlFor="destinationAirportId">Destination Airport Id</Label>
+                  <Input
+                    id="destinationAirportId"
+                    className={cn(form.formState.errors.destinationAirportId && "border-destructive")}
+                    {...field}
+                  />
+                  {form.formState.errors.destinationAirportId && (
+                    <ErrorLabel>{form.formState.errors.destinationAirportId.message}</ErrorLabel>
+                  )}
+                </SheetRow>
+              )}
+            />
+            <Controller
+              control={form.control}
+              name="distance"
+              render={({ field }) => (
+                <SheetRow>
+                  <Label htmlFor="distance">Distance</Label>
+                  <Input
+                    id="distance"
+                    type="number"
+                    className={cn(form.formState.errors.distance && "border-destructive")}
+                    {...field}
+                    onChange={(event) => field.onChange(Number(event.target.value))}
+                  />
+                  {form.formState.errors.distance && <ErrorLabel>{form.formState.errors.distance.message}</ErrorLabel>}
+                </SheetRow>
+              )}
+            />
+            <Controller
+              control={form.control}
+              name="estimatedTakeoffTime"
+              render={({ field }) => (
+                <SheetRow>
+                  <Label htmlFor="estimatedTakeoffTime">Estimated Takeoff Time</Label>
+                  <Input
+                    id="estimatedTakeoffTime"
+                    className={cn(form.formState.errors.estimatedTakeoffTime && "border-destructive")}
+                    {...field}
+                  />
+                  {form.formState.errors.estimatedTakeoffTime && (
+                    <ErrorLabel>{form.formState.errors.estimatedTakeoffTime.message}</ErrorLabel>
+                  )}
+                </SheetRow>
+              )}
+            />
+            <Controller
+              control={form.control}
+              name="estimatedLandingTime"
+              render={({ field }) => (
+                <SheetRow>
+                  <Label htmlFor="estimatedLandingTime">Estimated Landing Time</Label>
+                  <Input
+                    id="estimatedLandingTime"
+                    className={cn(form.formState.errors.estimatedLandingTime && "border-destructive")}
+                    {...field}
+                  />
+                  {form.formState.errors.estimatedLandingTime && (
+                    <ErrorLabel>{form.formState.errors.estimatedLandingTime.message}</ErrorLabel>
+                  )}
+                </SheetRow>
+              )}
+            />
+            <Controller
+              control={form.control}
+              name="estimatedFlightDuration"
+              render={({ field }) => (
+                <SheetRow>
+                  <Label htmlFor="estimatedFlightDuration">Estimated Flight Duration</Label>
+                  <Input
+                    id="estimatedFlightDuration"
+                    type="number"
+                    className={cn(form.formState.errors.estimatedFlightDuration && "border-destructive")}
+                    {...field}
+                    onChange={(event) => field.onChange(Number(event.target.value))}
+                  />
+                  {form.formState.errors.estimatedFlightDuration && (
+                    <ErrorLabel>{form.formState.errors.estimatedFlightDuration.message}</ErrorLabel>
                   )}
                 </SheetRow>
               )}

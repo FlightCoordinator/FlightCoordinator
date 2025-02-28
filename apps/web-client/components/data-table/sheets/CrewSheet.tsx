@@ -36,13 +36,13 @@ import { getAllValuesOf, getSelectItem, selectItems } from "@/shared/constants/s
 import Enums from "@/shared/enum/enums";
 import { cn } from "@/shared/lib/twUtils";
 
-import DataTransfer from "@/types/dto";
+import DataTransfer from "@/types/dataTransfer";
 
 import {
   invalidEmailMessage,
   invalidEnumValueMessage,
+  nonEmptyMessage,
   nonNegativeMessage,
-  requiredMessage,
   shouldBeNumberMessage,
   shouldBeStringMessage,
 } from "../constants/validationMessages";
@@ -56,13 +56,14 @@ interface CrewSheetProps {
 }
 
 const crewSchema = z.object({
-  fullName: z.string(shouldBeStringMessage).nonempty(requiredMessage),
-  email: z.string(shouldBeStringMessage).email(invalidEmailMessage).nonempty(requiredMessage),
-  phoneNumber: z.string(shouldBeNumberMessage).nonempty(requiredMessage),
-  role: z.enum(getAllValuesOf("CrewRole"), invalidEnumValueMessage),
+  fullName: z.string(shouldBeStringMessage).nonempty(nonEmptyMessage),
+  email: z.string(shouldBeStringMessage).email(invalidEmailMessage).nonempty(nonEmptyMessage),
+  phoneNumber: z.string(shouldBeNumberMessage).nonempty(nonEmptyMessage),
+  role: z.enum(getAllValuesOf("CrewMemberRole"), invalidEnumValueMessage),
   totalFlightHours: z.number(shouldBeNumberMessage).nonnegative(nonNegativeMessage),
-  baseAirportId: z.string(shouldBeStringMessage).nonempty(requiredMessage),
-  availability: z.enum(getAllValuesOf("CrewAvailability"), invalidEnumValueMessage),
+  baseAirportId: z.string(shouldBeStringMessage).nonempty(nonEmptyMessage),
+  currentAirportId: z.string(shouldBeStringMessage).nonempty(nonEmptyMessage),
+  status: z.enum(getAllValuesOf("CrewMemberStatus"), invalidEnumValueMessage),
 });
 
 const CrewSheet = ({ crew }: CrewSheetProps) => {
@@ -75,7 +76,7 @@ const CrewSheet = ({ crew }: CrewSheetProps) => {
       role: crew ? crew.role : "Captain",
       totalFlightHours: crew ? crew.totalFlightHours : 0,
       baseAirportId: crew ? crew.baseAirportId : "",
-      availability: crew ? crew.availability : "Available",
+      status: crew ? crew.status : "",
     },
   });
 
@@ -235,8 +236,8 @@ const CrewSheet = ({ crew }: CrewSheetProps) => {
                 <SheetRow>
                   <Label htmlFor="role">Role</Label>
                   <FormSelect
-                    items={selectItems.asArray.CrewRole}
-                    placeholder={crew ? getSelectItem("CrewRole", crew.role).label : "Select..."}
+                    items={selectItems.asArray.CrewMemberRole}
+                    placeholder={crew ? getSelectItem("CrewMemberRole", crew.role).label : "Select..."}
                     hasError={!!form.formState.errors.role}
                     onchange={field.onChange}
                     value={field.value}
@@ -283,27 +284,25 @@ const CrewSheet = ({ crew }: CrewSheetProps) => {
             />
             <Controller
               control={form.control}
-              name="availability"
+              name="status"
               render={({ field }) => (
                 <SheetRow>
                   <Label htmlFor="availability">Availability</Label>
                   <FormSelect
-                    items={selectItems.asArray.CrewAvailability}
+                    items={selectItems.asArray.CrewMemberStatus}
                     placeholder={
                       crew
                         ? getSelectItem(
-                            "CrewAvailability",
-                            crew.availability as unknown as keyof typeof Enums.CrewAvailability,
+                            "CrewMemberStatus",
+                            crew.status as unknown as keyof typeof Enums.CrewMemberStatus,
                           ).label
                         : "Select..."
                     }
-                    hasError={!!form.formState.errors.availability}
+                    hasError={!!form.formState.errors.status}
                     onchange={field.onChange}
                     value={field.value}
                   />
-                  {form.formState.errors.availability && (
-                    <ErrorLabel>{form.formState.errors.availability.message}</ErrorLabel>
-                  )}
+                  {form.formState.errors.status && <ErrorLabel>{form.formState.errors.status.message}</ErrorLabel>}
                 </SheetRow>
               )}
             />

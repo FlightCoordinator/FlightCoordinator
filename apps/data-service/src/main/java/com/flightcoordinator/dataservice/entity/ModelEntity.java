@@ -84,7 +84,7 @@ public class ModelEntity {
   @Min(value = 1, message = "Wing span should be >= 1")
   @NotEmpty(message = "Wing span is required")
   @Column(name = "wing_span", nullable = false)
-  private Float wingSpan;
+  private Float wingspan;
 
   @Enumerated(EnumType.STRING)
   @NotEmpty(message = "Engine type is required")
@@ -191,7 +191,7 @@ public class ModelEntity {
       @Min(value = 1, message = "Max cargo capacity should be >= 1") @NotEmpty(message = "Max cargo capacity is required") Float maxCargoCapacity,
       @Min(value = 1, message = "Empty weight should be >= 1") @NotEmpty(message = "Empty weight is required") Float emptyWeight,
       @Min(value = 1, message = "Tail height should be >= 1") @NotEmpty(message = "Tail weight is required") Float tailHeight,
-      @Min(value = 1, message = "Wing span should be >= 1") @NotEmpty(message = "Wing span is required") Float wingSpan,
+      @Min(value = 1, message = "Wing span should be >= 1") @NotEmpty(message = "Wing span is required") Float wingspan,
       @NotEmpty(message = "Engine type is required") EngineType engineType,
       @Min(value = 1, message = "Engine count should be >= 1") @NotEmpty(message = "Engine count is required") Integer engineCount,
       @Min(value = 1, message = "Thrust per engine should be >= 1") @NotEmpty(message = "Thrust per engine is required") Float thrustPerEngine,
@@ -224,7 +224,7 @@ public class ModelEntity {
     this.maxCargoCapacity = maxCargoCapacity;
     this.emptyWeight = emptyWeight;
     this.tailHeight = tailHeight;
-    this.wingSpan = wingSpan;
+    this.wingspan = wingspan;
     this.engineType = engineType;
     this.engineCount = engineCount;
     this.thrustPerEngine = thrustPerEngine;
@@ -350,12 +350,12 @@ public class ModelEntity {
     this.tailHeight = tailHeight;
   }
 
-  public Float getWingSpan() {
-    return wingSpan;
+  public Float getWingspan() {
+    return wingspan;
   }
 
-  public void setWingSpan(Float wingSpan) {
-    this.wingSpan = wingSpan;
+  public void setWingspan(Float wingspan) {
+    this.wingspan = wingspan;
   }
 
   public EngineType getEngineType() {

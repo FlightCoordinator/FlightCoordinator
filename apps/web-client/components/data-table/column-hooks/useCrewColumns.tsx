@@ -10,7 +10,7 @@ import useCrewDeleteMutation from "@/hooks/resource/crew/useCrewDeleteMutation";
 import { getSelectItem } from "@/shared/constants/selectItems";
 import Enums from "@/shared/enum/enums";
 
-import DataTransfer from "@/types/dto";
+import DataTransfer from "@/types/dataTransfer";
 
 import IdDropdown from "../data-components/IdDropdown";
 import ColumnHeader from "../partials/ColumnHeader";
@@ -62,7 +62,7 @@ const useCrewColumns = () => {
       {
         accessorKey: "role",
         header: ({ column }) => <ColumnHeader column={column} title="Role" />,
-        cell: ({ row }) => <NoWrapCell>{getSelectItem("CrewRole", row.original.role).label}</NoWrapCell>,
+        cell: ({ row }) => <NoWrapCell>{getSelectItem("CrewMemberRole", row.original.role).label}</NoWrapCell>,
       },
       {
         accessorKey: "certificationIds",
@@ -77,18 +77,21 @@ const useCrewColumns = () => {
       {
         accessorKey: "baseAirportId",
         header: ({ column }) => <ColumnHeader column={column} title="Base Airport ID" />,
-        cell: ({ row }) => <NoWrapCell>{row.original.totalFlightHours}</NoWrapCell>,
+        cell: ({ row }) => <NoWrapCell>{row.original.baseAirportId}</NoWrapCell>,
       },
       {
-        accessorKey: "availability",
-        header: ({ column }) => <ColumnHeader column={column} title="Availability" />,
+        accessorKey: "currentAirportId",
+        header: ({ column }) => <ColumnHeader column={column} title="Current Airport ID" />,
+        cell: ({ row }) => <NoWrapCell>{row.original.currentAirportId}</NoWrapCell>,
+      },
+      {
+        accessorKey: "status",
+        header: ({ column }) => <ColumnHeader column={column} title="Status" />,
         cell: ({ row }) => (
           <NoWrapCell>
             {
-              getSelectItem(
-                "CrewAvailability",
-                row.original.availability as unknown as keyof typeof Enums.CrewAvailability,
-              ).label
+              getSelectItem("CrewMemberStatus", row.original.status as unknown as keyof typeof Enums.CrewMemberStatus)
+                .label
             }
           </NoWrapCell>
         ),
@@ -118,7 +121,8 @@ const useCrewColumns = () => {
       certificationIds: true,
       totalFlightHours: true,
       baseAirportId: true,
-      availability: true,
+      currentAirportId: true,
+      status: true,
     }),
     [],
   );

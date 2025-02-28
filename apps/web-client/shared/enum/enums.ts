@@ -6,7 +6,14 @@ namespace Enums {
     REGIONAL = "Regional",
     DOMESTIC = "Domestic",
   }
-  export enum CertificationIssuer {
+  export enum CertificationStatus {
+    CERTIFIED = "Certified",
+    PENDING_APPROVAL = "Pending Approval",
+    REVOKED = "Revoked",
+    UNDER_REVIEW = "Under Review",
+    EXPIRED = "Expired",
+  }
+  export enum Certifier {
     FAA = "Federal Aviation Administration of United States",
     EASA = "European Union Aviation Safety Agency",
     CAA_UK = "Civil Aviation Authority of United Kingdom",
@@ -32,32 +39,53 @@ namespace Enums {
     LAT = "Lufthansa Aviation Training",
     CAE = "CAE Inc.",
   }
-  export enum CrewAvailability {
-    AVAILABLE = "Available",
-    ON_DUTY = "On-Duty",
-    ON_LEAVE = "On-Leave",
-    UNAVAILABLE = "Unavailable",
-  }
-  export enum CrewRole {
+  export enum CrewMemberRole {
     CAPTAIN = "Captain",
     FIRST_OFFICER = "First Officer",
-    SECOND_OFFICER = "Seconds Officer",
-    THIRD_OFFICER = "Third Officer",
+    SECOND_OFFICER = "Second Officer",
     RELIEF_CREW_MEMBER = "Relief Crew Member",
-    FLIGHT_ENGINEER = "Flight Engineer",
-    AIRBORNE_SENSOR_OPR = "Airborne Sensor Opr.",
     PURSER = "Purser",
+    CABIN_SUPERVISOR = "Cabin Supervisor",
     FLIGHT_ATTENDANT = "Flight Attendant",
     FLIGHT_MEDIC = "Flight Medic",
-    LOADMASTER = "Loadmaster",
   }
-  export enum PlaneAvailability {
-    AVAILABLE = "Available",
-    UNDER_MAINTENANCE = "Under-Maintenance",
-    IN_USE = "In-Use",
+  export enum CrewMemberStatus {
+    ACTIVE = "Active",
+    INACTIVE = "Inactive",
+    ON_LEAVE = "On-Leave",
     RETIRED = "Retired",
   }
-  export enum RunwaySurfaceType {
+  export enum EngineType {
+    TURBOJET = "Turbo Jet",
+    TURBOPROP = "Turbo Propeller",
+    TURBOFAN = "Turbo Fan",
+    RAMJET = "Ram Jet",
+    SCRAMJET = "Scram Jet",
+    PISTON = "Piston",
+    ELECTRIC = "Electric",
+    HYBRID_ELECTRIC = "Hybric Electric",
+    HYDROGEN_FUEL_CELL = "Hydrogen Fuel Cell",
+  }
+  export enum NoiseCategory {
+    CHAPTER_2 = "Chapter 2 - Older, louder aircraft",
+    CHAPTER_3 = "Chapter 3 - Modern aircraft with standard noise levels",
+    CHAPTER_4 = "Chapter 4 - Latest generation, significantly quieter",
+    CHAPTER_14 = "Chapter 14 - Most recent standard, strictest noise regulations",
+  }
+  export enum PlaneStatus {
+    ACTIVE = "Active",
+    UNDER_MAINTENANCE = "Under-Maintenance",
+    INACTIVE = "Inactive",
+    RETIRED = "Retired",
+  }
+  export enum RunwayStatus {
+    OPEN = "Open",
+    CLOSED = "Closed",
+    MAINTENANCE = "Under Maintenance",
+    UNDER_CONSTRUCTION = "Under Construction",
+    EMERGENCY_USE_ONLY = "Emergency Use Only",
+  }
+  export enum SurfaceType {
     ASPHALT = "Asphalt",
     CONCRETE = "Concrete",
     GRASS = "Grass",
@@ -65,20 +93,20 @@ namespace Enums {
     DIRT = "Dirt",
     COMP_MATERIAL = "Composite Materials",
   }
-  export enum GroundVehicleAvailability {
-    AVAILABLE = "Available",
-    IN_USE = "In-Use",
-    UNDER_MAINTENANCE = "Under-Maintenance",
-    OUT_OF_SERVICE = "Out-Of-Service",
-  }
-  export enum GroundVehicleType {
-    TUG = "Tug",
-    REFUELER = "Refueler",
-    LOADER = "Loader",
-    CATERING = "Catering",
-    DE_ICER = "De-Icer",
-    PUSHBACK = "Pushback",
-    BUS = "Bus",
+  export enum VisualApproachAid {
+    PAPI = "Precision Approach Path Indicator",
+    VASI = "Visual Approach Slope Indicator",
+    ALSF1 = "Approach Lighting System with Sequenced Flashers I",
+    ALSF2 = "Approach Lighting System with Sequenced Flashers II",
+    ODALS = "Omni-Directional Approach Lighting System",
+    MALSR = "Medium Intensity Approach Lighting System with Runway Alignment Indicator Lights",
+    SSALR = "Simplified Short Approach Lighting System with Runway Alignment Indicator Lights",
+    MALS = "Medium Intensity Approach Lighting System",
+    REIL = "Runway End Identifier Lights",
+    HIRL = "High Intensity Runway Lights",
+    MIRL = "Medium Intensity Runway Lights",
+    LIR = "Low Intensity Runway Lights",
+    NONE = "None",
   }
 }
 export default Enums;

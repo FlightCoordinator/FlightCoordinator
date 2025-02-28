@@ -62,7 +62,7 @@ public class ModelService {
     modelEntity.setMaxCargoCapacity(newModelDTO.getMaxCargoCapacity());
     modelEntity.setEmptyWeight(newModelDTO.getEmptyWeight());
     modelEntity.setTailHeight(newModelDTO.getTailHeight());
-    modelEntity.setWingSpan(newModelDTO.getWingSpan());
+    modelEntity.setWingspan(newModelDTO.getWingspan());
     modelEntity.setEngineType(newModelDTO.getEngineType());
     modelEntity.setEngineCount(newModelDTO.getEngineCount());
     modelEntity.setThrustPerEngine(newModelDTO.getThrustPerEngine());
@@ -102,7 +102,7 @@ public class ModelService {
     existingModel.setMaxCargoCapacity(updatedModelDTO.getMaxCargoCapacity());
     existingModel.setEmptyWeight(updatedModelDTO.getEmptyWeight());
     existingModel.setTailHeight(updatedModelDTO.getTailHeight());
-    existingModel.setWingSpan(updatedModelDTO.getWingSpan());
+    existingModel.setWingspan(updatedModelDTO.getWingspan());
     existingModel.setEngineType(updatedModelDTO.getEngineType());
     existingModel.setEngineCount(updatedModelDTO.getEngineCount());
     existingModel.setThrustPerEngine(updatedModelDTO.getThrustPerEngine());

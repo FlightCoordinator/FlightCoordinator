@@ -9,8 +9,9 @@ import useRunwayDeleteMutation from "@/hooks/resource/runway/useRunwayDeleteMuta
 
 import { getSelectItem } from "@/shared/constants/selectItems";
 import Enums from "@/shared/enum/enums";
+import Utils from "@/shared/utils";
 
-import DataTransfer from "@/types/dto";
+import DataTransfer from "@/types/dataTransfer";
 
 import ColumnHeader from "../partials/ColumnHeader";
 import DeleteResource from "../partials/DeleteResource";
@@ -44,21 +45,31 @@ const useRunwayColumns = () => {
         enableSorting: false,
       },
       {
+        accessorKey: "runwayNumber",
+        header: ({ column }) => <ColumnHeader column={column} title="Runway Number" />,
+        cell: ({ row }) => <NoWrapCell>{row.original.runwayNumber}</NoWrapCell>,
+      },
+      {
+        accessorKey: "airportId",
+        header: ({ column }) => <ColumnHeader column={column} title="Airport Id" />,
+        cell: ({ row }) => <NoWrapCell>{row.original.airportId}</NoWrapCell>,
+      },
+      {
         accessorKey: "length",
         header: ({ column }) => <ColumnHeader column={column} title="Length" />,
         cell: ({ row }) => <NoWrapCell>{row.original.length}</NoWrapCell>,
       },
       {
-        accessorKey: "surfaceType",
+        accessorKey: "width",
         header: ({ column }) => <ColumnHeader column={column} title="Width" />,
+        cell: ({ row }) => <NoWrapCell>{row.original.width}</NoWrapCell>,
+      },
+      {
+        accessorKey: "surfaceType",
+        header: ({ column }) => <ColumnHeader column={column} title="Surface Type" />,
         cell: ({ row }) => (
           <NoWrapCell>
-            {
-              getSelectItem(
-                "RunwaySurfaceType",
-                row.original.surfaceType as unknown as keyof typeof Enums.RunwaySurfaceType,
-              ).label
-            }
+            {getSelectItem("SurfaceType", row.original.surfaceType as unknown as keyof typeof Enums.SurfaceType).label}
           </NoWrapCell>
         ),
       },
@@ -68,14 +79,57 @@ const useRunwayColumns = () => {
         cell: ({ row }) => <NoWrapCell>{row.original.maxWeightCapacity}</NoWrapCell>,
       },
       {
-        accessorKey: "orientation",
-        header: ({ column }) => <ColumnHeader column={column} title="Orientation" />,
-        cell: ({ row }) => <NoWrapCell>{row.original.orientation}</NoWrapCell>,
+        accessorKey: "hasMarkings",
+        header: ({ column }) => <ColumnHeader column={column} title="Has Markings" />,
+        cell: ({ row }) => <NoWrapCell>{Utils.boolToLabel(String(row.original.hasMarkings))}</NoWrapCell>,
       },
       {
-        accessorKey: "airportId",
-        header: ({ column }) => <ColumnHeader column={column} title="Airport Id" />,
-        cell: ({ row }) => <NoWrapCell>{row.original.airportId}</NoWrapCell>,
+        accessorKey: "hasLighting",
+        header: ({ column }) => <ColumnHeader column={column} title="Has Lighting" />,
+        cell: ({ row }) => <NoWrapCell>{Utils.boolToLabel(String(row.original.hasLighting))}</NoWrapCell>,
+      },
+      {
+        accessorKey: "hasILS",
+        header: ({ column }) => <ColumnHeader column={column} title="Has ILS" />,
+        cell: ({ row }) => <NoWrapCell>{Utils.boolToLabel(String(row.original.hasILS))}</NoWrapCell>,
+      },
+      {
+        accessorKey: "hasSafetyArea",
+        header: ({ column }) => <ColumnHeader column={column} title="Has Safety Area" />,
+        cell: ({ row }) => <NoWrapCell>{Utils.boolToLabel(String(row.original.hasSafetyArea))}</NoWrapCell>,
+      },
+      {
+        accessorKey: "visualApproachAid",
+        header: ({ column }) => <ColumnHeader column={column} title="Visual Approach Aid" />,
+        cell: ({ row }) => (
+          <NoWrapCell className="w-[200px] truncate">
+            {
+              getSelectItem(
+                "VisualApproachAid",
+                row.original.visualApproachAid as unknown as keyof typeof Enums.VisualApproachAid,
+              ).label
+            }
+          </NoWrapCell>
+        ),
+      },
+      {
+        accessorKey: "altitude",
+        header: ({ column }) => <ColumnHeader column={column} title="Altitude" />,
+        cell: ({ row }) => <NoWrapCell>{row.original.altitude}</NoWrapCell>,
+      },
+      {
+        accessorKey: "status",
+        header: ({ column }) => <ColumnHeader column={column} title="Status" />,
+        cell: ({ row }) => (
+          <NoWrapCell>
+            {getSelectItem("RunwayStatus", row.original.status as unknown as keyof typeof Enums.RunwayStatus).label}
+          </NoWrapCell>
+        ),
+      },
+      {
+        accessorKey: "crosswindLimit",
+        header: ({ column }) => <ColumnHeader column={column} title="Crosswind Limit" />,
+        cell: ({ row }) => <NoWrapCell>{row.original.crosswindLimit}</NoWrapCell>,
       },
       {
         id: "actions",

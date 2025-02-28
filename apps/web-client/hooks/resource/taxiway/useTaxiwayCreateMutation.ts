@@ -6,33 +6,33 @@ import requester from "@/shared/lib/requester";
 import GlobalTypes from "@/types/globals";
 import ResourceTypes from "@/types/resource";
 
-const useRouteCreateMutation = () => {
+const useTaxiwayCreateMutation = () => {
   const queryClient = useQueryClient();
-  const createRoute = useMutation({
-    mutationKey: ["createRouteMutation"],
-    mutationFn: async (routeCreateData: ResourceTypes.Route.Mutations.CreateMutationParams) => {
-      const response = requester
+  const createTaxiway = useMutation({
+    mutationKey: ["createTaxiwayMutation"],
+    mutationFn: async (taxiwayCreateData: ResourceTypes.Taxiway.Mutations.CreateMutationParams) => {
+      const response = await requester
         .setRequestConfig({
           url: {
             baseURL: config.DATA.BASE_URL,
             port: Number(config.DATA.PORT),
             endpoint: {
               prefix: config.DATA.API_PREFIX,
-              controller: "route",
+              controller: "taxiway",
               action: "create",
             },
           },
           method: "POST",
           auth: { includeCookies: true },
         })
-        .sendRequest<GlobalTypes.ServerResponseParams<null>, ResourceTypes.Route.Mutations.CreateMutationParams>(
-          routeCreateData,
+        .sendRequest<GlobalTypes.ServerResponseParams<null>, ResourceTypes.Taxiway.Mutations.CreateMutationParams>(
+          taxiwayCreateData,
         );
       return response;
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["routeQuery"] }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["taxiwayQuery"] }),
   });
-  return createRoute;
+  return createTaxiway;
 };
 
-export default useRouteCreateMutation;
+export default useTaxiwayCreateMutation;

@@ -8,10 +8,11 @@ import dayjs from "dayjs";
 import { useToast } from "@/hooks/interface/useToast";
 import useCertificationDeleteMutation from "@/hooks/resource/certification/useCertificationDeleteMutation";
 
+import { dateFormat } from "@/shared/constants/dateFormat";
 import { getSelectItem } from "@/shared/constants/selectItems";
 import Enums from "@/shared/enum/enums";
 
-import DataTransfer from "@/types/dto";
+import DataTransfer from "@/types/dataTransfer";
 
 import ColumnHeader from "../partials/ColumnHeader";
 import DeleteResource from "../partials/DeleteResource";
@@ -55,12 +56,7 @@ const useCertificationColumns = () => {
         header: ({ column }) => <ColumnHeader column={column} title="Issuer" />,
         cell: ({ row }) => (
           <NoWrapCell>
-            {
-              getSelectItem(
-                "CertificationIssuer",
-                row.original.issuer as unknown as keyof typeof Enums.CertificationIssuer,
-              ).label
-            }
+            {getSelectItem("Certifier", row.original.issuer as unknown as keyof typeof Enums.Certifier).label}
           </NoWrapCell>
         ),
       },
@@ -68,7 +64,7 @@ const useCertificationColumns = () => {
       {
         accessorKey: "expirationDate",
         header: ({ column }) => <ColumnHeader column={column} title="Expiration Date" />,
-        cell: ({ row }) => <NoWrapCell>{dayjs(row.original.expirationDate).format("DD MMM YYYY")}</NoWrapCell>,
+        cell: ({ row }) => <NoWrapCell>{dayjs(row.original.expirationDate).format(dateFormat)}</NoWrapCell>,
       },
       {
         accessorKey: "validityPeriod",
@@ -76,16 +72,14 @@ const useCertificationColumns = () => {
         cell: ({ row }) => <NoWrapCell>{row.original.validityPeriod}</NoWrapCell>,
       },
       {
-        accessorKey: "assignableRole",
-        header: ({ column }) => <ColumnHeader column={column} title="Assignable Role" />,
-        cell: ({ cell }) => (
-          <NoWrapCell>{getSelectItem("CrewRole", cell.row.original.assignableRole).label}</NoWrapCell>
-        ),
+        accessorKey: "description",
+        header: ({ column }) => <ColumnHeader column={column} title="Description" />,
+        cell: ({ row }) => <NoWrapCell>{row.original.description}</NoWrapCell>,
       },
       {
-        accessorKey: "assignedCrewMember",
+        accessorKey: "assignedCrewMemberId",
         header: ({ column }) => <ColumnHeader column={column} title="Assigned Crew Member" />,
-        cell: ({ row }) => <NoWrapCell>{row.original.assignedCrewMember}</NoWrapCell>,
+        cell: ({ row }) => <NoWrapCell>{row.original.assignedCrewMemberId}</NoWrapCell>,
       },
       {
         id: "actions",
@@ -110,9 +104,8 @@ const useCertificationColumns = () => {
       issuer: true,
       expirationDate: true,
       validityPeriod: true,
-      assignableRole: true,
       description: true,
-      assignedCrewMember: true,
+      assignedCrewMemberId: true,
     }),
     [],
   );

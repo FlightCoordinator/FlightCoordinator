@@ -8,10 +8,11 @@ import dayjs from "dayjs";
 import { useToast } from "@/hooks/interface/useToast";
 import usePlaneDeleteMutation from "@/hooks/resource/plane/usePlaneDeleteMutation";
 
+import { dateFormat } from "@/shared/constants/dateFormat";
 import { getSelectItem } from "@/shared/constants/selectItems";
 import Enums from "@/shared/enum/enums";
 
-import DataTransfer from "@/types/dto";
+import DataTransfer from "@/types/dataTransfer";
 
 import ColumnHeader from "../partials/ColumnHeader";
 import DeleteResource from "../partials/DeleteResource";
@@ -45,29 +46,34 @@ const usePlaneColumns = () => {
         enableSorting: false,
       },
       {
-        accessorKey: "registrationNumber",
-        header: ({ column }) => <ColumnHeader column={column} title="Registration Number" />,
-        cell: ({ row }) => <NoWrapCell>{row.original.registrationNumber}</NoWrapCell>,
+        accessorKey: "modelId",
+        header: ({ column }) => <ColumnHeader column={column} title="Model Id" />,
+        cell: ({ row }) => <NoWrapCell>{row.original.modelId}</NoWrapCell>,
       },
       {
-        accessorKey: "passengerCapacity",
-        header: ({ column }) => <ColumnHeader column={column} title="Passenger Capacity" />,
-        cell: ({ row }) => <NoWrapCell>{row.original.passengerCapacity}</NoWrapCell>,
+        accessorKey: "tailNumber",
+        header: ({ column }) => <ColumnHeader column={column} title="Tail Number" />,
+        cell: ({ row }) => <NoWrapCell>{row.original.tailNumber}</NoWrapCell>,
       },
       {
-        accessorKey: "fuelEfficiency",
-        header: ({ column }) => <ColumnHeader column={column} title="Fuel Efficiency" />,
-        cell: ({ row }) => <NoWrapCell>{row.original.fuelEfficiency}</NoWrapCell>,
+        accessorKey: "cyclesSinceLastMaintenance",
+        header: ({ column }) => <ColumnHeader column={column} title="Cycles Since Last Maintenance" />,
+        cell: ({ row }) => <NoWrapCell>{row.original.cyclesSinceLastMaintenance}</NoWrapCell>,
       },
       {
-        accessorKey: "maxFlightRange",
+        accessorKey: "retirementDate",
         header: ({ column }) => <ColumnHeader column={column} title="Max Flight Range" />,
-        cell: ({ row }) => <NoWrapCell>{row.original.maxFlightRange}</NoWrapCell>,
+        cell: ({ row }) => <NoWrapCell>{dayjs(row.original.retirementDate).format(dateFormat)}</NoWrapCell>,
       },
       {
-        accessorKey: "lastMaintenance",
-        header: ({ column }) => <ColumnHeader column={column} title="Last Maintenance" />,
-        cell: ({ row }) => <NoWrapCell>{dayjs(row.original.lastMaintenance).format("DD MMM YYYY")}</NoWrapCell>,
+        accessorKey: "engineHours",
+        header: ({ column }) => <ColumnHeader column={column} title="Engine Hours" />,
+        cell: ({ row }) => <NoWrapCell>{row.original.engineHours}</NoWrapCell>,
+      },
+      {
+        accessorKey: "currentWearLevel",
+        header: ({ column }) => <ColumnHeader column={column} title="Current Wear Level" />,
+        cell: ({ row }) => <NoWrapCell>{row.original.currentWearLevel} %</NoWrapCell>,
       },
       {
         accessorKey: "totalFlightHours",
@@ -75,31 +81,16 @@ const usePlaneColumns = () => {
         cell: ({ row }) => <NoWrapCell>{row.original.totalFlightHours}</NoWrapCell>,
       },
       {
-        accessorKey: "maxTakeoffWeight",
-        header: ({ column }) => <ColumnHeader column={column} title="Max Takeoff Weight" />,
-        cell: ({ row }) => <NoWrapCell>{row.original.maxTakeoffWeight}</NoWrapCell>,
-      },
-      {
-        accessorKey: "shortestRunwayLengthRequired",
-        header: ({ column }) => <ColumnHeader column={column} title="Shortest Runway Length Required" />,
-        cell: ({ row }) => <NoWrapCell>{row.original.shortestRunwayLengthRequired}</NoWrapCell>,
-      },
-      {
-        accessorKey: "shortestRunwayWidthRequired",
-        header: ({ column }) => <ColumnHeader column={column} title="Shortest Runway Width Required" />,
-        cell: ({ row }) => <NoWrapCell>{row.original.shortestRunwayWidthRequired}</NoWrapCell>,
+        accessorKey: "fuelAmount",
+        header: ({ column }) => <ColumnHeader column={column} title="Fuel Amount" />,
+        cell: ({ row }) => <NoWrapCell>{row.original.fuelAmount}</NoWrapCell>,
       },
       {
         accessorKey: "planeStatus",
-        header: ({ column }) => <ColumnHeader column={column} title="Status" />,
-        cell: ({ cell }) => (
+        header: ({ column }) => <ColumnHeader column={column} title="Shortest Runway Width Required" />,
+        cell: ({ row }) => (
           <NoWrapCell>
-            {
-              getSelectItem(
-                "PlaneAvailability",
-                cell.row.original.planeStatus as unknown as keyof typeof Enums.PlaneAvailability,
-              ).label
-            }
+            {getSelectItem("PlaneStatus", row.original.planeStatus as unknown as keyof typeof Enums.PlaneStatus).label}
           </NoWrapCell>
         ),
       },
@@ -131,16 +122,15 @@ const usePlaneColumns = () => {
   );
   const planeColumnsVisibilities = React.useMemo<VisibilityState>(
     () => ({
-      model: true,
-      registrationNumber: true,
-      passengerCapacity: true,
-      fuelEfficiency: true,
-      maxFlightRange: true,
-      lastMaintenance: true,
+      modelId: true,
+      tailNumber: true,
+      nextMaintenanceDate: true,
+      cyclesSinceLastMaintenance: true,
+      retirementDate: true,
+      engineHours: true,
+      currentWearLevel: true,
       totalFlightHours: true,
-      maxTakeoffWeight: true,
-      shortestRunwayLengthRequired: true,
-      shortestRunwayWidthRequired: true,
+      fuelAmount: true,
       planeStatus: true,
       currentLocationId: true,
       aircraftOperator: true,

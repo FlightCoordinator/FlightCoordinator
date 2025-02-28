@@ -327,7 +327,7 @@ public class SampleData {
         12.6F, 11.8F, 18.5F, 17.1F, 10.6F, 7.5F, 16.9F, 11.5F, 8.3F, 19.4F,
         12.3F, 4.2F, 9.3F, 15.8F, 17.3F, 6.8F, 13.6F, 18.8F, 12.0F, 24.1F);
 
-    public static List<Float> sampleWingSpan = Arrays.asList(
+    public static List<Float> sampleWingspan = Arrays.asList(
         34.3F, 35.8F, 64.8F, 64.7F, 28.7F, 24.8F, 60.1F, 35.1F, 27.0F, 68.4F,
         35.7F, 15.9F, 26.0F, 47.6F, 60.3F, 24.5F, 38.0F, 63.5F, 34.0F, 79.8F);
 

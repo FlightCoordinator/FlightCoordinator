@@ -6,11 +6,11 @@ import requester from "@/shared/lib/requester";
 import GlobalTypes from "@/types/globals";
 import ResourceTypes from "@/types/resource";
 
-const useRouteUpdateMutation = () => {
+const useModelCreateMutation = () => {
   const queryClient = useQueryClient();
-  const updateRoute = useMutation({
-    mutationKey: ["updateRouteMutation"],
-    mutationFn: async (useRouteUpdateData: ResourceTypes.Route.Mutations.UpdateMutationParams) => {
+  const createModel = useMutation({
+    mutationKey: ["createModelMutation"],
+    mutationFn: async (modelCreateData: ResourceTypes.Model.Mutations.CreateMutationParams) => {
       const response = await requester
         .setRequestConfig({
           url: {
@@ -18,21 +18,21 @@ const useRouteUpdateMutation = () => {
             port: Number(config.DATA.PORT),
             endpoint: {
               prefix: config.DATA.API_PREFIX,
-              controller: "route",
-              action: "update",
+              controller: "model",
+              action: "create",
             },
           },
-          method: "PATCH",
+          method: "POST",
           auth: { includeCookies: true },
         })
-        .sendRequest<GlobalTypes.ServerResponseParams<null>, ResourceTypes.Route.Mutations.UpdateMutationParams>(
-          useRouteUpdateData,
+        .sendRequest<GlobalTypes.ServerResponseParams<null>, ResourceTypes.Model.Mutations.CreateMutationParams>(
+          modelCreateData,
         );
       return response;
     },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["routeQuery"] }),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["modelQuery"] }),
   });
-  return updateRoute;
+  return createModel;
 };
 
-export default useRouteUpdateMutation;
+export default useModelCreateMutation;

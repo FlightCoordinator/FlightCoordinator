@@ -29,14 +29,13 @@ import { getAllValuesOf, getSelectItem, selectItems } from "@/shared/constants/s
 import Enums from "@/shared/enum/enums";
 import { cn } from "@/shared/lib/twUtils";
 
-import DataTransfer from "@/types/dto";
+import DataTransfer from "@/types/dataTransfer";
 
 import {
-  greaterThanZeroMessage,
   invalidDateMessage,
   invalidEnumValueMessage,
+  nonEmptyMessage,
   nonNegativeMessage,
-  requiredMessage,
   shouldBeNumberMessage,
   shouldBeStringMessage,
 } from "../constants/validationMessages";
@@ -51,36 +50,37 @@ interface PlaneSheetProps {
 }
 
 const planeSchema = z.object({
-  model: z.string(shouldBeStringMessage).nonempty(requiredMessage),
-  registrationNumber: z.string(shouldBeStringMessage).nonempty(requiredMessage),
-  passengerCapacity: z.number(shouldBeNumberMessage).nonnegative(nonNegativeMessage),
-  fuelEfficiency: z.number(shouldBeNumberMessage).positive(greaterThanZeroMessage),
-  maxFlightRange: z.number(shouldBeNumberMessage).positive(greaterThanZeroMessage),
-  lastMaintenance: z.date(invalidDateMessage),
+  modelId: z.string(shouldBeStringMessage).nonempty(nonEmptyMessage),
+  tailNumber: z.string(shouldBeStringMessage).nonempty(nonEmptyMessage),
+  nextMaintenanceDate: z.date(invalidDateMessage),
+  cyclesSinceLastMaintenance: z.number(shouldBeNumberMessage).nonnegative(nonNegativeMessage),
+  retirementDate: z.date(invalidDateMessage),
+  engineHours: z.number(shouldBeNumberMessage).nonnegative(nonNegativeMessage),
+  currentWearLevel: z
+    .number(shouldBeNumberMessage)
+    .nonnegative(nonNegativeMessage)
+    .max(100, { message: "This value should be between 0-100" }),
   totalFlightHours: z.number(shouldBeNumberMessage).nonnegative(nonNegativeMessage),
-  maxTakeoffWeight: z.number(shouldBeNumberMessage).positive(greaterThanZeroMessage),
-  shortestRunwayLengthRequired: z.number(shouldBeNumberMessage).positive(greaterThanZeroMessage),
-  shortestRunwayWidthRequired: z.number(shouldBeNumberMessage).positive(greaterThanZeroMessage),
-  planeStatus: z.enum(getAllValuesOf("PlaneAvailability"), invalidEnumValueMessage).default("AVAILABLE"),
-  currentLocationId: z.string(shouldBeStringMessage).nonempty(requiredMessage),
-  aircraftOperator: z.string(shouldBeStringMessage).nonempty(requiredMessage),
+  fuelAmount: z.number(shouldBeNumberMessage).nonnegative(nonNegativeMessage),
+  planeStatus: z.enum(getAllValuesOf("PlaneStatus"), invalidEnumValueMessage),
+  currentLocationId: z.string(shouldBeStringMessage).nonempty(nonEmptyMessage),
+  aircraftOperator: z.string(shouldBeStringMessage).nonempty(nonEmptyMessage),
 });
 
 const PlaneSheet = ({ plane }: PlaneSheetProps) => {
   const form = useForm<z.infer<typeof planeSchema>>({
     resolver: zodResolver(planeSchema),
     defaultValues: {
-      model: plane ? plane.model : "",
-      registrationNumber: plane ? plane.registrationNumber : "",
-      passengerCapacity: plane ? plane.passengerCapacity : 0,
-      fuelEfficiency: plane ? plane.fuelEfficiency : 1,
-      maxFlightRange: plane ? plane.maxFlightRange : 1,
-      lastMaintenance: plane ? plane.lastMaintenance : dayjs().toDate(),
+      modelId: plane ? plane.modelId : "",
+      tailNumber: plane ? plane.tailNumber : "",
+      nextMaintenanceDate: plane ? plane.nextMaintenanceDate : dayjs().toDate(),
+      cyclesSinceLastMaintenance: plane ? plane.cyclesSinceLastMaintenance : 0,
+      retirementDate: plane ? plane.retirementDate : dayjs().toDate(),
+      engineHours: plane ? plane.engineHours : 0,
+      currentWearLevel: plane ? plane.currentWearLevel : 0,
       totalFlightHours: plane ? plane.totalFlightHours : 0,
-      maxTakeoffWeight: plane ? plane.maxTakeoffWeight : 1,
-      shortestRunwayLengthRequired: plane ? plane.shortestRunwayLengthRequired : 1,
-      shortestRunwayWidthRequired: plane ? plane.shortestRunwayWidthRequired : 1,
-      planeStatus: plane ? plane.planeStatus : "Available,",
+      fuelAmount: plane ? plane.fuelAmount : 0,
+      planeStatus: plane ? plane.planeStatus : "",
       currentLocationId: plane ? plane.currentLocationId : "",
       aircraftOperator: plane ? plane.aircraftOperator : "",
     },
@@ -158,98 +158,115 @@ const PlaneSheet = ({ plane }: PlaneSheetProps) => {
             onSubmit={form.handleSubmit(plane ? handleUpdateSubmit : handleCreateSubmit)}>
             <Controller
               control={form.control}
-              name="model"
+              name="modelId"
               render={({ field }) => (
                 <SheetRow>
-                  <Label htmlFor="model">Model</Label>
-                  <Input id="model" className={cn(form.formState.errors.model && "border-destructive")} {...field} />
-                  {form.formState.errors.model && <ErrorLabel>{form.formState.errors.model.message}</ErrorLabel>}
+                  <Label htmlFor="modelId">Model Id</Label>
+                  <Input
+                    id="modelId"
+                    className={cn(form.formState.errors.modelId && "border-destructive")}
+                    {...field}
+                  />
+                  {form.formState.errors.modelId && <ErrorLabel>{form.formState.errors.modelId.message}</ErrorLabel>}
                 </SheetRow>
               )}
             />
             <Controller
               control={form.control}
-              name="registrationNumber"
+              name="tailNumber"
               render={({ field }) => (
                 <SheetRow>
-                  <Label htmlFor="registrationNumber">Registration Number</Label>
+                  <Label htmlFor="tailNumber">Tail Number</Label>
                   <Input
-                    id="registrationNumber"
-                    className={cn(form.formState.errors.registrationNumber && "border-destructive")}
+                    id="tailNumber"
+                    className={cn(form.formState.errors.tailNumber && "border-destructive")}
                     {...field}
                   />
-                  {form.formState.errors.registrationNumber && (
-                    <ErrorLabel>{form.formState.errors.registrationNumber.message}</ErrorLabel>
+                  {form.formState.errors.tailNumber && (
+                    <ErrorLabel>{form.formState.errors.tailNumber.message}</ErrorLabel>
                   )}
                 </SheetRow>
               )}
             />
             <Controller
               control={form.control}
-              name="passengerCapacity"
+              name="nextMaintenanceDate"
               render={({ field }) => (
                 <SheetRow>
-                  <Label htmlFor="passengerCapacity">Passenger Capacity</Label>
-                  <Input
-                    id="passengerCapacity"
-                    type="number"
-                    className={cn(form.formState.errors.passengerCapacity && "border-destructive")}
-                    {...field}
-                    onChange={(event) => field.onChange(Number(event.target.value))}
-                  />
-                  {form.formState.errors.passengerCapacity && (
-                    <ErrorLabel>{form.formState.errors.passengerCapacity.message}</ErrorLabel>
-                  )}
-                </SheetRow>
-              )}
-            />
-            <Controller
-              control={form.control}
-              name="fuelEfficiency"
-              render={({ field }) => (
-                <SheetRow>
-                  <Label htmlFor="fuelEfficiency">Fuel Efficiency</Label>
-                  <Input
-                    id="fuelEfficiency"
-                    type="number"
-                    className={cn(form.formState.errors.fuelEfficiency && "border-destructive")}
-                    {...field}
-                    onChange={(event) => field.onChange(Number(event.target.value))}
-                  />
-                  {form.formState.errors.fuelEfficiency && (
-                    <ErrorLabel>{form.formState.errors.fuelEfficiency.message}</ErrorLabel>
-                  )}
-                </SheetRow>
-              )}
-            />
-            <Controller
-              control={form.control}
-              name="maxFlightRange"
-              render={({ field }) => (
-                <SheetRow>
-                  <Label htmlFor="maxFlightRange">Max Flight Range</Label>
-                  <Input
-                    id="maxFlightRange"
-                    type="number"
-                    className={cn(form.formState.errors.maxFlightRange && "border-destructive")}
-                    {...field}
-                    onChange={(event) => field.onChange(Number(event.target.value))}
-                  />
-                  {form.formState.errors.maxFlightRange && (
-                    <ErrorLabel>{form.formState.errors.maxFlightRange.message}</ErrorLabel>
-                  )}
-                </SheetRow>
-              )}
-            />
-            <Controller
-              control={form.control}
-              name="lastMaintenance"
-              render={({ field }) => (
-                <SheetRow>
-                  <Label htmlFor="lastMaintenance">Last Maintenance</Label>
+                  <Label htmlFor="nextMaintenanceDate">Next Maintenance Date</Label>
                   <DatePicker onchange={field.onChange} value={field.value} />
-                  {form.formState.errors.lastMaintenance && (
-                    <ErrorLabel>{form.formState.errors.lastMaintenance.message}</ErrorLabel>
+                  {form.formState.errors.nextMaintenanceDate && (
+                    <ErrorLabel>{form.formState.errors.nextMaintenanceDate.message}</ErrorLabel>
+                  )}
+                </SheetRow>
+              )}
+            />
+            <Controller
+              control={form.control}
+              name="cyclesSinceLastMaintenance"
+              render={({ field }) => (
+                <SheetRow>
+                  <Label htmlFor="fuelEfficiency">Cycles Since Last Maintenance</Label>
+                  <Input
+                    id="cyclesSinceLastMaintenance"
+                    type="number"
+                    className={cn(form.formState.errors.cyclesSinceLastMaintenance && "border-destructive")}
+                    {...field}
+                    onChange={(event) => field.onChange(Number(event.target.value))}
+                  />
+                  {form.formState.errors.cyclesSinceLastMaintenance && (
+                    <ErrorLabel>{form.formState.errors.cyclesSinceLastMaintenance.message}</ErrorLabel>
+                  )}
+                </SheetRow>
+              )}
+            />
+            <Controller
+              control={form.control}
+              name="retirementDate"
+              render={({ field }) => (
+                <SheetRow>
+                  <Label htmlFor="retirementDate">Retirement Date</Label>
+                  <DatePicker onchange={field.onChange} value={field.value} />
+                  {form.formState.errors.retirementDate && (
+                    <ErrorLabel>{form.formState.errors.retirementDate.message}</ErrorLabel>
+                  )}
+                </SheetRow>
+              )}
+            />
+            <Controller
+              control={form.control}
+              name="engineHours"
+              render={({ field }) => (
+                <SheetRow>
+                  <Label htmlFor="engineHours">Engine Hours</Label>
+                  <Input
+                    id="engineHours"
+                    type="number"
+                    className={cn(form.formState.errors.engineHours && "border-destructive")}
+                    {...field}
+                    onChange={(event) => field.onChange(Number(event.target.value))}
+                  />
+                  {form.formState.errors.engineHours && (
+                    <ErrorLabel>{form.formState.errors.engineHours.message}</ErrorLabel>
+                  )}
+                </SheetRow>
+              )}
+            />
+            <Controller
+              control={form.control}
+              name="currentWearLevel"
+              render={({ field }) => (
+                <SheetRow>
+                  <Label htmlFor="currentWearLevel">Current Wear Level</Label>
+                  <Input
+                    id="currentWearLevel"
+                    type="number"
+                    className={cn(form.formState.errors.currentWearLevel && "border-destructive")}
+                    {...field}
+                    onChange={(event) => field.onChange(Number(event.target.value))}
+                  />
+                  {form.formState.errors.currentWearLevel && (
+                    <ErrorLabel>{form.formState.errors.currentWearLevel.message}</ErrorLabel>
                   )}
                 </SheetRow>
               )}
@@ -275,57 +292,19 @@ const PlaneSheet = ({ plane }: PlaneSheetProps) => {
             />
             <Controller
               control={form.control}
-              name="maxTakeoffWeight"
+              name="fuelAmount"
               render={({ field }) => (
                 <SheetRow>
-                  <Label htmlFor="maxTakeoffWeight">Max Takeoff Weight</Label>
+                  <Label htmlFor="fuelAmount">Fuel Amount</Label>
                   <Input
-                    id="maxTakeoffWeight"
+                    id="fuelAmount"
                     type="number"
-                    className={cn(form.formState.errors.maxTakeoffWeight && "border-destructive")}
+                    className={cn(form.formState.errors.fuelAmount && "border-destructive")}
                     {...field}
                     onChange={(event) => field.onChange(Number(event.target.value))}
                   />
-                  {form.formState.errors.maxTakeoffWeight && (
-                    <ErrorLabel>{form.formState.errors.maxTakeoffWeight.message}</ErrorLabel>
-                  )}
-                </SheetRow>
-              )}
-            />
-            <Controller
-              control={form.control}
-              name="shortestRunwayLengthRequired"
-              render={({ field }) => (
-                <SheetRow>
-                  <Label htmlFor="shortestRunwayLengthRequired">Shortest Runway Length Required</Label>
-                  <Input
-                    id="shortestRunwayLengthRequired"
-                    type="number"
-                    className={cn(form.formState.errors.shortestRunwayLengthRequired && "border-destructive")}
-                    {...field}
-                    onChange={(event) => field.onChange(Number(event.target.value))}
-                  />
-                  {form.formState.errors.shortestRunwayLengthRequired && (
-                    <ErrorLabel>{form.formState.errors.shortestRunwayLengthRequired.message}</ErrorLabel>
-                  )}
-                </SheetRow>
-              )}
-            />
-            <Controller
-              control={form.control}
-              name="shortestRunwayWidthRequired"
-              render={({ field }) => (
-                <SheetRow>
-                  <Label htmlFor="shortestRunwayWidthRequired">Shortest Runway Width Required</Label>
-                  <Input
-                    id="shortestRunwayWidthRequired"
-                    type="number"
-                    className={cn(form.formState.errors.shortestRunwayWidthRequired && "border-destructive")}
-                    {...field}
-                    onChange={(event) => field.onChange(Number(event.target.value))}
-                  />
-                  {form.formState.errors.shortestRunwayWidthRequired && (
-                    <ErrorLabel>{form.formState.errors.shortestRunwayWidthRequired.message}</ErrorLabel>
+                  {form.formState.errors.fuelAmount && (
+                    <ErrorLabel>{form.formState.errors.fuelAmount.message}</ErrorLabel>
                   )}
                 </SheetRow>
               )}
@@ -337,13 +316,11 @@ const PlaneSheet = ({ plane }: PlaneSheetProps) => {
                 <SheetRow>
                   <Label htmlFor="planeStatus">Plane Status</Label>
                   <FormSelect
-                    items={selectItems.asArray.PlaneAvailability}
+                    items={selectItems.asArray.PlaneStatus}
                     placeholder={
                       plane
-                        ? getSelectItem(
-                            "PlaneAvailability",
-                            plane.planeStatus as unknown as keyof typeof Enums.PlaneAvailability,
-                          ).label
+                        ? getSelectItem("PlaneStatus", plane.planeStatus as unknown as keyof typeof Enums.PlaneStatus)
+                            .label
                         : "Select..."
                     }
                     hasError={!!form.formState.errors.planeStatus}
