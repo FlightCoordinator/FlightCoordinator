@@ -122,11 +122,6 @@ const navigation: NavigationProps[] = [
         icon: CircleHelp,
       },
       {
-        key: "docs/v1/how-does-fc-work",
-        label: "How Does FC Work?",
-        icon: CircleHelp,
-      },
-      {
         key: "docs/v1",
         label: "Documentation",
         icon: Scroll,

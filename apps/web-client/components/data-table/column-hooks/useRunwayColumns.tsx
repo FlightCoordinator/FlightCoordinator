@@ -13,6 +13,7 @@ import Utils from "@/shared/utils";
 
 import DataTransfer from "@/types/dataTransfer";
 
+import BoolDisplay from "../partials/BoolDisplay";
 import ColumnHeader from "../partials/ColumnHeader";
 import DeleteResource from "../partials/DeleteResource";
 import NoWrapCell from "../partials/NoWrapCell";
@@ -81,22 +82,42 @@ const useRunwayColumns = () => {
       {
         accessorKey: "hasMarkings",
         header: ({ column }) => <ColumnHeader column={column} title="Has Markings" />,
-        cell: ({ row }) => <NoWrapCell>{Utils.boolToLabel(String(row.original.hasMarkings))}</NoWrapCell>,
+        cell: ({ row }) => (
+          <NoWrapCell>
+            <BoolDisplay value={row.original.hasMarkings} />
+            {Utils.boolToLabel(String(row.original.hasMarkings))}
+          </NoWrapCell>
+        ),
       },
       {
         accessorKey: "hasLighting",
         header: ({ column }) => <ColumnHeader column={column} title="Has Lighting" />,
-        cell: ({ row }) => <NoWrapCell>{Utils.boolToLabel(String(row.original.hasLighting))}</NoWrapCell>,
+        cell: ({ row }) => (
+          <NoWrapCell>
+            <BoolDisplay value={row.original.hasLighting} />
+            {Utils.boolToLabel(String(row.original.hasLighting))}
+          </NoWrapCell>
+        ),
       },
       {
         accessorKey: "hasILS",
         header: ({ column }) => <ColumnHeader column={column} title="Has ILS" />,
-        cell: ({ row }) => <NoWrapCell>{Utils.boolToLabel(String(row.original.hasILS))}</NoWrapCell>,
+        cell: ({ row }) => (
+          <NoWrapCell>
+            <BoolDisplay value={row.original.hasILS} />
+            {Utils.boolToLabel(String(row.original.hasILS))}
+          </NoWrapCell>
+        ),
       },
       {
         accessorKey: "hasSafetyArea",
         header: ({ column }) => <ColumnHeader column={column} title="Has Safety Area" />,
-        cell: ({ row }) => <NoWrapCell>{Utils.boolToLabel(String(row.original.hasSafetyArea))}</NoWrapCell>,
+        cell: ({ row }) => (
+          <NoWrapCell>
+            <BoolDisplay value={row.original.hasSafetyArea} />
+            {Utils.boolToLabel(String(row.original.hasSafetyArea))}
+          </NoWrapCell>
+        ),
       },
       {
         accessorKey: "visualApproachAid",

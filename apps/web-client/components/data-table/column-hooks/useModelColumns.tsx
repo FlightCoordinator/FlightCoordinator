@@ -13,6 +13,7 @@ import Utils from "@/shared/utils";
 
 import DataTransfer from "@/types/dataTransfer";
 
+import BoolDisplay from "../partials/BoolDisplay";
 import ColumnHeader from "../partials/ColumnHeader";
 import DeleteResource from "../partials/DeleteResource";
 import NoWrapCell from "../partials/NoWrapCell";
@@ -206,27 +207,52 @@ const useModelColumns = () => {
       {
         accessorKey: "hasWeatherRadar",
         header: ({ column }) => <ColumnHeader column={column} title="Has Weather Radar" />,
-        cell: ({ row }) => <NoWrapCell>{Utils.boolToLabel(String(row.original.hasWeatherRadar))}</NoWrapCell>,
+        cell: ({ row }) => (
+          <NoWrapCell>
+            <BoolDisplay value={row.original.hasWeatherRadar} />
+            {Utils.boolToLabel(String(row.original.hasWeatherRadar))}
+          </NoWrapCell>
+        ),
       },
       {
         accessorKey: "hasAutopilot",
         header: ({ column }) => <ColumnHeader column={column} title="Has Autopilot" />,
-        cell: ({ row }) => <NoWrapCell>{Utils.boolToLabel(String(row.original.hasAutopilot))}</NoWrapCell>,
+        cell: ({ row }) => (
+          <NoWrapCell>
+            <BoolDisplay value={row.original.hasWeatherRadar} />
+            {Utils.boolToLabel(String(row.original.hasAutopilot))}
+          </NoWrapCell>
+        ),
       },
       {
         accessorKey: "hasFlyByWire",
         header: ({ column }) => <ColumnHeader column={column} title="Has Fly By Wire" />,
-        cell: ({ row }) => <NoWrapCell>{Utils.boolToLabel(String(row.original.hasFlyByWire))}</NoWrapCell>,
+        cell: ({ row }) => (
+          <NoWrapCell>
+            <BoolDisplay value={row.original.hasWeatherRadar} />
+            {Utils.boolToLabel(String(row.original.hasFlyByWire))}
+          </NoWrapCell>
+        ),
       },
       {
         accessorKey: "hasFireSupression",
         header: ({ column }) => <ColumnHeader column={column} title="Has Fire Supression" />,
-        cell: ({ row }) => <NoWrapCell>{Utils.boolToLabel(String(row.original.hasFireSupression))}</NoWrapCell>,
+        cell: ({ row }) => (
+          <NoWrapCell>
+            <BoolDisplay value={row.original.hasWeatherRadar} />
+            {Utils.boolToLabel(String(row.original.hasFireSupression))}
+          </NoWrapCell>
+        ),
       },
       {
         accessorKey: "gpsEnabled",
         header: ({ column }) => <ColumnHeader column={column} title="GPS Enabled" />,
-        cell: ({ row }) => <NoWrapCell>{Utils.boolToLabel(String(row.original.gpsEnabled))}</NoWrapCell>,
+        cell: ({ row }) => (
+          <NoWrapCell>
+            <BoolDisplay value={row.original.hasWeatherRadar} />
+            {Utils.boolToLabel(String(row.original.gpsEnabled))}
+          </NoWrapCell>
+        ),
       },
       {
         id: "actions",

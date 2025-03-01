@@ -1,5 +1,3 @@
-"use client";
-
 interface ConfigProps {
   ENVIRONMENT: string;
   DATA: {

@@ -13,8 +13,9 @@ import {
   VisibilityState,
 } from "@tanstack/react-table";
 
-import { Input } from "../base-ui/input";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "../base-ui/table";
+import { Input } from "@/components/base-ui/input";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/base-ui/table";
+
 import ErrorOverlay from "./overlays/ErrorOverlay";
 import LoadingOverlay from "./overlays/LoadingOverlay";
 import NotFoundOverlay from "./overlays/NotFoundOverlay";
@@ -71,44 +72,48 @@ const DataTable = <TData, TValue>({
           <ColumnToggle table={table} />
         </div>
       </section>
-      {isLoading ? (
-        <LoadingOverlay />
-      ) : isError ? (
-        <ErrorOverlay />
-      ) : isNotFound || data.length === 0 || data.length < 1 ? (
-        <NotFoundOverlay />
-      ) : (
-        <Table>
-          <TableHeader>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header, index) => (
-                  <TableHead key={header.id} className={index === headerGroup.headers.length - 1 ? "text-right" : ""}>
-                    {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
-                  </TableHead>
-                ))}
-              </TableRow>
-            ))}
-          </TableHeader>
-          <TableBody>
-            {table.getRowModel().rows.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
-                  {row.getVisibleCells().map((cell, index) => (
-                    <TableCell key={cell.id} className={index === row.getVisibleCells().length - 1 ? "text-right" : ""}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </TableCell>
+      <div className="h-dvh w-full flex flex-1">
+        {isLoading ? (
+          <LoadingOverlay />
+        ) : isError ? (
+          <ErrorOverlay />
+        ) : isNotFound || data.length === 0 || data.length < 1 ? (
+          <NotFoundOverlay />
+        ) : (
+          <Table>
+            <TableHeader>
+              {table.getHeaderGroups().map((headerGroup) => (
+                <TableRow key={headerGroup.id}>
+                  {headerGroup.headers.map((header, index) => (
+                    <TableHead key={header.id} className={index === headerGroup.headers.length - 1 ? "text-right" : ""}>
+                      {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                    </TableHead>
                   ))}
                 </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell colSpan={columns.length}>No data to display.</TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      )}
+              ))}
+            </TableHeader>
+            <TableBody>
+              {table.getRowModel().rows.length ? (
+                table.getRowModel().rows.map((row) => (
+                  <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+                    {row.getVisibleCells().map((cell, index) => (
+                      <TableCell
+                        key={cell.id}
+                        className={index === row.getVisibleCells().length - 1 ? "text-right" : ""}>
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={columns.length}>No data to display.</TableCell>
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        )}
+      </div>
       <Pagination table={table} />
     </div>
   );

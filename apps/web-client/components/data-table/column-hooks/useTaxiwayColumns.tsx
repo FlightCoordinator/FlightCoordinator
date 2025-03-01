@@ -11,6 +11,7 @@ import Utils from "@/shared/utils";
 
 import DataTransfer from "@/types/dataTransfer";
 
+import BoolDisplay from "../partials/BoolDisplay";
 import ColumnHeader from "../partials/ColumnHeader";
 import DeleteResource from "../partials/DeleteResource";
 import NoWrapCell from "../partials/NoWrapCell";
@@ -60,12 +61,22 @@ const useTaxiwayColumns = () => {
       {
         accessorKey: "hasHoldingPoint",
         header: ({ column }) => <ColumnHeader column={column} title="Has Holding Point" />,
-        cell: ({ row }) => <NoWrapCell>{Utils.boolToLabel(String(row.original.hasHoldingPoint))}</NoWrapCell>,
+        cell: ({ row }) => (
+          <NoWrapCell>
+            <BoolDisplay value={row.original.hasHoldingPoint} />
+            {Utils.boolToLabel(String(row.original.hasHoldingPoint))}
+          </NoWrapCell>
+        ),
       },
       {
         accessorKey: "hasHighSpeedExit",
         header: ({ column }) => <ColumnHeader column={column} title="Has High Speed Exit" />,
-        cell: ({ row }) => <NoWrapCell>{Utils.boolToLabel(String(row.original.hasHighSpeedExit))}</NoWrapCell>,
+        cell: ({ row }) => (
+          <NoWrapCell>
+            <BoolDisplay value={row.original.hasHoldingPoint} />
+            {Utils.boolToLabel(String(row.original.hasHighSpeedExit))}
+          </NoWrapCell>
+        ),
       },
       {
         accessorKey: "width",
@@ -90,12 +101,22 @@ const useTaxiwayColumns = () => {
       {
         accessorKey: "hasLighting",
         header: ({ column }) => <ColumnHeader column={column} title="Has Lighting" />,
-        cell: ({ row }) => <NoWrapCell>{Utils.boolToLabel(String(row.original.hasLighting))}</NoWrapCell>,
+        cell: ({ row }) => (
+          <NoWrapCell>
+            <BoolDisplay value={row.original.hasLighting} />
+            {Utils.boolToLabel(String(row.original.hasLighting))}
+          </NoWrapCell>
+        ),
       },
       {
         accessorKey: "hasSignage",
         header: ({ column }) => <ColumnHeader column={column} title="Has Signage" />,
-        cell: ({ row }) => <NoWrapCell>{Utils.boolToLabel(String(row.original.hasSignage))}</NoWrapCell>,
+        cell: ({ row }) => (
+          <NoWrapCell>
+            <BoolDisplay value={row.original.hasSignage} />
+            {Utils.boolToLabel(String(row.original.hasSignage))}
+          </NoWrapCell>
+        ),
       },
       {
         accessorKey: "connectedRunwayId",

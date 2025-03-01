@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import { Loader } from "lucide-react";
 
@@ -16,6 +16,7 @@ interface AuthValidatorProps extends GlobalTypes.BaseWrapperProps {
 
 const AuthValidator = ({ globalRoute = false, children }: AuthValidatorProps) => {
   const router = useRouter();
+  const pathname = usePathname();
 
   const { mutateAsync: validateAuthAsync, isPending: isValidationPending, error: authError } = useValidateAuth();
 
@@ -23,15 +24,15 @@ const AuthValidator = ({ globalRoute = false, children }: AuthValidatorProps) =>
     validateAuthAsync()
       .then((authState) => {
         if (!authState.isSuccess || !(authState.data && authState.data.isAuthenticated) || authError) {
-          return router.replace("/auth/login");
+          return router.push("/auth/login");
         }
         if (globalRoute) {
-          return router.replace("/app");
+          return router.push("/app");
         }
       })
       .catch(() => router.replace("/auth/login"));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [pathname]);
 
   if (isValidationPending) {
     return (

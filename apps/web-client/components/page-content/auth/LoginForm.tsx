@@ -11,22 +11,22 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2, LogIn } from "lucide-react";
 import { z } from "zod";
 
-import useLoginMutation from "@/hooks/auth/useLoginMutation";
-import { useToast } from "@/hooks/interface/useToast";
-
-import { cn } from "@/shared/lib/twUtils";
-
-import { Button } from "../../base-ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "../../base-ui/card";
-import { Input } from "../../base-ui/input";
-import { Label } from "../../base-ui/label";
+import { Button } from "@/components/base-ui/button";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/base-ui/card";
+import { Input } from "@/components/base-ui/input";
+import { Label } from "@/components/base-ui/label";
 import {
   invalidEmailMessage,
   nonEmptyMessage,
   shouldBeStringMessage,
-} from "../../data-table/constants/validationMessages";
-import ErrorLabel from "../../data-table/sheets/base/ErrorLabel";
-import { default as FormRow } from "../../data-table/sheets/base/SheetRow";
+} from "@/components/data-table/constants/validationMessages";
+import ErrorLabel from "@/components/data-table/sheets/base/ErrorLabel";
+import { default as FormRow } from "@/components/data-table/sheets/base/SheetRow";
+
+import useLoginMutation from "@/hooks/auth/useLoginMutation";
+import { useToast } from "@/hooks/interface/useToast";
+
+import { cn } from "@/shared/lib/twUtils";
 
 const loginSchema = z.object({
   email: z.string(shouldBeStringMessage).email(invalidEmailMessage).nonempty(nonEmptyMessage),

@@ -9,7 +9,9 @@ interface NoWrapCellProps extends GlobalTypes.BaseWrapperProps {
 }
 
 const NoWrapCell = ({ children, className }: NoWrapCellProps) => {
-  return <span className={cn("text-nowrap", className)}>{children}</span>;
+  return (
+    <span className={cn("text-nowrap flex flex-row items-center justify-start gap-2", className)}>{children}</span>
+  );
 };
 
 export default NoWrapCell;

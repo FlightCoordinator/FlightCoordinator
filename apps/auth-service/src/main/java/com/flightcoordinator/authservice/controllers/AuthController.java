@@ -84,7 +84,7 @@ public class AuthController {
   @PostMapping("/rotateToken")
   @CrossOrigin(origins = "${server.urls.webclient}", allowCredentials = "true")
   @Operation(summary = "Issues a new access token", description = "Issues a new access token with existing refresh token.")
-  public ResponseEntity<CustomResponseEntity<String>> rotateToken(HttpServletRequest request,
+  public ResponseEntity<CustomResponseEntity<Object>> rotateToken(HttpServletRequest request,
       HttpServletResponse response) {
     Cookie[] cookies = request.getCookies();
     TokenDTO newTokens = authService.rotateToken(cookies);
