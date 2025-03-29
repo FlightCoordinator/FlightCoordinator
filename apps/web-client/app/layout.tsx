@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 
 const RootLayout = ({ children }: GlobalTypes.BaseWrapperProps) => {
   return (
-    <html suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <head></head>
       <body>
         <Providers>{children}</Providers>
