@@ -28,7 +28,7 @@ export const hasEnvVars: boolean = !!(
 export const config: ConfigProps = {
   ENVIRONMENT: {
     CURRENT: process.env.NEXT_PUBLIC_ENVIRONMENT! ?? "dev",
-    IS_DEV: process.env.NEXT_PUBLIC_ENVIRONMENT! === "dev",
+    IS_DEV: process.env.NEXT_PUBLIC_ENVIRONMENT === "dev",
   },
   DATA: {
     BASE_URL: process.env.NEXT_PUBLIC_DATA_SERVER_URL! ?? "localhost",
