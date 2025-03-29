@@ -28,10 +28,10 @@ function DataTableContent<TData, TValue>({
     return <LoadingOverlay />;
   }
   if (isError) {
-    <ErrorOverlay />;
+    return <ErrorOverlay />;
   }
   if (isNotFound || data.length === 0 || data.length < 1) {
-    <NotFoundOverlay />;
+    return <NotFoundOverlay />;
   }
 
   return (
