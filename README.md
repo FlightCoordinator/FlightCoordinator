@@ -12,8 +12,15 @@ The project also includes utility scripts for configuring the environment, setti
 
 ## Previews
 
+> Please note that app is still in development and images of pages shown below might be changed after they are captured
+
+**Entry page**
 ![App](/previews/app.png)
+
+**Example of a table**
 ![Table](/previews/table.png)
+
+**Example of a sheet used for creating and editing**
 ![Sheet](/previews/sheet.png)
 
 ## Prerequisites
