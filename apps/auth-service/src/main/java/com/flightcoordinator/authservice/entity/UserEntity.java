@@ -27,8 +27,6 @@ public class UserEntity {
   @Column(name = "password", nullable = false)
   private String password;
 
-  // TODO implement rbac
-
   @OneToMany(mappedBy = "associatedUser", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<TokenEntity> tokens;
 

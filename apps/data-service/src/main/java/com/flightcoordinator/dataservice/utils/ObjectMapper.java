@@ -69,16 +69,12 @@ public class ObjectMapper {
   public static AlgorithmRunDTO toAlgorithmRunDTO(AlgorithmRunEntity algorithmRunEntity) {
     AlgorithmRunDTO algorithmRunDTO = new AlgorithmRunDTO();
     algorithmRunDTO.setId(algorithmRunEntity.getId());
-    algorithmRunDTO.setAlgorithmName(algorithmRunEntity.getAlgorithmName());
-    algorithmRunDTO.setStartTime(algorithmRunEntity.getStartTime());
-    algorithmRunDTO.setEndTime(algorithmRunEntity.getEndTime());
+    algorithmRunDTO.setStartTimestamp(algorithmRunEntity.getStartTimetamp());
+    algorithmRunDTO.setEndTimestamp(algorithmRunEntity.getEndTimestamp());
     algorithmRunDTO.setRuntimeInMs(algorithmRunEntity.getRuntimeInMs());
-    algorithmRunDTO.setResourcesJson(algorithmRunEntity.getResourcesJson());
-    algorithmRunDTO.setConstraintsJson(algorithmRunEntity.getConstraintsJson());
-    algorithmRunDTO.setLogsJson(algorithmRunEntity.getLogsJson());
+    algorithmRunDTO.setRunLogsJson(algorithmRunEntity.getRunLogsJson());
     algorithmRunDTO.setIsSuccessful(algorithmRunEntity.getIsSuccessful());
     algorithmRunDTO.setFailureReason(algorithmRunEntity.getFailureReason());
-    algorithmRunDTO.setAreResultsSaved(algorithmRunEntity.getAreResultsSaved());
     algorithmRunDTO.setResultId(algorithmRunEntity.getResult().getId());
     return algorithmRunDTO;
   }
