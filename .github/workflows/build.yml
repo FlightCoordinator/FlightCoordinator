@@ -44,7 +44,7 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
       - name: Build and analyze data service
-        working-directory: /apps/data-service
+        working-directory: apps/data-service
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn -B verify \
@@ -52,7 +52,7 @@ jobs:
           -Dsonar.projectKey=FlightCoordinator_FlightCoordinator \
           -Dsonar.projectBaseDir=.
       - name: Build and analyze auth service
-        working-directory: /apps/auth-service
+        working-directory: apps/auth-service
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn -B verify \
@@ -71,4 +71,4 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
-          projectBaseDir: ./apps/algorithm-client/
+          projectBaseDir: apps/algorithm-client/
