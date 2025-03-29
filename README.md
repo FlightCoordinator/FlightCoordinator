@@ -1,6 +1,5 @@
 # FlightCoordinator
 
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=FlightCoordinator_FlightCoordinator&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=FlightCoordinator_FlightCoordinator)
 ![GitHub License](https://img.shields.io/github/license/FlightCoordinator/FlightCoordinator)
 ![GitHub repo size](https://img.shields.io/github/repo-size/FlightCoordinator/FlightCoordinator)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/FlightCoordinator/FlightCoordinator)
