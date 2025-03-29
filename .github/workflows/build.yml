@@ -7,7 +7,7 @@ on:
     types: [opened, synchronize, reopened]
 jobs:
   sonarqube_jsts_scan:
-    name: SonarQube_WebClient_Scan
+    name: SonarQube_JsTs_Scan
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -20,7 +20,7 @@ jobs:
         with:
           projectBaseDir: apps/web-client/
   sonarqube_java_scan:
-    name: SonarQube_DataClient_Scan
+    name: SonarQube_Java_Scan
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -48,7 +48,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=FlightCoordinator_FlightCoordinator
   sonarqube_python_scan:
-    name: SonarQube_AlgorithmClient_Scan
+    name: SonarQube_Python_Scan
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
