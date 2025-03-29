@@ -32,7 +32,6 @@ const useAirportColumns = () => {
       return;
     }
     toast({ title: "Deleted Successfully", description: response.message });
-    return;
   };
 
   const airportColumns = React.useMemo<ColumnDef<DataTransfer.AirportDTO>[]>(

@@ -33,7 +33,6 @@ const useCertificationColumns = () => {
       return;
     }
     toast({ title: "Deleted Successfully", description: response.message });
-    return;
   };
 
   const certificationColumns = React.useMemo<ColumnDef<DataTransfer.CertificationDTO>[]>(

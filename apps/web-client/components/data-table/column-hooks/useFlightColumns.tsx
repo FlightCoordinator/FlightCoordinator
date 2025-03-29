@@ -27,7 +27,6 @@ const useFlightColumns = () => {
       return;
     }
     toast({ title: "Deleted Successfully", description: response.message });
-    return;
   };
 
   const flightColumns = React.useMemo<ColumnDef<DataTransfer.FlightDTO>[]>(

@@ -4,7 +4,6 @@ import React from "react";
 
 import {
   ColumnDef,
-  flexRender,
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
@@ -14,11 +13,8 @@ import {
 } from "@tanstack/react-table";
 
 import { Input } from "@/components/base-ui/input";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/base-ui/table";
 
-import ErrorOverlay from "./overlays/ErrorOverlay";
-import LoadingOverlay from "./overlays/LoadingOverlay";
-import NotFoundOverlay from "./overlays/NotFoundOverlay";
+import DataTableContent from "./DataTableContent";
 import ColumnToggle from "./partials/ColumnToggle";
 import Pagination from "./partials/Pagination";
 
@@ -73,53 +69,14 @@ const DataTable = <TData, TValue>({
         </div>
       </section>
       <div className="h-[calc(100%-109px)] w-full flex flex-1">
-        {isLoading ? (
-          <LoadingOverlay />
-        ) : isError ? (
-          <ErrorOverlay />
-        ) : isNotFound || data.length === 0 || data.length < 1 ? (
-          <NotFoundOverlay />
-        ) : (
-          <Table>
-            <TableHeader>
-              {table.getHeaderGroups().map((headerGroup) => (
-                <TableRow key={headerGroup.id}>
-                  {headerGroup.headers.map((header, index) => (
-                    <TableHead key={header.id} className={index === headerGroup.headers.length - 1 ? "text-right" : ""}>
-                      {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
-                    </TableHead>
-                  ))}
-                </TableRow>
-              ))}
-            </TableHeader>
-            <TableBody>
-              {table.getRowModel().rows.length ? (
-                table.getRowModel().rows.map((row) => (
-                  <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
-                    {row.getVisibleCells().map((cell, index) => (
-                      <TableCell
-                        key={cell.id}
-                        className={index === row.getVisibleCells().length - 1 ? "text-right" : ""}>
-                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                      </TableCell>
-                    ))}
-                  </TableRow>
-                ))
-              ) : (
-                <TableRow>
-                  <TableCell colSpan={columns.length} className="py-[30px]">
-                    <div className="flex flex-col items-center justify-center gap-0.5">
-                      <span className="font-semibold tracking-tight">Not found</span>
-                      <span className="text-sm text-muted-foreground">
-                        We couldn&apos;t find any data with given filters
-                      </span>
-                    </div>
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        )}
+        <DataTableContent
+          table={table}
+          columns={columns}
+          data={data}
+          isLoading={isLoading}
+          isError={isError}
+          isNotFound={isNotFound}
+        />
       </div>
       <Pagination table={table} />
     </div>

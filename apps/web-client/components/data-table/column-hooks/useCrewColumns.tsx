@@ -31,7 +31,6 @@ const useCrewColumns = () => {
       return;
     }
     toast({ title: "Deleted Successfully", description: response.message });
-    return;
   };
 
   const crewColumns = React.useMemo<ColumnDef<DataTransfer.CrewDTO>[]>(

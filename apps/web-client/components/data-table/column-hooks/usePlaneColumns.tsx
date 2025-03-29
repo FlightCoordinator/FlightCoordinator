@@ -32,7 +32,6 @@ const usePlaneColumns = () => {
       return;
     }
     toast({ title: "Deleted Successfully", description: response.message });
-    return;
   };
 
   const planeColumns = React.useMemo<ColumnDef<DataTransfer.PlaneDTO>[]>(

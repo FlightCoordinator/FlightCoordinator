@@ -32,7 +32,6 @@ const useModelColumns = () => {
       return;
     }
     toast({ title: "Deleted Successfully", description: response.message });
-    return;
   };
 
   const modelColumns = React.useMemo<ColumnDef<DataTransfer.ModelDTO>[]>(

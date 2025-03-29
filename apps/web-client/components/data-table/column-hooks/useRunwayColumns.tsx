@@ -32,7 +32,6 @@ const useRunwayColumns = () => {
       return;
     }
     toast({ title: "Deleted Successfully", description: response.message });
-    return;
   };
 
   const runwayColumns = React.useMemo<ColumnDef<DataTransfer.RunwayDTO>[]>(

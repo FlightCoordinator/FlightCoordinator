@@ -30,7 +30,6 @@ const useTaxiwayColumns = () => {
       return;
     }
     toast({ title: "Deleted Successfully", description: response.message });
-    return;
   };
 
   const taxiwayColumns = React.useMemo<ColumnDef<DataTransfer.TaxiwayDTO>[]>(
