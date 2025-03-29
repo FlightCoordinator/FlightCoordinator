@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import navigation from "@/shared/constants/navigation";
+import { sidebarNavigation } from "@/shared/constants/navigation";
 
 import {
   Sidebar,
@@ -28,18 +28,16 @@ const MainSidebar = () => {
 
   return (
     <Sidebar collapsible="none" className="border-r h-dvh w-[18rem]">
-      <SidebarHeader className="py-4 border-b">
+      <SidebarHeader>
         <Link className="flex flex-row items-center justify-start gap-2 overflow-hidden" href={"/app"}>
           <Image src="/images/logo.png" alt="Flight Coordinator Logo" width={48} height={48} />
           <h1 className="text-xl leading-none tracking-tight font-semibold select-none">
-            Flight
-            <br />
-            Coordinator
+            Flight <br /> Coordinator
           </h1>
         </Link>
       </SidebarHeader>
       <SidebarContent>
-        {navigation.map((section) => (
+        {sidebarNavigation.map((section) => (
           <SidebarGroup key={section.sectionKey}>
             <SidebarGroupLabel>{section.sectionLabel}</SidebarGroupLabel>
             <SidebarGroupContent>

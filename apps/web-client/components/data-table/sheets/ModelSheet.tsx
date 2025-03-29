@@ -323,7 +323,7 @@ const ModelSheet = ({ model }: ModelSheetProps) => {
               name="fuelCapacity"
               render={({ field }) => (
                 <SheetRow>
-                  <Label htmlFor="fuelCapacity">Fuel Capacity</Label>
+                  <Label htmlFor="fuelCapacity">Fuel Capacity (in gal)</Label>
                   <Input
                     id="fuelCapacity"
                     type="number"
@@ -342,7 +342,7 @@ const ModelSheet = ({ model }: ModelSheetProps) => {
               name="fuelEfficiency"
               render={({ field }) => (
                 <SheetRow>
-                  <Label htmlFor="fuelEfficiency">Fuel Efficiency</Label>
+                  <Label htmlFor="fuelEfficiency">Fuel Efficiency (lbs of fuel burned per passenger per NM)</Label>
                   <Input
                     id="fuelEfficiency"
                     type="number"
@@ -380,7 +380,7 @@ const ModelSheet = ({ model }: ModelSheetProps) => {
               name="maxCargoCapacity"
               render={({ field }) => (
                 <SheetRow>
-                  <Label htmlFor="maxCargoCapacity">Max Cargo Capacity</Label>
+                  <Label htmlFor="maxCargoCapacity">Max Cargo Capacity (in lbs)</Label>
                   <Input
                     id="maxCargoCapacity"
                     type="number"
@@ -399,7 +399,7 @@ const ModelSheet = ({ model }: ModelSheetProps) => {
               name="emptyWeight"
               render={({ field }) => (
                 <SheetRow>
-                  <Label htmlFor="emptyWeight">Empty Weight</Label>
+                  <Label htmlFor="emptyWeight">Empty Weight (in lbs)</Label>
                   <Input
                     id="emptyWeight"
                     type="number"
@@ -418,7 +418,7 @@ const ModelSheet = ({ model }: ModelSheetProps) => {
               name="tailHeight"
               render={({ field }) => (
                 <SheetRow>
-                  <Label htmlFor="tailHeight">Tail Height</Label>
+                  <Label htmlFor="tailHeight">Tail Height (in ft)</Label>
                   <Input
                     id="tailHeight"
                     type="number"
@@ -437,7 +437,7 @@ const ModelSheet = ({ model }: ModelSheetProps) => {
               name="wingspan"
               render={({ field }) => (
                 <SheetRow>
-                  <Label htmlFor="wingspan">Wingspan</Label>
+                  <Label htmlFor="wingspan">Wingspan (in ft)</Label>
                   <Input
                     id="wingspan"
                     type="number"
@@ -497,7 +497,7 @@ const ModelSheet = ({ model }: ModelSheetProps) => {
               name="thrustPerEngine"
               render={({ field }) => (
                 <SheetRow>
-                  <Label htmlFor="thrustPerEngine">Thrust Per Engine</Label>
+                  <Label htmlFor="thrustPerEngine">Thrust Per Engine (in lbf)</Label>
                   <Input
                     id="thrustPerEngine"
                     type="number"
@@ -516,7 +516,7 @@ const ModelSheet = ({ model }: ModelSheetProps) => {
               name="maxCrosswindComp"
               render={({ field }) => (
                 <SheetRow>
-                  <Label htmlFor="maxCrosswindComp">Max Crosswind Comp</Label>
+                  <Label htmlFor="maxCrosswindComp">Max Crosswind Comp (in kt)</Label>
                   <Input
                     id="maxCrosswindComp"
                     type="number"
@@ -535,7 +535,7 @@ const ModelSheet = ({ model }: ModelSheetProps) => {
               name="requiredRunwayLength"
               render={({ field }) => (
                 <SheetRow>
-                  <Label htmlFor="requiredRunwayLength">Required Runway Length</Label>
+                  <Label htmlFor="requiredRunwayLength">Required Runway Length (in ft)</Label>
                   <Input
                     id="requiredRunwayLength"
                     type="number"
@@ -554,7 +554,7 @@ const ModelSheet = ({ model }: ModelSheetProps) => {
               name="requiredRunwayWidth"
               render={({ field }) => (
                 <SheetRow>
-                  <Label htmlFor="requiredRunwayWidth">Required Runway Width</Label>
+                  <Label htmlFor="requiredRunwayWidth">Required Runway Width (in ft)</Label>
                   <Input
                     id="requiredRunwayWidth"
                     type="number"
@@ -573,7 +573,7 @@ const ModelSheet = ({ model }: ModelSheetProps) => {
               name="minRotationRadius"
               render={({ field }) => (
                 <SheetRow>
-                  <Label htmlFor="minRotationRadius">Min Rotation Radius</Label>
+                  <Label htmlFor="minRotationRadius">Min Rotation Radius (in ft)</Label>
                   <Input
                     id="minRotationRadius"
                     type="number"
@@ -592,7 +592,7 @@ const ModelSheet = ({ model }: ModelSheetProps) => {
               name="cruiseSpeed"
               render={({ field }) => (
                 <SheetRow>
-                  <Label htmlFor="cruiseSpeed">Cruise Speed</Label>
+                  <Label htmlFor="cruiseSpeed">Cruise Speed (in kt)</Label>
                   <Input
                     id="cruiseSpeed"
                     type="number"
@@ -611,7 +611,7 @@ const ModelSheet = ({ model }: ModelSheetProps) => {
               name="maxSpeed"
               render={({ field }) => (
                 <SheetRow>
-                  <Label htmlFor="maxSpeed">Max Speed</Label>
+                  <Label htmlFor="maxSpeed">Max Speed (in kt)</Label>
                   <Input
                     id="maxSpeed"
                     type="number"
@@ -628,7 +628,7 @@ const ModelSheet = ({ model }: ModelSheetProps) => {
               name="stallSpeed"
               render={({ field }) => (
                 <SheetRow>
-                  <Label htmlFor="stallSpeed">Stall Speed</Label>
+                  <Label htmlFor="stallSpeed">Stall Speed (in kt)</Label>
                   <Input
                     id="stallSpeed"
                     type="number"
@@ -647,7 +647,7 @@ const ModelSheet = ({ model }: ModelSheetProps) => {
               name="maxAltitude"
               render={({ field }) => (
                 <SheetRow>
-                  <Label htmlFor="maxAltitude">Max Altitude</Label>
+                  <Label htmlFor="maxAltitude">Max Altitude (in ft)</Label>
                   <Input
                     id="maxAltitude"
                     type="number"
@@ -666,7 +666,7 @@ const ModelSheet = ({ model }: ModelSheetProps) => {
               name="climbRate"
               render={({ field }) => (
                 <SheetRow>
-                  <Label htmlFor="climbRate">Climb Rate</Label>
+                  <Label htmlFor="climbRate">Climb Rate (in ft/min)</Label>
                   <Input
                     id="climbRate"
                     type="number"
@@ -685,7 +685,7 @@ const ModelSheet = ({ model }: ModelSheetProps) => {
               name="descentRate"
               render={({ field }) => (
                 <SheetRow>
-                  <Label htmlFor="descentRate">Descent Rate</Label>
+                  <Label htmlFor="descentRate">Descent Rate (in ft/min)</Label>
                   <Input
                     id="descentRate"
                     type="number"
@@ -704,7 +704,7 @@ const ModelSheet = ({ model }: ModelSheetProps) => {
               name="maxFlightRange"
               render={({ field }) => (
                 <SheetRow>
-                  <Label htmlFor="maxFlightRange">Max Flight Range</Label>
+                  <Label htmlFor="maxFlightRange">Max Flight Range (in NM)</Label>
                   <Input
                     id="maxFlightRange"
                     type="number"

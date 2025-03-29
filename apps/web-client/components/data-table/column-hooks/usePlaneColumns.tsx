@@ -62,13 +62,13 @@ const usePlaneColumns = () => {
       },
       {
         accessorKey: "retirementDate",
-        header: ({ column }) => <ColumnHeader column={column} title="Max Flight Range" />,
+        header: ({ column }) => <ColumnHeader column={column} title="Retirement Date" />,
         cell: ({ row }) => <NoWrapCell>{dayjs(row.original.retirementDate).format(dateFormat)}</NoWrapCell>,
       },
       {
         accessorKey: "engineHours",
         header: ({ column }) => <ColumnHeader column={column} title="Engine Hours" />,
-        cell: ({ row }) => <NoWrapCell>{row.original.engineHours}</NoWrapCell>,
+        cell: ({ row }) => <NoWrapCell>{row.original.engineHours} h</NoWrapCell>,
       },
       {
         accessorKey: "currentWearLevel",
@@ -78,16 +78,16 @@ const usePlaneColumns = () => {
       {
         accessorKey: "totalFlightHours",
         header: ({ column }) => <ColumnHeader column={column} title="Total Flight Hours" />,
-        cell: ({ row }) => <NoWrapCell>{row.original.totalFlightHours}</NoWrapCell>,
+        cell: ({ row }) => <NoWrapCell>{row.original.totalFlightHours} h</NoWrapCell>,
       },
       {
         accessorKey: "fuelAmount",
         header: ({ column }) => <ColumnHeader column={column} title="Fuel Amount" />,
-        cell: ({ row }) => <NoWrapCell>{row.original.fuelAmount}</NoWrapCell>,
+        cell: ({ row }) => <NoWrapCell>{row.original.fuelAmount} gal</NoWrapCell>,
       },
       {
         accessorKey: "planeStatus",
-        header: ({ column }) => <ColumnHeader column={column} title="Shortest Runway Width Required" />,
+        header: ({ column }) => <ColumnHeader column={column} title="Plane Status" />,
         cell: ({ row }) => (
           <NoWrapCell>
             {getSelectItem("PlaneStatus", row.original.planeStatus as unknown as keyof typeof Enums.PlaneStatus).label}

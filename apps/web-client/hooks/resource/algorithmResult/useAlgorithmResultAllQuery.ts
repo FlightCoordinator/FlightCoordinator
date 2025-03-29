@@ -1,17 +1,14 @@
 // import { useQuery } from "@tanstack/react-query";
 
 // import ResourceTypes from "@/types/resource";
-
-// import useAccessToken from "../../auth/useValidateAuth";
-// import Requester from "@/utils/requester";
+// import requester from "@/shared/lib/requester";
 
 // const useAlgorithmResultAllQuery = () => {
-//   const accessToken = useAccessToken();
 //   const algorithmResults = useQuery({
 //     queryKey: ["algorithmResultQuery"],
 //     queryFn: async () => {
-//       const response = await new Requester()
-//         .setConfig({
+//       const response = await requester
+//         .setRequestConfig({
 //           method: "POST",
 //           endpoint: { controller: "algorithm/result", action: "getAll" },
 //           accessToken: accessToken,

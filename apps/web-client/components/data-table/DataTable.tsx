@@ -72,7 +72,7 @@ const DataTable = <TData, TValue>({
           <ColumnToggle table={table} />
         </div>
       </section>
-      <div className="h-dvh w-full flex flex-1">
+      <div className="h-[calc(100%-109px)] w-full flex flex-1">
         {isLoading ? (
           <LoadingOverlay />
         ) : isError ? (
@@ -107,7 +107,14 @@ const DataTable = <TData, TValue>({
                 ))
               ) : (
                 <TableRow>
-                  <TableCell colSpan={columns.length}>No data to display.</TableCell>
+                  <TableCell colSpan={columns.length} className="py-[30px]">
+                    <div className="flex flex-col items-center justify-center gap-0.5">
+                      <span className="font-semibold tracking-tight">Not found</span>
+                      <span className="text-sm text-muted-foreground">
+                        We couldn&apos;t find any data with given filters
+                      </span>
+                    </div>
+                  </TableCell>
                 </TableRow>
               )}
             </TableBody>

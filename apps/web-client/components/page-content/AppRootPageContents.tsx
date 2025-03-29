@@ -10,8 +10,6 @@ import { useToast } from "@/hooks/interface/useToast";
 import { config } from "@/shared/appConfig";
 
 const AppRootPageContents = () => {
-  const isDev: boolean = config.ENVIRONMENT === "dev";
-
   const {
     isPending: isLoadSampleDataLoading,
     isError: loadSampleDataError,
@@ -48,7 +46,7 @@ const AppRootPageContents = () => {
           <span>You can start by selecting a page from the left sidebar.</span>
         </span>
       </div>
-      {isDev && (
+      {config.ENVIRONMENT.IS_DEV && (
         <div className="w-[500px] text-sm border rounded-xl p-4 mt-4 flex flex-col items-start justify-start gap-2">
           <span className="font-semibold">It looks like you are in a dev environment</span>
           <span className="text-muted-foreground">

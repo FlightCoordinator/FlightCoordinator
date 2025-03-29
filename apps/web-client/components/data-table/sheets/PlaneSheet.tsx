@@ -257,7 +257,7 @@ const PlaneSheet = ({ plane }: PlaneSheetProps) => {
               name="currentWearLevel"
               render={({ field }) => (
                 <SheetRow>
-                  <Label htmlFor="currentWearLevel">Current Wear Level</Label>
+                  <Label htmlFor="currentWearLevel">Current Wear Level (as percentage)</Label>
                   <Input
                     id="currentWearLevel"
                     type="number"
@@ -295,7 +295,7 @@ const PlaneSheet = ({ plane }: PlaneSheetProps) => {
               name="fuelAmount"
               render={({ field }) => (
                 <SheetRow>
-                  <Label htmlFor="fuelAmount">Fuel Amount</Label>
+                  <Label htmlFor="fuelAmount">Fuel Amount (in gal)</Label>
                   <Input
                     id="fuelAmount"
                     type="number"

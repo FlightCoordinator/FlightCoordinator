@@ -161,29 +161,10 @@ const FlightSheet = ({ flight }: FlightSheetProps) => {
             />
             <Controller
               control={form.control}
-              name="passengerCount"
-              render={({ field }) => (
-                <SheetRow>
-                  <Label htmlFor="passengerCount">Passenger Count</Label>
-                  <Input
-                    id="passengerCount"
-                    type="number"
-                    className={cn(form.formState.errors.passengerCount && "border-destructive")}
-                    {...field}
-                    onChange={(event) => field.onChange(Number(event.target.value))}
-                  />
-                  {form.formState.errors.passengerCount && (
-                    <ErrorLabel>{form.formState.errors.passengerCount.message}</ErrorLabel>
-                  )}
-                </SheetRow>
-              )}
-            />
-            <Controller
-              control={form.control}
               name="cargoWeight"
               render={({ field }) => (
                 <SheetRow>
-                  <Label htmlFor="cargoWeight">Cargo Weight</Label>
+                  <Label htmlFor="cargoWeight">Cargo Weight (in lbs)</Label>
                   <Input
                     id="cargoWeight"
                     type="number"
@@ -236,7 +217,7 @@ const FlightSheet = ({ flight }: FlightSheetProps) => {
               name="distance"
               render={({ field }) => (
                 <SheetRow>
-                  <Label htmlFor="distance">Distance</Label>
+                  <Label htmlFor="distance">Distance (in NM)</Label>
                   <Input
                     id="distance"
                     type="number"
@@ -287,7 +268,7 @@ const FlightSheet = ({ flight }: FlightSheetProps) => {
               name="estimatedFlightDuration"
               render={({ field }) => (
                 <SheetRow>
-                  <Label htmlFor="estimatedFlightDuration">Estimated Flight Duration</Label>
+                  <Label htmlFor="estimatedFlightDuration">Estimated Flight Duration (in mins)</Label>
                   <Input
                     id="estimatedFlightDuration"
                     type="number"

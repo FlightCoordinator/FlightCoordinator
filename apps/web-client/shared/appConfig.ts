@@ -1,5 +1,8 @@
 interface ConfigProps {
-  ENVIRONMENT: string;
+  ENVIRONMENT: {
+    CURRENT: string;
+    IS_DEV: boolean;
+  };
   DATA: {
     BASE_URL: string;
     PORT: string;
@@ -23,7 +26,10 @@ export const hasEnvVars: boolean = !!(
 );
 
 export const config: ConfigProps = {
-  ENVIRONMENT: process.env.NEXT_PUBLIC_ENVIRONMENT! ?? "dev",
+  ENVIRONMENT: {
+    CURRENT: process.env.NEXT_PUBLIC_ENVIRONMENT! ?? "dev",
+    IS_DEV: process.env.NEXT_PUBLIC_ENVIRONMENT! === "dev",
+  },
   DATA: {
     BASE_URL: process.env.NEXT_PUBLIC_DATA_SERVER_URL! ?? "localhost",
     PORT: process.env.NEXT_PUBLIC_DATA_SERVER_PORT! ?? "8081",

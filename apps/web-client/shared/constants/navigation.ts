@@ -1,7 +1,5 @@
 import {
-  CircleHelp,
   ClipboardCheck,
-  CodeXml,
   FlipHorizontal,
   Logs,
   LucideProps,
@@ -9,14 +7,12 @@ import {
   Plane,
   PlaneTakeoff,
   RefreshCcw,
-  Scroll,
   SearchCheck,
-  SmartphoneNfc,
   TowerControl,
   UserRound,
 } from "lucide-react";
 
-interface NavigationProps {
+interface SidebarNavigationProps {
   sectionKey: string;
   sectionLabel: string;
   sectionItems: {
@@ -26,7 +22,14 @@ interface NavigationProps {
   }[];
 }
 
-const navigation: NavigationProps[] = [
+interface LandingNavigationProps {
+  key: string;
+  label: string;
+  link: string;
+  isExternal: boolean;
+}
+
+export const sidebarNavigation: SidebarNavigationProps[] = [
   {
     sectionKey: "main",
     sectionLabel: "Main",
@@ -101,38 +104,25 @@ const navigation: NavigationProps[] = [
       },
     ],
   },
-  {
-    sectionKey: "datasource",
-    sectionLabel: "Data Source",
-    sectionItems: [
-      {
-        key: "app/external-apis",
-        label: "External APIs",
-        icon: SmartphoneNfc,
-      },
-    ],
-  },
-  {
-    sectionKey: "help",
-    sectionLabel: "Help & About",
-    sectionItems: [
-      {
-        key: "docs/v1/getting-started",
-        label: "How to Use",
-        icon: CircleHelp,
-      },
-      {
-        key: "docs/v1",
-        label: "Documentation",
-        icon: Scroll,
-      },
-      {
-        key: "repo",
-        label: "Repository",
-        icon: CodeXml,
-      },
-    ],
-  },
 ];
 
-export default navigation;
+export const landingNavigation: LandingNavigationProps[] = [
+  {
+    key: "homepage",
+    label: "Homepage",
+    link: "/",
+    isExternal: false,
+  },
+  {
+    key: "docs",
+    label: "Documentation",
+    link: "/",
+    isExternal: false,
+  },
+  {
+    key: "repository",
+    label: "Repository",
+    link: "https://github.com/FlightCoordinator/FlightCoordinator",
+    isExternal: true,
+  },
+];

@@ -183,7 +183,7 @@ const TaxiwaySheet = ({ taxiway }: TaxiwaySheetProps) => {
               name="loadCapacity"
               render={({ field }) => (
                 <SheetRow>
-                  <Label htmlFor="loadCapacity">Load Capacity</Label>
+                  <Label htmlFor="loadCapacity">Load Capacity (in lbs)</Label>
                   <Input
                     id="loadCapacity"
                     className={cn(form.formState.errors.loadCapacity && "border-destructive")}
@@ -239,7 +239,7 @@ const TaxiwaySheet = ({ taxiway }: TaxiwaySheetProps) => {
               name="width"
               render={({ field }) => (
                 <SheetRow>
-                  <Label htmlFor="width">Width</Label>
+                  <Label htmlFor="width">Width (in ft)</Label>
                   <Input
                     id="width"
                     className={cn(form.formState.errors.width && "border-destructive")}
@@ -255,7 +255,7 @@ const TaxiwaySheet = ({ taxiway }: TaxiwaySheetProps) => {
               name="length"
               render={({ field }) => (
                 <SheetRow>
-                  <Label htmlFor="length">Length</Label>
+                  <Label htmlFor="length">Length (in ft)</Label>
                   <Input
                     id="length"
                     className={cn(form.formState.errors.length && "border-destructive")}
@@ -271,7 +271,7 @@ const TaxiwaySheet = ({ taxiway }: TaxiwaySheetProps) => {
               name="maxTurningRadius"
               render={({ field }) => (
                 <SheetRow>
-                  <Label htmlFor="maxTurningRadius">Max Turning Radius</Label>
+                  <Label htmlFor="maxTurningRadius">Max Turning Radius (in ft)</Label>
                   <Input
                     id="maxTurningRadius"
                     className={cn(form.formState.errors.maxTurningRadius && "border-destructive")}
@@ -289,7 +289,7 @@ const TaxiwaySheet = ({ taxiway }: TaxiwaySheetProps) => {
               name="maxWeightCapacity"
               render={({ field }) => (
                 <SheetRow>
-                  <Label htmlFor="maxWeightCapacity">Max Weight Capacity</Label>
+                  <Label htmlFor="maxWeightCapacity">Max Weight Capacity (in lbs)</Label>
                   <Input
                     id="maxWeightCapacity"
                     className={cn(form.formState.errors.maxWeightCapacity && "border-destructive")}

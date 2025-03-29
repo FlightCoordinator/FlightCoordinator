@@ -216,7 +216,7 @@ const CertificationSheet = ({ certification }: CertificationSheetProps) => {
               name="validityPeriod"
               render={({ field }) => (
                 <SheetRow>
-                  <Label htmlFor="validityperiod">Validity Period</Label>
+                  <Label htmlFor="validityperiod">Validity Period (in months)</Label>
                   <Input
                     id="validityperiod"
                     type="number"

@@ -127,7 +127,7 @@
   @apply font-sans border-border outline-ring/50;
 }
 body {
-  @apply bg-background text-foreground;
+  @apply bg-background text-foreground min-w-[700px] min-h-dvh m-0 p-0 overflow-x-auto;
 }
 
 @layer base {

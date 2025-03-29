@@ -195,7 +195,7 @@ const RunwaySheet = ({ runway }: RunwaySheetProps) => {
               name="length"
               render={({ field }) => (
                 <SheetRow>
-                  <Label htmlFor="length">Length</Label>
+                  <Label htmlFor="length">Length (in ft)</Label>
                   <Input
                     id="length"
                     type="number"
@@ -212,7 +212,7 @@ const RunwaySheet = ({ runway }: RunwaySheetProps) => {
               name="width"
               render={({ field }) => (
                 <SheetRow>
-                  <Label htmlFor="width">Width</Label>
+                  <Label htmlFor="width">Width (in ft)</Label>
                   <Input
                     id="width"
                     type="number"
@@ -251,7 +251,7 @@ const RunwaySheet = ({ runway }: RunwaySheetProps) => {
               name="maxWeightCapacity"
               render={({ field }) => (
                 <SheetRow>
-                  <Label htmlFor="maxWeightCapacity">Max Weight Capacity</Label>
+                  <Label htmlFor="maxWeightCapacity">Max Weight Capacity (in lbs)</Label>
                   <Input
                     id="maxWeightCapacity"
                     type="number"
@@ -370,7 +370,7 @@ const RunwaySheet = ({ runway }: RunwaySheetProps) => {
               name="altitude"
               render={({ field }) => (
                 <SheetRow>
-                  <Label htmlFor="altitude">Altitude</Label>
+                  <Label htmlFor="altitude">Altitude (in ft)</Label>
                   <Input
                     id="altitude"
                     className={cn(form.formState.errors.altitude && "border-destructive")}
@@ -408,7 +408,7 @@ const RunwaySheet = ({ runway }: RunwaySheetProps) => {
               name="crosswindLimit"
               render={({ field }) => (
                 <SheetRow>
-                  <Label htmlFor="crosswindLimit">Crosswind Limit</Label>
+                  <Label htmlFor="crosswindLimit">Crosswind Limit (in kt)</Label>
                   <Input
                     id="crosswindLimit"
                     className={cn(form.formState.errors.crosswindLimit && "border-destructive")}

@@ -72,7 +72,7 @@ const useCrewColumns = () => {
       {
         accessorKey: "totalFlightHours",
         header: ({ column }) => <ColumnHeader column={column} title="Total Flight Hours" />,
-        cell: ({ row }) => <NoWrapCell>{row.original.totalFlightHours}</NoWrapCell>,
+        cell: ({ row }) => <NoWrapCell>{row.original.totalFlightHours} h</NoWrapCell>,
       },
       {
         accessorKey: "baseAirportId",
