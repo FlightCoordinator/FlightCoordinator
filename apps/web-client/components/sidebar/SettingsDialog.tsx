@@ -80,7 +80,7 @@ const SettingsDialog = () => {
             description: "Please try logging in again.",
           }),
         );
-    } else if (userDetailsQueryData && (userDetails.fullName.trim() === "" || userDetails.fullName.trim() === "")) {
+    } else if (userDetailsQueryData && userDetails.fullName.trim() === "") {
       setUserDetails(() => userDetailsQueryData as GlobalTypes.Auth.Protected.UserDetailsProps);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
