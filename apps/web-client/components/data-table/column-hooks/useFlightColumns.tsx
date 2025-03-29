@@ -48,7 +48,7 @@ const useFlightColumns = () => {
       {
         accessorKey: "cargoWeight",
         header: ({ column }) => <ColumnHeader column={column} title="Cargo Weight" />,
-        cell: ({ row }) => <NoWrapCell>{row.original.cargoWeight}</NoWrapCell>,
+        cell: ({ row }) => <NoWrapCell>{row.original.cargoWeight} lbs</NoWrapCell>,
       },
       {
         accessorKey: "originAirportId",
@@ -59,6 +59,11 @@ const useFlightColumns = () => {
         accessorKey: "destinationAirportId",
         header: ({ column }) => <ColumnHeader column={column} title="Destination Airport Id" />,
         cell: ({ row }) => <NoWrapCell>{row.original.destinationAirportId}</NoWrapCell>,
+      },
+      {
+        accessorKey: "distance",
+        header: ({ column }) => <ColumnHeader column={column} title="Distance" />,
+        cell: ({ row }) => <NoWrapCell>{row.original.distance} nm</NoWrapCell>,
       },
       {
         accessorKey: "estimatedTakeoffTime",
@@ -73,7 +78,7 @@ const useFlightColumns = () => {
       {
         accessorKey: "estimatedFlightDuration",
         header: ({ column }) => <ColumnHeader column={column} title="Estimated Flight Duration" />,
-        cell: ({ row }) => <NoWrapCell>{row.original.estimatedFlightDuration}</NoWrapCell>,
+        cell: ({ row }) => <NoWrapCell>{row.original.estimatedFlightDuration} mins</NoWrapCell>,
       },
       {
         id: "actions",

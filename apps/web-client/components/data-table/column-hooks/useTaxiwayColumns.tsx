@@ -56,7 +56,7 @@ const useTaxiwayColumns = () => {
       {
         accessorKey: "loadCapacity",
         header: ({ column }) => <ColumnHeader column={column} title="Load Capacity" />,
-        cell: ({ row }) => <NoWrapCell>{row.original.loadCapacity}</NoWrapCell>,
+        cell: ({ row }) => <NoWrapCell>{row.original.loadCapacity} lbs</NoWrapCell>,
       },
       {
         accessorKey: "hasHoldingPoint",
@@ -81,22 +81,22 @@ const useTaxiwayColumns = () => {
       {
         accessorKey: "width",
         header: ({ column }) => <ColumnHeader column={column} title="Width" />,
-        cell: ({ row }) => <NoWrapCell>{row.original.width}</NoWrapCell>,
+        cell: ({ row }) => <NoWrapCell>{row.original.width} ft</NoWrapCell>,
       },
       {
         accessorKey: "length",
         header: ({ column }) => <ColumnHeader column={column} title="Length" />,
-        cell: ({ row }) => <NoWrapCell>{row.original.length}</NoWrapCell>,
+        cell: ({ row }) => <NoWrapCell>{row.original.length} ft</NoWrapCell>,
       },
       {
         accessorKey: "maxTurningRadius",
         header: ({ column }) => <ColumnHeader column={column} title="Max Turning Radius" />,
-        cell: ({ row }) => <NoWrapCell>{row.original.maxTurningRadius}</NoWrapCell>,
+        cell: ({ row }) => <NoWrapCell>{row.original.maxTurningRadius} ft</NoWrapCell>,
       },
       {
         accessorKey: "maxWeightCapacity",
         header: ({ column }) => <ColumnHeader column={column} title="Max Weight Capacity" />,
-        cell: ({ row }) => <NoWrapCell>{row.original.maxWeightCapacity}</NoWrapCell>,
+        cell: ({ row }) => <NoWrapCell>{row.original.maxWeightCapacity} lbs</NoWrapCell>,
       },
       {
         accessorKey: "hasLighting",

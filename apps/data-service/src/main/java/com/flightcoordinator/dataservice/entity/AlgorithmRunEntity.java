@@ -20,45 +20,28 @@ public class AlgorithmRunEntity {
   @Column(name = "id", nullable = false)
   private String id;
 
-  @NotBlank(message = "Algorithm name is required")
-  @Column(name = "algorithm_name", nullable = false)
-  private String algorithmName;
+  @NotBlank(message = "Start timestamp is required")
+  @Column(name = "start_timestamp", nullable = false)
+  private Date startTimetamp;
 
-  @NotBlank(message = "Start time is required")
-  @Column(name = "start_time", nullable = false)
-  private Date startTime;
-
-  @NotBlank(message = "End time is required")
-  @Column(name = "end_time", nullable = false)
-  private Date endTime;
+  @NotBlank(message = "End timestamp is required")
+  @Column(name = "end_timestamp", nullable = false)
+  private Date endTimestamp;
 
   @NotBlank(message = "Runtime in ms is required")
   @Column(name = "runtime_in_milliseconds", nullable = false)
   private Long runtimeInMs;
 
-  @NotBlank(message = "Resources JSON is required")
-  @Column(name = "resources_json", nullable = false)
-  private String resourcesJson;
-
-  @NotBlank(message = "Constraints JSON is required")
-  @Column(name = "constraints_json", nullable = false)
-  private String constraintsJson;
-
-  @NotBlank(message = "Logs JSON is required")
-  @Column(name = "logs_json", nullable = false)
-  private String logsJson;
+  @NotBlank(message = "Run Logs JSON is required")
+  @Column(name = "run_logs_json", nullable = false)
+  private String runLogsJson;
 
   @NotBlank(message = "Is successful is required")
   @Column(name = "is_successful", nullable = false)
   private Boolean isSuccessful;
 
-  @NotBlank(message = "Failure reason is required")
   @Column(name = "failure_reason", nullable = true)
   private String failureReason;
-
-  @NotBlank(message = "Are results saved is required")
-  @Column(name = "are_results_saved", nullable = false)
-  private Boolean areResultsSaved;
 
   @OneToOne
   @JoinColumn(name = "run_result", nullable = false)
@@ -67,27 +50,19 @@ public class AlgorithmRunEntity {
   public AlgorithmRunEntity() {
   }
 
-  public AlgorithmRunEntity(String id, @NotBlank(message = "Algorithm name is required") String algorithmName,
-      @NotBlank(message = "Start time is required") Date startTime,
-      @NotBlank(message = "End time is required") Date endTime,
-      @NotBlank(message = "Runtime in ms is required") Long runtimeInMilliseconds,
-      @NotBlank(message = "Resources JSON is required") String resourcesJson,
-      @NotBlank(message = "Constraints JSON is required") String constraintsJson,
-      @NotBlank(message = "Logs JSON is required") String logsJson,
-      @NotBlank(message = "Is successful is required") Boolean isSuccessful,
-      @NotBlank(message = "Failure reason is required") String failureReason,
-      @NotBlank(message = "Are results saved is required") Boolean areResultsSaved, AlgorithmResultEntity result) {
+  public AlgorithmRunEntity(String id, @NotBlank(message = "Start timestamp is required") Date startTimetamp,
+      @NotBlank(message = "End timestamp is required") Date endTimestamp,
+      @NotBlank(message = "Runtime in ms is required") Long runtimeInMs,
+      @NotBlank(message = "Run Logs JSON is required") String runLogsJson,
+      @NotBlank(message = "Is successful is required") Boolean isSuccessful, String failureReason,
+      AlgorithmResultEntity result) {
     this.id = id;
-    this.algorithmName = algorithmName;
-    this.startTime = startTime;
-    this.endTime = endTime;
-    this.runtimeInMs = runtimeInMilliseconds;
-    this.resourcesJson = resourcesJson;
-    this.constraintsJson = constraintsJson;
-    this.logsJson = logsJson;
+    this.startTimetamp = startTimetamp;
+    this.endTimestamp = endTimestamp;
+    this.runtimeInMs = runtimeInMs;
+    this.runLogsJson = runLogsJson;
     this.isSuccessful = isSuccessful;
     this.failureReason = failureReason;
-    this.areResultsSaved = areResultsSaved;
     this.result = result;
   }
 
@@ -99,60 +74,36 @@ public class AlgorithmRunEntity {
     this.id = id;
   }
 
-  public String getAlgorithmName() {
-    return algorithmName;
+  public Date getStartTimetamp() {
+    return startTimetamp;
   }
 
-  public void setAlgorithmName(String algorithmName) {
-    this.algorithmName = algorithmName;
+  public void setStartTimetamp(Date startTimetamp) {
+    this.startTimetamp = startTimetamp;
   }
 
-  public Date getStartTime() {
-    return startTime;
+  public Date getEndTimestamp() {
+    return endTimestamp;
   }
 
-  public void setStartTime(Date startTime) {
-    this.startTime = startTime;
-  }
-
-  public Date getEndTime() {
-    return endTime;
-  }
-
-  public void setEndTime(Date endTime) {
-    this.endTime = endTime;
+  public void setEndTimestamp(Date endTimestamp) {
+    this.endTimestamp = endTimestamp;
   }
 
   public Long getRuntimeInMs() {
     return runtimeInMs;
   }
 
-  public void setRuntimeInMs(Long runtimeInMilliseconds) {
-    this.runtimeInMs = runtimeInMilliseconds;
+  public void setRuntimeInMs(Long runtimeInMs) {
+    this.runtimeInMs = runtimeInMs;
   }
 
-  public String getResourcesJson() {
-    return resourcesJson;
+  public String getRunLogsJson() {
+    return runLogsJson;
   }
 
-  public void setResourcesJson(String resourcesJson) {
-    this.resourcesJson = resourcesJson;
-  }
-
-  public String getConstraintsJson() {
-    return constraintsJson;
-  }
-
-  public void setConstraintsJson(String constraintsJson) {
-    this.constraintsJson = constraintsJson;
-  }
-
-  public String getLogsJson() {
-    return logsJson;
-  }
-
-  public void setLogsJson(String logsJson) {
-    this.logsJson = logsJson;
+  public void setRunLogsJson(String runLogsJson) {
+    this.runLogsJson = runLogsJson;
   }
 
   public Boolean getIsSuccessful() {
@@ -169,14 +120,6 @@ public class AlgorithmRunEntity {
 
   public void setFailureReason(String failureReason) {
     this.failureReason = failureReason;
-  }
-
-  public Boolean getAreResultsSaved() {
-    return areResultsSaved;
-  }
-
-  public void setAreResultsSaved(Boolean areResultsSaved) {
-    this.areResultsSaved = areResultsSaved;
   }
 
   public AlgorithmResultEntity getResult() {

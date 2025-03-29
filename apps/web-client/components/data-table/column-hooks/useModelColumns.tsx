@@ -98,12 +98,12 @@ const useModelColumns = () => {
       {
         accessorKey: "fuelCapacity",
         header: ({ column }) => <ColumnHeader column={column} title="Fuel Capacity" />,
-        cell: ({ row }) => <NoWrapCell>{row.original.fuelCapacity}</NoWrapCell>,
+        cell: ({ row }) => <NoWrapCell>{row.original.fuelCapacity} gal</NoWrapCell>,
       },
       {
         accessorKey: "fuelEfficiency",
         header: ({ column }) => <ColumnHeader column={column} title="Fuel Efficiency" />,
-        cell: ({ row }) => <NoWrapCell>{row.original.fuelEfficiency}</NoWrapCell>,
+        cell: ({ row }) => <NoWrapCell>{row.original.fuelEfficiency} lbs fuel burned per passenger per NM</NoWrapCell>,
       },
       {
         accessorKey: "maxPassengerCapacity",
@@ -113,22 +113,22 @@ const useModelColumns = () => {
       {
         accessorKey: "maxCargoCapacity",
         header: ({ column }) => <ColumnHeader column={column} title="Max Cargo Capacity" />,
-        cell: ({ row }) => <NoWrapCell>{row.original.maxCargoCapacity}</NoWrapCell>,
+        cell: ({ row }) => <NoWrapCell>{row.original.maxCargoCapacity} lbs</NoWrapCell>,
       },
       {
         accessorKey: "emptyWeight",
         header: ({ column }) => <ColumnHeader column={column} title="Empty Weight" />,
-        cell: ({ row }) => <NoWrapCell>{row.original.emptyWeight}</NoWrapCell>,
+        cell: ({ row }) => <NoWrapCell>{row.original.emptyWeight} lbs</NoWrapCell>,
       },
       {
         accessorKey: "tailHeight",
         header: ({ column }) => <ColumnHeader column={column} title="Tail Height" />,
-        cell: ({ row }) => <NoWrapCell>{row.original.tailHeight}</NoWrapCell>,
+        cell: ({ row }) => <NoWrapCell>{row.original.tailHeight} ft</NoWrapCell>,
       },
       {
         accessorKey: "wingspan",
         header: ({ column }) => <ColumnHeader column={column} title="Wing Span" />,
-        cell: ({ row }) => <NoWrapCell>{row.original.wingspan}</NoWrapCell>,
+        cell: ({ row }) => <NoWrapCell>{row.original.wingspan} ft</NoWrapCell>,
       },
       {
         accessorKey: "engineType",
@@ -147,62 +147,62 @@ const useModelColumns = () => {
       {
         accessorKey: "thrustPerEngine",
         header: ({ column }) => <ColumnHeader column={column} title="Thrust Per Engine" />,
-        cell: ({ row }) => <NoWrapCell>{row.original.thrustPerEngine}</NoWrapCell>,
+        cell: ({ row }) => <NoWrapCell>{row.original.thrustPerEngine} lbf</NoWrapCell>,
       },
       {
         accessorKey: "maxCrosswindComp",
         header: ({ column }) => <ColumnHeader column={column} title="Max Crosswind Component" />,
-        cell: ({ row }) => <NoWrapCell>{row.original.maxCrosswindComp}</NoWrapCell>,
+        cell: ({ row }) => <NoWrapCell>{row.original.maxCrosswindComp} kt</NoWrapCell>,
       },
       {
         accessorKey: "requiredRunwayLength",
         header: ({ column }) => <ColumnHeader column={column} title="Required Runway Length" />,
-        cell: ({ row }) => <NoWrapCell>{row.original.requiredRunwayLength}</NoWrapCell>,
+        cell: ({ row }) => <NoWrapCell>{row.original.requiredRunwayLength} ft</NoWrapCell>,
       },
       {
         accessorKey: "requiredRunwayWidth",
         header: ({ column }) => <ColumnHeader column={column} title="Required Runway Width" />,
-        cell: ({ row }) => <NoWrapCell>{row.original.requiredRunwayWidth}</NoWrapCell>,
+        cell: ({ row }) => <NoWrapCell>{row.original.requiredRunwayWidth} ft</NoWrapCell>,
       },
       {
         accessorKey: "minRotationRadius",
         header: ({ column }) => <ColumnHeader column={column} title="Min Rotation Radius" />,
-        cell: ({ row }) => <NoWrapCell>{row.original.minRotationRadius}</NoWrapCell>,
+        cell: ({ row }) => <NoWrapCell>{row.original.minRotationRadius} ft</NoWrapCell>,
       },
       {
         accessorKey: "cruiseSpeed",
         header: ({ column }) => <ColumnHeader column={column} title="Cruise Speed" />,
-        cell: ({ row }) => <NoWrapCell>{row.original.cruiseSpeed}</NoWrapCell>,
+        cell: ({ row }) => <NoWrapCell>{row.original.cruiseSpeed} kt</NoWrapCell>,
       },
       {
         accessorKey: "maxSpeed",
         header: ({ column }) => <ColumnHeader column={column} title="Max Speed" />,
-        cell: ({ row }) => <NoWrapCell>{row.original.maxSpeed}</NoWrapCell>,
+        cell: ({ row }) => <NoWrapCell>{row.original.maxSpeed} kt</NoWrapCell>,
       },
       {
         accessorKey: "stallSpeed",
         header: ({ column }) => <ColumnHeader column={column} title="Stall Speed" />,
-        cell: ({ row }) => <NoWrapCell>{row.original.stallSpeed}</NoWrapCell>,
+        cell: ({ row }) => <NoWrapCell>{row.original.stallSpeed} kt</NoWrapCell>,
       },
       {
         accessorKey: "maxAltitude",
         header: ({ column }) => <ColumnHeader column={column} title="Max Altitude" />,
-        cell: ({ row }) => <NoWrapCell>{row.original.maxAltitude}</NoWrapCell>,
+        cell: ({ row }) => <NoWrapCell>{row.original.maxAltitude} ft</NoWrapCell>,
       },
       {
         accessorKey: "climbRate",
         header: ({ column }) => <ColumnHeader column={column} title="Climb Rate" />,
-        cell: ({ row }) => <NoWrapCell>{row.original.climbRate}</NoWrapCell>,
+        cell: ({ row }) => <NoWrapCell>{row.original.climbRate} ft/min</NoWrapCell>,
       },
       {
         accessorKey: "descentRate",
         header: ({ column }) => <ColumnHeader column={column} title="Descent Rate" />,
-        cell: ({ row }) => <NoWrapCell>{row.original.descentRate}</NoWrapCell>,
+        cell: ({ row }) => <NoWrapCell>{row.original.descentRate} ft/min</NoWrapCell>,
       },
       {
         accessorKey: "maxFlightRange",
         header: ({ column }) => <ColumnHeader column={column} title="Max Flight Range" />,
-        cell: ({ row }) => <NoWrapCell>{row.original.maxFlightRange}</NoWrapCell>,
+        cell: ({ row }) => <NoWrapCell>{row.original.maxFlightRange} NM</NoWrapCell>,
       },
       {
         accessorKey: "hasWeatherRadar",

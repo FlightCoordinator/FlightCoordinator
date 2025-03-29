@@ -305,7 +305,7 @@ const AirportSheet = ({ airport }: AirportSheetProps) => {
               name="elevation"
               render={({ field }) => (
                 <SheetRow>
-                  <Label htmlFor="elevation">Elevation</Label>
+                  <Label htmlFor="elevation">Elevation (in ft)</Label>
                   <Input
                     id="elevation"
                     type="number"
@@ -324,7 +324,7 @@ const AirportSheet = ({ airport }: AirportSheetProps) => {
               name="slope"
               render={({ field }) => (
                 <SheetRow>
-                  <Label htmlFor="slope">Slope</Label>
+                  <Label htmlFor="slope">Slope (As percentage)</Label>
                   <Input
                     id="slope"
                     type="number"

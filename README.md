@@ -10,6 +10,19 @@ This project is an automated flight manager app for final year computer engineer
 
 The project also includes utility scripts for configuring the environment, setting up the project, running the application (all apps simultaneously), executing tests for all apps, and building the entire application.
 
+## Previews
+
+> Please note that app is still in development and images of pages shown below might be changed after they are captured
+
+**Entry page**
+![App](/previews/app.png)
+
+**Example of a table**
+![Table](/previews/table.png)
+
+**Example of a sheet used for creating and editing**
+![Sheet](/previews/sheet.png)
+
 ## Prerequisites
 
 To setup the project locally, ensure following are present on your system:

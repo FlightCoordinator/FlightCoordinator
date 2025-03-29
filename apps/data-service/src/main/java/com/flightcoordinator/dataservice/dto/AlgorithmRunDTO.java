@@ -4,36 +4,27 @@ import java.util.Date;
 
 public class AlgorithmRunDTO {
   private String id;
-  private String algorithmName;
-  private Date startTime;
-  private Date endTime;
+  private Date startTimestamp;
+  private Date endTimestamp;
   private Long runtimeInMs;
-  private String resourcesJson;
-  private String constraintsJson;
-  private String logsJson;
+  private String runLogsJson;
   private Boolean isSuccessful;
   private String failureReason;
-  private Boolean areResultsSaved;
   private String resultId;
 
-  public AlgorithmRunDTO(String id, String algorithmName, Date startTime, Date endTime, Long runtimeInMilliseconds,
-      String resourcesJson, String constraintsJson, String logsJson, Boolean isSuccessful, String failureReason,
-      Boolean areResultsSaved, String resultId) {
-    this.id = id;
-    this.algorithmName = algorithmName;
-    this.startTime = startTime;
-    this.endTime = endTime;
-    this.runtimeInMs = runtimeInMilliseconds;
-    this.resourcesJson = resourcesJson;
-    this.constraintsJson = constraintsJson;
-    this.logsJson = logsJson;
-    this.isSuccessful = isSuccessful;
-    this.failureReason = failureReason;
-    this.areResultsSaved = areResultsSaved;
-    this.resultId = resultId;
+  public AlgorithmRunDTO() {
   }
 
-  public AlgorithmRunDTO() {
+  public AlgorithmRunDTO(String id, Date startTimeStamp, Date endTimeStamp, Long runtimeInMs, String runLogsJson,
+      Boolean isSuccessful, String failureReason, String resultId) {
+    this.id = id;
+    this.startTimestamp = startTimeStamp;
+    this.endTimestamp = endTimeStamp;
+    this.runtimeInMs = runtimeInMs;
+    this.runLogsJson = runLogsJson;
+    this.isSuccessful = isSuccessful;
+    this.failureReason = failureReason;
+    this.resultId = resultId;
   }
 
   public String getId() {
@@ -44,60 +35,36 @@ public class AlgorithmRunDTO {
     this.id = id;
   }
 
-  public String getAlgorithmName() {
-    return algorithmName;
+  public Date getStartTimestamp() {
+    return startTimestamp;
   }
 
-  public void setAlgorithmName(String algorithmName) {
-    this.algorithmName = algorithmName;
+  public void setStartTimestamp(Date startTimeStamp) {
+    this.startTimestamp = startTimeStamp;
   }
 
-  public Date getStartTime() {
-    return startTime;
+  public Date getEndTimestamp() {
+    return endTimestamp;
   }
 
-  public void setStartTime(Date startTime) {
-    this.startTime = startTime;
-  }
-
-  public Date getEndTime() {
-    return endTime;
-  }
-
-  public void setEndTime(Date endTime) {
-    this.endTime = endTime;
+  public void setEndTimestamp(Date endTimeStamp) {
+    this.endTimestamp = endTimeStamp;
   }
 
   public Long getRuntimeInMs() {
     return runtimeInMs;
   }
 
-  public void setRuntimeInMs(Long runtimeInMilliseconds) {
-    this.runtimeInMs = runtimeInMilliseconds;
+  public void setRuntimeInMs(Long runtimeInMs) {
+    this.runtimeInMs = runtimeInMs;
   }
 
-  public String getResourcesJson() {
-    return resourcesJson;
+  public String getRunLogsJson() {
+    return runLogsJson;
   }
 
-  public void setResourcesJson(String resourcesJson) {
-    this.resourcesJson = resourcesJson;
-  }
-
-  public String getConstraintsJson() {
-    return constraintsJson;
-  }
-
-  public void setConstraintsJson(String constraintsJson) {
-    this.constraintsJson = constraintsJson;
-  }
-
-  public String getLogsJson() {
-    return logsJson;
-  }
-
-  public void setLogsJson(String logsJson) {
-    this.logsJson = logsJson;
+  public void setRunLogsJson(String runLogsJson) {
+    this.runLogsJson = runLogsJson;
   }
 
   public Boolean getIsSuccessful() {
@@ -114,14 +81,6 @@ public class AlgorithmRunDTO {
 
   public void setFailureReason(String failureReason) {
     this.failureReason = failureReason;
-  }
-
-  public Boolean getAreResultsSaved() {
-    return areResultsSaved;
-  }
-
-  public void setAreResultsSaved(Boolean areResultsSaved) {
-    this.areResultsSaved = areResultsSaved;
   }
 
   public String getResultId() {

@@ -58,12 +58,12 @@ const useRunwayColumns = () => {
       {
         accessorKey: "length",
         header: ({ column }) => <ColumnHeader column={column} title="Length" />,
-        cell: ({ row }) => <NoWrapCell>{row.original.length}</NoWrapCell>,
+        cell: ({ row }) => <NoWrapCell>{row.original.length} ft</NoWrapCell>,
       },
       {
         accessorKey: "width",
         header: ({ column }) => <ColumnHeader column={column} title="Width" />,
-        cell: ({ row }) => <NoWrapCell>{row.original.width}</NoWrapCell>,
+        cell: ({ row }) => <NoWrapCell>{row.original.width} ft</NoWrapCell>,
       },
       {
         accessorKey: "surfaceType",
@@ -77,7 +77,7 @@ const useRunwayColumns = () => {
       {
         accessorKey: "maxWeightCapacity",
         header: ({ column }) => <ColumnHeader column={column} title="Max Weight Capacity" />,
-        cell: ({ row }) => <NoWrapCell>{row.original.maxWeightCapacity}</NoWrapCell>,
+        cell: ({ row }) => <NoWrapCell>{row.original.maxWeightCapacity} lbs</NoWrapCell>,
       },
       {
         accessorKey: "hasMarkings",
@@ -136,7 +136,7 @@ const useRunwayColumns = () => {
       {
         accessorKey: "altitude",
         header: ({ column }) => <ColumnHeader column={column} title="Altitude" />,
-        cell: ({ row }) => <NoWrapCell>{row.original.altitude}</NoWrapCell>,
+        cell: ({ row }) => <NoWrapCell>{row.original.altitude} ft</NoWrapCell>,
       },
       {
         accessorKey: "status",
@@ -150,7 +150,7 @@ const useRunwayColumns = () => {
       {
         accessorKey: "crosswindLimit",
         header: ({ column }) => <ColumnHeader column={column} title="Crosswind Limit" />,
-        cell: ({ row }) => <NoWrapCell>{row.original.crosswindLimit}</NoWrapCell>,
+        cell: ({ row }) => <NoWrapCell>{row.original.crosswindLimit} kt</NoWrapCell>,
       },
       {
         id: "actions",

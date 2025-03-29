@@ -17,8 +17,5 @@ async def validate_auth(request: Request) -> bool:
             auth_validation = AuthValidationDTO(**response.json())
             if auth_validation.isAuthenticated:
                 return True
-            else:
-                return False
 
-        else:
-            return False
+        return False

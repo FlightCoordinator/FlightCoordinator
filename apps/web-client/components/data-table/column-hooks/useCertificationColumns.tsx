@@ -69,7 +69,7 @@ const useCertificationColumns = () => {
       {
         accessorKey: "validityPeriod",
         header: ({ column }) => <ColumnHeader column={column} title="Validity Period" />,
-        cell: ({ row }) => <NoWrapCell>{row.original.validityPeriod}</NoWrapCell>,
+        cell: ({ row }) => <NoWrapCell>{row.original.validityPeriod} months</NoWrapCell>,
       },
       {
         accessorKey: "description",

@@ -87,12 +87,12 @@ const useAirportColumns = () => {
       {
         accessorKey: "elevation",
         header: ({ column }) => <ColumnHeader column={column} title="Elevation" />,
-        cell: ({ row }) => <NoWrapCell>{row.original.elevation}</NoWrapCell>,
+        cell: ({ row }) => <NoWrapCell>{row.original.elevation} ft</NoWrapCell>,
       },
       {
         accessorKey: "slope",
         header: ({ column }) => <ColumnHeader column={column} title="Slope" />,
-        cell: ({ row }) => <NoWrapCell>{row.original.slope}</NoWrapCell>,
+        cell: ({ row }) => <NoWrapCell>{row.original.slope} %</NoWrapCell>,
       },
       {
         accessorKey: "possibleNoiseCategory",

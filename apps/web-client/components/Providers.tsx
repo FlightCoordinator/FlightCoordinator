@@ -6,6 +6,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { ThemeProvider } from "next-themes";
 
+import { config } from "@/shared/appConfig";
+
 import GlobalTypes from "@/types/globals";
 
 import { SidebarProvider } from "./base-ui/sidebar";
@@ -23,7 +25,7 @@ const Providers = ({ children }: GlobalTypes.BaseWrapperProps) => {
       <QueryClientProvider client={queryClient}>
         <SidebarProvider>{children}</SidebarProvider>
         <Toaster />
-        <ReactQueryDevtools initialIsOpen={false} />
+        {config.ENVIRONMENT.IS_DEV && <ReactQueryDevtools initialIsOpen={false} />}
       </QueryClientProvider>
     </ThemeProvider>
   );
