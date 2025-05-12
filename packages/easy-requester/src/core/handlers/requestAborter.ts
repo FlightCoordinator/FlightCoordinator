@@ -1,4 +1,4 @@
-import Logger from "@/utils/logger";
+import Logger from "../../utils/logger";
 
 /**
  * A utility class to manage aborting requests using `AbortController`.

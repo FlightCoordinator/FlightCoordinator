@@ -1,11 +1,11 @@
-import type { RequestConfig, ClientConfig } from "@/types/globals";
+import type { RequestConfig, ClientConfig } from "../types/globals";
 
-import RequestAborter from "@/core/handlers/requestAborter";
-import RequestQueuer from "@/core/handlers/requestQueuer";
+import RequestAborter from "./handlers/requestAborter";
+import RequestQueuer from "./handlers/requestQueuer";
 
-import Logger from "@/utils/logger";
-import Generators from "@/utils/generator";
-import TokenRotater from "@/extensions/tokenRotater";
+import Logger from "../utils/logger";
+import Generators from "../utils/generator";
+import TokenRotater from "../extensions/tokenRotater";
 
 class ConfiguredRequester {
   private requestConfig!: RequestConfig;

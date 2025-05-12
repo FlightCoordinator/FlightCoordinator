@@ -1,7 +1,7 @@
-import type { RequestConfig } from "@/types/globals";
+import type { RequestConfig } from "../types/globals";
 
-import RequestQueuer from "@/core/handlers/requestQueuer";
-import Generator from "@/utils/generator";
+import RequestQueuer from "../core/handlers/requestQueuer";
+import Generator from "../utils/generator";
 
 class TokenRotater {
   private targetUrl: RequestConfig["url"];
