@@ -3,21 +3,19 @@ package com.flightcoordinator.dataservice.utils;
 import java.util.stream.Collectors;
 
 import com.flightcoordinator.dataservice.dto.AirportDTO;
-import com.flightcoordinator.dataservice.dto.AlgorithmResultDTO;
-import com.flightcoordinator.dataservice.dto.AlgorithmRunDTO;
 import com.flightcoordinator.dataservice.dto.CertificationDTO;
 import com.flightcoordinator.dataservice.dto.CrewDTO;
 import com.flightcoordinator.dataservice.dto.FlightDTO;
+import com.flightcoordinator.dataservice.dto.FlightPlanDTO;
 import com.flightcoordinator.dataservice.dto.ModelDTO;
 import com.flightcoordinator.dataservice.dto.PlaneDTO;
 import com.flightcoordinator.dataservice.dto.RunwayDTO;
 import com.flightcoordinator.dataservice.dto.TaxiwayDTO;
 import com.flightcoordinator.dataservice.entity.AirportEntity;
-import com.flightcoordinator.dataservice.entity.AlgorithmResultEntity;
-import com.flightcoordinator.dataservice.entity.AlgorithmRunEntity;
 import com.flightcoordinator.dataservice.entity.CertificationEntity;
 import com.flightcoordinator.dataservice.entity.CrewEntity;
 import com.flightcoordinator.dataservice.entity.FlightEntity;
+import com.flightcoordinator.dataservice.entity.FlightPlanEntity;
 import com.flightcoordinator.dataservice.entity.ModelEntity;
 import com.flightcoordinator.dataservice.entity.PlaneEntity;
 import com.flightcoordinator.dataservice.entity.RunwayEntity;
@@ -52,31 +50,17 @@ public class ObjectMapper {
     return airportDTO;
   }
 
-  public static AlgorithmResultDTO toAlgorithmResultDTO(AlgorithmResultEntity algorithmResultEntity) {
-    AlgorithmResultDTO algorithmResultDTO = new AlgorithmResultDTO();
-    algorithmResultDTO.setId(algorithmResultEntity.getId());
-    algorithmResultDTO.setFlightId(algorithmResultEntity.getFlight().getId());
-    algorithmResultDTO.setPlaneId(algorithmResultEntity.getPlane().getId());
-    algorithmResultDTO.setCrewMemberIds(algorithmResultEntity.getCrewMembers().stream()
-        .map(crew -> crew.getId()).collect(Collectors.toList()));
-    algorithmResultDTO.setTakeoffRunwayId(algorithmResultEntity.getTakeoffRunway().getId());
-    algorithmResultDTO.setLandingRunwayId(algorithmResultEntity.getLandingRunway().getId());
-    algorithmResultDTO.setTakeoffTaxiwayId(algorithmResultEntity.getTakeoffTaxiway().getId());
-    algorithmResultDTO.setLandingTaxiwayId(algorithmResultEntity.getLandingTaxiway().getId());
-    return algorithmResultDTO;
-  }
-
-  public static AlgorithmRunDTO toAlgorithmRunDTO(AlgorithmRunEntity algorithmRunEntity) {
-    AlgorithmRunDTO algorithmRunDTO = new AlgorithmRunDTO();
-    algorithmRunDTO.setId(algorithmRunEntity.getId());
-    algorithmRunDTO.setStartTimestamp(algorithmRunEntity.getStartTimetamp());
-    algorithmRunDTO.setEndTimestamp(algorithmRunEntity.getEndTimestamp());
-    algorithmRunDTO.setRuntimeInMs(algorithmRunEntity.getRuntimeInMs());
-    algorithmRunDTO.setRunLogsJson(algorithmRunEntity.getRunLogsJson());
-    algorithmRunDTO.setIsSuccessful(algorithmRunEntity.getIsSuccessful());
-    algorithmRunDTO.setFailureReason(algorithmRunEntity.getFailureReason());
-    algorithmRunDTO.setResultId(algorithmRunEntity.getResult().getId());
-    return algorithmRunDTO;
+  public static FlightPlanDTO toFlightPlanDTO(FlightPlanEntity flightPlanEntity) {
+    FlightPlanDTO flightPlanDTO = new FlightPlanDTO();
+    flightPlanDTO.setId(flightPlanEntity.getId());
+    flightPlanDTO.setBasedOnFlight(flightPlanEntity.getBasedOnFlight());
+    flightPlanDTO.setSelectedPlane(flightPlanEntity.getSelectedPlane());
+    flightPlanDTO.setSelectedTakeoffRunway(flightPlanEntity.getSelectedTakeoffRunway());
+    flightPlanDTO.setSelectedLandingRunway(flightPlanEntity.getSelectedLandingRunway());
+    flightPlanDTO.setSelectedTakeoffTaxiway(flightPlanEntity.getSelectedTakeoffTaxiway());
+    flightPlanDTO.setSelectedLandingTaxiway(flightPlanEntity.getSelectedLandingTaxiway());
+    flightPlanDTO.setSelectedCrewMembers(flightPlanEntity.getSelectedCrewMembers());
+    return flightPlanDTO;
   }
 
   public static CertificationDTO toCertificationDTO(CertificationEntity certificationEntity) {

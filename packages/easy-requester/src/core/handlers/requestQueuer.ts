@@ -1,6 +1,6 @@
-import type { RequestQueueProps } from "@/types/internals";
+import type { RequestQueueProps } from "../../types/internals";
 
-import Logger from "@/utils/logger";
+import Logger from "../../utils/logger";
 
 /**
  * A utility class to manage a queue of requests.

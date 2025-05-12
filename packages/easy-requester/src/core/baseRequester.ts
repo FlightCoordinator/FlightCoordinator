@@ -1,9 +1,9 @@
 import type { ClientConfig, RequestConfig } from "../types/globals";
 
-import RequestQueuer from "@/core/handlers/requestQueuer";
-import RequestAborter from "@/core/handlers/requestAborter";
+import RequestQueuer from "../core/handlers/requestQueuer";
+import RequestAborter from "../core/handlers/requestAborter";
 
-import Logger from "@/utils/logger";
+import Logger from "../utils/logger";
 
 import ConfiguredRequester from "./configuredRequester";
 

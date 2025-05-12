@@ -1,4 +1,4 @@
-import type { GenerateEndpointParams, GenerateHeaderParams, GenerateURLParams } from "@/types/internals";
+import type { GenerateEndpointParams, GenerateHeaderParams, GenerateURLParams } from "../types/internals";
 
 import Logger from "./logger";
 
