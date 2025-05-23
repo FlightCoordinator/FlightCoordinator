@@ -30,7 +30,7 @@ public class FlightPlanController {
 
   @PostMapping("/getAll")
   @Operation(summary = "Get all the flight plans", description = "Retrieve the details of all a spesific flight plans.")
-  public ResponseEntity<CustomResponseDTO<List<FlightPlanDTO>>> getAllAlgorithms() {
+  public ResponseEntity<CustomResponseDTO<List<FlightPlanDTO>>> getAllFlightPlans() {
     List<FlightPlanDTO> flightPlans = flightPlanService.getAllFlightPlans();
     return AppResponse.generateResponse(HttpStatus.OK.value(), true, "", flightPlans);
   }

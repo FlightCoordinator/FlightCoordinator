@@ -25,4 +25,3 @@ springdoc:
 server:
   port: 8081
   api_version: v1
-  algorithm_service_key: ""

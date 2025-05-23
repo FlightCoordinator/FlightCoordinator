@@ -6,7 +6,6 @@ ROOT_DIR="$SCRIPT_DIR/../.."
 WEB_CLIENT_PATH="$ROOT_DIR/apps/web-client"
 AUTH_SERVICE_PATH="$ROOT_DIR/apps/auth-service"
 DATA_SERVICE_PATH="$ROOT_DIR/apps/data-service"
-ALGORITHM_SERVICE_PATH="$ROOT_DIR/apps/algorithm-service"
 
 echo "---"
 
@@ -35,16 +34,6 @@ cd "$DATA_SERVICE_PATH" || exit 1
 ./mvnw clean install
 
 echo "Info: Successfully set up data service dependencies."
-echo "---"
-
-# PYTHON VENV AND DEPENDENCIES
-echo "Info: Setting up algorithm service's virtual environment..."
-
-cd "$ALGORITHM_SERVICE_PATH" || exit 1
-python3 -m venv .venv
-pip install -r requirements.txt
-
-echo "Info: Successfully set algorithm service's virtual environment..."
 echo "---"
 
 # ROOT DEPENDENCIES

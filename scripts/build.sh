@@ -6,7 +6,6 @@ ROOT_DIR="$SCRIPT_DIR/.."
 WEB_CLIENT_PATH="$ROOT_DIR/apps/web-client"
 AUTH_SERVICE_PATH="$ROOT_DIR/apps/auth-service"
 DATA_SERVICE_PATH="$ROOT_DIR/apps/data-service"
-ALGORITHM_SERVICE_PATH="$ROOT_DIR/apps/algorithm-service"
 
 build_webclient() {
   echo "Info: Building web client..."
@@ -52,21 +51,6 @@ build_dataservice() {
   fi
 }
 
-build_algorithmservice() {
-  echo "Info: Building algorithm service..."
-
-  cd "$ALGORITHM_PATH"
-  # code here
-
-  if [ $? -eq 0 ]; then
-    echo "Info: Successfully built algorithm service."
-  else
-    echo "Error: Failed to build algorithm service."
-    exit 1
-  fi
-}
-
 build_webclient
 build_dauthservice
 build_dataservice
-build_algorithmservice

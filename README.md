@@ -6,7 +6,7 @@
 
 ## Overview
 
-This project is an automated flight manager app for final year computer engineering project. The project is a full-stack application consisting of a Spring Boot server as the main backend, a Spring Boot authentication server, a Next.js web client with TypeScript, and FastAPI server for automation related algorithms.
+This project is an automated flight manager app for final year computer engineering project. The project is a full-stack application consisting of a Spring Boot server as the main backend, a Spring Boot authentication server, and a Next.js web client with TypeScript.
 
 The project also includes utility scripts for configuring the environment, setting up the project, running the application (all apps simultaneously), executing tests for all apps, and building the entire application.
 
@@ -64,7 +64,6 @@ This script does the following:
 - Installs the web client's dependencies.
 - Installs the auth service's dependencies.
 - Installs the data service's dependencies.
-- Installs the algorithm service's dependencies and creates a virtual python environment.
 - Installs the root dependencies (only `concurrently` for running the all of the apps at the same time).
 
 ### Setting Up Environment Variables
@@ -115,7 +114,6 @@ All applications in the project require environment variables to function correc
   server:
     port: 8081 # The port data service will be listening
     api_version: v1 # Current data service API version
-    algorithm_service_key: "" # Secret key for validation requests between data and algorithm services
   ```
 
 - **Auth Service:** The auth service have a `example.application.yml` file (located in `apps/auth-service/src/main/resources`) which have contents like the one shown below. Make sure to rename this file to `application.yml` before setting up the variables inside.
@@ -154,13 +152,6 @@ All applications in the project require environment variables to function correc
     keys:
       access_key: "" # Secret key for issuing access tokens
       refresh_key: "" # Secret key for issuing refresh tokens
-  ```
-
-- **Algorithm Service:** The algrothim service have a `.env.sample` file (located in `apps/algorithm-service/`) which have contents like the one shown below. Make sure to rename this file to `.env` before setting up the variables inside.
-
-  ```bash
-  SECRET_KEY="" # Secret key for validation requests between data and algorithm services.
-                # It should be the same as the key from the data service's application.yml
   ```
 
 Ensure these config files contain valid values before running the application.

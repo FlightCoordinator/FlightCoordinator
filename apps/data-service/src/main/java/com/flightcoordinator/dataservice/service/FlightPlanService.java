@@ -140,10 +140,10 @@ public class FlightPlanService {
   public Boolean doesMultipleFlightPlansExist(List<FlightPlanEntity> flightPlans) {
     List<String> ids = new ArrayList<>();
     flightPlans.forEach(flightPlan -> ids.add(flightPlan.getId()));
-    List<FlightPlanEntity> algorithmRunsFound = flightPlanRepository.findAllById(ids);
-    if (flightPlans.size() != algorithmRunsFound.size()) {
+    List<FlightPlanEntity> flightPlansFound = flightPlanRepository.findAllById(ids);
+    if (flightPlans.size() != flightPlansFound.size()) {
       return false;
     }
-    return algorithmRunsFound.isEmpty();
+    return flightPlansFound.isEmpty();
   }
 }
