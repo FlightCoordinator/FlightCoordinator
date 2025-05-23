@@ -2,41 +2,30 @@ package com.flightcoordinator.dataservice.dto;
 
 import java.util.List;
 
-import com.flightcoordinator.dataservice.entity.CrewEntity;
-import com.flightcoordinator.dataservice.entity.FlightEntity;
-import com.flightcoordinator.dataservice.entity.PlaneEntity;
-import com.flightcoordinator.dataservice.entity.RunwayEntity;
-import com.flightcoordinator.dataservice.entity.TaxiwayEntity;
-
 public class FlightPlanDTO {
   private String id;
-  private FlightEntity basedOnFlight;
-  private PlaneEntity selectedPlane;
-  private RunwayEntity selectedTakeoffRunway;
-  private RunwayEntity selectedLandingRunway;
-  private TaxiwayEntity selectedTakeoffTaxiway;
-  private TaxiwayEntity selectedLandingTaxiway;
-  private List<CrewEntity> selectedCrewMembers;
+  private String basedOnFlightId;
+  private String selectedPlaneId;
+  private String selectedTakeoffRunwayId;
+  private String selectedLandingRunwayId;
+  private String selectedTakeoffTaxiwayId;
+  private String selectedLandingTaxiwayId;
+  private List<String> selectedCrewMemberIds;
 
   public FlightPlanDTO() {
   }
 
-  public FlightPlanDTO(String id, FlightEntity basedOnFlight, PlaneEntity selectedPlane,
-      RunwayEntity selectedTakeoffRunway,
-      RunwayEntity selectedLandingRunway, TaxiwayEntity selectedTakeoffTaxiway, TaxiwayEntity selectedLandingTaxiway,
-      List<CrewEntity> selectedCrewMembers) {
+  public FlightPlanDTO(String id, String basedOnFlightId, String selectedPlaneId, String selectedTakeoffRunwayId,
+      String selectedLandingRunwayId, String selectedTakeoffTaxiwayId, String selectedLandingTaxiwayId,
+      List<String> selectedCrewMemberIds) {
     this.id = id;
-    this.basedOnFlight = basedOnFlight;
-    this.selectedPlane = selectedPlane;
-    this.selectedTakeoffRunway = selectedTakeoffRunway;
-    this.selectedLandingRunway = selectedLandingRunway;
-    this.selectedTakeoffTaxiway = selectedTakeoffTaxiway;
-    this.selectedLandingTaxiway = selectedLandingTaxiway;
-    this.selectedCrewMembers = selectedCrewMembers;
-  }
-
-  public FlightEntity getBasedOnFlight() {
-    return basedOnFlight;
+    this.basedOnFlightId = basedOnFlightId;
+    this.selectedPlaneId = selectedPlaneId;
+    this.selectedTakeoffRunwayId = selectedTakeoffRunwayId;
+    this.selectedLandingRunwayId = selectedLandingRunwayId;
+    this.selectedTakeoffTaxiwayId = selectedTakeoffTaxiwayId;
+    this.selectedLandingTaxiwayId = selectedLandingTaxiwayId;
+    this.selectedCrewMemberIds = selectedCrewMemberIds;
   }
 
   public String getId() {
@@ -47,55 +36,59 @@ public class FlightPlanDTO {
     this.id = id;
   }
 
-  public void setBasedOnFlight(FlightEntity basedOnFlight) {
-    this.basedOnFlight = basedOnFlight;
+  public String getBasedOnFlightId() {
+    return basedOnFlightId;
   }
 
-  public PlaneEntity getSelectedPlane() {
-    return selectedPlane;
+  public void setBasedOnFlightId(String basedOnFlightId) {
+    this.basedOnFlightId = basedOnFlightId;
   }
 
-  public void setSelectedPlane(PlaneEntity selectedPlane) {
-    this.selectedPlane = selectedPlane;
+  public String getSelectedPlaneId() {
+    return selectedPlaneId;
   }
 
-  public RunwayEntity getSelectedTakeoffRunway() {
-    return selectedTakeoffRunway;
+  public void setSelectedPlaneId(String selectedPlaneId) {
+    this.selectedPlaneId = selectedPlaneId;
   }
 
-  public void setSelectedTakeoffRunway(RunwayEntity selectedTakeoffRunway) {
-    this.selectedTakeoffRunway = selectedTakeoffRunway;
+  public String getSelectedTakeoffRunwayId() {
+    return selectedTakeoffRunwayId;
   }
 
-  public RunwayEntity getSelectedLandingRunway() {
-    return selectedLandingRunway;
+  public void setSelectedTakeoffRunwayId(String selectedTakeoffRunwayId) {
+    this.selectedTakeoffRunwayId = selectedTakeoffRunwayId;
   }
 
-  public void setSelectedLandingRunway(RunwayEntity selectedLandingRunway) {
-    this.selectedLandingRunway = selectedLandingRunway;
+  public String getSelectedLandingRunwayId() {
+    return selectedLandingRunwayId;
   }
 
-  public TaxiwayEntity getSelectedTakeoffTaxiway() {
-    return selectedTakeoffTaxiway;
+  public void setSelectedLandingRunwayId(String selectedLandingRunwayId) {
+    this.selectedLandingRunwayId = selectedLandingRunwayId;
   }
 
-  public void setSelectedTakeoffTaxiway(TaxiwayEntity selectedTakeoffTaxiway) {
-    this.selectedTakeoffTaxiway = selectedTakeoffTaxiway;
+  public String getSelectedTakeoffTaxiwayId() {
+    return selectedTakeoffTaxiwayId;
   }
 
-  public TaxiwayEntity getSelectedLandingTaxiway() {
-    return selectedLandingTaxiway;
+  public void setSelectedTakeoffTaxiwayId(String selectedTakeoffTaxiwayId) {
+    this.selectedTakeoffTaxiwayId = selectedTakeoffTaxiwayId;
   }
 
-  public void setSelectedLandingTaxiway(TaxiwayEntity selectedLandingTaxiway) {
-    this.selectedLandingTaxiway = selectedLandingTaxiway;
+  public String getSelectedLandingTaxiwayId() {
+    return selectedLandingTaxiwayId;
   }
 
-  public List<CrewEntity> getSelectedCrewMembers() {
-    return selectedCrewMembers;
+  public void setSelectedLandingTaxiwayId(String selectedLandingTaxiwayId) {
+    this.selectedLandingTaxiwayId = selectedLandingTaxiwayId;
   }
 
-  public void setSelectedCrewMembers(List<CrewEntity> selectedCrewMembers) {
-    this.selectedCrewMembers = selectedCrewMembers;
+  public List<String> getSelectedCrewMemberIds() {
+    return selectedCrewMemberIds;
+  }
+
+  public void setSelectedCrewMemberIds(List<String> selectedCrewMemberIds) {
+    this.selectedCrewMemberIds = selectedCrewMemberIds;
   }
 }

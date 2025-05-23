@@ -9,19 +9,19 @@ import FlightSheet from "@/components/data-table/sheets/FlightSheet";
 import useFlightAllQuery from "@/hooks/resource/flight/useFlightAllQuery";
 
 const FlightPageContents = () => {
-  const { isLoading: isFlightQueryLoading, error: flightQueryError, data: flight } = useFlightAllQuery();
+  const { isLoading: isFlightQueryLoading, error: flightQueryError, data: flights } = useFlightAllQuery();
 
   const { flightColumns, flightColumnsVisibilities } = useFlightColumns();
 
   return (
     <DataTable
       columns={flightColumns}
-      data={(flight && flight.data) ?? []}
+      data={(flights && flights.data) ?? []}
       createSheet={<FlightSheet />}
       visibilities={flightColumnsVisibilities}
       isLoading={isFlightQueryLoading}
       isError={flightQueryError}
-      isNotFound={!flight || !flight.data}
+      isNotFound={!flights || !flights.data}
     />
   );
 };

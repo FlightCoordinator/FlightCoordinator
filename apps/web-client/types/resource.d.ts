@@ -211,6 +211,25 @@ namespace ResourceTypes {
       export type QueryResponseParams = DataTransfer.FlightDTO[];
     }
   }
+  export namespace FlightPlan {
+    export interface FlightPlanObject extends ObjectBase {
+      basedOnFlightId: string;
+      selectedPlaneId: string;
+      selectedTakeoffRunwayId: string;
+      selectedLandingRunwayId: string;
+      selectedTakeoffTaxiwayId: string;
+      selectedLandingTaxiwayId: string;
+      selectedCrewMemberIds: Array<string>;
+    }
+    export namespace Mutations {
+      export type CreateMutationParams = ObjectBase;
+      export type DeleteMutationParams = ObjectBase;
+    }
+    export namespace Queries {
+      export type QueryByIdRequestParams = ObjectBase;
+      export type QueryResponseParams = DataTransfer.FlightPlanDTO[];
+    }
+  }
 }
 
 export default ResourceTypes;

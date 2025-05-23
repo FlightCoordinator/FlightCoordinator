@@ -23,28 +23,6 @@ namespace DataTransfer {
     flightToAirportIds: string[];
     crewMembersPresentIds: string[];
   }
-  export interface AlgorithmResultDTO extends BaseDTO {
-    flightId: string;
-    planeId: string;
-    crewMemberIds: Array<string>;
-    takeoffTaxiwayId: string;
-    takeoffRunwayId: string;
-    landingRunwayId: string;
-    landingTaxiwayId: string;
-  }
-  export interface AlgorithmRunDTO extends BaseDTO {
-    algorithmName: string;
-    startTime: Date;
-    endTime: Date;
-    runtimeInMs: number;
-    resourcesJson: string;
-    constrainsJson: string;
-    logsJson: string;
-    isSuccessful: boolean;
-    failureReason: string;
-    areResultsSaved: boolean;
-    resultId: string;
-  }
   export interface CertificationDTO extends BaseDTO {
     name: string;
     certificationNumber: string;
@@ -74,6 +52,15 @@ namespace DataTransfer {
     estimatedTakeoffTime: string;
     estimatedLandingTime: string;
     estimatedFlightDuration: number;
+  }
+  export interface FlightPlanDTO extends BaseDTO {
+    basedOnFlightId: string;
+    selectedPlaneId: string;
+    selectedTakeoffRunwayId: string;
+    selectedLandingRunwayId: string;
+    selectedTakeoffTaxiwayId: string;
+    selectedLandingTaxiwayId: string;
+    selectedCrewMemberIds: Array<string>;
   }
   export interface ModelDTO extends BaseDTO {
     manufacturer: string;

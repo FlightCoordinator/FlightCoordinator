@@ -53,13 +53,14 @@ public class ObjectMapper {
   public static FlightPlanDTO toFlightPlanDTO(FlightPlanEntity flightPlanEntity) {
     FlightPlanDTO flightPlanDTO = new FlightPlanDTO();
     flightPlanDTO.setId(flightPlanEntity.getId());
-    flightPlanDTO.setBasedOnFlight(flightPlanEntity.getBasedOnFlight());
-    flightPlanDTO.setSelectedPlane(flightPlanEntity.getSelectedPlane());
-    flightPlanDTO.setSelectedTakeoffRunway(flightPlanEntity.getSelectedTakeoffRunway());
-    flightPlanDTO.setSelectedLandingRunway(flightPlanEntity.getSelectedLandingRunway());
-    flightPlanDTO.setSelectedTakeoffTaxiway(flightPlanEntity.getSelectedTakeoffTaxiway());
-    flightPlanDTO.setSelectedLandingTaxiway(flightPlanEntity.getSelectedLandingTaxiway());
-    flightPlanDTO.setSelectedCrewMembers(flightPlanEntity.getSelectedCrewMembers());
+    flightPlanDTO.setBasedOnFlightId(flightPlanEntity.getBasedOnFlight().getId());
+    flightPlanDTO.setSelectedPlaneId(flightPlanEntity.getSelectedPlane().getId());
+    flightPlanDTO.setSelectedTakeoffRunwayId(flightPlanEntity.getSelectedTakeoffRunway().getId());
+    flightPlanDTO.setSelectedLandingRunwayId(flightPlanEntity.getSelectedLandingRunway().getId());
+    flightPlanDTO.setSelectedTakeoffTaxiwayId(flightPlanEntity.getSelectedTakeoffTaxiway().getId());
+    flightPlanDTO.setSelectedLandingTaxiwayId(flightPlanEntity.getSelectedLandingTaxiway().getId());
+    flightPlanDTO.setSelectedCrewMemberIds(
+        flightPlanEntity.getSelectedCrewMembers().stream().map(crew -> crew.getId()).collect(Collectors.toList()));
     return flightPlanDTO;
   }
 

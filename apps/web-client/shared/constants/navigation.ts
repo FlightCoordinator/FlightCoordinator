@@ -6,8 +6,7 @@ import {
   Luggage,
   Plane,
   PlaneTakeoff,
-  RefreshCcw,
-  SearchCheck,
+  TicketsPlane,
   TowerControl,
   UserRound,
 } from "lucide-react";
@@ -40,14 +39,9 @@ export const sidebarNavigation: SidebarNavigationProps[] = [
         icon: Luggage,
       },
       {
-        key: "app/algorithm/run",
-        label: "Algorithm Runs",
-        icon: RefreshCcw,
-      },
-      {
-        key: "app/algorithm/result",
-        label: "Algorithm Results",
-        icon: SearchCheck,
+        key: "app/flight-plan",
+        label: "Flight Plan",
+        icon: TicketsPlane,
       },
     ],
   },
