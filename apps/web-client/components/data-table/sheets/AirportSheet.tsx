@@ -69,7 +69,7 @@ const airportSchema = z.object({
     .min(4, { message: "IATA Code should be 4 characters long" })
     .max(4, { message: "IATA Code should be 4 characters long" }),
   countryCode: z.enum(getAllValuesOf("CountryCodes"), invalidEnumValueMessage),
-  type: z.enum(getAllValuesOf("AirportType"), invalidEnumValueMessage).default("INTERNATIONAL"),
+  type: z.enum(getAllValuesOf("AirportType"), invalidEnumValueMessage),
   operationStartTime: z.string(shouldBeStringMessage).nonempty(nonEmptyMessage).time(invalidTimeMessage),
   operationStopTime: z.string(shouldBeStringMessage).nonempty(nonEmptyMessage).time(invalidTimeMessage),
   elevation: z.number(shouldBeNumberMessage).nonnegative(nonNegativeMessage),

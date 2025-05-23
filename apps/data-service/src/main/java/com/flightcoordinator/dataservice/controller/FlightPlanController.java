@@ -42,7 +42,7 @@ public class FlightPlanController {
     return AppResponse.generateResponse(HttpStatus.OK.value(), true, "", flightPlan);
   }
 
-  @PostMapping("/getById")
+  @PostMapping("/create")
   @Operation(summary = "Get an flight plan by id", description = "Retrieve the details of a spesific flight plan using it's ID.")
   public ResponseEntity<CustomResponseDTO<Object>> generateFlightPlan(@RequestBody EntityIdDTO id) {
     flightPlanService.createFlightPlan(id);
