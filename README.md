@@ -6,7 +6,7 @@
 
 ## Overview
 
-This project is an automated flight manager app for final year computer engineering project. The project is a full-stack application consisting of a Spring Boot server as the main backend, a Spring Boot authentication server, and a Next.js web client with TypeScript.
+This project is an automated flight manager app made as a graduation project. The project is a full-stack application consisting of a Spring Boot server as the main backend, a Spring Boot authentication server, and a Next.js web client with TypeScript.
 
 The project also includes utility scripts for configuring the environment, setting up the project, running the application (all apps simultaneously), executing tests for all apps, and building the entire application.
 
