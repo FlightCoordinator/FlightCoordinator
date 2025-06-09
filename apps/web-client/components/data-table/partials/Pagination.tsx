@@ -14,7 +14,7 @@ const pageSizes: number[] = [10, 20, 30, 40, 50];
 
 function Pagination<TData>({ table }: PaginationProps<TData>) {
   return (
-    <div className="w-full h-[57px] flex items-center justify-between px-2 border-t pt-4">
+    <div className="w-full h-[52.233px] flex items-center justify-between px-2 border-t pt-4">
       <div className="flex-1 text-sm text-muted-foreground">
         {table.getFilteredSelectedRowModel().rows.length} of {table.getFilteredRowModel().rows.length} row(s) selected.
       </div>

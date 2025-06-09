@@ -28,7 +28,7 @@ const MainSidebar = () => {
 
   return (
     <Sidebar collapsible="none" className="border-r h-dvh w-[18rem]">
-      <SidebarHeader>
+      <SidebarHeader className="border-b">
         <Link className="flex flex-row items-center justify-start gap-2 overflow-hidden" href={"/app"}>
           <Image src="/images/logo.png" alt="Flight Coordinator Logo" width={48} height={48} />
           <h1 className="text-xl leading-none tracking-tight font-semibold select-none">
@@ -36,12 +36,12 @@ const MainSidebar = () => {
           </h1>
         </Link>
       </SidebarHeader>
-      <SidebarContent>
+      <SidebarContent className="gap-3">
         {sidebarNavigation.map((section) => (
-          <SidebarGroup key={section.sectionKey}>
-            <SidebarGroupLabel>{section.sectionLabel}</SidebarGroupLabel>
+          <SidebarGroup key={section.sectionKey} className="py-0">
+            <SidebarGroupLabel className="font-medium items-end pb-1.5">{section.sectionLabel}</SidebarGroupLabel>
             <SidebarGroupContent>
-              <SidebarMenu>
+              <SidebarMenu className="gap-[1px]">
                 {section.sectionItems.map((item) => (
                   <SidebarMenuItem key={item.key}>
                     <SidebarMenuButton asChild isActive={"/" + item.key === pathname}>

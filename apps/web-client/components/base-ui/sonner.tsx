@@ -8,6 +8,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
 
   return (
     <Sonner
+      swipeDirections={["left", "right"]}
       theme={theme as ToasterProps["theme"]}
       className="toaster group"
       style={
