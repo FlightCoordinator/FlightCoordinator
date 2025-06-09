@@ -4,8 +4,8 @@ import React from "react";
 
 import { ColumnDef, VisibilityState } from "@tanstack/react-table";
 import dayjs from "dayjs";
+import { toast } from "sonner";
 
-import { useToast } from "@/hooks/interface/useToast";
 import useCertificationDeleteMutation from "@/hooks/resource/certification/useCertificationDeleteMutation";
 
 import { dateFormat } from "@/shared/constants/dateFormat";
@@ -21,18 +21,16 @@ import getSelectColumn from "../partials/SelectColumn";
 import CertificationSheet from "../sheets/CertificationSheet";
 
 const useCertificationColumns = () => {
-  const { toast } = useToast();
-
   const { mutateAsync: certificationDeleteMutation, error: certificationDeleteError } =
     useCertificationDeleteMutation();
 
   const handleDeleteSubmit = async (id: string): Promise<void> => {
     const response = await certificationDeleteMutation({ id: id });
     if (!response.isSuccess || certificationDeleteError) {
-      toast({ title: "An error ocurred", description: response.message });
+      toast("An error ocurred");
       return;
     }
-    toast({ title: "Deleted Successfully", description: response.message });
+    toast("Deleted Successfully");
   };
 
   const certificationColumns = React.useMemo<ColumnDef<DataTransfer.CertificationDTO>[]>(

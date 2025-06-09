@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import com.flightcoordinator.dataservice.entity.ModelEntity;
 import com.flightcoordinator.dataservice.entity.RunwayEntity;
 import com.flightcoordinator.dataservice.entity.TaxiwayEntity;
+import com.flightcoordinator.dataservice.exception.AppError;
 
 public class TaxiwaySelector {
   private final String airportId;
@@ -27,13 +28,15 @@ public class TaxiwaySelector {
         .filter(taxiway -> taxiway.getAirport().getId().equals(airportId))
         .collect(Collectors.toList());
 
+    System.out.println("available taxiways: " + airportTaxiways);
+
     return airportTaxiways.stream()
         .filter(this::isConnectedToRunway)
         .filter(this::meetsPhysicalRequirements)
         .sorted(Comparator.comparingInt(this::priorityScore).reversed())
         .findFirst()
-        .orElseThrow(() -> new RuntimeException(
-            "No suitable taxiway found for runway " + selectedRunway.getId() + " at airport " + airportId));
+        .orElseThrow(() -> new AppError(
+            "No suitable taxiway found for runway " + selectedRunway.getId() + " at airport " + airportId, 404));
   }
 
   private boolean isConnectedToRunway(TaxiwayEntity taxiway) {

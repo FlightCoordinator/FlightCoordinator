@@ -1,6 +1,8 @@
 package com.flightcoordinator.dataservice.automation.selectors;
 
+import java.time.ZonedDateTime;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 import com.flightcoordinator.dataservice.automation.utils.TimeUtils;
@@ -31,14 +33,30 @@ public class PlaneSelector {
   }
 
   private boolean isPlaneAvailable(PlaneEntity plane) {
-    return plane.getPlaneStatus() == PlaneStatus.ACTIVE &&
-        TimeUtils.isDatePassed(plane.getRetirementDate()) &&
-        TimeUtils.doesDateGoOverAfterDifference(null, plane.getRetirementDate(), flight.getEstimatedFlightDuration()) &&
-        plane.getCurrentLocation().equals(flight.getOriginAirport());
+    if (plane.getPlaneStatus() != PlaneStatus.ACTIVE) {
+      return false;
+    }
+    if (TimeUtils.isDatePassed(plane.getRetirementDate())) {
+      return false;
+    }
+    float durationMinutes = flight.getEstimatedFlightDuration();
+    ZonedDateTime estimatedArrival = ZonedDateTime.now()
+        .plusMinutes((long) durationMinutes)
+        .plusSeconds((long) ((durationMinutes % 1) * 60));
+    Date arrivalAsDate = Date.from(estimatedArrival.toInstant());
+
+    if (arrivalAsDate.after(plane.getRetirementDate())) {
+      return false;
+    }
+    if (!plane.getCurrentLocation().equals(flight.getOriginAirport())) {
+      return false;
+    }
+    return true;
   }
 
   private boolean canCarryPayload(PlaneEntity plane) {
     ModelEntity model = getModelOf(plane);
+
     return flight.getPassengerCount() <= model.getMaxPassengerCapacity() &&
         flight.getCargoWeight() <= model.getMaxCargoCapacity();
   }

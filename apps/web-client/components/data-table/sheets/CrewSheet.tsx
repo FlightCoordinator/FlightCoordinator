@@ -5,6 +5,7 @@ import { Controller, useForm } from "react-hook-form";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Pen, PlusCircle } from "lucide-react";
+import { toast } from "sonner";
 import { z } from "zod";
 
 import { Button } from "@/components/base-ui/button";
@@ -28,7 +29,6 @@ import {
   SheetTrigger,
 } from "@/components/base-ui/sheet";
 
-import { useToast } from "@/hooks/interface/useToast";
 import useCrewCreateMutation from "@/hooks/resource/crew/useCrewCreateMutation";
 import useCrewUpdateMutation from "@/hooks/resource/crew/useCrewUpdateMutation";
 
@@ -81,7 +81,6 @@ const CrewSheet = ({ crew }: CrewSheetProps) => {
   });
 
   const [countryCode, setCountryCode] = React.useState<string>(selectItems.asObject.CountryCodes.US.value);
-  const { toast } = useToast();
 
   const {
     mutateAsync: crewCreateMutation,
@@ -98,35 +97,25 @@ const CrewSheet = ({ crew }: CrewSheetProps) => {
     crewCreateMutation(formData)
       .then((response) => {
         if (!response.isSuccess || crewCreateError || crewUpdateError) {
-          toast({ title: "An error ocurred", description: response.message });
+          toast("An error ocurred");
           return;
         }
-        toast({ title: "Created Successfully", description: response.message });
+        toast("Created Successfully");
       })
-      .catch((error: Error) =>
-        toast({
-          title: "An error ocurred",
-          description: error.message,
-        }),
-      );
+      .catch((error) => toast("An error ocurred: " + error));
   };
 
   const handleUpdateSubmit = (formData: z.infer<typeof crewSchema>): void => {
     crewUpdateMutation({ id: crew!.id, ...formData })
       .then((response) => {
         if (!response.isSuccess) {
-          toast({ title: "An error ocurred", description: response.message });
+          toast("An error ocurred");
           return;
         }
-        toast({ title: "Updated Successfully", description: response.message });
+        toast("Updated Successfully");
         return;
       })
-      .catch((error: Error) =>
-        toast({
-          title: "An error ocurred",
-          description: error.message,
-        }),
-      );
+      .catch((error) => toast("An error ocurred: " + error));
   };
 
   return (

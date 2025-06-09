@@ -11,7 +11,7 @@ import { config } from "@/shared/appConfig";
 import GlobalTypes from "@/types/globals";
 
 import { SidebarProvider } from "./base-ui/sidebar";
-import { Toaster } from "./base-ui/toaster";
+import { Toaster } from "./base-ui/sonner";
 
 const Providers = ({ children }: GlobalTypes.BaseWrapperProps) => {
   const queryClient: QueryClient = new QueryClient({

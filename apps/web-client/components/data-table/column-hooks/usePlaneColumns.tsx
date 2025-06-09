@@ -4,8 +4,8 @@ import React from "react";
 
 import { ColumnDef, VisibilityState } from "@tanstack/react-table";
 import dayjs from "dayjs";
+import { toast } from "sonner";
 
-import { useToast } from "@/hooks/interface/useToast";
 import usePlaneDeleteMutation from "@/hooks/resource/plane/usePlaneDeleteMutation";
 
 import { dateFormat } from "@/shared/constants/dateFormat";
@@ -21,17 +21,15 @@ import getSelectColumn from "../partials/SelectColumn";
 import PlaneSheet from "../sheets/PlaneSheet";
 
 const usePlaneColumns = () => {
-  const { toast } = useToast();
-
   const { mutateAsync: planeDeleteMutation, error: planeDeleteError } = usePlaneDeleteMutation();
 
   const handleDeleteSubmit = async (id: string): Promise<void> => {
     const response = await planeDeleteMutation({ id: id });
     if (!response.isSuccess || planeDeleteError) {
-      toast({ title: "An error ocurred", description: response.message });
+      toast("An error ocurred");
       return;
     }
-    toast({ title: "Deleted Successfully", description: response.message });
+    toast("Deleted Successfully");
   };
 
   const planeColumns = React.useMemo<ColumnDef<DataTransfer.PlaneDTO>[]>(

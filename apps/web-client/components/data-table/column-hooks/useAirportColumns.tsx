@@ -3,10 +3,10 @@
 import React from "react";
 
 import { ColumnDef, VisibilityState } from "@tanstack/react-table";
+import { toast } from "sonner";
 
 import AirportSheet from "@/components/data-table/sheets/AirportSheet";
 
-import { useToast } from "@/hooks/interface/useToast";
 import useAirportDeleteMutation from "@/hooks/resource/airport/useAirportDeleteMutation";
 
 import { getSelectItem } from "@/shared/constants/selectItems";
@@ -21,17 +21,15 @@ import NoWrapCell from "../partials/NoWrapCell";
 import getSelectColumn from "../partials/SelectColumn";
 
 const useAirportColumns = () => {
-  const { toast } = useToast();
-
   const { mutateAsync: airportDeleteMutation, error: airportDeleteError } = useAirportDeleteMutation();
 
   const handleDeleteSubmit = async (id: string): Promise<void> => {
     const response = await airportDeleteMutation({ id: id });
     if (!response.isSuccess || airportDeleteError) {
-      toast({ title: "An error ocurred", description: response.message });
+      toast("An error ocurred");
       return;
     }
-    toast({ title: "Deleted Successfully", description: response.message });
+    toast("Deleted Successfully");
   };
 
   const airportColumns = React.useMemo<ColumnDef<DataTransfer.AirportDTO>[]>(

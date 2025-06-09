@@ -3,8 +3,8 @@
 import React from "react";
 
 import { ColumnDef, VisibilityState } from "@tanstack/react-table";
+import { toast } from "sonner";
 
-import { useToast } from "@/hooks/interface/useToast";
 import useCrewDeleteMutation from "@/hooks/resource/crew/useCrewDeleteMutation";
 
 import { getSelectItem } from "@/shared/constants/selectItems";
@@ -20,17 +20,15 @@ import getSelectColumn from "../partials/SelectColumn";
 import CrewSheet from "../sheets/CrewSheet";
 
 const useCrewColumns = () => {
-  const { toast } = useToast();
-
   const { mutateAsync: crewDeleteMutation, error: crewDeleteError } = useCrewDeleteMutation();
 
   const handleDeleteSubmit = async (id: string): Promise<void> => {
     const response = await crewDeleteMutation({ id: id });
     if (!response.isSuccess || crewDeleteError) {
-      toast({ title: "An error ocurred", description: response.message });
+      toast("An error ocurred");
       return;
     }
-    toast({ title: "Deleted Successfully", description: response.message });
+    toast("Deleted Successfully");
   };
 
   const crewColumns = React.useMemo<ColumnDef<DataTransfer.CrewDTO>[]>(

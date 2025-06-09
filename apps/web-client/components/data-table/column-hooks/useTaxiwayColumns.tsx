@@ -3,8 +3,8 @@
 import React from "react";
 
 import { ColumnDef, VisibilityState } from "@tanstack/react-table";
+import { toast } from "sonner";
 
-import { useToast } from "@/hooks/interface/useToast";
 import useTaxiwayDeleteMutation from "@/hooks/resource/taxiway/useTaxiwayDeleteMutation";
 
 import Utils from "@/shared/utils";
@@ -19,17 +19,15 @@ import getSelectColumn from "../partials/SelectColumn";
 import TaxiwaySheet from "../sheets/TaxiwaySheet";
 
 const useTaxiwayColumns = () => {
-  const { toast } = useToast();
-
   const { mutateAsync: taxiwayDeleteMutation, error: taxiwayDeleteError } = useTaxiwayDeleteMutation();
 
   const handleDeleteSubmit = async (id: string): Promise<void> => {
     const response = await taxiwayDeleteMutation({ id: id });
     if (!response.isSuccess || taxiwayDeleteError) {
-      toast({ title: "An error ocurred", description: response.message });
+      toast("An error ocurred");
       return;
     }
-    toast({ title: "Deleted Successfully", description: response.message });
+    toast("Deleted Successfully");
   };
 
   const taxiwayColumns = React.useMemo<ColumnDef<DataTransfer.TaxiwayDTO>[]>(

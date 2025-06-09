@@ -3,8 +3,8 @@
 import React from "react";
 
 import { ColumnDef, VisibilityState } from "@tanstack/react-table";
+import { toast } from "sonner";
 
-import { useToast } from "@/hooks/interface/useToast";
 import useFlightDeleteMutation from "@/hooks/resource/flight/useFlightDeleteMutation";
 
 import DataTransfer from "@/types/dataTransfer";
@@ -16,17 +16,15 @@ import getSelectColumn from "../partials/SelectColumn";
 import FlightSheet from "../sheets/FlightSheet";
 
 const useFlightColumns = () => {
-  const { toast } = useToast();
-
   const { mutateAsync: flightDeleteMutation, error: flightDeleteError } = useFlightDeleteMutation();
 
   const handleDeleteSubmit = async (id: string): Promise<void> => {
     const response = await flightDeleteMutation({ id: id });
     if (!response.isSuccess || flightDeleteError) {
-      toast({ title: "An error ocurred", description: response.message });
+      toast("An error ocurred");
       return;
     }
-    toast({ title: "Deleted Successfully", description: response.message });
+    toast("Deleted Successfully");
   };
 
   const flightColumns = React.useMemo<ColumnDef<DataTransfer.FlightDTO>[]>(

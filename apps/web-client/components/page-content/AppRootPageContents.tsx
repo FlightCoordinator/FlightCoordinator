@@ -1,11 +1,11 @@
 "use client";
 
 import { ArrowLeft, Download, LoaderCircle } from "lucide-react";
+import { toast } from "sonner";
 
 import { Button } from "@/components/base-ui/button";
 
 import useLoadSampleDataMutation from "@/hooks/development/useLoadSampleDataMutation";
-import { useToast } from "@/hooks/interface/useToast";
 
 import { config } from "@/shared/appConfig";
 
@@ -16,25 +16,20 @@ const AppRootPageContents = () => {
     mutateAsync: loadSampleDataMutation,
   } = useLoadSampleDataMutation();
 
-  const { toast } = useToast();
-
   const handleLoadSampleData = () => {
     loadSampleDataMutation()
       .then((response) => {
         if (!response || !response.isSuccess || loadSampleDataError) {
-          toast({ title: "An error ocurred", description: response.message });
+          toast("An error ocurred");
           return;
         }
-        toast({ title: "Loaded sample data successfully.", description: response.message });
+        toast("Loaded sample data successfully.");
       })
-      .catch((error) => toast({ title: "An error ocurred", description: error.message }));
+      .catch((error) => toast("An error ocurred: " + error));
   };
 
   if (loadSampleDataError) {
-    toast({
-      title: "An Error Ocurred",
-      description: "An unknown error ocurred. Please try again later.",
-    });
+    toast("An unknown error ocurred. Please try again later.");
   }
 
   return (

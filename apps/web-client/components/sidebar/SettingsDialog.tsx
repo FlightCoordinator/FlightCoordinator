@@ -7,10 +7,10 @@ import { useRouter } from "next/navigation";
 import { useQueryClient } from "@tanstack/react-query";
 import { Loader2, LogOut, Settings } from "lucide-react";
 import { useTheme } from "next-themes";
+import { toast } from "sonner";
 
 import useGetUserDetails from "@/hooks/auth/useGetUserDetails";
 import useLogoutMutation from "@/hooks/auth/useLogoutMutation";
-import { toast } from "@/hooks/interface/useToast";
 
 import GlobalTypes from "@/types/globals";
 
@@ -38,12 +38,12 @@ const SettingsDialog = () => {
     logoutMutationAsync()
       .then((response) => {
         if (!response || !response.isSuccess || logoutError) {
-          toast({ title: "An error ocurred", description: response.message });
+          toast("An error ocurred");
           return;
         }
         return router.replace("/auth/login");
       })
-      .catch((error) => toast({ title: "An error ocurred", description: error.message }));
+      .catch((error) => toast("An error ocurred: " + error));
   };
 
   const [userDetails, setUserDetails] = React.useState<GlobalTypes.Auth.Protected.UserDetailsProps>({
@@ -67,19 +67,11 @@ const SettingsDialog = () => {
       getUserDetailsAsync()
         .then((response) => {
           if (!response.isSuccess || !response.data || userDetailsError) {
-            return toast({
-              title: "An error ocurred",
-              description: "Please try logging in again.",
-            });
+            return toast("An error ocurred. Please try logging in again.");
           }
           setUserDetails(() => response.data!);
         })
-        .catch(() =>
-          toast({
-            title: "An error ocurred",
-            description: "Please try logging in again.",
-          }),
-        );
+        .catch(() => toast("An error ocurred. Please try logging in again."));
     } else if (userDetailsQueryData && userDetails.fullName.trim() === "") {
       setUserDetails(() => userDetailsQueryData as GlobalTypes.Auth.Protected.UserDetailsProps);
     }

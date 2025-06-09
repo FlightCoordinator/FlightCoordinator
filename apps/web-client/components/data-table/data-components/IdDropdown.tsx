@@ -3,6 +3,7 @@
 import React from "react";
 
 import { Copy } from "lucide-react";
+import { toast } from "sonner";
 
 import { Button } from "@/components/base-ui/button";
 import {
@@ -13,15 +14,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/base-ui/dropdown-menu";
 
-import { useToast } from "@/hooks/interface/useToast";
-
 interface IdDropdownProps {
   ids: string[];
 }
 
 const IdDropdown = ({ ids }: IdDropdownProps) => {
-  const { toast } = useToast();
-
   if (ids.length === 0) {
     return "-";
   }
@@ -39,10 +36,7 @@ const IdDropdown = ({ ids }: IdDropdownProps) => {
               className="flex flex-row items-center justify-end gap-3"
               onClick={() => {
                 navigator.clipboard.writeText(id);
-                toast({
-                  title: "ID Copied!",
-                  description: "Selected ID copied to clipboard.",
-                });
+                toast("Selected ID copied to clipboard.");
               }}>
               <span className="inline-block">{id}</span>
               <Copy />

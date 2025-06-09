@@ -3,8 +3,8 @@
 import React from "react";
 
 import { ColumnDef, VisibilityState } from "@tanstack/react-table";
+import { toast } from "sonner";
 
-import { useToast } from "@/hooks/interface/useToast";
 import useModelDeleteMutation from "@/hooks/resource/model/useModelDeleteMutation";
 
 import { getSelectItem } from "@/shared/constants/selectItems";
@@ -21,17 +21,15 @@ import getSelectColumn from "../partials/SelectColumn";
 import ModelSheet from "../sheets/ModelSheet";
 
 const useModelColumns = () => {
-  const { toast } = useToast();
-
   const { mutateAsync: modelDeleteMutation, error: modelDeleteError } = useModelDeleteMutation();
 
   const handleDeleteSubmit = async (id: string): Promise<void> => {
     const response = await modelDeleteMutation({ id: id });
     if (!response.isSuccess || modelDeleteError) {
-      toast({ title: "An error ocurred", description: response.message });
+      toast("An error ocurred");
       return;
     }
-    toast({ title: "Deleted Successfully", description: response.message });
+    toast("Deleted Successfully");
   };
 
   const modelColumns = React.useMemo<ColumnDef<DataTransfer.ModelDTO>[]>(

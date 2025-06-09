@@ -22,6 +22,18 @@ import com.flightcoordinator.dataservice.entity.ModelEntity;
 import com.flightcoordinator.dataservice.entity.PlaneEntity;
 import com.flightcoordinator.dataservice.entity.RunwayEntity;
 import com.flightcoordinator.dataservice.entity.TaxiwayEntity;
+import com.flightcoordinator.dataservice.enums.AirportType;
+import com.flightcoordinator.dataservice.enums.CertificationStatus;
+import com.flightcoordinator.dataservice.enums.Certifier;
+import com.flightcoordinator.dataservice.enums.CountryCode;
+import com.flightcoordinator.dataservice.enums.CrewMemberRole;
+import com.flightcoordinator.dataservice.enums.CrewMemberStatus;
+import com.flightcoordinator.dataservice.enums.EngineType;
+import com.flightcoordinator.dataservice.enums.NoiseCategory;
+import com.flightcoordinator.dataservice.enums.PlaneStatus;
+import com.flightcoordinator.dataservice.enums.RunwayStatus;
+import com.flightcoordinator.dataservice.enums.SurfaceType;
+import com.flightcoordinator.dataservice.enums.VisualApproachAid;
 import com.flightcoordinator.dataservice.exception.AppError;
 import com.flightcoordinator.dataservice.repository.AirportRepository;
 import com.flightcoordinator.dataservice.repository.CertificationRepository;
@@ -57,6 +69,21 @@ public class DevToolsService {
 
   @Autowired
   private TaxiwayRepository taxiwayRepository;
+
+  public AirportEntity sampleOriginAirport;
+  public AirportEntity sampleDestinationAirport;
+  public CertificationEntity sampleCertification;
+  public FlightEntity sampleFlight;
+  public ModelEntity sampleModel;
+  public PlaneEntity samplePlane;
+  public RunwayEntity sampleOriginRunway;
+  public RunwayEntity sampleDestinationRunway;
+  public TaxiwayEntity sampleOriginTaxiway;
+  public TaxiwayEntity sampleDestinationTaxiway;
+
+  public CrewEntity sampleCaptain;
+  public CrewEntity sampleFirstOfficer;
+  public CrewEntity sampleFlightAttendant;
 
   private final Random randomValue = new Random();
 
@@ -104,6 +131,37 @@ public class DevToolsService {
 
       airportRepository.save(airport);
     }
+
+    // SAMPLE SUITABLE FOR AUTOMATION
+    AirportEntity sampleOriginAirportEntity = new AirportEntity();
+    sampleOriginAirportEntity.setName("Sample Origin Airport");
+    sampleOriginAirportEntity.setIataCode("SOA");
+    sampleOriginAirportEntity.setIcaoCode("SOAI");
+    sampleOriginAirportEntity.setCountryCode(CountryCode.TR);
+    sampleOriginAirportEntity.setType(AirportType.INTERNATIONAL);
+    sampleOriginAirportEntity.setOperationStartTime("08:00");
+    sampleOriginAirportEntity.setOperationStopTime("00:00");
+    sampleOriginAirportEntity.setElevation(25.0F);
+    sampleOriginAirportEntity.setSlope(0.15F);
+    sampleOriginAirportEntity.setPossibleNoiseCategory(NoiseCategory.CHAPTER_14);
+
+    AirportEntity sampleDestinationAirportEntity = new AirportEntity();
+    sampleDestinationAirportEntity.setName("Sample Destination Airport");
+    sampleDestinationAirportEntity.setIataCode("SDP");
+    sampleDestinationAirportEntity.setIcaoCode("SDPI");
+    sampleDestinationAirportEntity.setCountryCode(CountryCode.GB);
+    sampleDestinationAirportEntity.setType(AirportType.INTERNATIONAL);
+    sampleDestinationAirportEntity.setOperationStartTime("08:00");
+    sampleDestinationAirportEntity.setOperationStopTime("00:00");
+    sampleDestinationAirportEntity.setElevation(25.0F);
+    sampleDestinationAirportEntity.setSlope(0.15F);
+    sampleDestinationAirportEntity.setPossibleNoiseCategory(NoiseCategory.CHAPTER_14);
+
+    airportRepository.save(sampleOriginAirportEntity);
+    airportRepository.save(sampleDestinationAirportEntity);
+
+    sampleDestinationAirport = sampleDestinationAirportEntity;
+    sampleOriginAirport = sampleOriginAirportEntity;
   }
 
   private void generateSampleCrewMembers() {
@@ -142,6 +200,48 @@ public class DevToolsService {
 
       crewRepository.save(crewMember);
     }
+
+    CrewEntity captain = new CrewEntity();
+
+    captain.setFullName("Samuel L. Jackson");
+    captain.setEmail("samuel@flightcoordinator.com");
+    captain.setPhoneNumber("+90 505 999 9999");
+    captain.setRole(CrewMemberRole.CAPTAIN);
+    captain.setTotalFlightHours(2000);
+    captain.setCurrentAirport(sampleOriginAirport);
+    captain.setBaseAirport(sampleOriginAirport);
+    captain.setStatus(CrewMemberStatus.ACTIVE);
+
+    crewRepository.save(captain);
+    sampleCaptain = captain;
+
+    CrewEntity firstOfficer = new CrewEntity();
+
+    firstOfficer.setFullName("Chris Evans");
+    firstOfficer.setEmail("chris@flightcoordinator.com");
+    firstOfficer.setPhoneNumber("+90 505 999 9999");
+    firstOfficer.setRole(CrewMemberRole.FIRST_OFFICER);
+    firstOfficer.setTotalFlightHours(2000);
+    firstOfficer.setCurrentAirport(sampleOriginAirport);
+    firstOfficer.setBaseAirport(sampleOriginAirport);
+    firstOfficer.setStatus(CrewMemberStatus.ACTIVE);
+
+    crewRepository.save(firstOfficer);
+    sampleFirstOfficer = firstOfficer;
+
+    CrewEntity flightAttendant = new CrewEntity();
+
+    flightAttendant.setFullName("Mark Ruffalo");
+    flightAttendant.setEmail("mark@flightcoordinator.com");
+    flightAttendant.setPhoneNumber("+90 505 999 9999");
+    flightAttendant.setRole(CrewMemberRole.FLIGHT_ATTENDANT);
+    flightAttendant.setTotalFlightHours(2000);
+    flightAttendant.setCurrentAirport(sampleOriginAirport);
+    flightAttendant.setBaseAirport(sampleOriginAirport);
+    flightAttendant.setStatus(CrewMemberStatus.ACTIVE);
+
+    crewRepository.save(flightAttendant);
+    sampleFlightAttendant = flightAttendant;
   }
 
   private void generateSampleCertifications() throws ParseException {
@@ -180,6 +280,42 @@ public class DevToolsService {
 
       certificationRepository.save(certification);
     }
+
+    CertificationEntity captainCertification = new CertificationEntity();
+
+    captainCertification.setName("Captain Certification");
+    captainCertification.setCertificationNumber("CAPC-A");
+    captainCertification.setIssuer(Certifier.FAA);
+    captainCertification.setExpirationDate(dateFormat.parse("2026-12-31"));
+    captainCertification.setValidityPeriod(48);
+    captainCertification.setDescription("A certificate");
+    captainCertification.setAssignedCrewMember(sampleCaptain);
+
+    certificationRepository.save(captainCertification);
+
+    CertificationEntity firstOfficerCertification = new CertificationEntity();
+
+    firstOfficerCertification.setName("First Officer Certification");
+    firstOfficerCertification.setCertificationNumber("FOFC-A");
+    firstOfficerCertification.setIssuer(Certifier.FAA);
+    firstOfficerCertification.setExpirationDate(dateFormat.parse("2026-12-31"));
+    firstOfficerCertification.setValidityPeriod(48);
+    firstOfficerCertification.setDescription("A certificate");
+    firstOfficerCertification.setAssignedCrewMember(sampleFirstOfficer);
+
+    certificationRepository.save(firstOfficerCertification);
+
+    CertificationEntity flightAttendantCertification = new CertificationEntity();
+
+    flightAttendantCertification.setName("Flight Attendant Certification");
+    flightAttendantCertification.setCertificationNumber("FLAC-A");
+    flightAttendantCertification.setIssuer(Certifier.FAA);
+    flightAttendantCertification.setExpirationDate(dateFormat.parse("2026-12-31"));
+    flightAttendantCertification.setValidityPeriod(48);
+    flightAttendantCertification.setDescription("A certificate");
+    flightAttendantCertification.setAssignedCrewMember(sampleFlightAttendant);
+
+    certificationRepository.save(flightAttendantCertification);
   }
 
   private void generateSampleFlights() {
@@ -215,6 +351,20 @@ public class DevToolsService {
 
       flightRepository.save(flight);
     }
+
+    FlightEntity sampleFlightEntity = new FlightEntity();
+
+    sampleFlightEntity.setPassengerCount(178);
+    sampleFlightEntity.setCargoWeight(5500F);
+    sampleFlightEntity.setOriginAirport(this.sampleOriginAirport);
+    sampleFlightEntity.setDestinationAirport(this.sampleDestinationAirport);
+    sampleFlightEntity.setDistance(1380F);
+    sampleFlightEntity.setEstimatedTakeoffTime("11:00");
+    sampleFlightEntity.setEstimatedLandingTime("15:00");
+    sampleFlightEntity.setEstimatedFlightDuration(4F);
+
+    flightRepository.save(sampleFlightEntity);
+    sampleFlight = sampleFlightEntity;
   }
 
   private void generateSampleModels() {
@@ -325,6 +475,44 @@ public class DevToolsService {
 
       modelRepository.save(model);
     }
+
+    ModelEntity sampleModelEntity = new ModelEntity();
+
+    sampleModelEntity.setManufacturer("Sample Aircraft Manufacturing Company");
+    sampleModelEntity.setPlaneIdentifier("SAML001");
+    sampleModelEntity.setModelName("Sample Airplane Model Large");
+    sampleModelEntity.setCertifier(Certifier.DGCA_TR);
+    sampleModelEntity.setCertificationStatus(CertificationStatus.CERTIFIED);
+    sampleModelEntity.setNoiseCategory(NoiseCategory.CHAPTER_14);
+    sampleModelEntity.setFuelCapacity(13500.0F);
+    sampleModelEntity.setFuelEfficiency(0.183F);
+    sampleModelEntity.setMaxPassengerCapacity(204);
+    sampleModelEntity.setMaxCargoCapacity(8000F);
+    sampleModelEntity.setEmptyWeight(42600.0F);
+    sampleModelEntity.setTailHeight(19.4F);
+    sampleModelEntity.setWingspan(24.8F);
+    sampleModelEntity.setEngineType(EngineType.HYBRID_ELECTRIC);
+    sampleModelEntity.setEngineCount(4);
+    sampleModelEntity.setThrustPerEngine(75.0F);
+    sampleModelEntity.setMaxCrosswindComp(30.0F);
+    sampleModelEntity.setRequiredRunwayLength(3000F);
+    sampleModelEntity.setRequiredRunwayWidth(30F);
+    sampleModelEntity.setMinRotationRadius(30F);
+    sampleModelEntity.setCruiseSpeed(780.0F);
+    sampleModelEntity.setMaxSpeed(940.0F);
+    sampleModelEntity.setStallSpeed(170.0F);
+    sampleModelEntity.setMaxAltitude(41000.0F);
+    sampleModelEntity.setClimbRate(3400.0F);
+    sampleModelEntity.setDescentRate(3100.0F);
+    sampleModelEntity.setMaxFlightRange(9500.0F);
+    sampleModelEntity.setHasWeatherRadar(true);
+    sampleModelEntity.setHasAutopilot(true);
+    sampleModelEntity.setHasFlyByWire(true);
+    sampleModelEntity.setHasFireSupression(true);
+    sampleModelEntity.setGpsEnabled(true);
+
+    modelRepository.save(sampleModelEntity);
+    sampleModel = sampleModelEntity;
   }
 
   private void generateSamplePlanes() throws ParseException {
@@ -373,6 +561,25 @@ public class DevToolsService {
 
       planeRepository.save(plane);
     }
+
+    // SAMPLE SUITABLE FOR AUTOMATION
+    PlaneEntity samplePlaneEntity = new PlaneEntity();
+
+    samplePlaneEntity.setModel(this.sampleModel);
+    samplePlaneEntity.setTailNumber("SPTN001");
+    samplePlaneEntity.setNextMaintenanceDate(dateFormat.parse("2025-12-31"));
+    samplePlaneEntity.setCyclesSinceLastMaintenance(9);
+    samplePlaneEntity.setRetirementDate(dateFormat.parse("2026-12-31"));
+    samplePlaneEntity.setEngineHours(1000F);
+    samplePlaneEntity.setCurrentWearLevel(12.4F);
+    samplePlaneEntity.setTotalFlightHours(1000F);
+    samplePlaneEntity.setFuelAmount(45000F);
+    samplePlaneEntity.setPlaneStatus(PlaneStatus.ACTIVE);
+    samplePlaneEntity.setCurrentLocation(this.sampleOriginAirport);
+    samplePlaneEntity.setAircraftOperator("Sample Airlines");
+
+    planeRepository.save(samplePlaneEntity);
+    samplePlane = samplePlaneEntity;
   }
 
   private void generateSampleRunways() {
@@ -436,6 +643,46 @@ public class DevToolsService {
 
       runwayRepository.save(runway);
     }
+
+    RunwayEntity sampleOriginRunwayEntity = new RunwayEntity();
+
+    sampleOriginRunwayEntity.setRunwayNumber("SOA-L01");
+    sampleOriginRunwayEntity.setAirport(this.sampleOriginAirport);
+    sampleOriginRunwayEntity.setLength(4000F);
+    sampleOriginRunwayEntity.setWidth(40F);
+    sampleOriginRunwayEntity.setSurfaceType(SurfaceType.ASPHALT);
+    sampleOriginRunwayEntity.setMaxWeightCapacity(55000F);
+    sampleOriginRunwayEntity.setHasMarkings(true);
+    sampleOriginRunwayEntity.setHasLighting(true);
+    sampleOriginRunwayEntity.setHasILS(true);
+    sampleOriginRunwayEntity.setHasSafetyArea(true);
+    sampleOriginRunwayEntity.setVisualApproachAid(VisualApproachAid.MALS);
+    sampleOriginRunwayEntity.setAltitude(40F);
+    sampleOriginRunwayEntity.setStatus(RunwayStatus.OPEN);
+    sampleOriginRunwayEntity.setCrosswindLimit(60F);
+
+    runwayRepository.save(sampleOriginRunwayEntity);
+    sampleOriginRunway = sampleOriginRunwayEntity;
+
+    RunwayEntity sampleDestinationRunwayEntity = new RunwayEntity();
+
+    sampleDestinationRunwayEntity.setRunwayNumber("SDA-L01");
+    sampleDestinationRunwayEntity.setAirport(this.sampleDestinationAirport);
+    sampleDestinationRunwayEntity.setLength(4000F);
+    sampleDestinationRunwayEntity.setWidth(40F);
+    sampleDestinationRunwayEntity.setSurfaceType(SurfaceType.ASPHALT);
+    sampleDestinationRunwayEntity.setMaxWeightCapacity(55000F);
+    sampleDestinationRunwayEntity.setHasMarkings(true);
+    sampleDestinationRunwayEntity.setHasLighting(true);
+    sampleDestinationRunwayEntity.setHasILS(true);
+    sampleDestinationRunwayEntity.setHasSafetyArea(true);
+    sampleDestinationRunwayEntity.setVisualApproachAid(VisualApproachAid.MALS);
+    sampleDestinationRunwayEntity.setAltitude(40F);
+    sampleDestinationRunwayEntity.setStatus(RunwayStatus.OPEN);
+    sampleDestinationRunwayEntity.setCrosswindLimit(60F);
+
+    runwayRepository.save(sampleDestinationRunwayEntity);
+    sampleDestinationRunway = sampleDestinationRunwayEntity;
   }
 
   private void generateSampleTaxiways() {
@@ -483,6 +730,42 @@ public class DevToolsService {
 
       taxiwayRepository.save(taxiway);
     }
+
+    TaxiwayEntity sampleOriginTaxiwayEntity = new TaxiwayEntity();
+
+    sampleOriginTaxiwayEntity.setName("SOA-L01-TW");
+    sampleOriginTaxiwayEntity.setAirport(this.sampleOriginAirport);
+    sampleOriginTaxiwayEntity.setLoadCapacity(this.sampleOriginRunway.getMaxWeightCapacity());
+    sampleOriginTaxiwayEntity.setHasHoldingPoint(true);
+    sampleOriginTaxiwayEntity.setHasHighSpeedExit(true);
+    sampleOriginTaxiwayEntity.setWidth(this.sampleOriginRunway.getWidth());
+    sampleOriginTaxiwayEntity.setLength(this.sampleOriginRunway.getLength());
+    sampleOriginTaxiwayEntity.setMaxTurningRadius(100F);
+    sampleOriginTaxiwayEntity.setMaxWeightCapacity(this.sampleOriginRunway.getMaxWeightCapacity());
+    sampleOriginTaxiwayEntity.setHasLighting(true);
+    sampleOriginTaxiwayEntity.setHasSignage(true);
+    sampleOriginTaxiwayEntity.setConnectedRunway(sampleOriginRunway);
+
+    taxiwayRepository.save(sampleOriginTaxiwayEntity);
+    sampleOriginTaxiway = sampleOriginTaxiwayEntity;
+
+    TaxiwayEntity sampleDestinationTaxiwayEntity = new TaxiwayEntity();
+
+    sampleDestinationTaxiwayEntity.setName("SDA-L01-TW");
+    sampleDestinationTaxiwayEntity.setAirport(this.sampleDestinationAirport);
+    sampleDestinationTaxiwayEntity.setLoadCapacity(this.sampleDestinationRunway.getMaxWeightCapacity());
+    sampleDestinationTaxiwayEntity.setHasHoldingPoint(true);
+    sampleDestinationTaxiwayEntity.setHasHighSpeedExit(true);
+    sampleDestinationTaxiwayEntity.setWidth(this.sampleDestinationRunway.getWidth());
+    sampleDestinationTaxiwayEntity.setLength(this.sampleDestinationRunway.getLength());
+    sampleDestinationTaxiwayEntity.setMaxTurningRadius(100F);
+    sampleDestinationTaxiwayEntity.setMaxWeightCapacity(this.sampleDestinationRunway.getMaxWeightCapacity());
+    sampleDestinationTaxiwayEntity.setHasLighting(true);
+    sampleDestinationTaxiwayEntity.setHasSignage(true);
+    sampleDestinationTaxiwayEntity.setConnectedRunway(sampleDestinationRunway);
+
+    taxiwayRepository.save(sampleDestinationTaxiwayEntity);
+    sampleDestinationTaxiway = sampleDestinationTaxiwayEntity;
   }
 
   public void generateSampleData() {

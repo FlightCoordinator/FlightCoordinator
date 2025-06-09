@@ -5,7 +5,7 @@ import { Metadata } from "next";
 import FlightPlanPageContents from "@/components/page-content/resources/FlightPlanPageContents";
 
 export const metadata: Metadata = {
-  title: "Models",
+  title: "Flight Plans",
 };
 
 const FlightPlanPage = () => {

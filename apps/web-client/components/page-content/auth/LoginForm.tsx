@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2, LogIn } from "lucide-react";
+import { toast } from "sonner";
 import { z } from "zod";
 
 import { Button } from "@/components/base-ui/button";
@@ -24,7 +25,6 @@ import ErrorLabel from "@/components/data-table/sheets/base/ErrorLabel";
 import { default as FormRow } from "@/components/data-table/sheets/base/SheetRow";
 
 import useLoginMutation from "@/hooks/auth/useLoginMutation";
-import { useToast } from "@/hooks/interface/useToast";
 
 import { cn } from "@/shared/lib/twUtils";
 
@@ -46,26 +46,19 @@ const LoginForm = () => {
   });
 
   const router = useRouter();
-  const { toast } = useToast();
-
   const { mutateAsync: loginMutation, isPending: isLoginPending, error: loginError } = useLoginMutation();
 
   const handleSubmit = async (formData: z.infer<typeof loginSchema>): Promise<void | never> => {
     loginMutation(formData)
       .then((response) => {
         if (!response.isSuccess || loginError) {
-          toast({ title: "An error ocurred", description: response.message });
+          toast("An error ocurred");
           return;
         }
-        toast({ title: "Logged in successfully", description: response.message });
+        toast("Logged in successfully");
         return router.replace("/app");
       })
-      .catch((error) =>
-        toast({
-          title: "An error ocurred",
-          description: error.message,
-        }),
-      );
+      .catch((error) => toast("An error ocurred: " + error));
   };
 
   return (

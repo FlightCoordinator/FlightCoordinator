@@ -8,6 +8,7 @@ import Link from "next/link";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
+import { toast } from "sonner";
 import { z } from "zod";
 
 import { Button } from "@/components/base-ui/button";
@@ -23,7 +24,6 @@ import ErrorLabel from "@/components/data-table/sheets/base/ErrorLabel";
 import { default as FormRow } from "@/components/data-table/sheets/base/SheetRow";
 
 import useRegisterMutation from "@/hooks/auth/useRegisterMutation";
-import { useToast } from "@/hooks/interface/useToast";
 
 import { cn } from "@/shared/lib/twUtils";
 
@@ -46,25 +46,18 @@ const RegisterForm = () => {
     },
   });
 
-  const { toast } = useToast();
-
   const { mutateAsync: registerMutation, isPending: isRegisterPending, error: registerError } = useRegisterMutation();
 
   const handleSubmit = async (formData: z.infer<typeof registerSchema>): Promise<void> => {
     registerMutation(formData)
       .then((response) => {
         if (!response.isSuccess || registerError) {
-          toast({ title: "An error ocurred", description: response.message });
+          toast("An error ocurred");
           return;
         }
-        toast({ title: "Registered in successfully", description: "Now you can login" });
+        toast("Registered in successfully");
       })
-      .catch((error) =>
-        toast({
-          title: "An error ocurred",
-          description: error.message,
-        }),
-      );
+      .catch((error) => toast("An error ocurred: " + error));
   };
 
   return (
