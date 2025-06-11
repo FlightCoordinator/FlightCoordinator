@@ -1,4 +1,4 @@
-import GlobalTypes from "@/types/globals";
+import type { GlobalTypes } from "@/types/globals";
 
 const selectItems = {
   asArray: {

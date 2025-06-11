@@ -141,4 +141,4 @@ namespace DataTransfer {
     connectedRunwayId: string;
   }
 }
-export default DataTransfer;
+export { DataTransfer };

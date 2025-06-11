@@ -109,4 +109,4 @@ namespace Enums {
     NONE = "None",
   }
 }
-export default Enums;
+export { Enums };

@@ -2,7 +2,7 @@
 
 import { EasyRequester } from "easy-requester";
 
-import { config } from "../appConfig";
+import { config } from "@/shared/app-config";
 
 const requester: EasyRequester = new EasyRequester({
   onNewRequest: "enqueue-new",
@@ -18,4 +18,4 @@ const requester: EasyRequester = new EasyRequester({
   },
 });
 
-export default requester;
+export { requester };

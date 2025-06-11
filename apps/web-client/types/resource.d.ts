@@ -232,4 +232,4 @@ namespace ResourceTypes {
   }
 }
 
-export default ResourceTypes;
+export { ResourceTypes };

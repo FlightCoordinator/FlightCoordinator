@@ -1,14 +1,14 @@
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 
-import GlobalTypes from "@/types/globals";
+import { config as appConfig } from "@/shared/app-config";
 
-import { config as appConfig } from "../appConfig";
+import type { GlobalTypes } from "@/types/globals";
 
 const authEndpoint: string =
   "http://" + appConfig.AUTH.BASE_URL + ":" + appConfig.AUTH.PORT + appConfig.AUTH.API_PREFIX + "/auth/validate";
 
-export async function checkAuth(request: NextRequest) {
+async function checkAuth(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   if (pathname.startsWith("/auth") || pathname === "/") {
@@ -46,3 +46,5 @@ export async function checkAuth(request: NextRequest) {
     return NextResponse.redirect(new URL("/auth/login", request.url));
   }
 }
+
+export { checkAuth };

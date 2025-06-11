@@ -2,7 +2,7 @@ import React from "react";
 
 import { Metadata } from "next";
 
-import LoginForm from "@/components/page-content/auth/LoginForm";
+import { LoginForm } from "@/components/page-content/auth/login-form";
 
 export const metadata: Metadata = {
   title: "Login",

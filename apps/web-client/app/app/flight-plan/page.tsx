@@ -2,7 +2,7 @@ import React from "react";
 
 import { Metadata } from "next";
 
-import FlightPlanPageContents from "@/components/page-content/resources/FlightPlanPageContents";
+import { FlightPlanPageContents } from "@/components/page-content/resources/flight-plan-page-contents";
 
 export const metadata: Metadata = {
   title: "Flight Plans",

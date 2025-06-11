@@ -11,4 +11,4 @@ class Utils {
     return "No";
   }
 }
-export default Utils;
+export { Utils };

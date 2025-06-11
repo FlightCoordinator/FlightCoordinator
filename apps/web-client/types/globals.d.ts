@@ -36,4 +36,4 @@ namespace GlobalTypes {
     }
   }
 }
-export default GlobalTypes;
+export { GlobalTypes };

@@ -3,9 +3,10 @@
 import React from "react";
 
 import { SidebarProvider } from "@/components/base-ui/sidebar";
-import MainSidebar from "@/components/sidebar/MainSidebar";
 
-import GlobalTypes from "@/types/globals";
+import { MainSidebar } from "@/components/sidebar";
+
+import type { GlobalTypes } from "@/types/globals";
 
 const AppRootLayout = ({ children }: GlobalTypes.BaseWrapperProps) => {
   return (

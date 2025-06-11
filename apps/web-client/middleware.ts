@@ -1,6 +1,6 @@
-import { MiddlewareConfig, NextRequest } from "next/server";
+import type { MiddlewareConfig, NextRequest } from "next/server";
 
-import { checkAuth } from "./shared/lib/auth";
+import { checkAuth } from "@/shared/lib/auth";
 
 export async function middleware(request: NextRequest) {
   return await checkAuth(request);

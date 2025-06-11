@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-export enum CountryCodes {
+enum CountryCodes {
   US = "United States",
   AF = "Afghanistan",
   AX = "Aland Islands",
@@ -250,4 +250,4 @@ export enum CountryCodes {
   ZM = "Zambia",
   ZW = "Zimbabwe",
 }
-export default CountryCodes;
+export { CountryCodes };
