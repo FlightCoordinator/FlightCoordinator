@@ -41,10 +41,8 @@ public class AutomationEngine {
   }
 
   public GeneratedFlightPlan generateFlightPlan() {
-
     PlaneSelector planeSelector = new PlaneSelector(flight, planeModels, planes);
     PlaneEntity selectedPlane = planeSelector.select();
-    System.out.println("Selected plane.");
 
     RunwaySelector takeoffRunwaySelector = new RunwaySelector(
         flight.getOriginAirport().getId(),
@@ -52,7 +50,6 @@ public class AutomationEngine {
         selectedPlane.getModel(),
         runways);
     RunwayEntity takeoffRunway = takeoffRunwaySelector.select();
-    System.out.println("Selected takeoff runway ");
 
     RunwaySelector landingRunwaySelector = new RunwaySelector(
         flight.getDestinationAirport().getId(),
@@ -60,7 +57,6 @@ public class AutomationEngine {
         selectedPlane.getModel(),
         runways);
     RunwayEntity landingRunway = landingRunwaySelector.select();
-    System.out.println("Selected landing runway ");
 
     TaxiwaySelector takeoffTaxiwaySelector = new TaxiwaySelector(
         flight.getOriginAirport().getId(),
@@ -68,7 +64,6 @@ public class AutomationEngine {
         takeoffRunway,
         taxiways);
     TaxiwayEntity takeoffTaxiway = takeoffTaxiwaySelector.select();
-    System.out.println("Selected takeoff taxiway ");
 
     TaxiwaySelector landingTaxiwaySelector = new TaxiwaySelector(
         flight.getDestinationAirport().getId(),
@@ -76,7 +71,6 @@ public class AutomationEngine {
         landingRunway,
         taxiways);
     TaxiwayEntity landingTaxiway = landingTaxiwaySelector.select();
-    System.out.println("Selected landing ");
 
     CrewSelector crewSelector = new CrewSelector(
         crewMembers,

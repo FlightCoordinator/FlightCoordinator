@@ -77,6 +77,29 @@ public class PlaneEntity {
   public PlaneEntity() {
   }
 
+  public PlaneEntity(String id, ModelEntity model, @NotBlank(message = "Tail number is required") String tailNumber,
+      Date nextMaintenanceDate,
+      @Min(value = 0, message = "Cycles since last maintenance should be >= 0") Integer cyclesSinceLastMaintenance,
+      Date retirementDate, @Min(value = 0, message = "Engine hours should be >= 0") Float engineHours,
+      @Min(value = 0, message = "Current wear level should be >= 0") @Max(value = 100, message = "Current wear level should be between 0-100") Float currentWearLevel,
+      @Min(value = 0, message = "Total flight hours should be >= 0") Float totalFlightHours,
+      @Min(value = 0, message = "Fuel amount should be >= 0") Float fuelAmount, PlaneStatus planeStatus,
+      AirportEntity currentLocation, @NotBlank(message = "Aircraft operator is required") String aircraftOperator) {
+    this.id = id;
+    this.model = model;
+    this.tailNumber = tailNumber;
+    this.nextMaintenanceDate = nextMaintenanceDate;
+    this.cyclesSinceLastMaintenance = cyclesSinceLastMaintenance;
+    this.retirementDate = retirementDate;
+    this.engineHours = engineHours;
+    this.currentWearLevel = currentWearLevel;
+    this.totalFlightHours = totalFlightHours;
+    this.fuelAmount = fuelAmount;
+    this.planeStatus = planeStatus;
+    this.currentLocation = currentLocation;
+    this.aircraftOperator = aircraftOperator;
+  }
+
   public String getId() {
     return id;
   }

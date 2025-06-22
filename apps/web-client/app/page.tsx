@@ -11,7 +11,7 @@ const LandingPage = () => {
     <div className="w-dvw h-dvh bg-[url('/images/background.jpg')] bg-cover bg-[center_center]">
       <div className="h-[calc(100%-44px)] w-[1256px] max-[1256px]:w-full m-auto flex flex-col items-center justify-center gap-[15px]">
         <div className="flex flex-col items-center justify-start overflow-hidden">
-          <Image src="/images/logo_bordered.png" alt="Flight Coordinator Logo" width={50} height={50} />
+          <Image src="/images/logo_bordered.png" alt="Flight Coordinator Logo" width={70} height={70} />
           <h1 className="text-3xl tracking-tight font-semibold select-none drop-shadow-lg">FlightCoordinator</h1>
         </div>
         <Separator decorative className="bg-primary rounded-md max-w-[450px]" />
